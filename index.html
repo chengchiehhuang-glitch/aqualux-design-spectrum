@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>aqualux 設計光譜 · 40 風格圖鑑</title>
+<meta name="description" content="40 種設計風格的 aqualux 版圖鑑。25 種視覺風格 + 15 種動態效果，依用途分章。Curated by Chengchieh Huang.">
+<meta name="author" content="Chengchieh Huang">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #ffffff;
+    --paper: #fafaf5;
+    --paper-deep: #f3f0e8;
+    --ink: #1a1a1a;
+    --ink-2: #4a4a4a;
+    --ink-3: #8a8a8a;
+    --ink-4: #c8c6c0;
+    --accent: #5c7a9a;
+    --accent-soft: rgba(92, 122, 154, 0.08);
+    --line: #e8e6e0;
+    --line-soft: #f0eee8;
+    --serif: 'Noto Serif TC', 'Source Han Serif TC', 'Songti TC', serif;
+    --sans: 'Noto Sans TC', 'PingFang TC', -apple-system, sans-serif;
+    --num: 'Cormorant Garamond', 'Noto Serif TC', serif;
+
+    --cat-mainstream: #5c7a9a;
+    --cat-retro: #b08868;
+    --cat-experimental: #8c6b94;
+    --cat-cultural: #6d8a7a;
+    --cat-decorative: #c89464;
+    --cat-motion: #707070;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.7;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  a { color: var(--ink); text-decoration: none; }
+  a:hover { color: var(--accent); }
+
+  /* Progress bar */
+  .progress { position: fixed; top: 0; left: 0; height: 2px; background: var(--accent); z-index: 100; width: 0; transition: width 0.1s linear; }
+
+  /* Hero */
+  .hero { padding: 120px 40px 60px; text-align: center; max-width: 960px; margin: 0 auto; }
+  .eyebrow { font-family: var(--num); font-style: italic; font-size: 15px; color: var(--ink-3); letter-spacing: 0.1em; margin-bottom: 28px; }
+  .hero h1 {
+    font-family: var(--serif); font-weight: 300;
+    font-size: clamp(56px, 10vw, 96px);
+    letter-spacing: 0.1em; line-height: 1.1;
+    margin-bottom: 24px;
+  }
+  .hero-sub { font-family: var(--num); font-style: italic; font-size: 20px; color: var(--ink-2); letter-spacing: 0.05em; margin-bottom: 30px; }
+  .hero-desc {
+    font-family: var(--serif); color: var(--ink-2); font-size: 16px;
+    max-width: 560px; margin: 0 auto; line-height: 1.85; letter-spacing: 0.02em;
+  }
+  .hero-meta { font-family: var(--num); font-size: 13px; color: var(--ink-3); letter-spacing: 0.12em; margin-top: 36px; }
+  .hero-meta strong { color: var(--ink-2); font-weight: 500; }
+  .hero-meta .num-em { font-family: var(--num); font-style: italic; font-size: 18px; color: var(--ink); font-weight: 400; }
+
+  /* Nav */
+  .nav-wrap {
+    position: sticky; top: 0;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+    z-index: 50;
+    margin-top: 64px;
+  }
+  .nav {
+    max-width: 1200px; margin: 0 auto;
+    padding: 16px 32px;
+    display: flex; flex-wrap: wrap; justify-content: center;
+    gap: 4px 24px;
+    font-family: var(--serif); font-size: 14px;
+  }
+  .nav a { color: var(--ink-3); letter-spacing: 0.05em; padding: 2px 0; }
+  .nav a:hover { color: var(--ink); }
+  .nav-count { font-family: var(--num); font-size: 11px; color: var(--ink-4); margin-left: 3px; vertical-align: super; }
+
+  /* Main */
+  main { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+
+  /* Chapters */
+  .chapter { margin-top: 80px; scroll-margin-top: 80px; }
+  .chapter-head { padding-bottom: 18px; border-bottom: 1px solid var(--line); margin-bottom: 36px; }
+  .chapter-head .num {
+    font-family: var(--num); font-style: italic; font-size: 14px;
+    color: var(--ink-4); letter-spacing: 0.15em;
+  }
+  .chapter-head h2 {
+    font-family: var(--serif); font-weight: 400; font-size: 30px;
+    letter-spacing: 0.06em; color: var(--ink); margin-top: 6px;
+  }
+  .chapter-head .en {
+    font-family: var(--num); font-style: italic; font-size: 14px;
+    color: var(--ink-3); margin-top: 4px; letter-spacing: 0.06em;
+  }
+
+  /* Card grid */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 28px 24px;
+  }
+  .card {
+    border: 1px solid var(--line);
+    background: var(--bg);
+    padding: 0;
+    transition: border-color 0.2s ease;
+    display: flex; flex-direction: column;
+  }
+  .card:hover { border-color: var(--accent); }
+  .card-thumb {
+    width: 100%; aspect-ratio: 4 / 3;
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--num); font-style: italic; font-size: 15px;
+    color: var(--ink-4); letter-spacing: 0.1em;
+    position: relative;
+  }
+  .card-thumb::before {
+    content: ''; position: absolute;
+    top: 14px; left: 14px;
+    width: 28px; height: 1px; background: var(--accent);
+  }
+  .card-thumb .cat-tag {
+    position: absolute; top: 12px; right: 14px;
+    font-family: var(--num); font-style: italic; font-size: 11.5px;
+    color: var(--ink-3); letter-spacing: 0.08em;
+  }
+  .card-thumb .id-num {
+    position: absolute; bottom: 12px; right: 14px;
+    font-family: var(--num); font-size: 13px; color: var(--ink-4);
+    letter-spacing: 0.06em;
+  }
+  .card-body { padding: 18px 18px 16px; flex: 1; display: flex; flex-direction: column; }
+  .card-zh {
+    font-family: var(--serif); font-weight: 500; font-size: 17px;
+    letter-spacing: 0.03em; color: var(--ink); margin-bottom: 3px;
+  }
+  .card-en {
+    font-family: var(--num); font-style: italic; font-size: 13.5px;
+    color: var(--ink-3); margin-bottom: 12px; letter-spacing: 0.04em;
+  }
+  .card-desc {
+    font-size: 13px; color: var(--ink-2); line-height: 1.7;
+    margin-bottom: 14px; flex: 1;
+  }
+  .card-tags {
+    display: flex; flex-wrap: wrap; gap: 3px 12px;
+    margin-bottom: 14px;
+  }
+  .card-tag {
+    font-family: var(--num); font-style: italic; font-size: 12px;
+    color: var(--ink-3); letter-spacing: 0.04em;
+  }
+  .card-tag::before { content: '#'; color: var(--ink-4); margin-right: 1px; }
+  .card-cta {
+    font-family: var(--serif); font-size: 12.5px;
+    color: var(--ink-4); letter-spacing: 0.08em;
+    padding-top: 10px; border-top: 1px solid var(--line-soft);
+  }
+  .card-cta a { color: var(--ink-3); }
+  .card-cta a:hover { color: var(--accent); }
+
+  /* Cluster color signal */
+  .cluster-mainstream .card-thumb { background: linear-gradient(135deg, #fafaf5 0%, #f0f4f8 100%); }
+  .cluster-mainstream .card-thumb::before { background: var(--cat-mainstream); }
+  .cluster-retro .card-thumb { background: linear-gradient(135deg, #fafaf5 0%, #f5ede4 100%); }
+  .cluster-retro .card-thumb::before { background: var(--cat-retro); }
+  .cluster-experimental .card-thumb { background: linear-gradient(135deg, #fafaf5 0%, #f0eaf2 100%); }
+  .cluster-experimental .card-thumb::before { background: var(--cat-experimental); }
+  .cluster-cultural .card-thumb { background: linear-gradient(135deg, #fafaf5 0%, #eaf2ec 100%); }
+  .cluster-cultural .card-thumb::before { background: var(--cat-cultural); }
+  .cluster-decorative .card-thumb { background: linear-gradient(135deg, #fafaf5 0%, #f7eee2 100%); }
+  .cluster-decorative .card-thumb::before { background: var(--cat-decorative); }
+  .cluster-motion .card-thumb { background: linear-gradient(135deg, #fafaf5 0%, #ebebeb 100%); }
+  .cluster-motion .card-thumb::before { background: var(--cat-motion); }
+
+  /* Hero img */
+  .hero-img-wrap { max-width: 360px; margin: 40px auto 0; padding: 0 24px; }
+  .hero-img-wrap img { display: block; width: 100%; height: auto; border: 1px solid var(--line); }
+
+  /* Footer */
+  footer {
+    margin-top: 140px; padding: 64px 32px 48px;
+    border-top: 1px solid var(--line);
+    text-align: center; color: var(--ink-3);
+  }
+  footer .seal {
+    font-family: var(--num); font-style: italic; font-size: 14px;
+    letter-spacing: 0.15em; margin-bottom: 18px;
+  }
+  footer .credits {
+    font-family: var(--serif); font-size: 13px; line-height: 2; color: var(--ink-2);
+  }
+  footer .credits a { color: var(--ink-2); border-bottom: 1px solid var(--line); }
+  footer .credits a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+  footer .micro {
+    margin-top: 20px; font-family: var(--num); font-size: 11px;
+    color: var(--ink-4); letter-spacing: 0.2em;
+  }
+  footer .note {
+    margin-top: 24px;
+    font-family: var(--sans); font-size: 12px;
+    color: var(--ink-3); line-height: 1.8;
+    max-width: 560px; margin-left: auto; margin-right: auto;
+    padding: 16px 20px; background: var(--paper);
+    border-left: 2px solid var(--accent);
+    text-align: left;
+  }
+  footer .note strong { color: var(--ink); }
+
+  /* Responsive */
+  @media (max-width: 720px) {
+    .hero { padding: 64px 20px 36px; }
+    .hero h1 { font-size: clamp(40px, 12vw, 64px); letter-spacing: 0.05em; }
+    .hero-img-wrap { max-width: 100%; padding: 0; }
+    .nav { gap: 4px 14px; font-size: 12.5px; padding: 12px 14px; }
+    main { padding: 0 16px; }
+    .grid { grid-template-columns: 1fr 1fr; gap: 16px 12px; }
+    .card-body { padding: 14px 14px 12px; }
+    .chapter { margin-top: 56px; }
+  }
+  @media (max-width: 480px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<section class="hero">
+  <div class="eyebrow">an aqualux.dev gallery</div>
+  <h1>設計光譜</h1>
+  <div class="hero-sub">Design Spectrum · 40 Styles Codex</div>
+  <p class="hero-desc">
+    一份精選 <span class="num-em">40</span> 種設計風格的視覺收錄。<br>
+    25 種視覺流派 + 15 種動態效果，依用途分章，可組合運用於跨事業體的視覺決策。
+  </p>
+  <div class="hero-meta">Curated by <strong>Chengchieh Huang</strong> &middot; 2026 Edition</div>
+  <div class="hero-img-wrap"><img src="images/hero.png" alt="aqualux 設計光譜決策矩陣"></div>
+</section>
+
+<div class="nav-wrap">
+  <nav class="nav">
+    <a href="#c-mainstream">主流 UI <span class="nav-count">5</span></a>
+    <a href="#c-retro">復古懷舊 <span class="nav-count">6</span></a>
+    <a href="#c-experimental">實驗前衛 <span class="nav-count">6</span></a>
+    <a href="#c-cultural">文化在地 <span class="nav-count">5</span></a>
+    <a href="#c-decorative">裝飾性 <span class="nav-count">3</span></a>
+    <a href="#c-motion">動態效果 <span class="nav-count">15</span></a>
+  </nav>
+</div>
+
+<main>
+
+<!-- Cluster 1: 主流 UI -->
+<section class="chapter" id="c-mainstream">
+  <div class="chapter-head">
+    <div class="num">01 / 主流 UI</div>
+    <h2>主流 UI</h2>
+    <div class="en">Mainstream UI · 5 styles</div>
+  </div>
+  <div class="grid cluster-mainstream">
+    <article class="card"><div class="card-thumb"><span class="cat-tag">主流 UI</span><span class="id-num">C01</span></div><div class="card-body">
+      <div class="card-zh">玻璃擬態</div><div class="card-en">Glassmorphism</div>
+      <p class="card-desc">半透玻璃面、背景模糊（backdrop-filter）與微光暈，呈現空間層次感。</p>
+      <div class="card-tags"><span class="card-tag">frosted</span><span class="card-tag">translucent</span><span class="card-tag">2020s</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+
+    <article class="card"><div class="card-thumb"><span class="cat-tag">主流 UI</span><span class="id-num">C02</span></div><div class="card-body">
+      <div class="card-zh">新擬物化</div><div class="card-en">Neumorphism</div>
+      <p class="card-desc">同色系柔陰影與微凸介面，模擬實體物件的觸感與雕塑感。</p>
+      <div class="card-tags"><span class="card-tag">soft-ui</span><span class="card-tag">shadow</span><span class="card-tag">tactile</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+
+    <article class="card"><div class="card-thumb"><span class="cat-tag">主流 UI</span><span class="id-num">C03</span></div><div class="card-body">
+      <div class="card-zh">Material You</div><div class="card-en">Material 3</div>
+      <p class="card-desc">動態色彩、明確層階與圓角元件的系統化設計語彙，當代產品學院派。</p>
+      <div class="card-tags"><span class="card-tag">google</span><span class="card-tag">dynamic-color</span><span class="card-tag">elevation</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+
+    <article class="card"><div class="card-thumb"><span class="cat-tag">主流 UI</span><span class="id-num">C04</span></div><div class="card-body">
+      <div class="card-zh">極簡主義</div><div class="card-en">Minimalism</div>
+      <p class="card-desc">大量留白、單色字體與精確比例的排版美學，藝廊式靜謐視覺。</p>
+      <div class="card-tags"><span class="card-tag">whitespace</span><span class="card-tag">mono</span><span class="card-tag">editorial</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+
+    <article class="card"><div class="card-thumb"><span class="cat-tag">主流 UI</span><span class="id-num">C05</span></div><div class="card-body">
+      <div class="card-zh">沉浸暗黑</div><div class="card-en">Immersive Dark</div>
+      <p class="card-desc">深色基底配低彩度發光點，營造劇場聚光燈式的沉浸氛圍。</p>
+      <div class="card-tags"><span class="card-tag">dark</span><span class="card-tag">low-light</span><span class="card-tag">cinematic</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+  </div>
+</section>
+
+<!-- Cluster 2: 復古懷舊 -->
+<section class="chapter" id="c-retro">
+  <div class="chapter-head">
+    <div class="num">02 / 復古懷舊</div>
+    <h2>復古懷舊</h2>
+    <div class="en">Retro Nostalgia · 6 styles</div>
+  </div>
+  <div class="grid cluster-retro">
+    <article class="card"><div class="card-thumb"><span class="cat-tag">復古懷舊</span><span class="id-num">C06</span></div><div class="card-body">
+      <div class="card-zh">蒸氣波</div><div class="card-en">Vaporwave</div>
+      <p class="card-desc">紫粉漸層、希臘雕像與日文符號的 1990s 網際網路懷舊美學。</p>
+      <div class="card-tags"><span class="card-tag">80s</span><span class="card-tag">pastel</span><span class="card-tag">aesthetic</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+
+    <article class="card"><div class="card-thumb"><span class="cat-tag">復古懷舊</span><span class="id-num">C07</span></div><div class="card-body">
+      <div class="card-zh">Y2K 千禧</div><div class="card-en">Y2K</div>
+      <p class="card-desc">銀色金屬、半透塑膠與星型裝飾元素的 2000 年初千禧美學。</p>
+      <div class="card-tags"><span class="card-tag">2000s</span><span class="card-tag">chrome</span><span class="card-tag">cyber-cute</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+
+    <article class="card"><div class="card-thumb"><span class="cat-tag">復古懷舊</span><span class="id-num">C08</span></div><div class="card-body">
+      <div class="card-zh">90s Web 1.0</div><div class="card-en">Web 1.0</div>
+      <p class="card-desc">系統字體、tile 平鋪背景與灰色按鈕的早期 1990s 網頁風格。</p>
+      <div class="card-tags"><span class="card-tag">90s</span><span class="card-tag">tables</span><span class="card-tag">marquee</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+
+    <article class="card"><div class="card-thumb"><span class="cat-tag">復古懷舊</span><span class="id-num">C09</span></div><div class="card-body">
+      <div class="card-zh">美式復古印刷</div><div class="card-en">American Retro Print</div>
+      <p class="card-desc">網點質感、油墨偏色與粗襯線標題的 1970s 印刷海報風。</p>
+      <div class="card-tags"><span class="card-tag">vintage</span><span class="card-tag">print</span><span class="card-tag">screen-print</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+
+    <article class="card"><div class="card-thumb"><span class="cat-tag">復古懷舊</span><span class="id-num">C10</span></div><div class="card-body">
+      <div class="card-zh">80s Synthwave</div><div class="card-en">Synthwave</div>
+      <p class="card-desc">霓虹線條、紫紅落日與透視格線的 1980s 數位美學。</p>
+      <div class="card-tags"><span class="card-tag">80s</span><span class="card-tag">neon</span><span class="card-tag">grid</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+
+    <article class="card"><div class="card-thumb"><span class="cat-tag">復古懷舊</span><span class="id-num">C11</span></div><div class="card-body">
+      <div class="card-zh">包浩斯</div><div class="card-en">Bauhaus</div>
+      <p class="card-desc">紅黃藍三原色配圓三角方塊的幾何構成，1920s 德國學院派。</p>
+      <div class="card-tags"><span class="card-tag">1920s</span><span class="card-tag">geometric</span><span class="card-tag">primary</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+  </div>
+</section>
+
+<!-- Cluster 3: 實驗前衛 -->
+<section class="chapter" id="c-experimental">
+  <div class="chapter-head">
+    <div class="num">03 / 實驗前衛</div>
+    <h2>實驗前衛</h2>
+    <div class="en">Experimental · 6 styles</div>
+  </div>
+  <div class="grid cluster-experimental">
+    <article class="card"><div class="card-thumb"><span class="cat-tag">實驗前衛</span><span class="id-num">C12</span></div><div class="card-body">
+      <div class="card-zh">野獸派</div><div class="card-en">Brutalism</div>
+      <p class="card-desc">裸露結構、強烈對比與粗暴排版的反 UX 設計哲學。</p>
+      <div class="card-tags"><span class="card-tag">raw</span><span class="card-tag">monospace</span><span class="card-tag">anti-design</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+
+    <article class="card"><div class="card-thumb"><span class="cat-tag">實驗前衛</span><span class="id-num">C13</span></div><div class="card-body">
+      <div class="card-zh">故障藝術</div><div class="card-en">Glitch Art</div>
+      <p class="card-desc">RGB 錯位、掃描線與隨機破碎的數位失真美學。</p>
+      <div class="card-tags"><span class="card-tag">rgb-shift</span><span class="card-tag">distortion</span><span class="card-tag">noise</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+
+    <article class="card card-live"><a href="works/c14-cyberpunk/index.html" style="text-decoration:none; color:inherit; display:flex; flex-direction:column; height:100%;"><div class="card-thumb"><span class="cat-tag">實驗前衛</span><span class="id-num">C14</span></div><div class="card-body">
+      <div class="card-zh">賽博龐克</div><div class="card-en">Cyberpunk</div>
+      <p class="card-desc">霓虹粉藍配黑底、片假名與發光邊框的高科技反烏托邦視覺。</p>
+      <div class="card-tags"><span class="card-tag">neon</span><span class="card-tag">dystopia</span><span class="card-tag">tech-noir</span></div>
+      <div class="card-cta" style="color: var(--accent);">📄 進入 C14 demo →</div>
+    </div></a></article>
+
+    <article class="card"><div class="card-thumb"><span class="cat-tag">實驗前衛</span><span class="id-num">C15</span></div><div class="card-body">
+      <div class="card-zh">構成主義</div><div class="card-en">Constructivism</div>
+      <p class="card-desc">紅黑斜切構圖與宣傳海報語法的俄式前衛排版。</p>
+      <div class="card-tags"><span class="card-tag">russian</span><span class="card-tag">propaganda</span><span class="card-tag">diagonal</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+
+    <article class="card"><div class="card-thumb"><span class="cat-tag">實驗前衛</span><span class="id-num">C16</span></div><div class="card-body">
+      <div class="card-zh">ASCII 終端機</div><div class="card-en">ASCII Terminal</div>
+      <p class="card-desc">綠底螢光字、ASCII art 與 80×24 終端機網格的純文字美學。</p>
+      <div class="card-tags"><span class="card-tag">monospace</span><span class="card-tag">green-phosphor</span><span class="card-tag">cli</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+
+    <article class="card"><div class="card-thumb"><span class="cat-tag">實驗前衛</span><span class="id-num">C17</span></div><div class="card-body">
+      <div class="card-zh">雜誌排版</div><div class="card-en">Editorial Magazine</div>
+      <p class="card-desc">12 欄網格、粗襯線標題與圖文混排的傳統雜誌排版邏輯。</p>
+      <div class="card-tags"><span class="card-tag">print</span><span class="card-tag">serif</span><span class="card-tag">grid</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+  </div>
+</section>
+
+<!-- Cluster 4: 文化在地 -->
+<section class="chapter" id="c-cultural">
+  <div class="chapter-head">
+    <div class="num">04 / 文化在地</div>
+    <h2>文化在地</h2>
+    <div class="en">Cultural · 5 styles</div>
+  </div>
+  <div class="grid cluster-cultural">
+    <article class="card"><div class="card-thumb"><span class="cat-tag">文化在地</span><span class="id-num">C18</span></div><div class="card-body">
+      <div class="card-zh">日式禪意</div><div class="card-en">Wabi-Sabi</div>
+      <p class="card-desc">米色紙質、墨筆觸與不完美留白的日式侘寂美學。</p>
+      <div class="card-tags"><span class="card-tag">japan</span><span class="card-tag">minimal</span><span class="card-tag">natural</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+
+    <article class="card"><div class="card-thumb"><span class="cat-tag">文化在地</span><span class="id-num">C19</span></div><div class="card-body">
+      <div class="card-zh">中國風國潮</div><div class="card-en">Chinoiserie / Guochao</div>
+      <p class="card-desc">硃紅墨黑、宋體字配水墨點綴的中式古典與當代潮流融合。</p>
+      <div class="card-tags"><span class="card-tag">china</span><span class="card-tag">traditional</span><span class="card-tag">modern-fusion</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+
+    <article class="card"><div class="card-thumb"><span class="cat-tag">文化在地</span><span class="id-num">C20</span></div><div class="card-body">
+      <div class="card-zh">北歐極簡</div><div class="card-en">Scandinavian</div>
+      <p class="card-desc">木質暖灰、無襯線清爽字體與北歐插畫的自然森林感。</p>
+      <div class="card-tags"><span class="card-tag">nordic</span><span class="card-tag">cozy</span><span class="card-tag">natural</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+
+    <article class="card"><div class="card-thumb"><span class="cat-tag">文化在地</span><span class="id-num">C21</span></div><div class="card-body">
+      <div class="card-zh">瑞士國際風格</div><div class="card-en">Swiss International</div>
+      <p class="card-desc">左對齊網格、Helvetica 與紅色強調的二戰後理性排版革命。</p>
+      <div class="card-tags"><span class="card-tag">grid</span><span class="card-tag">helvetica</span><span class="card-tag">sans-serif</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+
+    <article class="card"><div class="card-thumb"><span class="cat-tag">文化在地</span><span class="id-num">C22</span></div><div class="card-body">
+      <div class="card-zh">台灣廟會</div><div class="card-en">Taiwan Temple Carnival</div>
+      <p class="card-desc">霓虹招牌、紅黃對比與民俗符號的台灣在地熱鬧視覺。</p>
+      <div class="card-tags"><span class="card-tag">taiwan</span><span class="card-tag">folk</span><span class="card-tag">festive</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+  </div>
+</section>
+
+<!-- Cluster 5: 裝飾性 -->
+<section class="chapter" id="c-decorative">
+  <div class="chapter-head">
+    <div class="num">05 / 裝飾性</div>
+    <h2>裝飾性</h2>
+    <div class="en">Decorative · 3 styles</div>
+  </div>
+  <div class="grid cluster-decorative">
+    <article class="card"><div class="card-thumb"><span class="cat-tag">裝飾性</span><span class="id-num">C23</span></div><div class="card-body">
+      <div class="card-zh">等距 3D</div><div class="card-en">Isometric 3D</div>
+      <p class="card-desc">30 度斜角立體插畫、玩具世界與小人物構圖。</p>
+      <div class="card-tags"><span class="card-tag">3d</span><span class="card-tag">illustration</span><span class="card-tag">colorful</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+
+    <article class="card"><div class="card-thumb"><span class="cat-tag">裝飾性</span><span class="id-num">C24</span></div><div class="card-body">
+      <div class="card-zh">手繪塗鴉</div><div class="card-en">Hand-Drawn Sketch</div>
+      <p class="card-desc">蠟筆、歪斜手寫字與隨意箭頭的人工速寫感。</p>
+      <div class="card-tags"><span class="card-tag">sketch</span><span class="card-tag">doodle</span><span class="card-tag">human</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+
+    <article class="card"><div class="card-thumb"><span class="cat-tag">裝飾性</span><span class="id-num">C25</span></div><div class="card-body">
+      <div class="card-zh">漸層 Mesh</div><div class="card-en">Gradient Mesh</div>
+      <p class="card-desc">流動曲線漸層、極光色彩與柔光球體的液態畫布。</p>
+      <div class="card-tags"><span class="card-tag">gradient</span><span class="card-tag">aurora</span><span class="card-tag">fluid</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+  </div>
+</section>
+
+<!-- Cluster 6-10: 動態效果 -->
+<section class="chapter" id="c-motion">
+  <div class="chapter-head">
+    <div class="num">06–10 / 動態效果</div>
+    <h2>動態效果</h2>
+    <div class="en">Motion · 5 sub-clusters · 15 effects</div>
+  </div>
+
+  <h3 style="font-family: var(--serif); font-weight: 400; font-size: 18px; color: var(--ink-2); letter-spacing: 0.05em; margin: 8px 0 18px;">06 ▸ 視差 <span style="font-family: var(--num); font-style: italic; font-size: 13px; color: var(--ink-3);">Parallax</span></h3>
+  <div class="grid cluster-motion">
+    <article class="card"><div class="card-thumb"><span class="cat-tag">視差</span><span class="id-num">C26</span></div><div class="card-body">
+      <div class="card-zh">多層視差</div><div class="card-en">Parallax Layers</div>
+      <p class="card-desc">滾動時多層元素以不同速度位移，呈現縱深感。</p>
+      <div class="card-tags"><span class="card-tag">parallax</span><span class="card-tag">depth</span><span class="card-tag">mountain</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+
+    <article class="card"><div class="card-thumb"><span class="cat-tag">視差</span><span class="id-num">C27</span></div><div class="card-body">
+      <div class="card-zh">Sticky 堆疊章節</div><div class="card-en">Sticky Stack</div>
+      <p class="card-desc">章節先被釘住、再被下一章從底部疊上的堆疊滾動模式。</p>
+      <div class="card-tags"><span class="card-tag">sticky</span><span class="card-tag">stack</span><span class="card-tag">apple-style</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+
+    <article class="card"><div class="card-thumb"><span class="cat-tag">視差</span><span class="id-num">C28</span></div><div class="card-body">
+      <div class="card-zh">橫向滾動陣容</div><div class="card-en">Horizontal Scroll</div>
+      <p class="card-desc">垂直滾動轉換為內容區段的橫向滑動位移。</p>
+      <div class="card-tags"><span class="card-tag">horizontal</span><span class="card-tag">scroll-translate</span><span class="card-tag">lineup</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+  </div>
+
+  <h3 style="font-family: var(--serif); font-weight: 400; font-size: 18px; color: var(--ink-2); letter-spacing: 0.05em; margin: 40px 0 18px;">07 ▸ 滾動 <span style="font-family: var(--num); font-style: italic; font-size: 13px; color: var(--ink-3);">Scroll</span></h3>
+  <div class="grid cluster-motion">
+    <article class="card"><div class="card-thumb"><span class="cat-tag">滾動</span><span class="id-num">C29</span></div><div class="card-body">
+      <div class="card-zh">全屏章節切換</div><div class="card-en">Scroll Snap Acts</div>
+      <p class="card-desc">每個區段佔滿視窗、scroll-snap 強制吸附的章節切換。</p>
+      <div class="card-tags"><span class="card-tag">scroll-snap</span><span class="card-tag">fullscreen</span><span class="card-tag">cinematic</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+
+    <article class="card"><div class="card-thumb"><span class="cat-tag">滾動</span><span class="id-num">C30</span></div><div class="card-body">
+      <div class="card-zh">滾動進度指示</div><div class="card-en">Scroll Progress</div>
+      <p class="card-desc">頂部 progress bar 與側邊章節點陣指示當前閱讀位置。</p>
+      <div class="card-tags"><span class="card-tag">progress-bar</span><span class="card-tag">indicator</span><span class="card-tag">navigation</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+
+    <article class="card"><div class="card-thumb"><span class="cat-tag">滾動</span><span class="id-num">C31</span></div><div class="card-body">
+      <div class="card-zh">滾動跑馬燈</div><div class="card-en">Marquee Band</div>
+      <p class="card-desc">大字橫向跑動、速度依滾動而調變的 marquee 效果。</p>
+      <div class="card-tags"><span class="card-tag">marquee</span><span class="card-tag">speed-modulated</span><span class="card-tag">lineup</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+  </div>
+
+  <h3 style="font-family: var(--serif); font-weight: 400; font-size: 18px; color: var(--ink-2); letter-spacing: 0.05em; margin: 40px 0 18px;">08 ▸ 入場 <span style="font-family: var(--num); font-style: italic; font-size: 13px; color: var(--ink-3);">Entrance</span></h3>
+  <div class="grid cluster-motion">
+    <article class="card"><div class="card-thumb"><span class="cat-tag">入場</span><span class="id-num">C32</span></div><div class="card-body">
+      <div class="card-zh">錯落淡入</div><div class="card-en">Fade Stagger</div>
+      <p class="card-desc">卡片進入視窗時依序錯落淡入位移的波浪入場。</p>
+      <div class="card-tags"><span class="card-tag">intersection-observer</span><span class="card-tag">stagger</span><span class="card-tag">wave</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+
+    <article class="card"><div class="card-thumb"><span class="cat-tag">入場</span><span class="id-num">C33</span></div><div class="card-body">
+      <div class="card-zh">打字機標題</div><div class="card-en">Typewriter</div>
+      <p class="card-desc">Hero 標題以打字機節奏一字一字浮現，段落隨之滑入。</p>
+      <div class="card-tags"><span class="card-tag">typewriter</span><span class="card-tag">cursor-blink</span><span class="card-tag">hero</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+
+    <article class="card"><div class="card-thumb"><span class="cat-tag">入場</span><span class="id-num">C34</span></div><div class="card-body">
+      <div class="card-zh">數字爆裂計數</div><div class="card-en">Counter Burst</div>
+      <p class="card-desc">數字在滾入視窗時從 0 動畫跳動至目標值。</p>
+      <div class="card-tags"><span class="card-tag">counter</span><span class="card-tag">animate-numeric</span><span class="card-tag">about</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+  </div>
+
+  <h3 style="font-family: var(--serif); font-weight: 400; font-size: 18px; color: var(--ink-2); letter-spacing: 0.05em; margin: 40px 0 18px;">09 ▸ 循環 <span style="font-family: var(--num); font-style: italic; font-size: 13px; color: var(--ink-3);">Loop</span></h3>
+  <div class="grid cluster-motion">
+    <article class="card"><div class="card-thumb"><span class="cat-tag">循環</span><span class="id-num">C35</span></div><div class="card-body">
+      <div class="card-zh">極光漸層流動</div><div class="card-en">Aurora Flow</div>
+      <p class="card-desc">多色 radial-gradient 球體以長 loop 緩慢流動。</p>
+      <div class="card-tags"><span class="card-tag">gradient</span><span class="card-tag">aurora</span><span class="card-tag">keyframes</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+
+    <article class="card"><div class="card-thumb"><span class="cat-tag">循環</span><span class="id-num">C36</span></div><div class="card-body">
+      <div class="card-zh">漂浮幾何球</div><div class="card-en">Floating Orbs</div>
+      <p class="card-desc">背景幾何形體上下漂浮、速度時快時慢的呼吸感。</p>
+      <div class="card-tags"><span class="card-tag">floating</span><span class="card-tag">orbs</span><span class="card-tag">background</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+
+    <article class="card"><div class="card-thumb"><span class="cat-tag">循環</span><span class="id-num">C37</span></div><div class="card-body">
+      <div class="card-zh">動態噪點</div><div class="card-en">Noise Grain</div>
+      <p class="card-desc">動態膠片顆粒疊加緩慢色相旋轉的舊膠卷質感。</p>
+      <div class="card-tags"><span class="card-tag">noise</span><span class="card-tag">film-grain</span><span class="card-tag">hue-rotate</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+  </div>
+
+  <h3 style="font-family: var(--serif); font-weight: 400; font-size: 18px; color: var(--ink-2); letter-spacing: 0.05em; margin: 40px 0 18px;">10 ▸ 指標 <span style="font-family: var(--num); font-style: italic; font-size: 13px; color: var(--ink-3);">Cursor</span></h3>
+  <div class="grid cluster-motion">
+    <article class="card"><div class="card-thumb"><span class="cat-tag">指標</span><span class="id-num">C38</span></div><div class="card-body">
+      <div class="card-zh">滑鼠光暈</div><div class="card-en">Cursor Spotlight</div>
+      <p class="card-desc">光暈隨滑鼠位置移動的局部 radial-gradient 照明。</p>
+      <div class="card-tags"><span class="card-tag">cursor</span><span class="card-tag">spotlight</span><span class="card-tag">radial-gradient</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+
+    <article class="card"><div class="card-thumb"><span class="cat-tag">指標</span><span class="id-num">C39</span></div><div class="card-body">
+      <div class="card-zh">3D 傾斜卡片</div><div class="card-en">Tilt Cards</div>
+      <p class="card-desc">卡片依滑鼠位置 3D 傾斜的 perspective 觸感互動。</p>
+      <div class="card-tags"><span class="card-tag">3d-transform</span><span class="card-tag">mouse-tilt</span><span class="card-tag">perspective</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+
+    <article class="card"><div class="card-thumb"><span class="cat-tag">指標</span><span class="id-num">C40</span></div><div class="card-body">
+      <div class="card-zh">磁吸按鈕</div><div class="card-en">Magnetic CTA</div>
+      <p class="card-desc">按鈕在滑鼠靠近時被輕微吸過去的磁吸物件效果。</p>
+      <div class="card-tags"><span class="card-tag">magnetic</span><span class="card-tag">attraction</span><span class="card-tag">cta</span></div>
+      <div class="card-cta">📄 子頁待開</div>
+    </div></article>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="seal">MMXXVI &middot; AQUALUX.DEV</div>
+  <div class="credits">
+    Curated &amp; designed by <a href="https://aqualux.dev" target="_blank" rel="noopener">Chengchieh Huang</a><br>
+    Inspired by <a href="https://www.casper.tw/claude-skill-design-gallery/" target="_blank" rel="noopener">Casper's Claude Code Skill 設計風格圖鑑</a>（已取得授權）
+  </div>
+  <div class="note">
+    <strong>使用說明：</strong>本頁為 aqualux 視覺骨架版本。40 個風格的中文/英文名稱與分類結構沿用 Casper 原作；每張卡片的描述為 aqualux 自寫的中性技術說明（placeholder）。若已取得授權，可逐張替換為 Casper 原文。每個子頁的 single-file demo 屬於 Casper 的原創 HTML/CSS 程式碼，須依授權範圍另行討論再行複用。
+  </div>
+  <div class="micro">SCAFFOLD · NOT A REPRODUCTION</div>
+</footer>
+
+<script>
+  const bar = document.getElementById('progress');
+  window.addEventListener('scroll', () => {
+    const h = document.documentElement;
+    const pct = h.scrollTop / (h.scrollHeight - h.clientHeight) * 100;
+    bar.style.width = pct + '%';
+  });
+</script>
+
+</body>
+</html>

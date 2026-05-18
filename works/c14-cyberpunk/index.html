@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AQUALUX 2026 // DESIGN SPECTRUM EXHIBITION · 賽博龐克 Cyberpunk Demo</title>
+<meta name="description" content="aqualux 2026 設計光譜展 · Cyberpunk 風格 demo · single-file HTML showcase">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700;800&family=Orbitron:wght@500;700;900&family=Noto+Sans+JP:wght@300;500;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #05060c;
+    --bg-soft: #0d0f1e;
+    --bg-card: #11142a;
+    --neon-pink: #ff2a6d;
+    --neon-cyan: #05d9e8;
+    --neon-violet: #c724b1;
+    --neon-yellow: #f9f871;
+    --ink: #e8eaff;
+    --ink-2: #a8aacb;
+    --ink-3: #6a6c8c;
+    --line: rgba(5, 217, 232, 0.22);
+    --line-soft: rgba(255, 42, 109, 0.16);
+    --mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+    --display: 'Orbitron', 'JetBrains Mono', monospace;
+    --jp: 'Noto Sans JP', sans-serif;
+    --tc: 'Noto Sans TC', 'PingFang TC', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--tc);
+    line-height: 1.7;
+    font-size: 14.5px;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Background: dot grid + radial glow + scanlines */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 10%, rgba(199, 36, 177, 0.18) 0%, transparent 50%),
+      radial-gradient(ellipse at 85% 80%, rgba(5, 217, 232, 0.15) 0%, transparent 55%),
+      radial-gradient(ellipse at 50% 50%, rgba(255, 42, 109, 0.06) 0%, transparent 70%);
+    pointer-events: none; z-index: -2;
+  }
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(5, 217, 232, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(5, 217, 232, 0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none; z-index: -1;
+  }
+  /* Scanlines overlay */
+  .scanlines {
+    position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+    background: repeating-linear-gradient(0deg, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 2px, rgba(0,0,0,0.18) 3px, rgba(0,0,0,0) 4px);
+    mix-blend-mode: multiply;
+  }
+
+  a { color: var(--neon-cyan); text-decoration: none; }
+  a:hover { color: var(--neon-pink); }
+
+  /* Top bar */
+  .topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(5, 6, 12, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+    padding: 14px 32px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--mono); font-size: 12px;
+  }
+  .topbar .left { color: var(--neon-cyan); letter-spacing: 0.15em; }
+  .topbar .right { color: var(--ink-3); letter-spacing: 0.1em; }
+  .topbar .right .blink { color: var(--neon-pink); animation: blink 1.2s steps(2) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* Hero */
+  .hero {
+    padding: 80px 32px 60px;
+    max-width: 1280px; margin: 0 auto;
+    position: relative;
+  }
+  .kicker {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--neon-cyan); letter-spacing: 0.3em;
+    margin-bottom: 26px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .kicker::before {
+    content: ''; display: inline-block;
+    width: 32px; height: 1px; background: var(--neon-cyan);
+  }
+  .hero-jp {
+    font-family: var(--jp); font-weight: 300;
+    font-size: clamp(18px, 2.2vw, 26px);
+    color: var(--neon-pink); letter-spacing: 0.4em;
+    margin-bottom: 12px;
+    text-shadow: 0 0 18px rgba(255, 42, 109, 0.6);
+  }
+  .hero h1 {
+    font-family: var(--display); font-weight: 900;
+    font-size: clamp(48px, 9vw, 128px);
+    line-height: 0.95; letter-spacing: -0.01em;
+    color: var(--ink);
+    text-shadow: 0 0 30px rgba(5, 217, 232, 0.4);
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .hero h1 .gp { color: var(--neon-pink); }
+  .hero h1 .gc { color: var(--neon-cyan); }
+  .glitch {
+    position: relative; display: inline-block;
+  }
+  .glitch::before, .glitch::after {
+    content: attr(data-text);
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    overflow: hidden;
+  }
+  .glitch::before {
+    color: var(--neon-pink);
+    transform: translate(2px, 0);
+    clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+    opacity: 0.7;
+    animation: glitch-1 3s infinite linear alternate;
+  }
+  .glitch::after {
+    color: var(--neon-cyan);
+    transform: translate(-2px, 0);
+    clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+    opacity: 0.7;
+    animation: glitch-2 2.5s infinite linear alternate;
+  }
+  @keyframes glitch-1 {
+    0%,90%,100% { transform: translate(2px, 0); }
+    93% { transform: translate(-3px, 1px); }
+    96% { transform: translate(3px, -1px); }
+  }
+  @keyframes glitch-2 {
+    0%,88%,100% { transform: translate(-2px, 0); }
+    91% { transform: translate(3px, -1px); }
+    94% { transform: translate(-3px, 1px); }
+  }
+  .hero-sub {
+    font-family: var(--mono); font-weight: 400;
+    font-size: clamp(13px, 1.4vw, 17px);
+    color: var(--ink-2); letter-spacing: 0.15em;
+    margin: 28px 0 36px; max-width: 720px;
+  }
+  .hero-sub .accent { color: var(--neon-yellow); }
+  .meta-strip {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 20px 0;
+    margin-top: 36px;
+  }
+  .meta-cell {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--ink-2);
+  }
+  .meta-cell .label {
+    color: var(--neon-cyan); letter-spacing: 0.15em;
+    font-size: 10.5px; margin-bottom: 6px; display: block;
+  }
+  .meta-cell .val { color: var(--ink); font-size: 13.5px; font-weight: 500; }
+
+  /* Section base */
+  section.block { padding: 80px 32px; max-width: 1280px; margin: 0 auto; }
+  .sec-head {
+    display: flex; align-items: baseline; gap: 22px;
+    margin-bottom: 36px;
+    padding-bottom: 14px; border-bottom: 1px solid var(--line);
+  }
+  .sec-num {
+    font-family: var(--mono); font-size: 13px;
+    color: var(--neon-pink); letter-spacing: 0.2em;
+    font-weight: 700;
+  }
+  .sec-title-jp {
+    font-family: var(--jp); font-size: 13px;
+    color: var(--ink-3); letter-spacing: 0.3em;
+  }
+  .sec-title {
+    font-family: var(--display); font-size: clamp(26px, 4vw, 42px);
+    font-weight: 700; letter-spacing: 0.06em;
+    color: var(--ink);
+    margin-right: auto;
+  }
+  .sec-title .ph { color: var(--neon-pink); }
+
+  /* Curatorial statement */
+  .statement {
+    max-width: 880px;
+    font-family: var(--tc); font-size: 16px; line-height: 1.95;
+    color: var(--ink-2);
+  }
+  .statement p { margin-bottom: 18px; }
+  .statement .em { color: var(--neon-cyan); font-weight: 500; }
+  .statement .strong { color: var(--neon-pink); font-weight: 700; letter-spacing: 0.04em; }
+  .statement blockquote {
+    border-left: 3px solid var(--neon-pink);
+    padding: 14px 22px;
+    margin: 22px 0;
+    background: rgba(255, 42, 109, 0.05);
+    font-family: var(--mono); color: var(--ink);
+    font-size: 14px; letter-spacing: 0.03em;
+  }
+
+  /* Designer grid */
+  .designers {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+  }
+  .designer-card {
+    border: 1px solid var(--line);
+    background: var(--bg-card);
+    padding: 18px 20px;
+    position: relative;
+    transition: all 0.2s ease;
+  }
+  .designer-card::before {
+    content: '+'; position: absolute;
+    top: 6px; left: 6px;
+    color: var(--neon-cyan); font-family: var(--mono); font-size: 12px;
+  }
+  .designer-card::after {
+    content: '+'; position: absolute;
+    bottom: 6px; right: 6px;
+    color: var(--neon-cyan); font-family: var(--mono); font-size: 12px;
+  }
+  .designer-card:hover {
+    border-color: var(--neon-pink);
+    background: var(--bg-soft);
+    box-shadow: 0 0 24px rgba(255, 42, 109, 0.18);
+  }
+  .designer-card .idx {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--neon-pink); letter-spacing: 0.18em;
+    margin-bottom: 10px;
+  }
+  .designer-card .name-jp {
+    font-family: var(--jp); font-size: 11.5px;
+    color: var(--ink-3); letter-spacing: 0.18em;
+    margin-bottom: 4px;
+  }
+  .designer-card .name {
+    font-family: var(--display); font-size: 17px; font-weight: 700;
+    color: var(--ink); letter-spacing: 0.04em;
+    margin-bottom: 8px;
+  }
+  .designer-card .tag {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--neon-cyan); letter-spacing: 0.1em;
+  }
+  .designer-card .tag::before { content: '> '; color: var(--ink-3); }
+
+  /* Zone map */
+  .zones {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .zone {
+    background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-soft) 100%);
+    border: 1px solid var(--line);
+    padding: 24px 26px;
+    position: relative; overflow: hidden;
+  }
+  .zone::before {
+    content: ''; position: absolute;
+    top: 0; right: 0; width: 64px; height: 64px;
+    background: linear-gradient(135deg, transparent 50%, var(--neon-pink) 50%);
+    opacity: 0.18;
+  }
+  .zone .zone-id {
+    font-family: var(--display); font-size: 44px; font-weight: 900;
+    color: var(--neon-cyan); line-height: 1;
+    margin-bottom: 8px;
+    text-shadow: 0 0 18px rgba(5, 217, 232, 0.4);
+  }
+  .zone .zone-cn {
+    font-family: var(--tc); font-size: 19px; font-weight: 500;
+    color: var(--ink); margin-bottom: 4px;
+    letter-spacing: 0.04em;
+  }
+  .zone .zone-en {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--neon-pink); letter-spacing: 0.2em;
+    margin-bottom: 14px;
+  }
+  .zone .zone-desc {
+    font-family: var(--tc); font-size: 13.5px; line-height: 1.85;
+    color: var(--ink-2);
+  }
+  .zone .zone-coord {
+    margin-top: 14px; padding-top: 12px;
+    border-top: 1px dashed var(--line);
+    font-family: var(--mono); font-size: 11px;
+    color: var(--ink-3); letter-spacing: 0.15em;
+  }
+
+  /* Schedule */
+  .schedule-table {
+    width: 100%; border-collapse: collapse;
+    font-family: var(--mono); font-size: 13px;
+  }
+  .schedule-table th, .schedule-table td {
+    padding: 13px 16px; text-align: left;
+    border-bottom: 1px solid var(--line);
+  }
+  .schedule-table th {
+    color: var(--neon-cyan); letter-spacing: 0.18em;
+    font-size: 11px; font-weight: 700;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--neon-cyan);
+  }
+  .schedule-table td { color: var(--ink-2); }
+  .schedule-table td:first-child {
+    color: var(--neon-pink); font-weight: 700;
+    width: 130px;
+  }
+  .schedule-table tr:hover td { color: var(--ink); background: rgba(5, 217, 232, 0.04); }
+
+  /* Tickets */
+  .tickets {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 18px;
+  }
+  .ticket {
+    border: 1px solid var(--line);
+    padding: 28px 26px;
+    position: relative;
+    background: var(--bg-card);
+    text-align: center;
+  }
+  .ticket.featured {
+    border-color: var(--neon-pink);
+    background: linear-gradient(180deg, rgba(255, 42, 109, 0.08) 0%, var(--bg-card) 100%);
+    box-shadow: 0 0 32px rgba(255, 42, 109, 0.18);
+  }
+  .ticket .badge {
+    display: inline-block;
+    font-family: var(--mono); font-size: 10.5px;
+    color: var(--bg); background: var(--neon-cyan);
+    padding: 3px 10px; letter-spacing: 0.2em;
+    margin-bottom: 14px;
+  }
+  .ticket.featured .badge { background: var(--neon-pink); }
+  .ticket .tier {
+    font-family: var(--display); font-size: 22px; font-weight: 700;
+    color: var(--ink); letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+  .ticket .tier-jp {
+    font-family: var(--jp); font-size: 11px;
+    color: var(--ink-3); letter-spacing: 0.3em;
+    margin-bottom: 18px;
+  }
+  .ticket .price {
+    font-family: var(--display); font-size: 38px; font-weight: 900;
+    color: var(--neon-cyan); line-height: 1;
+    margin-bottom: 4px;
+    text-shadow: 0 0 14px rgba(5, 217, 232, 0.4);
+  }
+  .ticket.featured .price { color: var(--neon-pink); text-shadow: 0 0 14px rgba(255, 42, 109, 0.4); }
+  .ticket .price-unit {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--ink-3); letter-spacing: 0.18em;
+    margin-bottom: 18px;
+  }
+  .ticket ul {
+    list-style: none; text-align: left;
+    font-family: var(--mono); font-size: 12px;
+    color: var(--ink-2); line-height: 2;
+    margin-bottom: 22px;
+  }
+  .ticket li::before {
+    content: '▸ '; color: var(--neon-cyan); margin-right: 4px;
+  }
+
+  /* CTA */
+  .cta-btn {
+    display: inline-block;
+    font-family: var(--display); font-weight: 700;
+    font-size: 13px; letter-spacing: 0.25em;
+    padding: 14px 32px;
+    background: transparent;
+    color: var(--neon-pink);
+    border: 1px solid var(--neon-pink);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    position: relative;
+  }
+  .cta-btn:hover {
+    background: var(--neon-pink); color: var(--bg);
+    box-shadow: 0 0 28px rgba(255, 42, 109, 0.6);
+  }
+  .cta-btn.cyan { color: var(--neon-cyan); border-color: var(--neon-cyan); }
+  .cta-btn.cyan:hover { background: var(--neon-cyan); box-shadow: 0 0 28px rgba(5, 217, 232, 0.5); }
+
+  /* Footer */
+  footer {
+    margin-top: 80px;
+    padding: 60px 32px 32px;
+    border-top: 1px solid var(--line);
+    background: var(--bg-soft);
+    text-align: center;
+  }
+  footer .ascii-line {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--neon-cyan); letter-spacing: 0.15em;
+    margin-bottom: 18px;
+    white-space: nowrap; overflow: hidden;
+  }
+  footer .signature {
+    font-family: var(--display); font-size: 14px;
+    color: var(--ink); letter-spacing: 0.18em;
+    margin-bottom: 14px;
+  }
+  footer .signature .ph { color: var(--neon-pink); }
+  footer .credit {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--ink-3); letter-spacing: 0.1em; line-height: 2;
+  }
+  footer .credit a { color: var(--ink-2); }
+  footer .terminal {
+    font-family: var(--mono); font-size: 10.5px;
+    color: var(--ink-3); letter-spacing: 0.08em;
+    margin-top: 22px;
+  }
+  footer .terminal .cursor {
+    color: var(--neon-pink);
+    animation: blink 0.9s steps(2) infinite;
+  }
+
+  /* Zone with image */
+  .zone-img {
+    margin: -24px -26px 18px;
+    aspect-ratio: 5 / 3;
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  .zone-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: saturate(1.1) contrast(1.04);
+    transition: transform 0.4s ease;
+  }
+  .zone:hover .zone-img img { transform: scale(1.04); }
+  .zone-img::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 55%, rgba(5,6,12,0.85) 100%);
+    pointer-events: none;
+  }
+
+  /* Designer avatar */
+  .designer-card { padding-top: 0; padding-bottom: 16px; }
+  .designer-thumb {
+    margin: 0 -20px 14px;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  .designer-thumb img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: saturate(1.05);
+    transition: transform 0.3s ease;
+  }
+  .designer-card:hover .designer-thumb img { transform: scale(1.05); }
+  .designer-card .pad-top { padding-top: 4px; }
+
+  /* Ticket showcase */
+  .ticket-showcase {
+    margin: 0 0 48px;
+    display: flex; align-items: center; gap: 32px;
+    padding: 28px;
+    border: 1px dashed var(--line);
+    background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-soft) 100%);
+    position: relative; overflow: hidden;
+  }
+  .ticket-showcase::before {
+    content: ''; position: absolute;
+    top: -2px; right: -2px; width: 80px; height: 80px;
+    background: linear-gradient(135deg, transparent 50%, var(--neon-pink) 50%);
+    opacity: 0.2;
+  }
+  .ticket-showcase img {
+    width: 240px; height: auto; border: 1px solid var(--neon-pink);
+    box-shadow: 0 0 32px rgba(255, 42, 109, 0.35);
+    flex-shrink: 0;
+  }
+  .ticket-showcase .ts-info { flex: 1; }
+  .ticket-showcase .ts-label {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--neon-cyan); letter-spacing: 0.22em;
+    margin-bottom: 10px;
+  }
+  .ticket-showcase .ts-title {
+    font-family: var(--display); font-weight: 700;
+    font-size: 22px; color: var(--ink); letter-spacing: 0.04em;
+    margin-bottom: 12px;
+  }
+  .ticket-showcase .ts-desc {
+    font-family: var(--tc); font-size: 13.5px;
+    color: var(--ink-2); line-height: 1.85;
+  }
+  @media (max-width: 720px) {
+    .ticket-showcase { flex-direction: column; gap: 18px; padding: 20px; }
+    .ticket-showcase img { width: 100%; max-width: 280px; }
+  }
+
+  /* Hero banner image */
+  .hero-banner {
+    margin: 0; padding: 0;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--neon-pink);
+    box-shadow: 0 0 40px rgba(255, 42, 109, 0.3);
+  }
+  .hero-banner img {
+    width: 100%; height: auto; display: block;
+    filter: saturate(1.1) contrast(1.05);
+    aspect-ratio: 3 / 2; object-fit: cover;
+  }
+  .hero-banner::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 60%, var(--bg) 100%);
+    pointer-events: none;
+  }
+  .hero-banner .glitch-overlay {
+    position: absolute; bottom: 16px; left: 32px;
+    font-family: var(--mono); font-size: 11px;
+    color: var(--neon-cyan); letter-spacing: 0.2em;
+    z-index: 2;
+  }
+  .hero-banner .glitch-overlay .blink { color: var(--neon-pink); animation: blink 1.2s steps(2) infinite; }
+
+  /* Atmospheric image break */
+  .atmosphere {
+    margin: 60px 32px;
+    max-width: 1280px; margin-left: auto; margin-right: auto;
+    position: relative;
+    border: 1px solid var(--line);
+    overflow: hidden;
+  }
+  .atmosphere img {
+    width: 100%; height: auto; display: block;
+    aspect-ratio: 16 / 9; object-fit: cover;
+    filter: saturate(1.1) brightness(0.95);
+  }
+  .atmosphere .caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 18px 28px;
+    background: linear-gradient(180deg, transparent 0%, rgba(5, 6, 12, 0.92) 100%);
+    font-family: var(--mono); font-size: 12px;
+    color: var(--ink-2); letter-spacing: 0.12em;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .atmosphere .caption .l { color: var(--neon-cyan); }
+  .atmosphere .caption .r { color: var(--neon-pink); }
+
+  /* Mobile */
+  @media (max-width: 720px) {
+    .topbar { padding: 12px 18px; font-size: 11px; }
+    .hero { padding: 56px 20px 40px; }
+    section.block { padding: 56px 20px; }
+    .sec-head { flex-wrap: wrap; gap: 12px; }
+    .designers { grid-template-columns: 1fr 1fr; }
+    .meta-strip { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="scanlines"></div>
+
+<header class="topbar">
+  <div class="left">[ AQUALUX ] // DESIGN_SPECTRUM_2026 / WORK_014 / CYBERPUNK</div>
+  <div class="right">SYS.STATUS: <span class="blink">●</span> ONLINE</div>
+</header>
+
+<div class="hero-banner">
+  <img src="images/hero.png" alt="AQUALUX SPECTRUM 2026 - Cyberpunk Tokyo Cityscape">
+  <div class="glitch-overlay">▶ KEY_VISUAL // <span class="blink">REC</span> // RENDERED_BY_GPT-IMAGE-2</div>
+</div>
+
+<section class="hero">
+  <div class="kicker">EXHIBITION // 設計光譜展 // 2026.12.06 — 2026.12.21</div>
+  <div class="hero-jp">アクアラックス　デザイン・スペクトラム</div>
+  <h1>
+    <span class="glitch" data-text="AQUA">AQUA</span><span class="glitch gp" data-text="LUX">LUX</span><br>
+    <span class="gc">SPECTRUM</span> 2026
+  </h1>
+  <p class="hero-sub">
+    四十種視覺流派、十二位設計師、五個展區。<br>
+    一座專門用來<span class="accent">解碼設計風格</span>的城市實驗場。
+  </p>
+  <div class="meta-strip">
+    <div class="meta-cell"><span class="label">DATE</span><span class="val">2026.12.06 — 12.21</span></div>
+    <div class="meta-cell"><span class="label">LOCATION</span><span class="val">松山文創 5 號倉庫</span></div>
+    <div class="meta-cell"><span class="label">CURATOR</span><span class="val">Jerry @ aqualux.dev</span></div>
+    <div class="meta-cell"><span class="label">PARTICIPANTS</span><span class="val">12 設計師 / 40 作品</span></div>
+  </div>
+</section>
+
+<section class="block" id="statement">
+  <div class="sec-head">
+    <div class="sec-num">SECTION_01</div>
+    <div class="sec-title-jp">展望　/　STATEMENT</div>
+    <h2 class="sec-title">策<span class="ph">展</span>論述</h2>
+  </div>
+  <div class="statement">
+    <p>「設計風格」這個詞已經被用爛了。</p>
+    <p>大多數展覽把風格當成 <span class="em">美學偏好</span> 排列組合，像是色票交換派對。<span class="strong">aqualux 2026 設計光譜展</span> 嘗試的是另一件事：把風格還原成「<span class="em">對誰說話</span>」的選擇。</p>
+    <blockquote>
+      &gt; 一個 Brutalist 的網頁，<br>
+      &gt; 跟一個 Glassmorphic 的網頁，<br>
+      &gt; 從來不只是長相不一樣 ——<br>
+      &gt; 它們對著兩種完全不同的受眾說話。
+    </blockquote>
+    <p>本次展覽收錄 <span class="em">25 種視覺流派</span> 與 <span class="em">15 種動態效果</span>，由 12 位實作設計師將每一種風格落實成可閱讀、可互動的單頁作品。每件作品都圍繞同一個展覽資訊主題 —— <span class="strong">這是控制變因的設計實驗</span>。</p>
+    <p>當內容固定，只剩風格在變，風格的真實效果才會浮現。</p>
+  </div>
+</section>
+
+<section class="block" id="designers">
+  <div class="sec-head">
+    <div class="sec-num">SECTION_02</div>
+    <div class="sec-title-jp">参加デザイナー　/　ARTISTS</div>
+    <h2 class="sec-title">設<span class="ph">計師</span>名單</h2>
+  </div>
+  <div class="designers">
+    <div class="designer-card"><div class="designer-thumb"><img src="images/d001-neon-lee.png" alt="Neon Lee emblem"></div><div class="pad-top"><div class="idx">D_001</div><div class="name-jp">ネオン　リー</div><div class="name">Neon Lee</div><div class="tag">UI / Brutalism</div></div></div>
+    <div class="designer-card"><div class="designer-thumb"><img src="images/d002-chrome-ho.png" alt="Chrome Ho emblem"></div><div class="pad-top"><div class="idx">D_002</div><div class="name-jp">クローム　ホー</div><div class="name">Chrome Ho</div><div class="tag">Motion / Parallax</div></div></div>
+    <div class="designer-card"><div class="designer-thumb"><img src="images/d003-glitch-chang.png" alt="Glitch Chang emblem"></div><div class="pad-top"><div class="idx">D_003</div><div class="name-jp">グリッチ　チャン</div><div class="name">Glitch Chang</div><div class="tag">Experimental</div></div></div>
+    <div class="designer-card"><div class="designer-thumb"><img src="images/d004-paper-wu.png" alt="Paper Wu emblem"></div><div class="pad-top"><div class="idx">D_004</div><div class="name-jp">ペーパー　ウー</div><div class="name">Paper Wu</div><div class="tag">Editorial / Minimal</div></div></div>
+    <div class="designer-card"><div class="designer-thumb"><img src="images/d005-vapor-lin.png" alt="Vapor Lin emblem"></div><div class="pad-top"><div class="idx">D_005</div><div class="name-jp">ヴェイパー　リン</div><div class="name">Vapor Lin</div><div class="tag">Retro / Aesthetic</div></div></div>
+    <div class="designer-card"><div class="designer-thumb"><img src="images/d006-swiss-chen.png" alt="Swiss Chen emblem"></div><div class="pad-top"><div class="idx">D_006</div><div class="name-jp">スイス　チェン</div><div class="name">Swiss Chen</div><div class="tag">Cultural / Grid</div></div></div>
+    <div class="designer-card"><div class="designer-thumb"><img src="images/d007-glass-yang.png" alt="Glass Yang emblem"></div><div class="pad-top"><div class="idx">D_007</div><div class="name-jp">ガラス　ヤン</div><div class="name">Glass Yang</div><div class="tag">Glassmorphism</div></div></div>
+    <div class="designer-card"><div class="designer-thumb"><img src="images/d008-ascii-fan.png" alt="ASCII Fan emblem"></div><div class="pad-top"><div class="idx">D_008</div><div class="name-jp">アスキー　ファン</div><div class="name">ASCII Fan</div><div class="tag">Terminal / CLI</div></div></div>
+    <div class="designer-card"><div class="designer-thumb"><img src="images/d009-hand-chao.png" alt="Hand Chao emblem"></div><div class="pad-top"><div class="idx">D_009</div><div class="name-jp">ハンド　ジョー</div><div class="name">Hand Chao</div><div class="tag">Sketch / Doodle</div></div></div>
+    <div class="designer-card"><div class="designer-thumb"><img src="images/d010-magne-huang.png" alt="Magne Huang emblem"></div><div class="pad-top"><div class="idx">D_010</div><div class="name-jp">マグネ　ホアン</div><div class="name">Magne Huang</div><div class="tag">Interaction</div></div></div>
+    <div class="designer-card"><div class="designer-thumb"><img src="images/d011-cyber-su.png" alt="Cyber Su emblem"></div><div class="pad-top"><div class="idx">D_011</div><div class="name-jp">サイバー　スー</div><div class="name">Cyber Su</div><div class="tag">Cyberpunk / Glow</div></div></div>
+    <div class="designer-card"><div class="designer-thumb"><img src="images/d012-noise-kao.png" alt="Noise Kao emblem"></div><div class="pad-top"><div class="idx">D_012</div><div class="name-jp">ノイズ　カオ</div><div class="name">Noise Kao</div><div class="tag">Film Grain</div></div></div>
+  </div>
+</section>
+
+<div class="atmosphere">
+  <img src="images/venue.png" alt="aqualux 2026 設計光譜展 場地內部">
+  <div class="caption">
+    <span class="l">▸ VENUE_PREVIEW // 松山文創 5 號倉庫 / 5F</span>
+    <span class="r">FRAME 03 / 2026.12.06</span>
+  </div>
+</div>
+
+<section class="block" id="zones">
+  <div class="sec-head">
+    <div class="sec-num">SECTION_03</div>
+    <div class="sec-title-jp">展示エリア　/　ZONES</div>
+    <h2 class="sec-title">五大<span class="ph">展區</span></h2>
+  </div>
+  <div class="zones">
+    <div class="zone">
+      <div class="zone-img"><img src="images/zone-z01.png" alt="Z01 主流頻譜"></div>
+      <div class="zone-id">Z01</div>
+      <div class="zone-cn">主流頻譜</div>
+      <div class="zone-en">MAINSTREAM_FREQ</div>
+      <p class="zone-desc">玻璃擬態、新擬物化、Material You、極簡、沉浸暗黑 — 五種「經得起時間」的安全頻段。觀眾從這裡進場、習慣黑暗。</p>
+      <div class="zone-coord">COORD: 5F-A1 ▸ 5 作品</div>
+    </div>
+    <div class="zone">
+      <div class="zone-img"><img src="images/zone-z02.png" alt="Z02 時光殘響"></div>
+      <div class="zone-id">Z02</div>
+      <div class="zone-cn">時光殘響</div>
+      <div class="zone-en">RETRO_ECHO</div>
+      <p class="zone-desc">Vaporwave、Y2K、Web 1.0、Synthwave、包浩斯⋯六種來自不同年代的視覺殘響，混音播放。</p>
+      <div class="zone-coord">COORD: 5F-A2 ▸ 6 作品</div>
+    </div>
+    <div class="zone">
+      <div class="zone-img"><img src="images/zone-z03.png" alt="Z03 前衛實驗室"></div>
+      <div class="zone-id">Z03</div>
+      <div class="zone-cn">前衛實驗室</div>
+      <div class="zone-en">AVANT_LAB</div>
+      <p class="zone-desc">Brutalism、Glitch、Cyberpunk、Constructivism⋯六種「故意違反 UX 學派」的設計叛逃。本區光線壓低、音量加倍。</p>
+      <div class="zone-coord">COORD: 5F-B1 ▸ 6 作品</div>
+    </div>
+    <div class="zone">
+      <div class="zone-img"><img src="images/zone-z04.png" alt="Z04 文化光譜"></div>
+      <div class="zone-id">Z04</div>
+      <div class="zone-cn">文化光譜</div>
+      <div class="zone-en">CULTURAL_SPECTRUM</div>
+      <p class="zone-desc">Wabi-Sabi、Guochao、Scandinavian、Swiss、Taiwan Temple — 五種地理上的視覺方言，可同時開啟。</p>
+      <div class="zone-coord">COORD: 5F-B2 ▸ 5 作品</div>
+    </div>
+    <div class="zone">
+      <div class="zone-img"><img src="images/zone-z05.png" alt="Z05 動態廳"></div>
+      <div class="zone-id">Z05</div>
+      <div class="zone-cn">動態廳</div>
+      <div class="zone-en">MOTION_HALL</div>
+      <p class="zone-desc">15 種動態效果連續展演 — 視差、滾動、入場、循環、指標互動。建議停留 25 分鐘以上。</p>
+      <div class="zone-coord">COORD: 5F-C1 ▸ 15 作品</div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="schedule">
+  <div class="sec-head">
+    <div class="sec-num">SECTION_04</div>
+    <div class="sec-title-jp">スケジュール　/　PROGRAM</div>
+    <h2 class="sec-title">講<span class="ph">座</span>排程</h2>
+  </div>
+  <table class="schedule-table">
+    <thead>
+      <tr><th>DATE</th><th>TIME</th><th>TITLE</th><th>SPEAKER</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>12.07 SAT</td><td>14:00 — 15:30</td><td>為什麼「好看」不是答案</td><td>Jerry @ aqualux.dev</td></tr>
+      <tr><td>12.09 MON</td><td>19:00 — 20:30</td><td>從 Brutalism 到 Editorial：反 UX 的兩條路</td><td>Neon Lee × Paper Wu</td></tr>
+      <tr><td>12.12 THU</td><td>19:00 — 20:30</td><td>Cyberpunk 不是賽博龐克：解構霓虹美學</td><td>Cyber Su</td></tr>
+      <tr><td>12.14 SAT</td><td>14:00 — 15:30</td><td>動態的克制：為什麼一頁最多兩個動畫</td><td>Chrome Ho</td></tr>
+      <tr><td>12.16 MON</td><td>19:00 — 20:30</td><td>跨境設計：文化暗號的護城河</td><td>Swiss Chen × Vapor Lin</td></tr>
+      <tr><td>12.19 THU</td><td>19:00 — 20:30</td><td>Workshop：為你的下一個專案選風格</td><td>Jerry × 全體設計師</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="block" id="tickets">
+  <div class="sec-head">
+    <div class="sec-num">SECTION_05</div>
+    <div class="sec-title-jp">入場券　/　TICKETS</div>
+    <h2 class="sec-title">票<span class="ph">務</span></h2>
+  </div>
+  <div class="ticket-showcase">
+    <img src="images/ticket.png" alt="AQUALUX SPECTRUM 2026 入場券 mockup">
+    <div class="ts-info">
+      <div class="ts-label">▸ TICKET_PREVIEW // AX-2026-014</div>
+      <div class="ts-title">FULL ACCESS HOLOGRAPHIC PASS</div>
+      <p class="ts-desc">每張票券附唯一序號與全息箔紋。RFID 感應入場、可作為展期紀念物保存。三種票型皆有實體與數位版本，購票後 24 小時內以加密 email 寄送。</p>
+    </div>
+  </div>
+  <div class="tickets">
+    <div class="ticket">
+      <div class="badge">STANDARD</div>
+      <div class="tier">SINGLE PASS</div>
+      <div class="tier-jp">シングル</div>
+      <div class="price">NT$ 480</div>
+      <div class="price-unit">/ 單日入場</div>
+      <ul>
+        <li>全展區自由參觀</li>
+        <li>展覽手冊一份</li>
+        <li>不含講座</li>
+      </ul>
+      <button class="cta-btn cyan">PURCHASE</button>
+    </div>
+    <div class="ticket featured">
+      <div class="badge">RECOMMENDED</div>
+      <div class="tier">FULL ACCESS</div>
+      <div class="tier-jp">フル・アクセス</div>
+      <div class="price">NT$ 1,280</div>
+      <div class="price-unit">/ 全展期通票</div>
+      <ul>
+        <li>16 天無限次入場</li>
+        <li>3 場講座門票</li>
+        <li>展覽手冊 + 限定 sticker</li>
+        <li>aqualux.dev 數位週報</li>
+      </ul>
+      <button class="cta-btn">PURCHASE</button>
+    </div>
+    <div class="ticket">
+      <div class="badge">FULL</div>
+      <div class="tier">CURATOR PASS</div>
+      <div class="tier-jp">キュレーター</div>
+      <div class="price">NT$ 2,880</div>
+      <div class="price-unit">/ 含 Workshop</div>
+      <ul>
+        <li>所有講座入場</li>
+        <li>12.19 Workshop 名額</li>
+        <li>策展人導覽（1 場）</li>
+        <li>展期後紀念專書</li>
+      </ul>
+      <button class="cta-btn cyan">PURCHASE</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="ascii-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+  <div class="signature">AQUA<span class="ph">LUX</span> &middot; MMXXVI</div>
+  <div class="credit">
+    Curated by <a href="https://aqualux.dev">Chengchieh Huang</a><br>
+    Demo work for: aqualux 設計光譜展 / Cyberpunk · C14<br>
+    Style framework inspired by Casper's Claude Code Skill 設計風格圖鑑（已取得授權）
+  </div>
+  <div class="terminal">
+    [ system ] :~$ aqualux exhibit --style=cyberpunk --status=READY<span class="cursor">_</span>
+  </div>
+</footer>
+
+</body>
+</html>
