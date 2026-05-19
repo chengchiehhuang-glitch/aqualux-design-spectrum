@@ -239,6 +239,29 @@
   @media (max-width: 480px) {
     .grid { grid-template-columns: 1fr; }
   }
+
+  /* Thumb image overlay (added by inject-thumbs.py) */
+  .card-thumb.has-img { position: relative; overflow: hidden; }
+  .card-thumb.has-img img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%; object-fit: cover;
+    z-index: 0;
+    filter: saturate(1.02);
+    transition: transform 0.35s ease;
+  }
+  .card:hover .card-thumb.has-img img { transform: scale(1.04); }
+  .card-thumb.has-img .cat-tag,
+  .card-thumb.has-img .id-num {
+    position: absolute; z-index: 2;
+    background: rgba(255,255,255,0.78);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    padding: 2px 8px;
+    border-radius: 0;
+  }
+  .card-thumb.has-img::before {
+    z-index: 1;
+  }
 </style>
 </head>
 <body>
@@ -278,35 +301,35 @@
     <div class="en">Mainstream UI · 5 styles</div>
   </div>
   <div class="grid cluster-mainstream">
-    <article class="card"><div class="card-thumb"><span class="cat-tag">主流 UI</span><span class="id-num">C01</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c01.png" alt="C01 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">主流 UI</span><span class="id-num">C01</span></div><div class="card-body">
       <div class="card-zh">玻璃擬態</div><div class="card-en">Glassmorphism</div>
       <p class="card-desc">半透玻璃面、背景模糊（backdrop-filter）與微光暈，呈現空間層次感。</p>
       <div class="card-tags"><span class="card-tag">frosted</span><span class="card-tag">translucent</span><span class="card-tag">2020s</span></div>
       <div class="card-cta">📄 子頁待開</div>
     </div></article>
 
-    <article class="card"><div class="card-thumb"><span class="cat-tag">主流 UI</span><span class="id-num">C02</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c02.png" alt="C02 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">主流 UI</span><span class="id-num">C02</span></div><div class="card-body">
       <div class="card-zh">新擬物化</div><div class="card-en">Neumorphism</div>
       <p class="card-desc">同色系柔陰影與微凸介面，模擬實體物件的觸感與雕塑感。</p>
       <div class="card-tags"><span class="card-tag">soft-ui</span><span class="card-tag">shadow</span><span class="card-tag">tactile</span></div>
       <div class="card-cta">📄 子頁待開</div>
     </div></article>
 
-    <article class="card"><div class="card-thumb"><span class="cat-tag">主流 UI</span><span class="id-num">C03</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c03.png" alt="C03 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">主流 UI</span><span class="id-num">C03</span></div><div class="card-body">
       <div class="card-zh">Material You</div><div class="card-en">Material 3</div>
       <p class="card-desc">動態色彩、明確層階與圓角元件的系統化設計語彙，當代產品學院派。</p>
       <div class="card-tags"><span class="card-tag">google</span><span class="card-tag">dynamic-color</span><span class="card-tag">elevation</span></div>
       <div class="card-cta">📄 子頁待開</div>
     </div></article>
 
-    <article class="card"><div class="card-thumb"><span class="cat-tag">主流 UI</span><span class="id-num">C04</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c04.png" alt="C04 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">主流 UI</span><span class="id-num">C04</span></div><div class="card-body">
       <div class="card-zh">極簡主義</div><div class="card-en">Minimalism</div>
       <p class="card-desc">大量留白、單色字體與精確比例的排版美學，藝廊式靜謐視覺。</p>
       <div class="card-tags"><span class="card-tag">whitespace</span><span class="card-tag">mono</span><span class="card-tag">editorial</span></div>
       <div class="card-cta">📄 子頁待開</div>
     </div></article>
 
-    <article class="card"><div class="card-thumb"><span class="cat-tag">主流 UI</span><span class="id-num">C05</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c05.png" alt="C05 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">主流 UI</span><span class="id-num">C05</span></div><div class="card-body">
       <div class="card-zh">沉浸暗黑</div><div class="card-en">Immersive Dark</div>
       <p class="card-desc">深色基底配低彩度發光點，營造劇場聚光燈式的沉浸氛圍。</p>
       <div class="card-tags"><span class="card-tag">dark</span><span class="card-tag">low-light</span><span class="card-tag">cinematic</span></div>
@@ -323,42 +346,42 @@
     <div class="en">Retro Nostalgia · 6 styles</div>
   </div>
   <div class="grid cluster-retro">
-    <article class="card"><div class="card-thumb"><span class="cat-tag">復古懷舊</span><span class="id-num">C06</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c06.png" alt="C06 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">復古懷舊</span><span class="id-num">C06</span></div><div class="card-body">
       <div class="card-zh">蒸氣波</div><div class="card-en">Vaporwave</div>
       <p class="card-desc">紫粉漸層、希臘雕像與日文符號的 1990s 網際網路懷舊美學。</p>
       <div class="card-tags"><span class="card-tag">80s</span><span class="card-tag">pastel</span><span class="card-tag">aesthetic</span></div>
       <div class="card-cta">📄 子頁待開</div>
     </div></article>
 
-    <article class="card"><div class="card-thumb"><span class="cat-tag">復古懷舊</span><span class="id-num">C07</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c07.png" alt="C07 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">復古懷舊</span><span class="id-num">C07</span></div><div class="card-body">
       <div class="card-zh">Y2K 千禧</div><div class="card-en">Y2K</div>
       <p class="card-desc">銀色金屬、半透塑膠與星型裝飾元素的 2000 年初千禧美學。</p>
       <div class="card-tags"><span class="card-tag">2000s</span><span class="card-tag">chrome</span><span class="card-tag">cyber-cute</span></div>
       <div class="card-cta">📄 子頁待開</div>
     </div></article>
 
-    <article class="card"><div class="card-thumb"><span class="cat-tag">復古懷舊</span><span class="id-num">C08</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c08.png" alt="C08 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">復古懷舊</span><span class="id-num">C08</span></div><div class="card-body">
       <div class="card-zh">90s Web 1.0</div><div class="card-en">Web 1.0</div>
       <p class="card-desc">系統字體、tile 平鋪背景與灰色按鈕的早期 1990s 網頁風格。</p>
       <div class="card-tags"><span class="card-tag">90s</span><span class="card-tag">tables</span><span class="card-tag">marquee</span></div>
       <div class="card-cta">📄 子頁待開</div>
     </div></article>
 
-    <article class="card"><div class="card-thumb"><span class="cat-tag">復古懷舊</span><span class="id-num">C09</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c09.png" alt="C09 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">復古懷舊</span><span class="id-num">C09</span></div><div class="card-body">
       <div class="card-zh">美式復古印刷</div><div class="card-en">American Retro Print</div>
       <p class="card-desc">網點質感、油墨偏色與粗襯線標題的 1970s 印刷海報風。</p>
       <div class="card-tags"><span class="card-tag">vintage</span><span class="card-tag">print</span><span class="card-tag">screen-print</span></div>
       <div class="card-cta">📄 子頁待開</div>
     </div></article>
 
-    <article class="card"><div class="card-thumb"><span class="cat-tag">復古懷舊</span><span class="id-num">C10</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c10.png" alt="C10 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">復古懷舊</span><span class="id-num">C10</span></div><div class="card-body">
       <div class="card-zh">80s Synthwave</div><div class="card-en">Synthwave</div>
       <p class="card-desc">霓虹線條、紫紅落日與透視格線的 1980s 數位美學。</p>
       <div class="card-tags"><span class="card-tag">80s</span><span class="card-tag">neon</span><span class="card-tag">grid</span></div>
       <div class="card-cta">📄 子頁待開</div>
     </div></article>
 
-    <article class="card"><div class="card-thumb"><span class="cat-tag">復古懷舊</span><span class="id-num">C11</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c11.png" alt="C11 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">復古懷舊</span><span class="id-num">C11</span></div><div class="card-body">
       <div class="card-zh">包浩斯</div><div class="card-en">Bauhaus</div>
       <p class="card-desc">紅黃藍三原色配圓三角方塊的幾何構成，1920s 德國學院派。</p>
       <div class="card-tags"><span class="card-tag">1920s</span><span class="card-tag">geometric</span><span class="card-tag">primary</span></div>
@@ -375,42 +398,42 @@
     <div class="en">Experimental · 6 styles</div>
   </div>
   <div class="grid cluster-experimental">
-    <article class="card"><div class="card-thumb"><span class="cat-tag">實驗前衛</span><span class="id-num">C12</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c12.png" alt="C12 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">實驗前衛</span><span class="id-num">C12</span></div><div class="card-body">
       <div class="card-zh">野獸派</div><div class="card-en">Brutalism</div>
       <p class="card-desc">裸露結構、強烈對比與粗暴排版的反 UX 設計哲學。</p>
       <div class="card-tags"><span class="card-tag">raw</span><span class="card-tag">monospace</span><span class="card-tag">anti-design</span></div>
       <div class="card-cta">📄 子頁待開</div>
     </div></article>
 
-    <article class="card"><div class="card-thumb"><span class="cat-tag">實驗前衛</span><span class="id-num">C13</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c13.png" alt="C13 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">實驗前衛</span><span class="id-num">C13</span></div><div class="card-body">
       <div class="card-zh">故障藝術</div><div class="card-en">Glitch Art</div>
       <p class="card-desc">RGB 錯位、掃描線與隨機破碎的數位失真美學。</p>
       <div class="card-tags"><span class="card-tag">rgb-shift</span><span class="card-tag">distortion</span><span class="card-tag">noise</span></div>
       <div class="card-cta">📄 子頁待開</div>
     </div></article>
 
-    <article class="card card-live"><a href="works/c14-cyberpunk/index.html" style="text-decoration:none; color:inherit; display:flex; flex-direction:column; height:100%;"><div class="card-thumb"><span class="cat-tag">實驗前衛</span><span class="id-num">C14</span></div><div class="card-body">
+    <article class="card card-live"><a href="works/c14-cyberpunk/index.html" style="text-decoration:none; color:inherit; display:flex; flex-direction:column; height:100%;"><div class="card-thumb has-img"><img src="images/thumbs/c14.png" alt="C14 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">實驗前衛</span><span class="id-num">C14</span></div><div class="card-body">
       <div class="card-zh">賽博龐克</div><div class="card-en">Cyberpunk</div>
       <p class="card-desc">霓虹粉藍配黑底、片假名與發光邊框的高科技反烏托邦視覺。</p>
       <div class="card-tags"><span class="card-tag">neon</span><span class="card-tag">dystopia</span><span class="card-tag">tech-noir</span></div>
       <div class="card-cta" style="color: var(--accent);">📄 進入 C14 demo →</div>
     </div></a></article>
 
-    <article class="card"><div class="card-thumb"><span class="cat-tag">實驗前衛</span><span class="id-num">C15</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c15.png" alt="C15 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">實驗前衛</span><span class="id-num">C15</span></div><div class="card-body">
       <div class="card-zh">構成主義</div><div class="card-en">Constructivism</div>
       <p class="card-desc">紅黑斜切構圖與宣傳海報語法的俄式前衛排版。</p>
       <div class="card-tags"><span class="card-tag">russian</span><span class="card-tag">propaganda</span><span class="card-tag">diagonal</span></div>
       <div class="card-cta">📄 子頁待開</div>
     </div></article>
 
-    <article class="card"><div class="card-thumb"><span class="cat-tag">實驗前衛</span><span class="id-num">C16</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c16.png" alt="C16 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">實驗前衛</span><span class="id-num">C16</span></div><div class="card-body">
       <div class="card-zh">ASCII 終端機</div><div class="card-en">ASCII Terminal</div>
       <p class="card-desc">綠底螢光字、ASCII art 與 80×24 終端機網格的純文字美學。</p>
       <div class="card-tags"><span class="card-tag">monospace</span><span class="card-tag">green-phosphor</span><span class="card-tag">cli</span></div>
       <div class="card-cta">📄 子頁待開</div>
     </div></article>
 
-    <article class="card"><div class="card-thumb"><span class="cat-tag">實驗前衛</span><span class="id-num">C17</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c17.png" alt="C17 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">實驗前衛</span><span class="id-num">C17</span></div><div class="card-body">
       <div class="card-zh">雜誌排版</div><div class="card-en">Editorial Magazine</div>
       <p class="card-desc">12 欄網格、粗襯線標題與圖文混排的傳統雜誌排版邏輯。</p>
       <div class="card-tags"><span class="card-tag">print</span><span class="card-tag">serif</span><span class="card-tag">grid</span></div>
@@ -427,35 +450,35 @@
     <div class="en">Cultural · 5 styles</div>
   </div>
   <div class="grid cluster-cultural">
-    <article class="card"><div class="card-thumb"><span class="cat-tag">文化在地</span><span class="id-num">C18</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c18.png" alt="C18 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">文化在地</span><span class="id-num">C18</span></div><div class="card-body">
       <div class="card-zh">日式禪意</div><div class="card-en">Wabi-Sabi</div>
       <p class="card-desc">米色紙質、墨筆觸與不完美留白的日式侘寂美學。</p>
       <div class="card-tags"><span class="card-tag">japan</span><span class="card-tag">minimal</span><span class="card-tag">natural</span></div>
       <div class="card-cta">📄 子頁待開</div>
     </div></article>
 
-    <article class="card"><div class="card-thumb"><span class="cat-tag">文化在地</span><span class="id-num">C19</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c19.png" alt="C19 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">文化在地</span><span class="id-num">C19</span></div><div class="card-body">
       <div class="card-zh">中國風國潮</div><div class="card-en">Chinoiserie / Guochao</div>
       <p class="card-desc">硃紅墨黑、宋體字配水墨點綴的中式古典與當代潮流融合。</p>
       <div class="card-tags"><span class="card-tag">china</span><span class="card-tag">traditional</span><span class="card-tag">modern-fusion</span></div>
       <div class="card-cta">📄 子頁待開</div>
     </div></article>
 
-    <article class="card"><div class="card-thumb"><span class="cat-tag">文化在地</span><span class="id-num">C20</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c20.png" alt="C20 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">文化在地</span><span class="id-num">C20</span></div><div class="card-body">
       <div class="card-zh">北歐極簡</div><div class="card-en">Scandinavian</div>
       <p class="card-desc">木質暖灰、無襯線清爽字體與北歐插畫的自然森林感。</p>
       <div class="card-tags"><span class="card-tag">nordic</span><span class="card-tag">cozy</span><span class="card-tag">natural</span></div>
       <div class="card-cta">📄 子頁待開</div>
     </div></article>
 
-    <article class="card"><div class="card-thumb"><span class="cat-tag">文化在地</span><span class="id-num">C21</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c21.png" alt="C21 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">文化在地</span><span class="id-num">C21</span></div><div class="card-body">
       <div class="card-zh">瑞士國際風格</div><div class="card-en">Swiss International</div>
       <p class="card-desc">左對齊網格、Helvetica 與紅色強調的二戰後理性排版革命。</p>
       <div class="card-tags"><span class="card-tag">grid</span><span class="card-tag">helvetica</span><span class="card-tag">sans-serif</span></div>
       <div class="card-cta">📄 子頁待開</div>
     </div></article>
 
-    <article class="card"><div class="card-thumb"><span class="cat-tag">文化在地</span><span class="id-num">C22</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c22.png" alt="C22 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">文化在地</span><span class="id-num">C22</span></div><div class="card-body">
       <div class="card-zh">台灣廟會</div><div class="card-en">Taiwan Temple Carnival</div>
       <p class="card-desc">霓虹招牌、紅黃對比與民俗符號的台灣在地熱鬧視覺。</p>
       <div class="card-tags"><span class="card-tag">taiwan</span><span class="card-tag">folk</span><span class="card-tag">festive</span></div>
@@ -472,21 +495,21 @@
     <div class="en">Decorative · 3 styles</div>
   </div>
   <div class="grid cluster-decorative">
-    <article class="card"><div class="card-thumb"><span class="cat-tag">裝飾性</span><span class="id-num">C23</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c23.png" alt="C23 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">裝飾性</span><span class="id-num">C23</span></div><div class="card-body">
       <div class="card-zh">等距 3D</div><div class="card-en">Isometric 3D</div>
       <p class="card-desc">30 度斜角立體插畫、玩具世界與小人物構圖。</p>
       <div class="card-tags"><span class="card-tag">3d</span><span class="card-tag">illustration</span><span class="card-tag">colorful</span></div>
       <div class="card-cta">📄 子頁待開</div>
     </div></article>
 
-    <article class="card"><div class="card-thumb"><span class="cat-tag">裝飾性</span><span class="id-num">C24</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c24.png" alt="C24 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">裝飾性</span><span class="id-num">C24</span></div><div class="card-body">
       <div class="card-zh">手繪塗鴉</div><div class="card-en">Hand-Drawn Sketch</div>
       <p class="card-desc">蠟筆、歪斜手寫字與隨意箭頭的人工速寫感。</p>
       <div class="card-tags"><span class="card-tag">sketch</span><span class="card-tag">doodle</span><span class="card-tag">human</span></div>
       <div class="card-cta">📄 子頁待開</div>
     </div></article>
 
-    <article class="card"><div class="card-thumb"><span class="cat-tag">裝飾性</span><span class="id-num">C25</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c25.png" alt="C25 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">裝飾性</span><span class="id-num">C25</span></div><div class="card-body">
       <div class="card-zh">漸層 Mesh</div><div class="card-en">Gradient Mesh</div>
       <p class="card-desc">流動曲線漸層、極光色彩與柔光球體的液態畫布。</p>
       <div class="card-tags"><span class="card-tag">gradient</span><span class="card-tag">aurora</span><span class="card-tag">fluid</span></div>
@@ -505,21 +528,21 @@
 
   <h3 style="font-family: var(--serif); font-weight: 400; font-size: 18px; color: var(--ink-2); letter-spacing: 0.05em; margin: 8px 0 18px;">06 ▸ 視差 <span style="font-family: var(--num); font-style: italic; font-size: 13px; color: var(--ink-3);">Parallax</span></h3>
   <div class="grid cluster-motion">
-    <article class="card"><div class="card-thumb"><span class="cat-tag">視差</span><span class="id-num">C26</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/m26.png" alt="C26 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">視差</span><span class="id-num">C26</span></div><div class="card-body">
       <div class="card-zh">多層視差</div><div class="card-en">Parallax Layers</div>
       <p class="card-desc">滾動時多層元素以不同速度位移，呈現縱深感。</p>
       <div class="card-tags"><span class="card-tag">parallax</span><span class="card-tag">depth</span><span class="card-tag">mountain</span></div>
       <div class="card-cta">📄 子頁待開</div>
     </div></article>
 
-    <article class="card"><div class="card-thumb"><span class="cat-tag">視差</span><span class="id-num">C27</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/m27.png" alt="C27 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">視差</span><span class="id-num">C27</span></div><div class="card-body">
       <div class="card-zh">Sticky 堆疊章節</div><div class="card-en">Sticky Stack</div>
       <p class="card-desc">章節先被釘住、再被下一章從底部疊上的堆疊滾動模式。</p>
       <div class="card-tags"><span class="card-tag">sticky</span><span class="card-tag">stack</span><span class="card-tag">apple-style</span></div>
       <div class="card-cta">📄 子頁待開</div>
     </div></article>
 
-    <article class="card"><div class="card-thumb"><span class="cat-tag">視差</span><span class="id-num">C28</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/m28.png" alt="C28 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">視差</span><span class="id-num">C28</span></div><div class="card-body">
       <div class="card-zh">橫向滾動陣容</div><div class="card-en">Horizontal Scroll</div>
       <p class="card-desc">垂直滾動轉換為內容區段的橫向滑動位移。</p>
       <div class="card-tags"><span class="card-tag">horizontal</span><span class="card-tag">scroll-translate</span><span class="card-tag">lineup</span></div>
@@ -529,21 +552,21 @@
 
   <h3 style="font-family: var(--serif); font-weight: 400; font-size: 18px; color: var(--ink-2); letter-spacing: 0.05em; margin: 40px 0 18px;">07 ▸ 滾動 <span style="font-family: var(--num); font-style: italic; font-size: 13px; color: var(--ink-3);">Scroll</span></h3>
   <div class="grid cluster-motion">
-    <article class="card"><div class="card-thumb"><span class="cat-tag">滾動</span><span class="id-num">C29</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/m29.png" alt="C29 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">滾動</span><span class="id-num">C29</span></div><div class="card-body">
       <div class="card-zh">全屏章節切換</div><div class="card-en">Scroll Snap Acts</div>
       <p class="card-desc">每個區段佔滿視窗、scroll-snap 強制吸附的章節切換。</p>
       <div class="card-tags"><span class="card-tag">scroll-snap</span><span class="card-tag">fullscreen</span><span class="card-tag">cinematic</span></div>
       <div class="card-cta">📄 子頁待開</div>
     </div></article>
 
-    <article class="card"><div class="card-thumb"><span class="cat-tag">滾動</span><span class="id-num">C30</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/m30.png" alt="C30 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">滾動</span><span class="id-num">C30</span></div><div class="card-body">
       <div class="card-zh">滾動進度指示</div><div class="card-en">Scroll Progress</div>
       <p class="card-desc">頂部 progress bar 與側邊章節點陣指示當前閱讀位置。</p>
       <div class="card-tags"><span class="card-tag">progress-bar</span><span class="card-tag">indicator</span><span class="card-tag">navigation</span></div>
       <div class="card-cta">📄 子頁待開</div>
     </div></article>
 
-    <article class="card"><div class="card-thumb"><span class="cat-tag">滾動</span><span class="id-num">C31</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/m31.png" alt="C31 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">滾動</span><span class="id-num">C31</span></div><div class="card-body">
       <div class="card-zh">滾動跑馬燈</div><div class="card-en">Marquee Band</div>
       <p class="card-desc">大字橫向跑動、速度依滾動而調變的 marquee 效果。</p>
       <div class="card-tags"><span class="card-tag">marquee</span><span class="card-tag">speed-modulated</span><span class="card-tag">lineup</span></div>
@@ -553,21 +576,21 @@
 
   <h3 style="font-family: var(--serif); font-weight: 400; font-size: 18px; color: var(--ink-2); letter-spacing: 0.05em; margin: 40px 0 18px;">08 ▸ 入場 <span style="font-family: var(--num); font-style: italic; font-size: 13px; color: var(--ink-3);">Entrance</span></h3>
   <div class="grid cluster-motion">
-    <article class="card"><div class="card-thumb"><span class="cat-tag">入場</span><span class="id-num">C32</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/m32.png" alt="C32 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">入場</span><span class="id-num">C32</span></div><div class="card-body">
       <div class="card-zh">錯落淡入</div><div class="card-en">Fade Stagger</div>
       <p class="card-desc">卡片進入視窗時依序錯落淡入位移的波浪入場。</p>
       <div class="card-tags"><span class="card-tag">intersection-observer</span><span class="card-tag">stagger</span><span class="card-tag">wave</span></div>
       <div class="card-cta">📄 子頁待開</div>
     </div></article>
 
-    <article class="card"><div class="card-thumb"><span class="cat-tag">入場</span><span class="id-num">C33</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/m33.png" alt="C33 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">入場</span><span class="id-num">C33</span></div><div class="card-body">
       <div class="card-zh">打字機標題</div><div class="card-en">Typewriter</div>
       <p class="card-desc">Hero 標題以打字機節奏一字一字浮現，段落隨之滑入。</p>
       <div class="card-tags"><span class="card-tag">typewriter</span><span class="card-tag">cursor-blink</span><span class="card-tag">hero</span></div>
       <div class="card-cta">📄 子頁待開</div>
     </div></article>
 
-    <article class="card"><div class="card-thumb"><span class="cat-tag">入場</span><span class="id-num">C34</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/m34.png" alt="C34 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">入場</span><span class="id-num">C34</span></div><div class="card-body">
       <div class="card-zh">數字爆裂計數</div><div class="card-en">Counter Burst</div>
       <p class="card-desc">數字在滾入視窗時從 0 動畫跳動至目標值。</p>
       <div class="card-tags"><span class="card-tag">counter</span><span class="card-tag">animate-numeric</span><span class="card-tag">about</span></div>
@@ -577,21 +600,21 @@
 
   <h3 style="font-family: var(--serif); font-weight: 400; font-size: 18px; color: var(--ink-2); letter-spacing: 0.05em; margin: 40px 0 18px;">09 ▸ 循環 <span style="font-family: var(--num); font-style: italic; font-size: 13px; color: var(--ink-3);">Loop</span></h3>
   <div class="grid cluster-motion">
-    <article class="card"><div class="card-thumb"><span class="cat-tag">循環</span><span class="id-num">C35</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/m35.png" alt="C35 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">循環</span><span class="id-num">C35</span></div><div class="card-body">
       <div class="card-zh">極光漸層流動</div><div class="card-en">Aurora Flow</div>
       <p class="card-desc">多色 radial-gradient 球體以長 loop 緩慢流動。</p>
       <div class="card-tags"><span class="card-tag">gradient</span><span class="card-tag">aurora</span><span class="card-tag">keyframes</span></div>
       <div class="card-cta">📄 子頁待開</div>
     </div></article>
 
-    <article class="card"><div class="card-thumb"><span class="cat-tag">循環</span><span class="id-num">C36</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/m36.png" alt="C36 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">循環</span><span class="id-num">C36</span></div><div class="card-body">
       <div class="card-zh">漂浮幾何球</div><div class="card-en">Floating Orbs</div>
       <p class="card-desc">背景幾何形體上下漂浮、速度時快時慢的呼吸感。</p>
       <div class="card-tags"><span class="card-tag">floating</span><span class="card-tag">orbs</span><span class="card-tag">background</span></div>
       <div class="card-cta">📄 子頁待開</div>
     </div></article>
 
-    <article class="card"><div class="card-thumb"><span class="cat-tag">循環</span><span class="id-num">C37</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/m37.png" alt="C37 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">循環</span><span class="id-num">C37</span></div><div class="card-body">
       <div class="card-zh">動態噪點</div><div class="card-en">Noise Grain</div>
       <p class="card-desc">動態膠片顆粒疊加緩慢色相旋轉的舊膠卷質感。</p>
       <div class="card-tags"><span class="card-tag">noise</span><span class="card-tag">film-grain</span><span class="card-tag">hue-rotate</span></div>
@@ -601,21 +624,21 @@
 
   <h3 style="font-family: var(--serif); font-weight: 400; font-size: 18px; color: var(--ink-2); letter-spacing: 0.05em; margin: 40px 0 18px;">10 ▸ 指標 <span style="font-family: var(--num); font-style: italic; font-size: 13px; color: var(--ink-3);">Cursor</span></h3>
   <div class="grid cluster-motion">
-    <article class="card"><div class="card-thumb"><span class="cat-tag">指標</span><span class="id-num">C38</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/m38.png" alt="C38 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">指標</span><span class="id-num">C38</span></div><div class="card-body">
       <div class="card-zh">滑鼠光暈</div><div class="card-en">Cursor Spotlight</div>
       <p class="card-desc">光暈隨滑鼠位置移動的局部 radial-gradient 照明。</p>
       <div class="card-tags"><span class="card-tag">cursor</span><span class="card-tag">spotlight</span><span class="card-tag">radial-gradient</span></div>
       <div class="card-cta">📄 子頁待開</div>
     </div></article>
 
-    <article class="card"><div class="card-thumb"><span class="cat-tag">指標</span><span class="id-num">C39</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/m39.png" alt="C39 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">指標</span><span class="id-num">C39</span></div><div class="card-body">
       <div class="card-zh">3D 傾斜卡片</div><div class="card-en">Tilt Cards</div>
       <p class="card-desc">卡片依滑鼠位置 3D 傾斜的 perspective 觸感互動。</p>
       <div class="card-tags"><span class="card-tag">3d-transform</span><span class="card-tag">mouse-tilt</span><span class="card-tag">perspective</span></div>
       <div class="card-cta">📄 子頁待開</div>
     </div></article>
 
-    <article class="card"><div class="card-thumb"><span class="cat-tag">指標</span><span class="id-num">C40</span></div><div class="card-body">
+    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/m40.png" alt="C40 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">指標</span><span class="id-num">C40</span></div><div class="card-body">
       <div class="card-zh">磁吸按鈕</div><div class="card-en">Magnetic CTA</div>
       <p class="card-desc">按鈕在滑鼠靠近時被輕微吸過去的磁吸物件效果。</p>
       <div class="card-tags"><span class="card-tag">magnetic</span><span class="card-tag">attraction</span><span class="card-tag">cta</span></div>
