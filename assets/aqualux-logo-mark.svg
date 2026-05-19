@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- aqualux personal brand mark · 無 tagline 版 · SVG (currentColor adaptive)
+     用法：個人品牌、topbar、hero、單獨識別。
+     完整 tagline 版見 aqualux-logo.svg
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 280" fill="currentColor" aria-label="aqualux">
+  <defs>
+    <style>
+      .word { font-family: 'Inter','Helvetica Neue','Arial',sans-serif; font-weight: 300; font-size: 140px; letter-spacing: 6px; }
+    </style>
+  </defs>
+  <text class="word" x="300" y="135" text-anchor="middle">aqualux</text>
+  <line x1="80" y1="165" x2="520" y2="165" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+  <g transform="translate(0, 330) scale(1, -1)" opacity="0.28">
+    <text class="word" x="300" y="135" text-anchor="middle">aqualux</text>
+  </g>
+</svg>

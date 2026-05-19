@@ -2,38 +2,54 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>aqualux 設計光譜 · 40 風格圖鑑</title>
-<meta name="description" content="40 種設計風格的 aqualux 版圖鑑。25 種視覺風格 + 15 種動態效果，依用途分章。Curated by Chengchieh Huang.">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0a14">
+<title>設計光譜 · Design Spectrum · MMXXVI</title>
+<meta name="description" content="40 種設計流派的當代圖鑑。25 種視覺語言 + 15 種動態效果，給多事業體經營者、給 EMBA、給每一個要在『下一個專案該長什麼樣』做決策的人。Curated by Chengchieh Huang.">
 <meta name="author" content="Chengchieh Huang">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://design.aqualux.dev/">
+<meta property="og:title" content="設計光譜 · Design Spectrum · 40 Styles Codex">
+<meta property="og:description" content="40 種設計流派的當代策展圖鑑 · aqualux.dev">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://design.aqualux.dev/images/thumbs/c14.webp">
+<link rel="canonical" href="https://design.aqualux.dev/">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="設計光譜 · Design Spectrum">
+<meta name="twitter:description" content="40 種設計流派的當代策展圖鑑 · aqualux.dev">
+<meta name="twitter:image" content="https://design.aqualux.dev/images/thumbs/c14.webp">
+
+<link rel="icon" type="image/svg+xml" href="assets/aqualux-logo-mark.svg">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500;700&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 
 <style>
   :root {
-    --bg: #ffffff;
+    --bg: #0a0a14;
+    --bg-2: #14141f;
+    --bg-3: #1c1c2a;
     --paper: #fafaf5;
-    --paper-deep: #f3f0e8;
-    --ink: #1a1a1a;
-    --ink-2: #4a4a4a;
-    --ink-3: #8a8a8a;
-    --ink-4: #c8c6c0;
-    --accent: #5c7a9a;
-    --accent-soft: rgba(92, 122, 154, 0.08);
-    --line: #e8e6e0;
-    --line-soft: #f0eee8;
+    --ink: #f5f5f5;
+    --ink-2: #c0c0d0;
+    --ink-3: #80808e;
+    --ink-4: #50505e;
+    --accent: #38a8ff;  /* alias of --hue4 (2026-05-19: 統一冷藍) */
+    --accent-2: #88aaff;
+    --hue1: #ff3a6b;
+    --hue2: #ffb340;
+    --hue3: #2bd4a5;
+    --hue4: #38a8ff;
+    --hue5: #a960ff;
+    --line: rgba(255,255,255,0.08);
+    --line-soft: rgba(255,255,255,0.04);
     --serif: 'Noto Serif TC', 'Source Han Serif TC', 'Songti TC', serif;
     --sans: 'Noto Sans TC', 'PingFang TC', -apple-system, sans-serif;
-    --num: 'Cormorant Garamond', 'Noto Serif TC', serif;
-
-    --cat-mainstream: #5c7a9a;
-    --cat-retro: #b08868;
-    --cat-experimental: #8c6b94;
-    --cat-cultural: #6d8a7a;
-    --cat-decorative: #c89464;
-    --cat-motion: #707070;
+    --display: 'Cormorant Garamond', 'Noto Serif TC', serif;
+    --mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
@@ -42,632 +58,1033 @@
     color: var(--ink);
     font-family: var(--sans);
     line-height: 1.7;
-    font-size: 15px;
+    font-size: 15.5px;
+    overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
-  a { color: var(--ink); text-decoration: none; }
-  a:hover { color: var(--accent); }
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--hue4); color: var(--bg); }
 
-  /* Progress bar */
-  .progress { position: fixed; top: 0; left: 0; height: 2px; background: var(--accent); z-index: 100; width: 0; transition: width 0.1s linear; }
-
-  /* Hero */
-  .hero { padding: 120px 40px 60px; text-align: center; max-width: 960px; margin: 0 auto; }
-  .eyebrow { font-family: var(--num); font-style: italic; font-size: 15px; color: var(--ink-3); letter-spacing: 0.1em; margin-bottom: 28px; }
-  .hero h1 {
-    font-family: var(--serif); font-weight: 300;
-    font-size: clamp(56px, 10vw, 96px);
-    letter-spacing: 0.1em; line-height: 1.1;
-    margin-bottom: 24px;
+  @media (prefers-reduced-motion: reduce) {
+    *,*::before,*::after { animation: none !important; transition: none !important; }
   }
-  .hero-sub { font-family: var(--num); font-style: italic; font-size: 20px; color: var(--ink-2); letter-spacing: 0.05em; margin-bottom: 30px; }
-  .hero-desc {
-    font-family: var(--serif); color: var(--ink-2); font-size: 16px;
-    max-width: 560px; margin: 0 auto; line-height: 1.85; letter-spacing: 0.02em;
-  }
-  .hero-meta { font-family: var(--num); font-size: 13px; color: var(--ink-3); letter-spacing: 0.12em; margin-top: 36px; }
-  .hero-meta strong { color: var(--ink-2); font-weight: 500; }
-  .hero-meta .num-em { font-family: var(--num); font-style: italic; font-size: 18px; color: var(--ink); font-weight: 400; }
 
-  /* Nav */
-  .nav-wrap {
-    position: sticky; top: 0;
-    background: rgba(255, 255, 255, 0.92);
+  /* Scroll Progress (motion C30 dogfood) */
+  .progress {
+    position: fixed; top: 0; left: 0; height: 2px;
+    background: linear-gradient(90deg, var(--hue1), var(--hue2), var(--hue3), var(--hue4), var(--hue5));
+    z-index: 200; width: 0;
+    transition: width 0.1s linear;
+  }
+
+  /* Top bar */
+  .topbar {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 22px 32px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--mono); font-size: 11.5px;
+    color: var(--ink-3); letter-spacing: 0.18em;
     backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    background: rgba(10,10,20,0.4);
+    border-bottom: 1px solid var(--line-soft);
+    margin-top: 2px;
+  }
+  .topbar a { padding: 6px 4px; min-height: 32px; display: inline-flex; align-items: center; }
+  .topbar a:hover { color: var(--ink); }
+  .topbar .right { display: flex; gap: 22px; align-items: center; }
+  .topbar .left { display: flex; align-items: center; gap: 14px; color: var(--ink-3); }
+  .topbar-logo {
+    height: 26px; width: auto; display: block;
+    color: var(--ink-2);
+    transition: color 0.2s ease;
+  }
+  .topbar-logo:hover { color: var(--ink); }
+
+  /* Hero logo (SVG, currentColor — floats on dark bg) */
+  .hero-logo {
+    margin: 0 auto 56px;
+    max-width: 320px;
+    display: block;
+    color: var(--ink);
+    opacity: 0; animation: rise 1.6s 0.1s ease forwards;
+  }
+  .hero-logo svg { width: 100%; height: auto; display: block; }
+
+  /* Footer logo (full version with tagline) */
+  .footer-logo {
+    max-width: 280px;
+    margin: 0 auto 28px;
+    display: block;
+    color: var(--ink-2);
+  }
+  .footer-logo svg { width: 100%; height: auto; display: block; }
+
+  /* Hero — Aurora Flow (motion C35 dogfood) */
+  .hero {
+    min-height: 100vh; /* fallback */
+    min-height: 100svh;
+    position: relative;
+    overflow: hidden;
+    display: grid; place-items: center;
+    isolation: isolate;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: -25%;
+    background:
+      radial-gradient(ellipse 40% 60% at 20% 20%, var(--hue1) 0%, transparent 60%),
+      radial-gradient(ellipse 35% 50% at 80% 30%, var(--hue4) 0%, transparent 65%),
+      radial-gradient(ellipse 45% 55% at 60% 80%, var(--hue5) 0%, transparent 60%),
+      radial-gradient(ellipse 30% 40% at 30% 90%, var(--hue3) 0%, transparent 65%),
+      radial-gradient(ellipse 25% 35% at 90% 70%, var(--hue2) 0%, transparent 65%);
+    filter: blur(80px) saturate(1.15);
+    opacity: 0.55;
+    z-index: -2;
+    animation: aurora 28s ease-in-out infinite alternate;
+  }
+  .hero::after {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at center, transparent 30%, rgba(10,10,20,0.6) 75%),
+      linear-gradient(180deg, transparent 75%, var(--bg) 100%);
+    z-index: -1;
+  }
+  @keyframes aurora {
+    0%   { transform: translate(0%, 0%) rotate(0deg) scale(1); }
+    33%  { transform: translate(-3%, 2%) rotate(7deg) scale(1.08); }
+    66%  { transform: translate(2%, -3%) rotate(-5deg) scale(0.96); }
+    100% { transform: translate(0%, 0%) rotate(0deg) scale(1); }
+  }
+  .hero-grain {
+    position: absolute; inset: 0; z-index: -1;
+    background-image:
+      radial-gradient(circle 1px at 10% 20%, rgba(255,255,255,0.04) 1px, transparent 0),
+      radial-gradient(circle 1px at 30% 80%, rgba(255,255,255,0.03) 1px, transparent 0),
+      radial-gradient(circle 1px at 70% 35%, rgba(255,255,255,0.04) 1px, transparent 0),
+      radial-gradient(circle 1px at 90% 60%, rgba(255,255,255,0.03) 1px, transparent 0);
+    background-size: 200px 200px;
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    text-align: center;
+    padding: 40px 32px;
+    max-width: 1080px;
+    z-index: 2; position: relative;
+  }
+  .hero-eyebrow {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--ink-2); letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 56px;
+    opacity: 0; animation: rise 1.6s 0.2s ease forwards;
+  }
+  .hero-eyebrow::before {
+    content: '◆'; margin-right: 14px; color: var(--hue4);
+  }
+  .hero h1 {
+    font-family: var(--display); font-weight: 300;
+    font-size: clamp(96px, 22vw, 240px);
+    line-height: 0.92; letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 28px;
+    opacity: 0; animation: rise 1.8s 0.4s cubic-bezier(0.2,0.7,0.2,1) forwards;
+  }
+  .hero h1 em {
+    font-style: italic;
+    background: linear-gradient(135deg, var(--hue1) 0%, var(--hue2) 25%, var(--hue3) 50%, var(--hue4) 75%, var(--hue5) 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    background-size: 200% 200%;
+    animation: spectrum-shift 8s ease-in-out infinite;
+  }
+  @keyframes spectrum-shift {
+    0%,100% { background-position: 0% 50%; }
+    50%     { background-position: 100% 50%; }
+  }
+  .hero h1 .punct {
+    font-family: var(--serif); font-size: 0.4em; color: var(--ink-3);
+    vertical-align: super; font-weight: 300;
+  }
+  .hero-sub {
+    font-family: var(--display); font-style: italic;
+    font-size: clamp(20px, 2.4vw, 28px);
+    color: var(--ink-2); letter-spacing: 0.04em;
+    margin-bottom: 64px;
+    opacity: 0; animation: rise 1.6s 0.6s ease forwards;
+  }
+  .hero-meta {
+    font-family: var(--mono); font-size: 11.5px;
+    color: var(--ink-3); letter-spacing: 0.25em;
+    text-transform: uppercase;
+    display: inline-flex; gap: 22px;
+    opacity: 0; animation: rise 1.6s 0.9s ease forwards;
+  }
+  .hero-meta .sep { color: var(--ink-4); }
+  .hero-meta b { color: var(--ink-2); font-weight: 400; }
+
+  .scroll-cue {
+    position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+    font-family: var(--mono); font-size: 11.5px;
+    color: var(--ink-2); letter-spacing: 0.32em;
+    padding: 8px 16px;
+    border: 1px solid var(--line);
+    background: rgba(10,10,20,0.4);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    opacity: 0;
+    animation: rise 1.6s 1.5s ease forwards, pulse 2.4s 2s ease-in-out infinite;
+  }
+  @keyframes rise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes pulse { 0%,100% { opacity: 0.5; transform: translate(-50%, 0); } 50% { opacity: 1; transform: translate(-50%, 4px); } }
+
+  /* Stats (Counter Burst motion C34 dogfood) */
+  .stats {
+    padding: 100px 32px 80px;
+    max-width: 1280px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
     border-bottom: 1px solid var(--line);
-    z-index: 50;
-    margin-top: 64px;
+  }
+  .stat {
+    text-align: center;
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .stat.in { opacity: 1; transform: translateY(0); }
+  .stat .num {
+    font-family: var(--display); font-weight: 400;
+    font-size: clamp(64px, 9vw, 120px);
+    line-height: 1; color: var(--ink);
+    display: block; margin-bottom: 14px;
+    font-feature-settings: "lnum" 1, "tnum" 1;
+  }
+  .stat:nth-child(1) .num em { background: linear-gradient(135deg, var(--hue1), var(--hue2)); -webkit-background-clip: text; background-clip: text; color: transparent; font-style: normal; }
+  .stat:nth-child(2) .num em { background: linear-gradient(135deg, var(--hue2), var(--hue3)); -webkit-background-clip: text; background-clip: text; color: transparent; font-style: normal; }
+  .stat:nth-child(3) .num em { background: linear-gradient(135deg, var(--hue3), var(--hue4)); -webkit-background-clip: text; background-clip: text; color: transparent; font-style: normal; }
+  .stat:nth-child(4) .num em { background: linear-gradient(135deg, var(--hue4), var(--hue5)); -webkit-background-clip: text; background-clip: text; color: transparent; font-style: normal; }
+  .stat .label {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--ink-3); letter-spacing: 0.25em;
+    text-transform: uppercase;
+  }
+  @media (max-width: 720px) { .stats { grid-template-columns: 1fr 1fr; gap: 24px; padding: 64px 24px 48px; } }
+
+  /* Curatorial statement */
+  .statement {
+    padding: 120px 32px 100px;
+    max-width: 880px; margin: 0 auto;
+    position: relative;
+  }
+  .statement-eyebrow {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--accent-2); letter-spacing: 0.3em;
+    text-transform: uppercase; margin-bottom: 36px;
+  }
+  .statement-eyebrow::before { content: '/ '; color: var(--ink-4); }
+  .statement h2 {
+    font-family: var(--display); font-weight: 400; font-style: italic;
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 1.2; color: var(--ink);
+    margin-bottom: 40px; letter-spacing: -0.005em;
+  }
+  .statement h2 em { font-style: normal; color: var(--hue3); }
+  .statement p {
+    font-family: var(--serif); font-size: 17.5px; line-height: 2;
+    color: var(--ink-2); margin-bottom: 24px; letter-spacing: 0.02em;
+  }
+  .statement p:last-of-type { margin-bottom: 0; }
+  .statement .emp { color: var(--ink); font-weight: 500; }
+  .statement .pull {
+    font-family: var(--display); font-style: italic;
+    font-size: 22px; color: var(--ink);
+    margin: 36px 0;
+    padding: 24px 0 24px 28px;
+    border-left: 2px solid var(--hue4);
+    line-height: 1.7;
+  }
+
+  /* Cluster nav (sticky) */
+  .nav-wrap {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(10,10,20,0.78);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border-top: 1px solid var(--line-soft);
+    border-bottom: 1px solid var(--line);
   }
   .nav {
-    max-width: 1200px; margin: 0 auto;
-    padding: 16px 32px;
+    max-width: 1280px; margin: 0 auto;
+    padding: 18px 32px;
     display: flex; flex-wrap: wrap; justify-content: center;
-    gap: 4px 24px;
-    font-family: var(--serif); font-size: 14px;
+    gap: 6px 30px;
+    font-family: var(--display); font-style: italic;
+    font-size: 15.5px;
   }
-  .nav a { color: var(--ink-3); letter-spacing: 0.05em; padding: 2px 0; }
+  .nav a {
+    color: var(--ink-3);
+    padding: 6px 0;
+    border-bottom: 1px solid transparent;
+    letter-spacing: 0.04em;
+    transition: color 0.2s, border-color 0.2s;
+    white-space: nowrap;
+  }
   .nav a:hover { color: var(--ink); }
-  .nav-count { font-family: var(--num); font-size: 11px; color: var(--ink-4); margin-left: 3px; vertical-align: super; }
-
-  /* Main */
-  main { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
-
-  /* Chapters */
-  .chapter { margin-top: 80px; scroll-margin-top: 80px; }
-  .chapter-head { padding-bottom: 18px; border-bottom: 1px solid var(--line); margin-bottom: 36px; }
-  .chapter-head .num {
-    font-family: var(--num); font-style: italic; font-size: 14px;
-    color: var(--ink-4); letter-spacing: 0.15em;
-  }
-  .chapter-head h2 {
-    font-family: var(--serif); font-weight: 400; font-size: 30px;
-    letter-spacing: 0.06em; color: var(--ink); margin-top: 6px;
-  }
-  .chapter-head .en {
-    font-family: var(--num); font-style: italic; font-size: 14px;
-    color: var(--ink-3); margin-top: 4px; letter-spacing: 0.06em;
+  .nav a.active { color: var(--ink); border-bottom-color: var(--hue4); }
+  .nav-count {
+    font-family: var(--mono); font-style: normal;
+    font-size: 10px; color: var(--ink-4);
+    margin-left: 6px; vertical-align: super;
   }
 
-  /* Card grid */
+  /* Cluster sections */
+  main { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+  .cluster { padding: 110px 0 60px; scroll-margin-top: 72px; }
+  .cluster-head {
+    margin-bottom: 56px;
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 32px;
+    align-items: end;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 28px;
+  }
+  .cluster-num {
+    font-family: var(--display); font-weight: 300; font-style: italic;
+    font-size: clamp(80px, 10vw, 120px); line-height: 1;
+    color: var(--ink-4);
+    font-feature-settings: "lnum" 1, "tnum" 1;
+  }
+  .cluster-title { display: flex; flex-direction: column; }
+  .cluster-title .zh {
+    font-family: var(--serif); font-weight: 400;
+    font-size: clamp(32px, 4.5vw, 52px); letter-spacing: 0.04em;
+    color: var(--ink); line-height: 1.1;
+  }
+  .cluster-title .en {
+    font-family: var(--display); font-style: italic;
+    font-size: clamp(15px, 1.4vw, 19px);
+    color: var(--ink-3); letter-spacing: 0.04em;
+    margin-top: 8px;
+  }
+  .cluster-title .voice {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--accent-2); letter-spacing: 0.2em;
+    text-transform: uppercase; margin-top: 14px;
+  }
+  @media (max-width: 720px) {
+    .cluster-head { grid-template-columns: 1fr; gap: 12px; }
+    .cluster-num { font-size: 64px; }
+  }
+
+  /* Card grid + Fade Stagger (motion C32) + Tilt (motion C39) */
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 28px 24px;
+    gap: 28px 22px;
   }
   .card {
+    background: var(--bg-2);
     border: 1px solid var(--line);
-    background: var(--bg);
-    padding: 0;
-    transition: border-color 0.2s ease;
+    overflow: hidden;
     display: flex; flex-direction: column;
+    transition: border-color 0.3s ease, background 0.3s ease, transform 0.6s ease, opacity 0.6s ease;
+    opacity: 0; transform: translateY(28px);
+    transform-style: preserve-3d;
   }
-  .card:hover { border-color: var(--accent); }
+  .card.in { opacity: 1; transform: translateY(0); }
+  .card:hover { border-color: var(--accent-2); background: var(--bg-3); will-change: transform; }
+  .card a, .card .card-link { display: flex; flex-direction: column; height: 100%; color: inherit; }
   .card-thumb {
-    width: 100%; aspect-ratio: 4 / 3;
-    background: var(--paper);
-    border-bottom: 1px solid var(--line);
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--num); font-style: italic; font-size: 15px;
-    color: var(--ink-4); letter-spacing: 0.1em;
     position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--bg-3);
   }
-  .card-thumb::before {
-    content: ''; position: absolute;
-    top: 14px; left: 14px;
-    width: 28px; height: 1px; background: var(--accent);
+  .card-thumb img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%; object-fit: cover;
+    filter: saturate(1.02) brightness(0.96);
+    transition: transform 0.5s ease, filter 0.4s ease;
   }
-  .card-thumb .cat-tag {
-    position: absolute; top: 12px; right: 14px;
-    font-family: var(--num); font-style: italic; font-size: 11.5px;
-    color: var(--ink-3); letter-spacing: 0.08em;
+  .card:hover .card-thumb img { transform: scale(1.05); filter: saturate(1.1) brightness(1); }
+  .card-thumb::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 60%, rgba(10,10,20,0.6) 100%);
+    pointer-events: none;
   }
-  .card-thumb .id-num {
-    position: absolute; bottom: 12px; right: 14px;
-    font-family: var(--num); font-size: 13px; color: var(--ink-4);
-    letter-spacing: 0.06em;
+  .card-badge {
+    position: absolute; top: 12px; left: 12px;
+    font-family: var(--mono); font-size: 10px;
+    color: var(--ink); background: rgba(10,10,20,0.65);
+    backdrop-filter: blur(8px);
+    padding: 4px 10px;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    z-index: 2;
+  }
+  .card-id {
+    position: absolute; bottom: 10px; right: 12px;
+    font-family: var(--display); font-style: italic;
+    font-size: 13px; color: var(--ink-2);
+    letter-spacing: 0.05em;
+    z-index: 2;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.5);
   }
   .card-body { padding: 18px 18px 16px; flex: 1; display: flex; flex-direction: column; }
   .card-zh {
-    font-family: var(--serif); font-weight: 500; font-size: 17px;
-    letter-spacing: 0.03em; color: var(--ink); margin-bottom: 3px;
+    font-family: var(--serif); font-weight: 500;
+    font-size: 17.5px; color: var(--ink);
+    margin-bottom: 4px; letter-spacing: 0.02em; line-height: 1.3;
   }
   .card-en {
-    font-family: var(--num); font-style: italic; font-size: 13.5px;
-    color: var(--ink-3); margin-bottom: 12px; letter-spacing: 0.04em;
+    font-family: var(--display); font-style: italic;
+    font-size: 13.5px; color: var(--ink-3);
+    margin-bottom: 12px; letter-spacing: 0.04em;
   }
   .card-desc {
-    font-size: 13px; color: var(--ink-2); line-height: 1.7;
-    margin-bottom: 14px; flex: 1;
+    font-size: 12.5px; line-height: 1.7;
+    color: var(--ink-2); margin-bottom: 14px; flex: 1;
   }
-  .card-tags {
-    display: flex; flex-wrap: wrap; gap: 3px 12px;
-    margin-bottom: 14px;
-  }
+  .card-tags { display: flex; flex-wrap: wrap; gap: 3px 12px; margin-bottom: 12px; }
   .card-tag {
-    font-family: var(--num); font-style: italic; font-size: 12px;
-    color: var(--ink-3); letter-spacing: 0.04em;
+    font-family: var(--mono); font-size: 10.5px;
+    color: var(--ink-3); letter-spacing: 0.05em;
   }
   .card-tag::before { content: '#'; color: var(--ink-4); margin-right: 1px; }
   .card-cta {
-    font-family: var(--serif); font-size: 12.5px;
-    color: var(--ink-4); letter-spacing: 0.08em;
-    padding-top: 10px; border-top: 1px solid var(--line-soft);
+    padding-top: 10px; border-top: 1px solid var(--line);
+    font-family: var(--mono); font-size: 10.5px;
+    color: var(--ink-3); letter-spacing: 0.12em;
+    text-transform: uppercase;
   }
-  .card-cta a { color: var(--ink-3); }
-  .card-cta a:hover { color: var(--accent); }
+  .card.card-live .card-cta { color: var(--hue3); }
+  .card.card-live .card-cta::after { content: ' →'; }
+  .card.card-live { position: relative; }
+  .card.card-live::before {
+    content: 'LIVE';
+    position: absolute; top: 12px; right: 12px;
+    z-index: 3;
+    font-family: var(--mono); font-size: 9.5px; font-weight: 700;
+    background: var(--hue3); color: var(--bg);
+    padding: 3px 7px; letter-spacing: 0.2em;
+  }
 
-  /* Cluster color signal */
-  .cluster-mainstream .card-thumb { background: linear-gradient(135deg, #fafaf5 0%, #f0f4f8 100%); }
-  .cluster-mainstream .card-thumb::before { background: var(--cat-mainstream); }
-  .cluster-retro .card-thumb { background: linear-gradient(135deg, #fafaf5 0%, #f5ede4 100%); }
-  .cluster-retro .card-thumb::before { background: var(--cat-retro); }
-  .cluster-experimental .card-thumb { background: linear-gradient(135deg, #fafaf5 0%, #f0eaf2 100%); }
-  .cluster-experimental .card-thumb::before { background: var(--cat-experimental); }
-  .cluster-cultural .card-thumb { background: linear-gradient(135deg, #fafaf5 0%, #eaf2ec 100%); }
-  .cluster-cultural .card-thumb::before { background: var(--cat-cultural); }
-  .cluster-decorative .card-thumb { background: linear-gradient(135deg, #fafaf5 0%, #f7eee2 100%); }
-  .cluster-decorative .card-thumb::before { background: var(--cat-decorative); }
-  .cluster-motion .card-thumb { background: linear-gradient(135deg, #fafaf5 0%, #ebebeb 100%); }
-  .cluster-motion .card-thumb::before { background: var(--cat-motion); }
-
-  /* Hero img */
-  .hero-img-wrap { max-width: 360px; margin: 40px auto 0; padding: 0 24px; }
-  .hero-img-wrap img { display: block; width: 100%; height: auto; border: 1px solid var(--line); }
+  /* Motion subsection headers */
+  .submark {
+    margin: 56px 0 22px;
+    display: flex; align-items: baseline; gap: 18px;
+    border-bottom: 1px dashed var(--line);
+    padding-bottom: 14px;
+  }
+  .submark-num {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--accent-2); letter-spacing: 0.2em;
+  }
+  .submark-title {
+    font-family: var(--serif); font-weight: 400;
+    font-size: 22px; color: var(--ink); letter-spacing: 0.04em;
+  }
+  .submark-en {
+    font-family: var(--display); font-style: italic;
+    font-size: 14px; color: var(--ink-3); letter-spacing: 0.05em;
+  }
 
   /* Footer */
   footer {
-    margin-top: 140px; padding: 64px 32px 48px;
+    margin-top: 160px;
+    padding: 100px 32px 72px;
     border-top: 1px solid var(--line);
-    text-align: center; color: var(--ink-3);
+    text-align: center;
+    background: var(--bg-2);
+  }
+  footer .signature {
+    font-family: var(--display); font-style: italic;
+    font-size: 30px; color: var(--ink);
+    margin-bottom: 8px; letter-spacing: 0.04em;
+  }
+  footer .signature em {
+    background: linear-gradient(135deg, var(--hue1), var(--hue4));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    font-style: italic;
   }
   footer .seal {
-    font-family: var(--num); font-style: italic; font-size: 14px;
-    letter-spacing: 0.15em; margin-bottom: 18px;
+    font-family: var(--mono); font-size: 11px;
+    color: var(--ink-3); letter-spacing: 0.35em;
+    margin-bottom: 30px;
   }
   footer .credits {
-    font-family: var(--serif); font-size: 13px; line-height: 2; color: var(--ink-2);
+    font-family: var(--serif); font-size: 13.5px; line-height: 2;
+    color: var(--ink-2); max-width: 560px; margin: 0 auto;
   }
-  footer .credits a { color: var(--ink-2); border-bottom: 1px solid var(--line); }
-  footer .credits a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+  footer .credits a { color: var(--ink); border-bottom: 1px solid var(--line); }
+  footer .credits a:hover { color: var(--hue4); border-bottom-color: var(--hue4); }
   footer .micro {
-    margin-top: 20px; font-family: var(--num); font-size: 11px;
-    color: var(--ink-4); letter-spacing: 0.2em;
-  }
-  footer .note {
-    margin-top: 24px;
-    font-family: var(--sans); font-size: 12px;
-    color: var(--ink-3); line-height: 1.8;
-    max-width: 560px; margin-left: auto; margin-right: auto;
-    padding: 16px 20px; background: var(--paper);
-    border-left: 2px solid var(--accent);
-    text-align: left;
-  }
-  footer .note strong { color: var(--ink); }
-
-  /* Responsive */
-  @media (max-width: 720px) {
-    .hero { padding: 64px 20px 36px; }
-    .hero h1 { font-size: clamp(40px, 12vw, 64px); letter-spacing: 0.05em; }
-    .hero-img-wrap { max-width: 100%; padding: 0; }
-    .nav { gap: 4px 14px; font-size: 12.5px; padding: 12px 14px; }
-    main { padding: 0 16px; }
-    .grid { grid-template-columns: 1fr 1fr; gap: 16px 12px; }
-    .card-body { padding: 14px 14px 12px; }
-    .chapter { margin-top: 56px; }
-  }
-  @media (max-width: 480px) {
-    .grid { grid-template-columns: 1fr; }
+    margin-top: 28px; font-family: var(--mono); font-size: 10px;
+    color: var(--ink-4); letter-spacing: 0.3em;
   }
 
-  /* Thumb image overlay (added by inject-thumbs.py) */
-  .card-thumb.has-img { position: relative; overflow: hidden; }
-  .card-thumb.has-img img {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%; object-fit: cover;
-    z-index: 0;
-    filter: saturate(1.02);
-    transition: transform 0.35s ease;
+  /* ============ Card actions (dual button) ============ */
+  .card-actions {
+    display: flex; gap: 8px; align-items: stretch;
+    padding-top: 12px; border-top: 1px solid var(--line);
+    margin-top: auto;
   }
-  .card:hover .card-thumb.has-img img { transform: scale(1.04); }
-  .card-thumb.has-img .cat-tag,
-  .card-thumb.has-img .id-num {
-    position: absolute; z-index: 2;
-    background: rgba(255,255,255,0.78);
+  .card-actions .btn-skill {
+    flex: 1;
+    font-family: var(--mono); font-size: 10.5px;
+    color: var(--ink-2); background: rgba(255,255,255,0.04);
+    border: 1px solid var(--line);
+    padding: 8px 10px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.18s, border-color 0.18s, color 0.18s;
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 6px;
+  }
+  .card-actions .btn-skill:hover {
+    background: rgba(56,168,255,0.12);
+    border-color: var(--accent-2);
+    color: var(--ink);
+  }
+  .card-actions .btn-skill .ic { color: var(--accent-2); }
+  .card-actions .btn-open,
+  .card-actions .btn-open-disabled {
+    flex: 1;
+    font-family: var(--mono); font-size: 10.5px;
+    padding: 8px 10px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 6px;
+    border: 1px solid var(--line);
+  }
+  .card-actions .btn-open {
+    color: var(--bg); background: var(--hue3);
+    border-color: var(--hue3);
+    transition: filter 0.18s;
+  }
+  .card-actions .btn-open:hover { filter: brightness(1.12); }
+  .card-actions .btn-open-disabled {
+    color: var(--ink-4); background: transparent;
+    cursor: not-allowed;
+  }
+
+  /* ============ Skill viewer modal ============ */
+  dialog.skill-modal {
+    border: 1px solid var(--accent-2);
+    background: var(--bg-2);
+    color: var(--ink);
+    padding: 0;
+    width: min(820px, 92vw);
+    max-height: 86vh;
+    box-shadow: 0 30px 90px rgba(0,0,0,0.6), 0 0 0 1px rgba(56,168,255,0.1);
+    margin: auto;
+  }
+  dialog.skill-modal::backdrop {
+    background: rgba(5,6,12,0.85);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
-    padding: 2px 8px;
-    border-radius: 0;
   }
-  .card-thumb.has-img::before {
-    z-index: 1;
+  dialog.skill-modal[open] { display: flex; flex-direction: column; }
+  .skill-modal .modal-head {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--line);
+    background: linear-gradient(90deg, rgba(56,168,255,0.10), transparent 50%);
   }
+  .skill-modal .modal-title {
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .skill-modal .modal-title .skill-id {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--accent-2); letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+  .skill-modal .modal-title .skill-name {
+    font-family: var(--serif); font-weight: 500; font-size: 19px;
+    color: var(--ink); letter-spacing: 0.04em;
+  }
+  .skill-modal .modal-close {
+    background: none; border: 1px solid var(--line);
+    color: var(--ink-2); cursor: pointer;
+    width: 36px; height: 36px; font-size: 16px;
+    transition: background 0.18s, color 0.18s, border-color 0.18s;
+  }
+  .skill-modal .modal-close:hover {
+    background: var(--bg-3); color: var(--ink); border-color: var(--accent-2);
+  }
+  .skill-modal .modal-actions {
+    display: flex; gap: 10px; padding: 14px 24px;
+    border-bottom: 1px solid var(--line); background: var(--bg);
+  }
+  .skill-modal .modal-actions button,
+  .skill-modal .modal-actions a {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--ink-2); background: rgba(255,255,255,0.04);
+    border: 1px solid var(--line);
+    padding: 8px 14px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    cursor: pointer; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    transition: background 0.18s, color 0.18s, border-color 0.18s;
+  }
+  .skill-modal .modal-actions button:hover,
+  .skill-modal .modal-actions a:hover {
+    color: var(--ink); border-color: var(--accent-2);
+    background: rgba(56,168,255,0.12);
+  }
+  .skill-modal .modal-actions .btn-copy.copied {
+    color: var(--hue3); border-color: var(--hue3); background: rgba(43,212,165,0.12);
+  }
+  .skill-modal .skill-content {
+    flex: 1; overflow: auto;
+    margin: 0; padding: 20px 24px;
+    font-family: var(--mono); font-size: 12.5px; line-height: 1.85;
+    color: var(--ink-2);
+    white-space: pre-wrap; word-break: break-word;
+    background: var(--bg-2);
+  }
+  .skill-modal .skill-content strong,
+  .skill-modal .skill-content code { color: var(--ink); }
+  @media (max-width: 720px) {
+    dialog.skill-modal { width: 96vw; max-height: 92vh; }
+    .skill-modal .modal-head { padding: 14px 18px; }
+    .skill-modal .modal-actions { padding: 12px 18px; flex-wrap: wrap; }
+    .skill-modal .skill-content { padding: 16px 18px; font-size: 12px; }
+  }
+
+  /* Mobile: stack card-actions vertically */
+  @media (max-width: 480px) {
+    .card-actions { flex-direction: column; gap: 6px; }
+  }
+
 </style>
 </head>
 <body>
 
 <div class="progress" id="progress"></div>
 
-<section class="hero">
-  <div class="eyebrow">an aqualux.dev gallery</div>
-  <h1>設計光譜</h1>
-  <div class="hero-sub">Design Spectrum · 40 Styles Codex</div>
-  <p class="hero-desc">
-    一份精選 <span class="num-em">40</span> 種設計風格的視覺收錄。<br>
-    25 種視覺流派 + 15 種動態效果，依用途分章，可組合運用於跨事業體的視覺決策。
-  </p>
-  <div class="hero-meta">Curated by <strong>Chengchieh Huang</strong> &middot; 2026 Edition</div>
-  <div class="hero-img-wrap"><img src="images/hero.png" alt="aqualux 設計光譜決策矩陣"></div>
+<header class="topbar">
+  <div class="left">
+    <a href="#top" class="topbar-logo" aria-label="aqualux">
+      <svg viewBox="0 0 600 280" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="height:100%;width:auto;display:block;">
+        <text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text>
+        <line x1="80" y1="165" x2="520" y2="165" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+        <g transform="translate(0,330) scale(1,-1)" opacity="0.28"><text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text></g>
+      </svg>
+    </a>
+    <span>/ DESIGN SPECTRUM · MMXXVI</span>
+  </div>
+  <div class="right">
+    <a href="#statement">論述</a>
+    <a href="#c-mainstream">圖鑑</a>
+    <a href="https://github.com/chengchiehhuang-glitch/aqualux-design-spectrum" target="_blank" rel="noopener">REPO ↗</a>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="hero-grain"></div>
+  <div class="hero-inner">
+    <div class="hero-logo" aria-label="aqualux">
+      <svg viewBox="0 0 600 280" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text>
+        <line x1="80" y1="165" x2="520" y2="165" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+        <g transform="translate(0,330) scale(1,-1)" opacity="0.28"><text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text></g>
+      </svg>
+    </div>
+    <div class="hero-eyebrow">a curated codex · 2026</div>
+    <h1>光<span class="punct">·</span><em>譜</em></h1>
+    <div class="hero-sub">Design Spectrum — 40 Visual Languages</div>
+    <div class="hero-meta">
+      <span>Curated by <b>Chengchieh Huang</b></span>
+      <span class="sep">/</span>
+      <span>MMXXVI Edition</span>
+    </div>
+  </div>
+  <div class="scroll-cue" id="scrollCue">↓ &nbsp; SCROLL</div>
+</section>
+
+<section class="stats" id="stats">
+  <div class="stat"><span class="num"><em data-target="40">0</em></span><span class="label">設計風格</span></div>
+  <div class="stat"><span class="num"><em data-target="25">0</em></span><span class="label">視覺流派</span></div>
+  <div class="stat"><span class="num"><em data-target="15">0</em></span><span class="label">動態效果</span></div>
+  <div class="stat"><span class="num"><em>MMXXVI</em></span><span class="label">圖鑑年份</span></div>
+</section>
+
+<section class="statement" id="statement">
+  <div class="statement-eyebrow">CURATORIAL NOTE / 序章</div>
+  <h2>光譜的本質是 <em>「次序」</em>。</h2>
+  <p>可見光從紅到紫排成一條看不見的線——直到牛頓拿三稜鏡把它打開，那條線才從抽象的「光」變成可以分析、可以命名、可以拿來決策的彩虹。</p>
+  <p>設計的世界也有自己的光譜。<span class="emp">四十種風格、五個流派、十五種動態</span>，看似各自獨立，其實是同一條光譜在不同切片上的折射。極簡與賽博龐克並非相反——它們是同一根光線，被截在不同的角度。</p>
+  <p class="pull">同樣的內容，給不同的人看，視覺得不同。<br>四十種風格的背後，是四十種「對誰說話」的選擇。</p>
+  <p>這份圖鑑為多事業體經營者、為任何要在「下一個專案該長什麼樣」這個問題上做決策的人而寫。每一格都是一個切面，整體合起來才是光譜。</p>
 </section>
 
 <div class="nav-wrap">
-  <nav class="nav">
-    <a href="#c-mainstream">主流 UI <span class="nav-count">5</span></a>
-    <a href="#c-retro">復古懷舊 <span class="nav-count">6</span></a>
-    <a href="#c-experimental">實驗前衛 <span class="nav-count">6</span></a>
-    <a href="#c-cultural">文化在地 <span class="nav-count">5</span></a>
-    <a href="#c-decorative">裝飾性 <span class="nav-count">3</span></a>
-    <a href="#c-motion">動態效果 <span class="nav-count">15</span></a>
+  <nav class="nav" id="nav">
+    <a href="#c-mainstream">主流 UI<span class="nav-count">5</span></a>
+    <a href="#c-retro">復古懷舊<span class="nav-count">6</span></a>
+    <a href="#c-experimental">實驗前衛<span class="nav-count">6</span></a>
+    <a href="#c-cultural">文化在地<span class="nav-count">5</span></a>
+    <a href="#c-decorative">裝飾性<span class="nav-count">3</span></a>
+    <a href="#c-motion">動態效果<span class="nav-count">15</span></a>
   </nav>
 </div>
 
 <main>
 
-<!-- Cluster 1: 主流 UI -->
-<section class="chapter" id="c-mainstream">
-  <div class="chapter-head">
-    <div class="num">01 / 主流 UI</div>
-    <h2>主流 UI</h2>
-    <div class="en">Mainstream UI · 5 styles</div>
-  </div>
-  <div class="grid cluster-mainstream">
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c01.png" alt="C01 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">主流 UI</span><span class="id-num">C01</span></div><div class="card-body">
-      <div class="card-zh">玻璃擬態</div><div class="card-en">Glassmorphism</div>
-      <p class="card-desc">半透玻璃面、背景模糊（backdrop-filter）與微光暈，呈現空間層次感。</p>
-      <div class="card-tags"><span class="card-tag">frosted</span><span class="card-tag">translucent</span><span class="card-tag">2020s</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
+  <section class="cluster" id="c-mainstream">
+    <div class="cluster-head">
+      <div class="cluster-num">01</div>
+      <div class="cluster-title">
+        <h2 class="zh">主流 UI</h2>
+        <span class="en">Mainstream — the safe spectrum</span>
+        <span class="voice">/ 現代主流 · 經得起時間的選擇</span>
+      </div>
+    </div>
+    <div class="grid">
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/c01.webp" loading="lazy" decoding="async" alt="玻璃擬態 風格示意圖"><span class="card-badge">主流 UI</span><span class="card-id">C 01</span></div><div class="card-body"><div class="card-zh">玻璃擬態</div><div class="card-en">Glassmorphism</div><p class="card-desc">半透玻璃面、背景模糊與微光暈，呈現空間層次感。</p><div class="card-tags"><span class="card-tag">frosted</span><span class="card-tag">translucent</span><span class="card-tag">2020s</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="c01" type="button" aria-label="查看 c01 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/c02.webp" loading="lazy" decoding="async" alt="新擬物化 風格示意圖"><span class="card-badge">主流 UI</span><span class="card-id">C 02</span></div><div class="card-body"><div class="card-zh">新擬物化</div><div class="card-en">Neumorphism</div><p class="card-desc">同色系柔陰影與微凸介面，模擬實體物件的觸感與雕塑感。</p><div class="card-tags"><span class="card-tag">soft-ui</span><span class="card-tag">shadow</span><span class="card-tag">tactile</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="c02" type="button" aria-label="查看 c02 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/c03.webp" loading="lazy" decoding="async" alt="Material You 風格示意圖"><span class="card-badge">主流 UI</span><span class="card-id">C 03</span></div><div class="card-body"><div class="card-zh">Material You</div><div class="card-en">Material 3</div><p class="card-desc">動態色彩、明確層階與圓角元件的系統化設計語彙。</p><div class="card-tags"><span class="card-tag">google</span><span class="card-tag">dynamic-color</span><span class="card-tag">elevation</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="c03" type="button" aria-label="查看 c03 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/c04.webp" loading="lazy" decoding="async" alt="極簡主義 風格示意圖"><span class="card-badge">主流 UI</span><span class="card-id">C 04</span></div><div class="card-body"><div class="card-zh">極簡主義</div><div class="card-en">Minimalism</div><p class="card-desc">大量留白、單色字體與精確比例的排版美學。</p><div class="card-tags"><span class="card-tag">whitespace</span><span class="card-tag">mono</span><span class="card-tag">editorial</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="c04" type="button" aria-label="查看 c04 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/c05.webp" loading="lazy" decoding="async" alt="沉浸暗黑 風格示意圖"><span class="card-badge">主流 UI</span><span class="card-id">C 05</span></div><div class="card-body"><div class="card-zh">沉浸暗黑</div><div class="card-en">Immersive Dark</div><p class="card-desc">深色基底配低彩度發光點，營造劇場聚光燈式的沉浸氛圍。</p><div class="card-tags"><span class="card-tag">dark</span><span class="card-tag">low-light</span><span class="card-tag">cinematic</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="c05" type="button" aria-label="查看 c05 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+    </div>
+  </section>
 
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c02.png" alt="C02 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">主流 UI</span><span class="id-num">C02</span></div><div class="card-body">
-      <div class="card-zh">新擬物化</div><div class="card-en">Neumorphism</div>
-      <p class="card-desc">同色系柔陰影與微凸介面，模擬實體物件的觸感與雕塑感。</p>
-      <div class="card-tags"><span class="card-tag">soft-ui</span><span class="card-tag">shadow</span><span class="card-tag">tactile</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
+  <section class="cluster" id="c-retro">
+    <div class="cluster-head">
+      <div class="cluster-num">02</div>
+      <div class="cluster-title">
+        <h2 class="zh">復古懷舊</h2>
+        <span class="en">Retro — generation echoes</span>
+        <span class="voice">/ 世代殘響 · 抓特定年代的視覺記憶</span>
+      </div>
+    </div>
+    <div class="grid">
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/c06.webp" loading="lazy" decoding="async" alt="蒸氣波 風格示意圖"><span class="card-badge">復古懷舊</span><span class="card-id">C 06</span></div><div class="card-body"><div class="card-zh">蒸氣波</div><div class="card-en">Vaporwave</div><p class="card-desc">紫粉漸層、希臘雕像與日文符號的 90s 網際網路懷舊美學。</p><div class="card-tags"><span class="card-tag">80s</span><span class="card-tag">pastel</span><span class="card-tag">aesthetic</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="c06" type="button" aria-label="查看 c06 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/c07.webp" loading="lazy" decoding="async" alt="Y2K 千禧 風格示意圖"><span class="card-badge">復古懷舊</span><span class="card-id">C 07</span></div><div class="card-body"><div class="card-zh">Y2K 千禧</div><div class="card-en">Y2K</div><p class="card-desc">銀色金屬、半透塑膠與星型裝飾元素的 2000 年初千禧美學。</p><div class="card-tags"><span class="card-tag">2000s</span><span class="card-tag">chrome</span><span class="card-tag">cyber-cute</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="c07" type="button" aria-label="查看 c07 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/c08.webp" loading="lazy" decoding="async" alt="90s Web 1.0 風格示意圖"><span class="card-badge">復古懷舊</span><span class="card-id">C 08</span></div><div class="card-body"><div class="card-zh">90s Web 1.0</div><div class="card-en">Web 1.0</div><p class="card-desc">系統字體、tile 平鋪背景與灰色按鈕的早期 1990s 網頁風格。</p><div class="card-tags"><span class="card-tag">90s</span><span class="card-tag">tables</span><span class="card-tag">marquee</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="c08" type="button" aria-label="查看 c08 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/c09.webp" loading="lazy" decoding="async" alt="美式復古印刷 風格示意圖"><span class="card-badge">復古懷舊</span><span class="card-id">C 09</span></div><div class="card-body"><div class="card-zh">美式復古印刷</div><div class="card-en">American Retro Print</div><p class="card-desc">網點質感、油墨偏色與粗襯線標題的 1970s 印刷海報風。</p><div class="card-tags"><span class="card-tag">vintage</span><span class="card-tag">print</span><span class="card-tag">screen-print</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="c09" type="button" aria-label="查看 c09 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/c10.webp" loading="lazy" decoding="async" alt="80s Synthwave 風格示意圖"><span class="card-badge">復古懷舊</span><span class="card-id">C 10</span></div><div class="card-body"><div class="card-zh">80s Synthwave</div><div class="card-en">Synthwave</div><p class="card-desc">霓虹線條、紫紅落日與透視格線的 1980s 數位美學。</p><div class="card-tags"><span class="card-tag">80s</span><span class="card-tag">neon</span><span class="card-tag">grid</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="c10" type="button" aria-label="查看 c10 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/c11.webp" loading="lazy" decoding="async" alt="包浩斯 風格示意圖"><span class="card-badge">復古懷舊</span><span class="card-id">C 11</span></div><div class="card-body"><div class="card-zh">包浩斯</div><div class="card-en">Bauhaus</div><p class="card-desc">紅黃藍三原色配圓三角方塊的幾何構成，1920s 德國學院派。</p><div class="card-tags"><span class="card-tag">1920s</span><span class="card-tag">geometric</span><span class="card-tag">primary</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="c11" type="button" aria-label="查看 c11 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+    </div>
+  </section>
 
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c03.png" alt="C03 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">主流 UI</span><span class="id-num">C03</span></div><div class="card-body">
-      <div class="card-zh">Material You</div><div class="card-en">Material 3</div>
-      <p class="card-desc">動態色彩、明確層階與圓角元件的系統化設計語彙，當代產品學院派。</p>
-      <div class="card-tags"><span class="card-tag">google</span><span class="card-tag">dynamic-color</span><span class="card-tag">elevation</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
+  <section class="cluster" id="c-experimental">
+    <div class="cluster-head">
+      <div class="cluster-num">03</div>
+      <div class="cluster-title">
+        <h2 class="zh">實驗前衛</h2>
+        <span class="en">Avant-garde — defying UX</span>
+        <span class="voice">/ 叛逃語法 · 故意違反規則的力量</span>
+      </div>
+    </div>
+    <div class="grid">
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/c12.webp" loading="lazy" decoding="async" alt="野獸派 風格示意圖"><span class="card-badge">實驗前衛</span><span class="card-id">C 12</span></div><div class="card-body"><div class="card-zh">野獸派</div><div class="card-en">Brutalism</div><p class="card-desc">裸露結構、強烈對比與粗暴排版的反 UX 設計哲學。</p><div class="card-tags"><span class="card-tag">raw</span><span class="card-tag">monospace</span><span class="card-tag">anti-design</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="c12" type="button" aria-label="查看 c12 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/c13.webp" loading="lazy" decoding="async" alt="故障藝術 風格示意圖"><span class="card-badge">實驗前衛</span><span class="card-id">C 13</span></div><div class="card-body"><div class="card-zh">故障藝術</div><div class="card-en">Glitch Art</div><p class="card-desc">RGB 錯位、掃描線與隨機破碎的數位失真美學。</p><div class="card-tags"><span class="card-tag">rgb-shift</span><span class="card-tag">distortion</span><span class="card-tag">noise</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="c13" type="button" aria-label="查看 c13 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+      <article class="card card-live" data-status="live"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/c14.webp" loading="lazy" decoding="async" alt="賽博龐克 風格示意圖"><span class="card-badge">實驗前衛</span><span class="card-id">C 14</span></div><div class="card-body"><div class="card-zh">賽博龐克</div><div class="card-en">Cyberpunk</div><p class="card-desc">霓虹粉藍配黑底、片假名與發光邊框的高科技反烏托邦視覺。</p><div class="card-tags"><span class="card-tag">neon</span><span class="card-tag">dystopia</span><span class="card-tag">tech-noir</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="c14" type="button" aria-label="查看 c14 Skill"><span class="ic">◇</span> 查看 Skill</button><a class="btn-open" href="works/c14-cyberpunk/index.html">開啟作品 <span class="arrow">↗</span></a></div></div></div></article>
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/c15.webp" loading="lazy" decoding="async" alt="構成主義 風格示意圖"><span class="card-badge">實驗前衛</span><span class="card-id">C 15</span></div><div class="card-body"><div class="card-zh">構成主義</div><div class="card-en">Constructivism</div><p class="card-desc">紅黑斜切構圖與宣傳海報語法的俄式前衛排版。</p><div class="card-tags"><span class="card-tag">russian</span><span class="card-tag">propaganda</span><span class="card-tag">diagonal</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="c15" type="button" aria-label="查看 c15 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/c16.webp" loading="lazy" decoding="async" alt="ASCII 終端機 風格示意圖"><span class="card-badge">實驗前衛</span><span class="card-id">C 16</span></div><div class="card-body"><div class="card-zh">ASCII 終端機</div><div class="card-en">ASCII Terminal</div><p class="card-desc">綠底螢光字、ASCII art 與 80×24 終端機網格的純文字美學。</p><div class="card-tags"><span class="card-tag">monospace</span><span class="card-tag">green-phosphor</span><span class="card-tag">cli</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="c16" type="button" aria-label="查看 c16 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/c17.webp" loading="lazy" decoding="async" alt="雜誌排版 風格示意圖"><span class="card-badge">實驗前衛</span><span class="card-id">C 17</span></div><div class="card-body"><div class="card-zh">雜誌排版</div><div class="card-en">Editorial Magazine</div><p class="card-desc">12 欄網格、粗襯線標題與圖文混排的傳統雜誌排版邏輯。</p><div class="card-tags"><span class="card-tag">print</span><span class="card-tag">serif</span><span class="card-tag">grid</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="c17" type="button" aria-label="查看 c17 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+    </div>
+  </section>
 
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c04.png" alt="C04 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">主流 UI</span><span class="id-num">C04</span></div><div class="card-body">
-      <div class="card-zh">極簡主義</div><div class="card-en">Minimalism</div>
-      <p class="card-desc">大量留白、單色字體與精確比例的排版美學，藝廊式靜謐視覺。</p>
-      <div class="card-tags"><span class="card-tag">whitespace</span><span class="card-tag">mono</span><span class="card-tag">editorial</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
+  <section class="cluster" id="c-cultural">
+    <div class="cluster-head">
+      <div class="cluster-num">04</div>
+      <div class="cluster-title">
+        <h2 class="zh">文化在地</h2>
+        <span class="en">Cultural — geographic dialects</span>
+        <span class="voice">/ 文化暗號 · 跨域識別的視覺護城河</span>
+      </div>
+    </div>
+    <div class="grid">
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/c18.webp" loading="lazy" decoding="async" alt="日式禪意 風格示意圖"><span class="card-badge">文化在地</span><span class="card-id">C 18</span></div><div class="card-body"><div class="card-zh">日式禪意</div><div class="card-en">Wabi-Sabi</div><p class="card-desc">米色紙質、墨筆觸與不完美留白的日式侘寂美學。</p><div class="card-tags"><span class="card-tag">japan</span><span class="card-tag">minimal</span><span class="card-tag">natural</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="c18" type="button" aria-label="查看 c18 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/c19.webp" loading="lazy" decoding="async" alt="中國風國潮 風格示意圖"><span class="card-badge">文化在地</span><span class="card-id">C 19</span></div><div class="card-body"><div class="card-zh">中國風國潮</div><div class="card-en">Chinoiserie / Guochao</div><p class="card-desc">硃紅墨黑、宋體字配水墨點綴的中式古典與當代潮流融合。</p><div class="card-tags"><span class="card-tag">china</span><span class="card-tag">traditional</span><span class="card-tag">modern-fusion</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="c19" type="button" aria-label="查看 c19 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/c20.webp" loading="lazy" decoding="async" alt="北歐極簡 風格示意圖"><span class="card-badge">文化在地</span><span class="card-id">C 20</span></div><div class="card-body"><div class="card-zh">北歐極簡</div><div class="card-en">Scandinavian</div><p class="card-desc">木質暖灰、無襯線清爽字體與北歐插畫的自然森林感。</p><div class="card-tags"><span class="card-tag">nordic</span><span class="card-tag">cozy</span><span class="card-tag">natural</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="c20" type="button" aria-label="查看 c20 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/c21.webp" loading="lazy" decoding="async" alt="瑞士國際風格 風格示意圖"><span class="card-badge">文化在地</span><span class="card-id">C 21</span></div><div class="card-body"><div class="card-zh">瑞士國際風格</div><div class="card-en">Swiss International</div><p class="card-desc">左對齊網格、Helvetica 與紅色強調的二戰後理性排版革命。</p><div class="card-tags"><span class="card-tag">grid</span><span class="card-tag">helvetica</span><span class="card-tag">sans-serif</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="c21" type="button" aria-label="查看 c21 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/c22.webp" loading="lazy" decoding="async" alt="台灣廟會 風格示意圖"><span class="card-badge">文化在地</span><span class="card-id">C 22</span></div><div class="card-body"><div class="card-zh">台灣廟會</div><div class="card-en">Taiwan Temple Carnival</div><p class="card-desc">霓虹招牌、紅黃對比與民俗符號的台灣在地熱鬧視覺。</p><div class="card-tags"><span class="card-tag">taiwan</span><span class="card-tag">folk</span><span class="card-tag">festive</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="c22" type="button" aria-label="查看 c22 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+    </div>
+  </section>
 
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c05.png" alt="C05 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">主流 UI</span><span class="id-num">C05</span></div><div class="card-body">
-      <div class="card-zh">沉浸暗黑</div><div class="card-en">Immersive Dark</div>
-      <p class="card-desc">深色基底配低彩度發光點，營造劇場聚光燈式的沉浸氛圍。</p>
-      <div class="card-tags"><span class="card-tag">dark</span><span class="card-tag">low-light</span><span class="card-tag">cinematic</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
-  </div>
-</section>
+  <section class="cluster" id="c-decorative">
+    <div class="cluster-head">
+      <div class="cluster-num">05</div>
+      <div class="cluster-title">
+        <h2 class="zh">裝飾性</h2>
+        <span class="en">Decorative — supporting voice</span>
+        <span class="voice">/ 補綴語彙 · 跟其他流派混搭</span>
+      </div>
+    </div>
+    <div class="grid">
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/c23.webp" loading="lazy" decoding="async" alt="等距 3D 風格示意圖"><span class="card-badge">裝飾性</span><span class="card-id">C 23</span></div><div class="card-body"><div class="card-zh">等距 3D</div><div class="card-en">Isometric 3D</div><p class="card-desc">30 度斜角立體插畫、玩具世界與小人物構圖。</p><div class="card-tags"><span class="card-tag">3d</span><span class="card-tag">illustration</span><span class="card-tag">colorful</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="c23" type="button" aria-label="查看 c23 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/c24.webp" loading="lazy" decoding="async" alt="手繪塗鴉 風格示意圖"><span class="card-badge">裝飾性</span><span class="card-id">C 24</span></div><div class="card-body"><div class="card-zh">手繪塗鴉</div><div class="card-en">Hand-Drawn Sketch</div><p class="card-desc">蠟筆、歪斜手寫字與隨意箭頭的人工速寫感。</p><div class="card-tags"><span class="card-tag">sketch</span><span class="card-tag">doodle</span><span class="card-tag">human</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="c24" type="button" aria-label="查看 c24 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/c25.webp" loading="lazy" decoding="async" alt="漸層 Mesh 風格示意圖"><span class="card-badge">裝飾性</span><span class="card-id">C 25</span></div><div class="card-body"><div class="card-zh">漸層 Mesh</div><div class="card-en">Gradient Mesh</div><p class="card-desc">流動曲線漸層、極光色彩與柔光球體的液態畫布。</p><div class="card-tags"><span class="card-tag">gradient</span><span class="card-tag">aurora</span><span class="card-tag">fluid</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="c25" type="button" aria-label="查看 c25 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+    </div>
+  </section>
 
-<!-- Cluster 2: 復古懷舊 -->
-<section class="chapter" id="c-retro">
-  <div class="chapter-head">
-    <div class="num">02 / 復古懷舊</div>
-    <h2>復古懷舊</h2>
-    <div class="en">Retro Nostalgia · 6 styles</div>
-  </div>
-  <div class="grid cluster-retro">
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c06.png" alt="C06 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">復古懷舊</span><span class="id-num">C06</span></div><div class="card-body">
-      <div class="card-zh">蒸氣波</div><div class="card-en">Vaporwave</div>
-      <p class="card-desc">紫粉漸層、希臘雕像與日文符號的 1990s 網際網路懷舊美學。</p>
-      <div class="card-tags"><span class="card-tag">80s</span><span class="card-tag">pastel</span><span class="card-tag">aesthetic</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
+  <section class="cluster" id="c-motion">
+    <div class="cluster-head">
+      <div class="cluster-num">06</div>
+      <div class="cluster-title">
+        <h2 class="zh">動態效果</h2>
+        <span class="en">Motion — temporal aesthetic</span>
+        <span class="voice">/ 時間美學 · 15 種 / 5 子類</span>
+      </div>
+    </div>
 
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c07.png" alt="C07 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">復古懷舊</span><span class="id-num">C07</span></div><div class="card-body">
-      <div class="card-zh">Y2K 千禧</div><div class="card-en">Y2K</div>
-      <p class="card-desc">銀色金屬、半透塑膠與星型裝飾元素的 2000 年初千禧美學。</p>
-      <div class="card-tags"><span class="card-tag">2000s</span><span class="card-tag">chrome</span><span class="card-tag">cyber-cute</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
+    <div class="submark"><span class="submark-num">06 / 01</span><span class="submark-title">視差</span><span class="submark-en">Parallax</span></div>
+    <div class="grid">
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/m26.webp" loading="lazy" decoding="async" alt="多層視差 風格示意圖"><span class="card-badge">視差</span><span class="card-id">C 26</span></div><div class="card-body"><div class="card-zh">多層視差</div><div class="card-en">Parallax Layers</div><p class="card-desc">滾動時多層元素以不同速度位移，呈現縱深感。</p><div class="card-tags"><span class="card-tag">parallax</span><span class="card-tag">depth</span><span class="card-tag">mountain</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="m26" type="button" aria-label="查看 m26 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/m27.webp" loading="lazy" decoding="async" alt="Sticky 堆疊章節 風格示意圖"><span class="card-badge">視差</span><span class="card-id">C 27</span></div><div class="card-body"><div class="card-zh">Sticky 堆疊章節</div><div class="card-en">Sticky Stack</div><p class="card-desc">章節先被釘住、再被下一章從底部疊上的堆疊滾動模式。</p><div class="card-tags"><span class="card-tag">sticky</span><span class="card-tag">stack</span><span class="card-tag">apple-style</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="m27" type="button" aria-label="查看 m27 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/m28.webp" loading="lazy" decoding="async" alt="橫向滾動陣容 風格示意圖"><span class="card-badge">視差</span><span class="card-id">C 28</span></div><div class="card-body"><div class="card-zh">橫向滾動陣容</div><div class="card-en">Horizontal Scroll</div><p class="card-desc">垂直滾動轉換為內容區段的橫向滑動位移。</p><div class="card-tags"><span class="card-tag">horizontal</span><span class="card-tag">scroll-translate</span><span class="card-tag">lineup</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="m28" type="button" aria-label="查看 m28 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+    </div>
 
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c08.png" alt="C08 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">復古懷舊</span><span class="id-num">C08</span></div><div class="card-body">
-      <div class="card-zh">90s Web 1.0</div><div class="card-en">Web 1.0</div>
-      <p class="card-desc">系統字體、tile 平鋪背景與灰色按鈕的早期 1990s 網頁風格。</p>
-      <div class="card-tags"><span class="card-tag">90s</span><span class="card-tag">tables</span><span class="card-tag">marquee</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
+    <div class="submark"><span class="submark-num">06 / 02</span><span class="submark-title">滾動</span><span class="submark-en">Scroll</span></div>
+    <div class="grid">
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/m29.webp" loading="lazy" decoding="async" alt="全屏章節切換 風格示意圖"><span class="card-badge">滾動</span><span class="card-id">C 29</span></div><div class="card-body"><div class="card-zh">全屏章節切換</div><div class="card-en">Scroll Snap Acts</div><p class="card-desc">每個區段佔滿視窗、scroll-snap 強制吸附的章節切換。</p><div class="card-tags"><span class="card-tag">scroll-snap</span><span class="card-tag">fullscreen</span><span class="card-tag">cinematic</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="m29" type="button" aria-label="查看 m29 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/m30.webp" loading="lazy" decoding="async" alt="滾動進度指示 風格示意圖"><span class="card-badge">滾動</span><span class="card-id">C 30</span></div><div class="card-body"><div class="card-zh">滾動進度指示</div><div class="card-en">Scroll Progress</div><p class="card-desc">頂部 progress bar 與側邊章節點陣指示當前閱讀位置。</p><div class="card-tags"><span class="card-tag">progress-bar</span><span class="card-tag">indicator</span><span class="card-tag">navigation</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="m30" type="button" aria-label="查看 m30 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/m31.webp" loading="lazy" decoding="async" alt="滾動跑馬燈 風格示意圖"><span class="card-badge">滾動</span><span class="card-id">C 31</span></div><div class="card-body"><div class="card-zh">滾動跑馬燈</div><div class="card-en">Marquee Band</div><p class="card-desc">大字橫向跑動、速度依滾動而調變的 marquee 效果。</p><div class="card-tags"><span class="card-tag">marquee</span><span class="card-tag">speed-modulated</span><span class="card-tag">lineup</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="m31" type="button" aria-label="查看 m31 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+    </div>
 
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c09.png" alt="C09 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">復古懷舊</span><span class="id-num">C09</span></div><div class="card-body">
-      <div class="card-zh">美式復古印刷</div><div class="card-en">American Retro Print</div>
-      <p class="card-desc">網點質感、油墨偏色與粗襯線標題的 1970s 印刷海報風。</p>
-      <div class="card-tags"><span class="card-tag">vintage</span><span class="card-tag">print</span><span class="card-tag">screen-print</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
+    <div class="submark"><span class="submark-num">06 / 03</span><span class="submark-title">入場</span><span class="submark-en">Entrance</span></div>
+    <div class="grid">
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/m32.webp" loading="lazy" decoding="async" alt="錯落淡入 風格示意圖"><span class="card-badge">入場</span><span class="card-id">C 32</span></div><div class="card-body"><div class="card-zh">錯落淡入</div><div class="card-en">Fade Stagger</div><p class="card-desc">卡片進入視窗時依序錯落淡入位移，像被海浪推上岸。</p><div class="card-tags"><span class="card-tag">intersection-observer</span><span class="card-tag">stagger</span><span class="card-tag">wave</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="m32" type="button" aria-label="查看 m32 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/m33.webp" loading="lazy" decoding="async" alt="打字機標題 風格示意圖"><span class="card-badge">入場</span><span class="card-id">C 33</span></div><div class="card-body"><div class="card-zh">打字機標題</div><div class="card-en">Typewriter</div><p class="card-desc">Hero 標題以打字機節奏一字一字浮現，段落隨之滑入。</p><div class="card-tags"><span class="card-tag">typewriter</span><span class="card-tag">cursor-blink</span><span class="card-tag">hero</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="m33" type="button" aria-label="查看 m33 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/m34.webp" loading="lazy" decoding="async" alt="數字爆裂計數 風格示意圖"><span class="card-badge">入場</span><span class="card-id">C 34</span></div><div class="card-body"><div class="card-zh">數字爆裂計數</div><div class="card-en">Counter Burst</div><p class="card-desc">數字在滾入視窗時從 0 動畫跳動至目標值。</p><div class="card-tags"><span class="card-tag">counter</span><span class="card-tag">animate-numeric</span><span class="card-tag">about</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="m34" type="button" aria-label="查看 m34 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+    </div>
 
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c10.png" alt="C10 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">復古懷舊</span><span class="id-num">C10</span></div><div class="card-body">
-      <div class="card-zh">80s Synthwave</div><div class="card-en">Synthwave</div>
-      <p class="card-desc">霓虹線條、紫紅落日與透視格線的 1980s 數位美學。</p>
-      <div class="card-tags"><span class="card-tag">80s</span><span class="card-tag">neon</span><span class="card-tag">grid</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
+    <div class="submark"><span class="submark-num">06 / 04</span><span class="submark-title">循環</span><span class="submark-en">Loop</span></div>
+    <div class="grid">
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/m35.webp" loading="lazy" decoding="async" alt="極光漸層流動 風格示意圖"><span class="card-badge">循環</span><span class="card-id">C 35</span></div><div class="card-body"><div class="card-zh">極光漸層流動</div><div class="card-en">Aurora Flow</div><p class="card-desc">多色 radial-gradient 球體以長 loop 緩慢流動。</p><div class="card-tags"><span class="card-tag">gradient</span><span class="card-tag">aurora</span><span class="card-tag">keyframes</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="m35" type="button" aria-label="查看 m35 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/m36.webp" loading="lazy" decoding="async" alt="漂浮幾何球 風格示意圖"><span class="card-badge">循環</span><span class="card-id">C 36</span></div><div class="card-body"><div class="card-zh">漂浮幾何球</div><div class="card-en">Floating Orbs</div><p class="card-desc">背景幾何形體上下漂浮、速度時快時慢的呼吸感。</p><div class="card-tags"><span class="card-tag">floating</span><span class="card-tag">orbs</span><span class="card-tag">background</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="m36" type="button" aria-label="查看 m36 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/m37.webp" loading="lazy" decoding="async" alt="動態噪點 風格示意圖"><span class="card-badge">循環</span><span class="card-id">C 37</span></div><div class="card-body"><div class="card-zh">動態噪點</div><div class="card-en">Noise Grain</div><p class="card-desc">動態膠片顆粒疊加緩慢色相旋轉的舊膠卷質感。</p><div class="card-tags"><span class="card-tag">noise</span><span class="card-tag">film-grain</span><span class="card-tag">hue-rotate</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="m37" type="button" aria-label="查看 m37 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+    </div>
 
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c11.png" alt="C11 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">復古懷舊</span><span class="id-num">C11</span></div><div class="card-body">
-      <div class="card-zh">包浩斯</div><div class="card-en">Bauhaus</div>
-      <p class="card-desc">紅黃藍三原色配圓三角方塊的幾何構成，1920s 德國學院派。</p>
-      <div class="card-tags"><span class="card-tag">1920s</span><span class="card-tag">geometric</span><span class="card-tag">primary</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
-  </div>
-</section>
-
-<!-- Cluster 3: 實驗前衛 -->
-<section class="chapter" id="c-experimental">
-  <div class="chapter-head">
-    <div class="num">03 / 實驗前衛</div>
-    <h2>實驗前衛</h2>
-    <div class="en">Experimental · 6 styles</div>
-  </div>
-  <div class="grid cluster-experimental">
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c12.png" alt="C12 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">實驗前衛</span><span class="id-num">C12</span></div><div class="card-body">
-      <div class="card-zh">野獸派</div><div class="card-en">Brutalism</div>
-      <p class="card-desc">裸露結構、強烈對比與粗暴排版的反 UX 設計哲學。</p>
-      <div class="card-tags"><span class="card-tag">raw</span><span class="card-tag">monospace</span><span class="card-tag">anti-design</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
-
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c13.png" alt="C13 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">實驗前衛</span><span class="id-num">C13</span></div><div class="card-body">
-      <div class="card-zh">故障藝術</div><div class="card-en">Glitch Art</div>
-      <p class="card-desc">RGB 錯位、掃描線與隨機破碎的數位失真美學。</p>
-      <div class="card-tags"><span class="card-tag">rgb-shift</span><span class="card-tag">distortion</span><span class="card-tag">noise</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
-
-    <article class="card card-live"><a href="works/c14-cyberpunk/index.html" style="text-decoration:none; color:inherit; display:flex; flex-direction:column; height:100%;"><div class="card-thumb has-img"><img src="images/thumbs/c14.png" alt="C14 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">實驗前衛</span><span class="id-num">C14</span></div><div class="card-body">
-      <div class="card-zh">賽博龐克</div><div class="card-en">Cyberpunk</div>
-      <p class="card-desc">霓虹粉藍配黑底、片假名與發光邊框的高科技反烏托邦視覺。</p>
-      <div class="card-tags"><span class="card-tag">neon</span><span class="card-tag">dystopia</span><span class="card-tag">tech-noir</span></div>
-      <div class="card-cta" style="color: var(--accent);">📄 進入 C14 demo →</div>
-    </div></a></article>
-
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c15.png" alt="C15 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">實驗前衛</span><span class="id-num">C15</span></div><div class="card-body">
-      <div class="card-zh">構成主義</div><div class="card-en">Constructivism</div>
-      <p class="card-desc">紅黑斜切構圖與宣傳海報語法的俄式前衛排版。</p>
-      <div class="card-tags"><span class="card-tag">russian</span><span class="card-tag">propaganda</span><span class="card-tag">diagonal</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
-
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c16.png" alt="C16 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">實驗前衛</span><span class="id-num">C16</span></div><div class="card-body">
-      <div class="card-zh">ASCII 終端機</div><div class="card-en">ASCII Terminal</div>
-      <p class="card-desc">綠底螢光字、ASCII art 與 80×24 終端機網格的純文字美學。</p>
-      <div class="card-tags"><span class="card-tag">monospace</span><span class="card-tag">green-phosphor</span><span class="card-tag">cli</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
-
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c17.png" alt="C17 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">實驗前衛</span><span class="id-num">C17</span></div><div class="card-body">
-      <div class="card-zh">雜誌排版</div><div class="card-en">Editorial Magazine</div>
-      <p class="card-desc">12 欄網格、粗襯線標題與圖文混排的傳統雜誌排版邏輯。</p>
-      <div class="card-tags"><span class="card-tag">print</span><span class="card-tag">serif</span><span class="card-tag">grid</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
-  </div>
-</section>
-
-<!-- Cluster 4: 文化在地 -->
-<section class="chapter" id="c-cultural">
-  <div class="chapter-head">
-    <div class="num">04 / 文化在地</div>
-    <h2>文化在地</h2>
-    <div class="en">Cultural · 5 styles</div>
-  </div>
-  <div class="grid cluster-cultural">
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c18.png" alt="C18 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">文化在地</span><span class="id-num">C18</span></div><div class="card-body">
-      <div class="card-zh">日式禪意</div><div class="card-en">Wabi-Sabi</div>
-      <p class="card-desc">米色紙質、墨筆觸與不完美留白的日式侘寂美學。</p>
-      <div class="card-tags"><span class="card-tag">japan</span><span class="card-tag">minimal</span><span class="card-tag">natural</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
-
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c19.png" alt="C19 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">文化在地</span><span class="id-num">C19</span></div><div class="card-body">
-      <div class="card-zh">中國風國潮</div><div class="card-en">Chinoiserie / Guochao</div>
-      <p class="card-desc">硃紅墨黑、宋體字配水墨點綴的中式古典與當代潮流融合。</p>
-      <div class="card-tags"><span class="card-tag">china</span><span class="card-tag">traditional</span><span class="card-tag">modern-fusion</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
-
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c20.png" alt="C20 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">文化在地</span><span class="id-num">C20</span></div><div class="card-body">
-      <div class="card-zh">北歐極簡</div><div class="card-en">Scandinavian</div>
-      <p class="card-desc">木質暖灰、無襯線清爽字體與北歐插畫的自然森林感。</p>
-      <div class="card-tags"><span class="card-tag">nordic</span><span class="card-tag">cozy</span><span class="card-tag">natural</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
-
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c21.png" alt="C21 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">文化在地</span><span class="id-num">C21</span></div><div class="card-body">
-      <div class="card-zh">瑞士國際風格</div><div class="card-en">Swiss International</div>
-      <p class="card-desc">左對齊網格、Helvetica 與紅色強調的二戰後理性排版革命。</p>
-      <div class="card-tags"><span class="card-tag">grid</span><span class="card-tag">helvetica</span><span class="card-tag">sans-serif</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
-
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c22.png" alt="C22 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">文化在地</span><span class="id-num">C22</span></div><div class="card-body">
-      <div class="card-zh">台灣廟會</div><div class="card-en">Taiwan Temple Carnival</div>
-      <p class="card-desc">霓虹招牌、紅黃對比與民俗符號的台灣在地熱鬧視覺。</p>
-      <div class="card-tags"><span class="card-tag">taiwan</span><span class="card-tag">folk</span><span class="card-tag">festive</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
-  </div>
-</section>
-
-<!-- Cluster 5: 裝飾性 -->
-<section class="chapter" id="c-decorative">
-  <div class="chapter-head">
-    <div class="num">05 / 裝飾性</div>
-    <h2>裝飾性</h2>
-    <div class="en">Decorative · 3 styles</div>
-  </div>
-  <div class="grid cluster-decorative">
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c23.png" alt="C23 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">裝飾性</span><span class="id-num">C23</span></div><div class="card-body">
-      <div class="card-zh">等距 3D</div><div class="card-en">Isometric 3D</div>
-      <p class="card-desc">30 度斜角立體插畫、玩具世界與小人物構圖。</p>
-      <div class="card-tags"><span class="card-tag">3d</span><span class="card-tag">illustration</span><span class="card-tag">colorful</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
-
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c24.png" alt="C24 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">裝飾性</span><span class="id-num">C24</span></div><div class="card-body">
-      <div class="card-zh">手繪塗鴉</div><div class="card-en">Hand-Drawn Sketch</div>
-      <p class="card-desc">蠟筆、歪斜手寫字與隨意箭頭的人工速寫感。</p>
-      <div class="card-tags"><span class="card-tag">sketch</span><span class="card-tag">doodle</span><span class="card-tag">human</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
-
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/c25.png" alt="C25 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">裝飾性</span><span class="id-num">C25</span></div><div class="card-body">
-      <div class="card-zh">漸層 Mesh</div><div class="card-en">Gradient Mesh</div>
-      <p class="card-desc">流動曲線漸層、極光色彩與柔光球體的液態畫布。</p>
-      <div class="card-tags"><span class="card-tag">gradient</span><span class="card-tag">aurora</span><span class="card-tag">fluid</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
-  </div>
-</section>
-
-<!-- Cluster 6-10: 動態效果 -->
-<section class="chapter" id="c-motion">
-  <div class="chapter-head">
-    <div class="num">06–10 / 動態效果</div>
-    <h2>動態效果</h2>
-    <div class="en">Motion · 5 sub-clusters · 15 effects</div>
-  </div>
-
-  <h3 style="font-family: var(--serif); font-weight: 400; font-size: 18px; color: var(--ink-2); letter-spacing: 0.05em; margin: 8px 0 18px;">06 ▸ 視差 <span style="font-family: var(--num); font-style: italic; font-size: 13px; color: var(--ink-3);">Parallax</span></h3>
-  <div class="grid cluster-motion">
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/m26.png" alt="C26 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">視差</span><span class="id-num">C26</span></div><div class="card-body">
-      <div class="card-zh">多層視差</div><div class="card-en">Parallax Layers</div>
-      <p class="card-desc">滾動時多層元素以不同速度位移，呈現縱深感。</p>
-      <div class="card-tags"><span class="card-tag">parallax</span><span class="card-tag">depth</span><span class="card-tag">mountain</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
-
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/m27.png" alt="C27 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">視差</span><span class="id-num">C27</span></div><div class="card-body">
-      <div class="card-zh">Sticky 堆疊章節</div><div class="card-en">Sticky Stack</div>
-      <p class="card-desc">章節先被釘住、再被下一章從底部疊上的堆疊滾動模式。</p>
-      <div class="card-tags"><span class="card-tag">sticky</span><span class="card-tag">stack</span><span class="card-tag">apple-style</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
-
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/m28.png" alt="C28 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">視差</span><span class="id-num">C28</span></div><div class="card-body">
-      <div class="card-zh">橫向滾動陣容</div><div class="card-en">Horizontal Scroll</div>
-      <p class="card-desc">垂直滾動轉換為內容區段的橫向滑動位移。</p>
-      <div class="card-tags"><span class="card-tag">horizontal</span><span class="card-tag">scroll-translate</span><span class="card-tag">lineup</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
-  </div>
-
-  <h3 style="font-family: var(--serif); font-weight: 400; font-size: 18px; color: var(--ink-2); letter-spacing: 0.05em; margin: 40px 0 18px;">07 ▸ 滾動 <span style="font-family: var(--num); font-style: italic; font-size: 13px; color: var(--ink-3);">Scroll</span></h3>
-  <div class="grid cluster-motion">
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/m29.png" alt="C29 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">滾動</span><span class="id-num">C29</span></div><div class="card-body">
-      <div class="card-zh">全屏章節切換</div><div class="card-en">Scroll Snap Acts</div>
-      <p class="card-desc">每個區段佔滿視窗、scroll-snap 強制吸附的章節切換。</p>
-      <div class="card-tags"><span class="card-tag">scroll-snap</span><span class="card-tag">fullscreen</span><span class="card-tag">cinematic</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
-
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/m30.png" alt="C30 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">滾動</span><span class="id-num">C30</span></div><div class="card-body">
-      <div class="card-zh">滾動進度指示</div><div class="card-en">Scroll Progress</div>
-      <p class="card-desc">頂部 progress bar 與側邊章節點陣指示當前閱讀位置。</p>
-      <div class="card-tags"><span class="card-tag">progress-bar</span><span class="card-tag">indicator</span><span class="card-tag">navigation</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
-
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/m31.png" alt="C31 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">滾動</span><span class="id-num">C31</span></div><div class="card-body">
-      <div class="card-zh">滾動跑馬燈</div><div class="card-en">Marquee Band</div>
-      <p class="card-desc">大字橫向跑動、速度依滾動而調變的 marquee 效果。</p>
-      <div class="card-tags"><span class="card-tag">marquee</span><span class="card-tag">speed-modulated</span><span class="card-tag">lineup</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
-  </div>
-
-  <h3 style="font-family: var(--serif); font-weight: 400; font-size: 18px; color: var(--ink-2); letter-spacing: 0.05em; margin: 40px 0 18px;">08 ▸ 入場 <span style="font-family: var(--num); font-style: italic; font-size: 13px; color: var(--ink-3);">Entrance</span></h3>
-  <div class="grid cluster-motion">
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/m32.png" alt="C32 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">入場</span><span class="id-num">C32</span></div><div class="card-body">
-      <div class="card-zh">錯落淡入</div><div class="card-en">Fade Stagger</div>
-      <p class="card-desc">卡片進入視窗時依序錯落淡入位移的波浪入場。</p>
-      <div class="card-tags"><span class="card-tag">intersection-observer</span><span class="card-tag">stagger</span><span class="card-tag">wave</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
-
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/m33.png" alt="C33 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">入場</span><span class="id-num">C33</span></div><div class="card-body">
-      <div class="card-zh">打字機標題</div><div class="card-en">Typewriter</div>
-      <p class="card-desc">Hero 標題以打字機節奏一字一字浮現，段落隨之滑入。</p>
-      <div class="card-tags"><span class="card-tag">typewriter</span><span class="card-tag">cursor-blink</span><span class="card-tag">hero</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
-
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/m34.png" alt="C34 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">入場</span><span class="id-num">C34</span></div><div class="card-body">
-      <div class="card-zh">數字爆裂計數</div><div class="card-en">Counter Burst</div>
-      <p class="card-desc">數字在滾入視窗時從 0 動畫跳動至目標值。</p>
-      <div class="card-tags"><span class="card-tag">counter</span><span class="card-tag">animate-numeric</span><span class="card-tag">about</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
-  </div>
-
-  <h3 style="font-family: var(--serif); font-weight: 400; font-size: 18px; color: var(--ink-2); letter-spacing: 0.05em; margin: 40px 0 18px;">09 ▸ 循環 <span style="font-family: var(--num); font-style: italic; font-size: 13px; color: var(--ink-3);">Loop</span></h3>
-  <div class="grid cluster-motion">
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/m35.png" alt="C35 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">循環</span><span class="id-num">C35</span></div><div class="card-body">
-      <div class="card-zh">極光漸層流動</div><div class="card-en">Aurora Flow</div>
-      <p class="card-desc">多色 radial-gradient 球體以長 loop 緩慢流動。</p>
-      <div class="card-tags"><span class="card-tag">gradient</span><span class="card-tag">aurora</span><span class="card-tag">keyframes</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
-
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/m36.png" alt="C36 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">循環</span><span class="id-num">C36</span></div><div class="card-body">
-      <div class="card-zh">漂浮幾何球</div><div class="card-en">Floating Orbs</div>
-      <p class="card-desc">背景幾何形體上下漂浮、速度時快時慢的呼吸感。</p>
-      <div class="card-tags"><span class="card-tag">floating</span><span class="card-tag">orbs</span><span class="card-tag">background</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
-
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/m37.png" alt="C37 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">循環</span><span class="id-num">C37</span></div><div class="card-body">
-      <div class="card-zh">動態噪點</div><div class="card-en">Noise Grain</div>
-      <p class="card-desc">動態膠片顆粒疊加緩慢色相旋轉的舊膠卷質感。</p>
-      <div class="card-tags"><span class="card-tag">noise</span><span class="card-tag">film-grain</span><span class="card-tag">hue-rotate</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
-  </div>
-
-  <h3 style="font-family: var(--serif); font-weight: 400; font-size: 18px; color: var(--ink-2); letter-spacing: 0.05em; margin: 40px 0 18px;">10 ▸ 指標 <span style="font-family: var(--num); font-style: italic; font-size: 13px; color: var(--ink-3);">Cursor</span></h3>
-  <div class="grid cluster-motion">
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/m38.png" alt="C38 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">指標</span><span class="id-num">C38</span></div><div class="card-body">
-      <div class="card-zh">滑鼠光暈</div><div class="card-en">Cursor Spotlight</div>
-      <p class="card-desc">光暈隨滑鼠位置移動的局部 radial-gradient 照明。</p>
-      <div class="card-tags"><span class="card-tag">cursor</span><span class="card-tag">spotlight</span><span class="card-tag">radial-gradient</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
-
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/m39.png" alt="C39 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">指標</span><span class="id-num">C39</span></div><div class="card-body">
-      <div class="card-zh">3D 傾斜卡片</div><div class="card-en">Tilt Cards</div>
-      <p class="card-desc">卡片依滑鼠位置 3D 傾斜的 perspective 觸感互動。</p>
-      <div class="card-tags"><span class="card-tag">3d-transform</span><span class="card-tag">mouse-tilt</span><span class="card-tag">perspective</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
-
-    <article class="card"><div class="card-thumb has-img"><img src="images/thumbs/m40.png" alt="C40 thumb" loading="lazy" onerror="this.style.display='none'"><span class="cat-tag">指標</span><span class="id-num">C40</span></div><div class="card-body">
-      <div class="card-zh">磁吸按鈕</div><div class="card-en">Magnetic CTA</div>
-      <p class="card-desc">按鈕在滑鼠靠近時被輕微吸過去的磁吸物件效果。</p>
-      <div class="card-tags"><span class="card-tag">magnetic</span><span class="card-tag">attraction</span><span class="card-tag">cta</span></div>
-      <div class="card-cta">📄 子頁待開</div>
-    </div></article>
-  </div>
-</section>
+    <div class="submark"><span class="submark-num">06 / 05</span><span class="submark-title">指標</span><span class="submark-en">Cursor</span></div>
+    <div class="grid">
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/m38.webp" loading="lazy" decoding="async" alt="滑鼠光暈 風格示意圖"><span class="card-badge">指標</span><span class="card-id">C 38</span></div><div class="card-body"><div class="card-zh">滑鼠光暈</div><div class="card-en">Cursor Spotlight</div><p class="card-desc">光暈隨滑鼠位置移動的局部 radial-gradient 照明。</p><div class="card-tags"><span class="card-tag">cursor</span><span class="card-tag">spotlight</span><span class="card-tag">radial-gradient</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="m38" type="button" aria-label="查看 m38 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/m39.webp" loading="lazy" decoding="async" alt="3D 傾斜卡片 風格示意圖"><span class="card-badge">指標</span><span class="card-id">C 39</span></div><div class="card-body"><div class="card-zh">3D 傾斜卡片</div><div class="card-en">Tilt Cards</div><p class="card-desc">卡片依滑鼠位置 3D 傾斜的 perspective 觸感互動。</p><div class="card-tags"><span class="card-tag">3d-transform</span><span class="card-tag">mouse-tilt</span><span class="card-tag">perspective</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="m39" type="button" aria-label="查看 m39 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+      <article class="card" data-status="placeholder"><div class="card-link"><div class="card-thumb"><img src="images/thumbs/m40.webp" loading="lazy" decoding="async" alt="磁吸按鈕 風格示意圖"><span class="card-badge">指標</span><span class="card-id">C 40</span></div><div class="card-body"><div class="card-zh">磁吸按鈕</div><div class="card-en">Magnetic CTA</div><p class="card-desc">按鈕在滑鼠靠近時被輕微吸過去的磁吸物件效果。</p><div class="card-tags"><span class="card-tag">magnetic</span><span class="card-tag">attraction</span><span class="card-tag">cta</span></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn-skill" data-skill="m40" type="button" aria-label="查看 m40 Skill"><span class="ic">◇</span> 查看 Skill</button><span class="btn-open-disabled" aria-disabled="true">作品撰寫中</span></div></div></div></article>
+    </div>
+  </section>
 
 </main>
 
+<!-- Skill viewer modal -->
+<dialog class="skill-modal" id="skillModal" aria-labelledby="skillModalTitle">
+  <div class="modal-head">
+    <div class="modal-title">
+      <span class="skill-id" id="skillModalId">— —</span>
+      <span class="skill-name" id="skillModalTitle">Loading…</span>
+    </div>
+    <button class="modal-close" id="skillModalClose" aria-label="關閉">✕</button>
+  </div>
+  <div class="modal-actions">
+    <button class="btn-copy" id="skillCopyBtn" type="button">複製全文</button>
+    <a class="btn-download" id="skillDownloadBtn" download>下載 .md</a>
+    <span style="flex:1"></span>
+    <a class="btn-source" id="skillSourceBtn" target="_blank" rel="noopener">在新分頁開啟</a>
+  </div>
+  <pre class="skill-content" id="skillContent">載入中…</pre>
+</dialog>
+
+
 <footer>
-  <div class="seal">MMXXVI &middot; AQUALUX.DEV</div>
+  <div class="footer-logo" aria-label="aqualux">
+    <svg viewBox="0 0 600 280" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text>
+      <line x1="80" y1="165" x2="520" y2="165" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+      <g transform="translate(0,330) scale(1,-1)" opacity="0.28"><text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text></g>
+    </svg>
+  </div>
+  <div class="seal">MMXXVI · DESIGN SPECTRUM</div>
   <div class="credits">
-    Curated &amp; designed by <a href="https://aqualux.dev" target="_blank" rel="noopener">Chengchieh Huang</a><br>
-    Inspired by <a href="https://www.casper.tw/claude-skill-design-gallery/" target="_blank" rel="noopener">Casper's Claude Code Skill 設計風格圖鑑</a>（已取得授權）
+    Curated by <a href="https://aqualux.dev" target="_blank" rel="noopener">Chengchieh Huang</a><br>
+    Thumbnails generated by aqualux. Type set in Noto Serif TC + Cormorant Garamond + Inter.
   </div>
-  <div class="note">
-    <strong>使用說明：</strong>本頁為 aqualux 視覺骨架版本。40 個風格的中文/英文名稱與分類結構沿用 Casper 原作；每張卡片的描述為 aqualux 自寫的中性技術說明（placeholder）。若已取得授權，可逐張替換為 Casper 原文。每個子頁的 single-file demo 屬於 Casper 的原創 HTML/CSS 程式碼，須依授權範圍另行討論再行複用。
-  </div>
-  <div class="micro">SCAFFOLD · NOT A REPRODUCTION</div>
+  <div class="micro">VOL.I — MMXXVI EDITION</div>
 </footer>
 
 <script>
+(function() {
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const bar = document.getElementById('progress');
-  window.addEventListener('scroll', () => {
+  function updateProgress() {
     const h = document.documentElement;
-    const pct = h.scrollTop / (h.scrollHeight - h.clientHeight) * 100;
+    const denom = Math.max(1, h.scrollHeight - h.clientHeight);
+    const pct = h.scrollTop / denom * 100;
     bar.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+
+  function animateCounter(el, target, duration) {
+    duration = duration || 1600;
+    const start = performance.now();
+    function tick(now) {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = Math.floor(eased * target);
+      if (t < 1) requestAnimationFrame(tick);
+      else el.textContent = target;
+    }
+    requestAnimationFrame(tick);
+  }
+  const statObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('in');
+      const num = e.target.querySelector('[data-target]');
+      if (num && !num.dataset.done) {
+        num.dataset.done = '1';
+        const target = parseInt(num.dataset.target, 10);
+        if (!isNaN(target)) {
+          if (prefersReducedMotion) { num.textContent = target; }
+          else { animateCounter(num, target); }
+        }
+      }
+      statObserver.unobserve(e.target);
+    });
+  }, { threshold: 0.4 });
+  document.querySelectorAll('.stat').forEach(function(s) { statObserver.observe(s); });
+
+  const cardObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (!e.isIntersecting) return;
+      const card = e.target;
+      const siblings = Array.from(card.parentElement.children);
+      const idx = siblings.indexOf(card);
+      card.style.transitionDelay = Math.min(idx, 6) * 60 + 'ms';
+      card.classList.add('in');
+      cardObserver.unobserve(card);
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.card').forEach(function(c) { cardObserver.observe(c); });
+
+  const PT = 14;
+  if (!prefersReducedMotion) document.querySelectorAll('.card').forEach(function(card) {
+    let raf;
+    card.addEventListener('mousemove', function(e) {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(function() {
+        card.style.transform = 'perspective(800px) rotateX(' + (-y * PT) + 'deg) rotateY(' + (x * PT) + 'deg) translateY(0) scale(1.01)';
+      });
+    });
+    card.addEventListener('mouseleave', function() {
+      cancelAnimationFrame(raf);
+      card.style.transform = '';
+    });
   });
+
+  const cue = document.getElementById('scrollCue');
+  if (cue) {
+    cue.addEventListener('click', function() {
+      document.getElementById('stats').scrollIntoView({ behavior: 'smooth' });
+    });
+    cue.style.cursor = 'pointer';
+  }
+
+  const sections = ['c-mainstream','c-retro','c-experimental','c-cultural','c-decorative','c-motion'];
+  const navLinks = document.querySelectorAll('.nav a');
+  function updateNav() {
+    let active = '';
+    for (const id of sections) {
+      const el = document.getElementById(id);
+      if (el && el.getBoundingClientRect().top < 140) active = id;
+    }
+    navLinks.forEach(function(a) {
+      const href = a.getAttribute('href') || '';
+      a.classList.toggle('active', href === '#' + active);
+    });
+  }
+  window.addEventListener('scroll', updateNav, { passive: true });
+  updateNav();
+
+  // ============ Skill viewer modal ============
+  const skillModal = document.getElementById('skillModal');
+  const skillContent = document.getElementById('skillContent');
+  const skillModalId = document.getElementById('skillModalId');
+  const skillModalTitle = document.getElementById('skillModalTitle');
+  const skillCopyBtn = document.getElementById('skillCopyBtn');
+  const skillDownloadBtn = document.getElementById('skillDownloadBtn');
+  const skillSourceBtn = document.getElementById('skillSourceBtn');
+  const skillModalClose = document.getElementById('skillModalClose');
+
+  function nameFor(slug) {
+    const card = document.querySelector('[data-skill="' + slug + '"]');
+    if (!card) return slug.toUpperCase();
+    const article = card.closest('article');
+    const zh = article?.querySelector('.card-zh')?.textContent?.trim() || '';
+    const en = article?.querySelector('.card-en')?.textContent?.trim() || '';
+    return zh + (en ? ' / ' + en : '');
+  }
+
+  document.querySelectorAll('.btn-skill').forEach(function(btn) {
+    btn.addEventListener('click', async function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      const slug = btn.dataset.skill;
+      const url = 'skills/' + slug + '.md';
+      const idLabel = 'C ' + slug.replace(/^[cm]/, '').padStart(2, '0');
+      skillModalId.textContent = idLabel;
+      skillModalTitle.textContent = nameFor(slug);
+      skillDownloadBtn.href = url;
+      skillDownloadBtn.setAttribute('download', slug + '.md');
+      skillSourceBtn.href = url;
+      skillContent.textContent = '載入中…';
+      if (typeof skillModal.showModal === 'function') {
+        skillModal.showModal();
+      } else {
+        skillModal.setAttribute('open', '');
+      }
+      try {
+        const resp = await fetch(url, { cache: 'no-cache' });
+        if (!resp.ok) throw new Error('HTTP ' + resp.status);
+        const md = await resp.text();
+        skillContent.textContent = md;
+      } catch (err) {
+        skillContent.textContent = '⚠ 載入失敗：' + err.message + '\n\n（可能 Skill 還在撰寫中。）';
+      }
+    });
+  });
+
+  skillModalClose.addEventListener('click', function() {
+    if (typeof skillModal.close === 'function') skillModal.close();
+    else skillModal.removeAttribute('open');
+  });
+  skillModal.addEventListener('click', function(e) {
+    // Close when clicking backdrop
+    const r = skillModal.getBoundingClientRect();
+    if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) {
+      skillModal.close();
+    }
+  });
+
+  skillCopyBtn.addEventListener('click', async function() {
+    try {
+      await navigator.clipboard.writeText(skillContent.textContent);
+      skillCopyBtn.textContent = '已複製 ✓';
+      skillCopyBtn.classList.add('copied');
+      setTimeout(function() {
+        skillCopyBtn.textContent = '複製全文';
+        skillCopyBtn.classList.remove('copied');
+      }, 1800);
+    } catch (err) {
+      skillCopyBtn.textContent = '複製失敗';
+    }
+  });
+
+  // Close on Escape (dialog handles by default, but for fallback)
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && skillModal.hasAttribute('open')) {
+      skillModal.close();
+    }
+  });
+
+})();
 </script>
 
 </body>

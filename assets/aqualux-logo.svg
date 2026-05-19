@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- aqualux master mark · Sagmeister 倒影派 · SVG 版 (currentColor adaptive)
+     用法：
+       1. 直接 <img src="assets/aqualux-logo.svg"> — 顏色由 SVG 內部 fill 控制（黑字）
+       2. 想自動深淺色切換 → 改用 inline <svg> 並把 fill 改成 currentColor
+       3. dark mode 想反白 → CSS: filter: invert(1) brightness(1.1)
+     版本：2026-05-19 v1（純向量、Sagmeister 倒影、可選 tagline）
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 380" fill="currentColor" aria-label="aqualux">
+  <defs>
+    <style>
+      .word { font-family: 'Inter','Helvetica Neue','Arial',sans-serif; font-weight: 300; font-size: 140px; letter-spacing: 6px; }
+      .tagline { font-family: 'Inter','Helvetica Neue','Arial',sans-serif; font-weight: 400; font-size: 16px; letter-spacing: 9px; opacity: 0.55; }
+    </style>
+  </defs>
+
+  <!-- Top wordmark -->
+  <text class="word" x="300" y="150" text-anchor="middle">aqualux</text>
+
+  <!-- Waterline (髮絲線) -->
+  <line x1="80" y1="180" x2="520" y2="180" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+
+  <!-- Reflection (倒影 — 垂直翻轉、透明度 25%) -->
+  <g transform="translate(0, 360) scale(1, -1)" opacity="0.28">
+    <text class="word" x="300" y="150" text-anchor="middle">aqualux</text>
+  </g>
+
+  <!-- Tagline (可由 CSS 隱藏給個人品牌版用) -->
+  <text class="tagline" x="300" y="360" text-anchor="middle">AQUALUX HYBRID CHEMISTRY INDUSTRY</text>
+</svg>

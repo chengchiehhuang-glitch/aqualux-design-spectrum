@@ -74,7 +74,7 @@
   .topbar {
     position: sticky; top: 0; z-index: 100;
     background: rgba(5, 6, 12, 0.85);
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--line);
     padding: 14px 32px;
     display: flex; justify-content: space-between; align-items: center;
@@ -596,8 +596,10 @@
   <div class="right">SYS.STATUS: <span class="blink">●</span> ONLINE</div>
 </header>
 
+<main>
+
 <div class="hero-banner">
-  <img src="images/hero.png" alt="AQUALUX SPECTRUM 2026 - Cyberpunk Tokyo Cityscape">
+  <img src="images/hero.webp" loading="lazy" decoding="async" alt="AQUALUX SPECTRUM 2026 - Cyberpunk Tokyo Cityscape">
   <div class="glitch-overlay">▶ KEY_VISUAL // <span class="blink">REC</span> // RENDERED_BY_GPT-IMAGE-2</div>
 </div>
 
@@ -647,23 +649,23 @@
     <h2 class="sec-title">設<span class="ph">計師</span>名單</h2>
   </div>
   <div class="designers">
-    <div class="designer-card"><div class="designer-thumb"><img src="images/d001-neon-lee.png" alt="Neon Lee emblem"></div><div class="pad-top"><div class="idx">D_001</div><div class="name-jp">ネオン　リー</div><div class="name">Neon Lee</div><div class="tag">UI / Brutalism</div></div></div>
-    <div class="designer-card"><div class="designer-thumb"><img src="images/d002-chrome-ho.png" alt="Chrome Ho emblem"></div><div class="pad-top"><div class="idx">D_002</div><div class="name-jp">クローム　ホー</div><div class="name">Chrome Ho</div><div class="tag">Motion / Parallax</div></div></div>
-    <div class="designer-card"><div class="designer-thumb"><img src="images/d003-glitch-chang.png" alt="Glitch Chang emblem"></div><div class="pad-top"><div class="idx">D_003</div><div class="name-jp">グリッチ　チャン</div><div class="name">Glitch Chang</div><div class="tag">Experimental</div></div></div>
-    <div class="designer-card"><div class="designer-thumb"><img src="images/d004-paper-wu.png" alt="Paper Wu emblem"></div><div class="pad-top"><div class="idx">D_004</div><div class="name-jp">ペーパー　ウー</div><div class="name">Paper Wu</div><div class="tag">Editorial / Minimal</div></div></div>
-    <div class="designer-card"><div class="designer-thumb"><img src="images/d005-vapor-lin.png" alt="Vapor Lin emblem"></div><div class="pad-top"><div class="idx">D_005</div><div class="name-jp">ヴェイパー　リン</div><div class="name">Vapor Lin</div><div class="tag">Retro / Aesthetic</div></div></div>
-    <div class="designer-card"><div class="designer-thumb"><img src="images/d006-swiss-chen.png" alt="Swiss Chen emblem"></div><div class="pad-top"><div class="idx">D_006</div><div class="name-jp">スイス　チェン</div><div class="name">Swiss Chen</div><div class="tag">Cultural / Grid</div></div></div>
-    <div class="designer-card"><div class="designer-thumb"><img src="images/d007-glass-yang.png" alt="Glass Yang emblem"></div><div class="pad-top"><div class="idx">D_007</div><div class="name-jp">ガラス　ヤン</div><div class="name">Glass Yang</div><div class="tag">Glassmorphism</div></div></div>
-    <div class="designer-card"><div class="designer-thumb"><img src="images/d008-ascii-fan.png" alt="ASCII Fan emblem"></div><div class="pad-top"><div class="idx">D_008</div><div class="name-jp">アスキー　ファン</div><div class="name">ASCII Fan</div><div class="tag">Terminal / CLI</div></div></div>
-    <div class="designer-card"><div class="designer-thumb"><img src="images/d009-hand-chao.png" alt="Hand Chao emblem"></div><div class="pad-top"><div class="idx">D_009</div><div class="name-jp">ハンド　ジョー</div><div class="name">Hand Chao</div><div class="tag">Sketch / Doodle</div></div></div>
-    <div class="designer-card"><div class="designer-thumb"><img src="images/d010-magne-huang.png" alt="Magne Huang emblem"></div><div class="pad-top"><div class="idx">D_010</div><div class="name-jp">マグネ　ホアン</div><div class="name">Magne Huang</div><div class="tag">Interaction</div></div></div>
-    <div class="designer-card"><div class="designer-thumb"><img src="images/d011-cyber-su.png" alt="Cyber Su emblem"></div><div class="pad-top"><div class="idx">D_011</div><div class="name-jp">サイバー　スー</div><div class="name">Cyber Su</div><div class="tag">Cyberpunk / Glow</div></div></div>
-    <div class="designer-card"><div class="designer-thumb"><img src="images/d012-noise-kao.png" alt="Noise Kao emblem"></div><div class="pad-top"><div class="idx">D_012</div><div class="name-jp">ノイズ　カオ</div><div class="name">Noise Kao</div><div class="tag">Film Grain</div></div></div>
+    <div class="designer-card"><div class="designer-thumb"><img src="images/d001-neon-lee.webp" loading="lazy" decoding="async" alt="Neon Lee emblem"></div><div class="pad-top"><div class="idx">D_001</div><div class="name-jp">ネオン　リー</div><div class="name">Neon Lee</div><div class="tag">UI / Brutalism</div></div></div>
+    <div class="designer-card"><div class="designer-thumb"><img src="images/d002-chrome-ho.webp" loading="lazy" decoding="async" alt="Chrome Ho emblem"></div><div class="pad-top"><div class="idx">D_002</div><div class="name-jp">クローム　ホー</div><div class="name">Chrome Ho</div><div class="tag">Motion / Parallax</div></div></div>
+    <div class="designer-card"><div class="designer-thumb"><img src="images/d003-glitch-chang.webp" loading="lazy" decoding="async" alt="Glitch Chang emblem"></div><div class="pad-top"><div class="idx">D_003</div><div class="name-jp">グリッチ　チャン</div><div class="name">Glitch Chang</div><div class="tag">Experimental</div></div></div>
+    <div class="designer-card"><div class="designer-thumb"><img src="images/d004-paper-wu.webp" loading="lazy" decoding="async" alt="Paper Wu emblem"></div><div class="pad-top"><div class="idx">D_004</div><div class="name-jp">ペーパー　ウー</div><div class="name">Paper Wu</div><div class="tag">Editorial / Minimal</div></div></div>
+    <div class="designer-card"><div class="designer-thumb"><img src="images/d005-vapor-lin.webp" loading="lazy" decoding="async" alt="Vapor Lin emblem"></div><div class="pad-top"><div class="idx">D_005</div><div class="name-jp">ヴェイパー　リン</div><div class="name">Vapor Lin</div><div class="tag">Retro / Aesthetic</div></div></div>
+    <div class="designer-card"><div class="designer-thumb"><img src="images/d006-swiss-chen.webp" loading="lazy" decoding="async" alt="Swiss Chen emblem"></div><div class="pad-top"><div class="idx">D_006</div><div class="name-jp">スイス　チェン</div><div class="name">Swiss Chen</div><div class="tag">Cultural / Grid</div></div></div>
+    <div class="designer-card"><div class="designer-thumb"><img src="images/d007-glass-yang.webp" loading="lazy" decoding="async" alt="Glass Yang emblem"></div><div class="pad-top"><div class="idx">D_007</div><div class="name-jp">ガラス　ヤン</div><div class="name">Glass Yang</div><div class="tag">Glassmorphism</div></div></div>
+    <div class="designer-card"><div class="designer-thumb"><img src="images/d008-ascii-fan.webp" loading="lazy" decoding="async" alt="ASCII Fan emblem"></div><div class="pad-top"><div class="idx">D_008</div><div class="name-jp">アスキー　ファン</div><div class="name">ASCII Fan</div><div class="tag">Terminal / CLI</div></div></div>
+    <div class="designer-card"><div class="designer-thumb"><img src="images/d009-hand-chao.webp" loading="lazy" decoding="async" alt="Hand Chao emblem"></div><div class="pad-top"><div class="idx">D_009</div><div class="name-jp">ハンド　ジョー</div><div class="name">Hand Chao</div><div class="tag">Sketch / Doodle</div></div></div>
+    <div class="designer-card"><div class="designer-thumb"><img src="images/d010-magne-huang.webp" loading="lazy" decoding="async" alt="Magne Huang emblem"></div><div class="pad-top"><div class="idx">D_010</div><div class="name-jp">マグネ　ホアン</div><div class="name">Magne Huang</div><div class="tag">Interaction</div></div></div>
+    <div class="designer-card"><div class="designer-thumb"><img src="images/d011-cyber-su.webp" loading="lazy" decoding="async" alt="Cyber Su emblem"></div><div class="pad-top"><div class="idx">D_011</div><div class="name-jp">サイバー　スー</div><div class="name">Cyber Su</div><div class="tag">Cyberpunk / Glow</div></div></div>
+    <div class="designer-card"><div class="designer-thumb"><img src="images/d012-noise-kao.webp" loading="lazy" decoding="async" alt="Noise Kao emblem"></div><div class="pad-top"><div class="idx">D_012</div><div class="name-jp">ノイズ　カオ</div><div class="name">Noise Kao</div><div class="tag">Film Grain</div></div></div>
   </div>
 </section>
 
 <div class="atmosphere">
-  <img src="images/venue.png" alt="aqualux 2026 設計光譜展 場地內部">
+  <img src="images/venue.webp" loading="lazy" decoding="async" alt="aqualux 2026 設計光譜展 場地內部">
   <div class="caption">
     <span class="l">▸ VENUE_PREVIEW // 松山文創 5 號倉庫 / 5F</span>
     <span class="r">FRAME 03 / 2026.12.06</span>
@@ -678,7 +680,7 @@
   </div>
   <div class="zones">
     <div class="zone">
-      <div class="zone-img"><img src="images/zone-z01.png" alt="Z01 主流頻譜"></div>
+      <div class="zone-img"><img src="images/zone-z01.webp" loading="lazy" decoding="async" alt="Z01 主流頻譜"></div>
       <div class="zone-id">Z01</div>
       <div class="zone-cn">主流頻譜</div>
       <div class="zone-en">MAINSTREAM_FREQ</div>
@@ -686,7 +688,7 @@
       <div class="zone-coord">COORD: 5F-A1 ▸ 5 作品</div>
     </div>
     <div class="zone">
-      <div class="zone-img"><img src="images/zone-z02.png" alt="Z02 時光殘響"></div>
+      <div class="zone-img"><img src="images/zone-z02.webp" loading="lazy" decoding="async" alt="Z02 時光殘響"></div>
       <div class="zone-id">Z02</div>
       <div class="zone-cn">時光殘響</div>
       <div class="zone-en">RETRO_ECHO</div>
@@ -694,7 +696,7 @@
       <div class="zone-coord">COORD: 5F-A2 ▸ 6 作品</div>
     </div>
     <div class="zone">
-      <div class="zone-img"><img src="images/zone-z03.png" alt="Z03 前衛實驗室"></div>
+      <div class="zone-img"><img src="images/zone-z03.webp" loading="lazy" decoding="async" alt="Z03 前衛實驗室"></div>
       <div class="zone-id">Z03</div>
       <div class="zone-cn">前衛實驗室</div>
       <div class="zone-en">AVANT_LAB</div>
@@ -702,7 +704,7 @@
       <div class="zone-coord">COORD: 5F-B1 ▸ 6 作品</div>
     </div>
     <div class="zone">
-      <div class="zone-img"><img src="images/zone-z04.png" alt="Z04 文化光譜"></div>
+      <div class="zone-img"><img src="images/zone-z04.webp" loading="lazy" decoding="async" alt="Z04 文化光譜"></div>
       <div class="zone-id">Z04</div>
       <div class="zone-cn">文化光譜</div>
       <div class="zone-en">CULTURAL_SPECTRUM</div>
@@ -710,7 +712,7 @@
       <div class="zone-coord">COORD: 5F-B2 ▸ 5 作品</div>
     </div>
     <div class="zone">
-      <div class="zone-img"><img src="images/zone-z05.png" alt="Z05 動態廳"></div>
+      <div class="zone-img"><img src="images/zone-z05.webp" loading="lazy" decoding="async" alt="Z05 動態廳"></div>
       <div class="zone-id">Z05</div>
       <div class="zone-cn">動態廳</div>
       <div class="zone-en">MOTION_HALL</div>
@@ -728,15 +730,15 @@
   </div>
   <table class="schedule-table">
     <thead>
-      <tr><th>DATE</th><th>TIME</th><th>TITLE</th><th>SPEAKER</th></tr>
+      <tr><th scope="col">DATE</th><th scope="col">TIME</th><th scope="col">TITLE</th><th scope="col">SPEAKER</th></tr>
     </thead>
     <tbody>
-      <tr><td>12.07 SAT</td><td>14:00 — 15:30</td><td>為什麼「好看」不是答案</td><td>Jerry @ aqualux.dev</td></tr>
-      <tr><td>12.09 MON</td><td>19:00 — 20:30</td><td>從 Brutalism 到 Editorial：反 UX 的兩條路</td><td>Neon Lee × Paper Wu</td></tr>
-      <tr><td>12.12 THU</td><td>19:00 — 20:30</td><td>Cyberpunk 不是賽博龐克：解構霓虹美學</td><td>Cyber Su</td></tr>
-      <tr><td>12.14 SAT</td><td>14:00 — 15:30</td><td>動態的克制：為什麼一頁最多兩個動畫</td><td>Chrome Ho</td></tr>
-      <tr><td>12.16 MON</td><td>19:00 — 20:30</td><td>跨境設計：文化暗號的護城河</td><td>Swiss Chen × Vapor Lin</td></tr>
-      <tr><td>12.19 THU</td><td>19:00 — 20:30</td><td>Workshop：為你的下一個專案選風格</td><td>Jerry × 全體設計師</td></tr>
+      <tr><td>12.07</td><td>14:00 — 15:30</td><td>為什麼「好看」不是答案</td><td>Jerry @ aqualux.dev</td></tr>
+      <tr><td>12.09</td><td>19:00 — 20:30</td><td>從 Brutalism 到 Editorial：反 UX 的兩條路</td><td>Neon Lee × Paper Wu</td></tr>
+      <tr><td>12.12</td><td>19:00 — 20:30</td><td>Cyberpunk 不是賽博龐克：解構霓虹美學</td><td>Cyber Su</td></tr>
+      <tr><td>12.14</td><td>14:00 — 15:30</td><td>動態的克制：為什麼一頁最多兩個動畫</td><td>Chrome Ho</td></tr>
+      <tr><td>12.16</td><td>19:00 — 20:30</td><td>跨境設計：文化暗號的護城河</td><td>Swiss Chen × Vapor Lin</td></tr>
+      <tr><td>12.19</td><td>19:00 — 20:30</td><td>Workshop：為你的下一個專案選風格</td><td>Jerry × 全體設計師</td></tr>
     </tbody>
   </table>
 </section>
@@ -748,7 +750,7 @@
     <h2 class="sec-title">票<span class="ph">務</span></h2>
   </div>
   <div class="ticket-showcase">
-    <img src="images/ticket.png" alt="AQUALUX SPECTRUM 2026 入場券 mockup">
+    <img src="images/ticket.webp" loading="lazy" decoding="async" alt="AQUALUX SPECTRUM 2026 入場券 mockup">
     <div class="ts-info">
       <div class="ts-label">▸ TICKET_PREVIEW // AX-2026-014</div>
       <div class="ts-title">FULL ACCESS HOLOGRAPHIC PASS</div>
@@ -767,7 +769,7 @@
         <li>展覽手冊一份</li>
         <li>不含講座</li>
       </ul>
-      <button class="cta-btn cyan">PURCHASE</button>
+      <button class="cta-btn cyan" disabled aria-label="Demo only — not for sale">DEMO · 非售票</button>
     </div>
     <div class="ticket featured">
       <div class="badge">RECOMMENDED</div>
@@ -781,7 +783,7 @@
         <li>展覽手冊 + 限定 sticker</li>
         <li>aqualux.dev 數位週報</li>
       </ul>
-      <button class="cta-btn">PURCHASE</button>
+      <button class="cta-btn" disabled aria-label="Demo only — not for sale">DEMO · 非售票</button>
     </div>
     <div class="ticket">
       <div class="badge">FULL</div>
@@ -795,18 +797,19 @@
         <li>策展人導覽（1 場）</li>
         <li>展期後紀念專書</li>
       </ul>
-      <button class="cta-btn cyan">PURCHASE</button>
+      <button class="cta-btn cyan" disabled aria-label="Demo only — not for sale">DEMO · 非售票</button>
     </div>
   </div>
 </section>
 
+</main>
+
 <footer>
   <div class="ascii-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
-  <div class="signature">AQUA<span class="ph">LUX</span> &middot; MMXXVI</div>
+  <div class="signature">MMXXVI &middot; AQUA<span class="ph">LUX</span>.DEV</div>
   <div class="credit">
     Curated by <a href="https://aqualux.dev">Chengchieh Huang</a><br>
-    Demo work for: aqualux 設計光譜展 / Cyberpunk · C14<br>
-    Style framework inspired by Casper's Claude Code Skill 設計風格圖鑑（已取得授權）
+    Demo work for: aqualux 設計光譜展 / Cyberpunk · C14
   </div>
   <div class="terminal">
     [ system ] :~$ aqualux exhibit --style=cyberpunk --status=READY<span class="cursor">_</span>
