@@ -585,6 +585,21 @@
     .marquee-band .marquee-content span { padding: 0 1rem; }
     .designer-card { width: 250px; }
   }
+
+/* hide-designer-section v1 */
+section:has(.designer-card),
+section:has(.designers),
+section:has(.designer-list),
+section:has(.designer-grid),
+section:has(.designer-section),
+section:has(.designer-row),
+section:has(.designer-roster),
+section:has(.cast-grid),
+section:has(.cast),
+.designers, .designer-card, .designer-list, .designer-grid,
+.designer-roster, .cast-grid, .cast {
+  display: none !important;
+}
 </style>
 </head>
 <body>

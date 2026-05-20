@@ -684,6 +684,35 @@
     .ticket-showcase { flex-direction: column; gap: 18px; padding: 20px; }
     .ticket-showcase img { width: 100%; max-width: 280px; }
   }
+
+/* hide-designer-section v1 */
+section:has(.designer-card),
+section:has(.designers),
+section:has(.designer-list),
+section:has(.designer-grid),
+section:has(.designer-section),
+section:has(.designer-row),
+section:has(.designer-roster),
+section:has(.cast-grid),
+section:has(.cast),
+.designers, .designer-card, .designer-list, .designer-grid,
+.designer-roster, .cast-grid, .cast {
+  display: none !important;
+}
+
+  /* fix-text-clipping v1 */
+  .hero h1 {
+    font-size: clamp(42px, 7.4vw, 108px);
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
+  /* fix-text-clipping v2 */
+  .hero h1 {
+    font-size: clamp(42px, 7.4vw, 108px);
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
 </style>
 </head>
 <body>

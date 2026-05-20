@@ -811,6 +811,51 @@
     .schedule-table td:first-child { width: 100px; }
     .marquee-text { animation-duration: 25s; }
   }
+
+/* hide-designer-section v1 */
+section:has(.designer-card),
+section:has(.designers),
+section:has(.designer-list),
+section:has(.designer-grid),
+section:has(.designer-section),
+section:has(.designer-row),
+section:has(.designer-roster),
+section:has(.cast-grid),
+section:has(.cast),
+.designers, .designer-card, .designer-list, .designer-grid,
+.designer-roster, .cast-grid, .cast {
+  display: none !important;
+}
+
+  /* fix-text-clipping v1 */
+  .hero h1 {
+    font-size: clamp(36px, 6vw, 72px);
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+  .hero h1 .shine-sweep {
+    display: block;
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
+  /* fix-text-clipping v2 */
+  .hero h1 {
+    font-size: clamp(36px, 6vw, 72px);
+    overflow-wrap: anywhere;
+    word-break: normal;
+    overflow: hidden;
+  }
+  .hero h1 .shine-sweep {
+    display: inline-block;
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: normal;
+    overflow: hidden;
+  }
 </style>
 </head>
 <body>

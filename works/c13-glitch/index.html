@@ -721,6 +721,33 @@
     0% { transform: skewX(5deg) translateX(2px); opacity: 0.8; }
     100% { transform: skewX(0deg) translateX(0); opacity: 1; }
   }
+
+/* hide-designer-section v1 */
+section:has(.designer-card),
+section:has(.designers),
+section:has(.designer-list),
+section:has(.designer-grid),
+section:has(.designer-section),
+section:has(.designer-row),
+section:has(.designer-roster),
+section:has(.cast-grid),
+section:has(.cast),
+.designers, .designer-card, .designer-list, .designer-grid,
+.designer-roster, .cast-grid, .cast {
+  display: none !important;
+}
+
+  /* fix-text-clipping v1 */
+  .zone .zone-en, .zone-en {
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
+  /* fix-text-clipping v2 */
+  .zone .zone-en, .zone-en {
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
 </style>
 </head>
 <body class="glitch-overlay scanlines">
