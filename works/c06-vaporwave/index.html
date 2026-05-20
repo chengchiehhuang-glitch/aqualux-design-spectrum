@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AQUALUX 2026 // DESIGN SPECTRUM EXHIBITION · 蒸氣波 Vaporwave Demo</title>
+<meta name="description" content="aqualux 2026 設計光譜展 · Vaporwave 風格 demo · single-file HTML showcase">
+<link rel="canonical" href="https://design.aqualux.dev/works/c06-vaporwave/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://design.aqualux.dev/works/c06-vaporwave/">
+<meta property="og:title" content="C06 蒸氣波 · aqualux 設計光譜展">
+<meta property="og:description" content="Vaporwave 風格 single-file HTML demo · aqualux 2026 設計光譜展">
+<meta property="og:image" content="images/hero.webp">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="C06 蒸氣波 · aqualux 設計光譜展">
+<meta name="twitter:image" content="images/hero.webp">
+<link rel="icon" type="image/svg+xml" href="../../assets/aqualux-logo-mark.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=VCR+OSD+Mono&family=Trajan+Pro+3&family=Noto+Serif+JP:wght@300&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<!-- Fallback for VCR OSD Mono -->
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #2a1352; /* 深紫主底（午夜檸檬色）*/
+    --bg-grad-top: #ff77c6; /* 粉紅地平線 */
+    --bg-grad-mid: #c47dff; /* 薰衣草中段 */
+    --bg-grad-bot: #5be6ff; /* 水藍下緣 */
+    --hot-pink: #ff3ec9; /* 主螢光粉 */
+    --electric-cyan: #00f0ff; /* 主螢光青 */
+    --soft-lavender: #d4b8ff; /* 柔薰衣草 */
+    --peach: #ffb3a7; /* 桃粉 */
+    --chrome-hi: #f5e6ff; /* 鉻面高光 */
+    --chrome-lo: #6b4ba3; /* 鉻面陰影 */
+    --ink: #ffffff; /* 主字（亮白）*/
+    --ink-2: #f0e1ff; /* 次字（淡薰衣草白）*/
+    --ink-3: #c2a8e8; /* 弱字 */
+    --grid-line: rgba(0, 240, 255, 0.25);
+
+    --display-font: 'VCR OSD Mono', 'Press Start 2P', monospace;
+    --latin-chrome-font: 'Trajan Pro 3', serif;
+    --jp-accent-font: 'Noto Serif JP', serif;
+    --body-font: 'Noto Sans TC', sans-serif;
+    --mono-font: 'VCR OSD Mono', monospace;
+  }
+
+  /* Accessibility: Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+    .glitch::before, .glitch::after { animation: none !important; }
+    .blink { animation: none !important; }
+    .marquee-text { animation: none !important; }
+    .scanlines { opacity: 0 !important; }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--body-font);
+    line-height: 1.8;
+    font-size: 15px;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: 0.15em; /* Vaporwave wide spacing */
+    position: relative;
+  }
+
+  a { color: var(--electric-cyan); text-decoration: none; }
+  a:hover { color: var(--hot-pink); }
+
+  /* Sunset Grid Floor */
+  body::before {
+    content: '';
+    position: fixed; bottom: 0; left: 0; right: 0;
+    height: 40vh;
+    background: linear-gradient(to bottom, var(--bg-grad-top), var(--bg-grad-mid), var(--bg-grad-bot));
+    transform: perspective(600px) rotateX(45deg);
+    transform-origin: bottom;
+    z-index: -2;
+    pointer-events: none;
+    background-image:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--bg-grad-top), var(--bg-grad-mid), var(--bg-grad-bot));
+    background-size: 50px 50px, 50px 50px, 100% 100%;
+    filter: saturate(1.2) contrast(1.1);
+  }
+
+  /* Static Noise Overlay */
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    z-index: 9998;
+    pointer-events: none;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="1" result="f1" /><feColorMatrix in="f1" type="matrix" values="0 0 0 0 0, 0 0 0 0 0, 0 0 0 0 0, 0 0 0 0.05 0" /></filter><rect width="100" height="100" filter="url(%23noise)" /></svg>') repeat;
+    opacity: 0.8; /* Subtle noise */
+    mix-blend-mode: overlay;
+  }
+
+  /* CRT Scanlines */
+  .scanlines {
+    position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+    background: repeating-linear-gradient(0deg, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 2px, rgba(0,0,0,0.08) 3px, rgba(0,0,0,0) 4px);
+    mix-blend-mode: overlay;
+    opacity: 0.6;
+  }
+
+  /* Top bar */
+  .topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(42, 19, 82, 0.9); /* Dark purple with transparency */
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    border-bottom: 2px solid var(--electric-cyan);
+    padding: 12px 32px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--mono-font); font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+  }
+  .topbar .left { color: var(--electric-cyan); display: flex; align-items: center; gap: 10px; }
+  .topbar .left svg { height: 28px; width: auto; color: var(--electric-cyan); filter: drop-shadow(0 0 4px var(--electric-cyan)); }
+  .topbar .nav-links a { margin-left: 20px; color: var(--ink-2); }
+  .topbar .nav-links a:hover { color: var(--hot-pink); text-shadow: 0 0 8px var(--hot-pink); }
+  .topbar .right { color: var(--ink-3); }
+  .topbar .right .blink { color: var(--hot-pink); animation: blink 1.2s steps(2) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* Hero */
+  .hero {
+    padding: 80px 32px 60px;
+    max-width: 1280px; margin: 0 auto;
+    position: relative;
+    text-align: center;
+  }
+  .hero-bg-img {
+    position: absolute; inset: 0;
+    background-image: url('images/hero.webp');
+    background-size: cover; background-position: center bottom;
+    opacity: 0.3;
+    z-index: -1;
+    filter: saturate(1.5) blur(2px);
+  }
+  .hero-bg-img::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, var(--bg) 0%, transparent 50%, var(--bg) 100%);
+  }
+
+  /* Palm Tree Silhouettes */
+  .palm-left, .palm-right {
+    position: absolute; bottom: 0; width: 100px; height: 200px;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 200"><path fill="%232a1352" d="M50 0c-15 40-30 80-30 120 0 30 20 60 50 80 30-20 50-50 50-80 0-40-15-80-30-120z" transform="scale(0.8) translate(10,0)"/><path fill="%232a1352" d="M50 0c-15 40-30 80-30 120 0 30 20 60 50 80 30-20 50-50 50-80 0-40-15-80-30-120z" transform="scale(0.7) rotate(20) translate(20, -10)"/><path fill="%232a1352" d="M50 0c-15 40-30 80-30 120 0 30 20 60 50 80 30-20 50-50 50-80 0-40-15-80-30-120z" transform="scale(0.7) rotate(-20) translate(-10, -10)"/><path fill="%232a1352" d="M50 0c-15 40-30 80-30 120 0 30 20 60 50 80 30-20 50-50 50-80 0-40-15-80-30-120z" transform="scale(0.6) rotate(40) translate(30, -20)"/><path fill="%232a1352" d="M50 0c-15 40-30 80-30 120 0 30 20 60 50 80 30-20 50-50 50-80 0-40-15-80-30-120z" transform="scale(0.6) rotate(-40) translate(-20, -20)"/><rect x="45" y="100" width="10" height="100" fill="%232a1352"/></svg>') no-repeat center bottom;
+    background-size: contain;
+    opacity: 0.7;
+    z-index: 0;
+    filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
+  }
+  .palm-left { left: 5%; transform: scaleX(-1); }
+  .palm-right { right: 5%; }
+
+  .kicker {
+    font-family: var(--mono-font); font-size: 14px;
+    color: var(--soft-lavender); letter-spacing: 0.3em;
+    margin-bottom: 20px;
+    text-shadow: 0 0 8px rgba(212, 184, 255, 0.4);
+  }
+  .hero-jp {
+    font-family: var(--jp-accent-font); font-weight: 300;
+    font-size: clamp(20px, 2.5vw, 30px);
+    color: var(--hot-pink); letter-spacing: 0.4em;
+    margin-bottom: 15px;
+    text-shadow: 0 0 18px var(--hot-pink);
+  }
+  .hero h1 {
+    font-family: var(--latin-chrome-font); font-weight: normal;
+    font-size: clamp(50px, 10vw, 130px);
+    line-height: 0.95; letter-spacing: 0.08em;
+    color: var(--ink);
+    position: relative;
+    text-transform: uppercase;
+    /* Chrome 3D text effect */
+    text-shadow:
+      -1px -1px 0 var(--chrome-lo),
+      1px 1px 0 var(--chrome-hi),
+      -2px -2px 1px var(--chrome-lo),
+      2px 2px 1px var(--chrome-hi),
+      -3px -3px 2px var(--chrome-lo),
+      3px 3px 2px var(--chrome-hi),
+      -4px -4px 3px var(--chrome-lo),
+      4px 4px 3px var(--chrome-hi),
+      -5px -5px 4px var(--chrome-lo),
+      5px 5px 4px var(--chrome-hi),
+      -6px -6px 5px var(--chrome-lo),
+      6px 6px 5px var(--chrome-hi),
+      0 0 20px rgba(255, 255, 255, 0.6),
+      0 0 40px var(--electric-cyan),
+      0 0 60px var(--hot-pink);
+    transition: text-shadow 0.2s ease-out;
+  }
+  .hero h1:hover {
+    animation: rgb-split 0.2s linear;
+  }
+  @keyframes rgb-split {
+    0% { text-shadow: -2px 0 0 red, 2px 0 0 cyan; }
+    50% { text-shadow: 2px 0 0 red, -2px 0 0 cyan; }
+    100% { text-shadow: -2px 0 0 red, 2px 0 0 cyan; }
+  }
+
+  /* Sun setting effect */
+  .hero h1::before {
+    content: '';
+    position: absolute; bottom: -50px; left: 50%;
+    transform: translateX(-50%);
+    width: 180px; height: 90px;
+    border-radius: 90px 90px 0 0;
+    background: conic-gradient(from 180deg at 50% 100%,
+      #ffd700 0%, #ff8c00 15%, var(--peach) 30%, var(--hot-pink) 50%, var(--bg) 100%);
+    opacity: 0.8;
+    filter: blur(10px);
+    z-index: -1;
+  }
+
+  .hero-sub {
+    font-family: var(--mono-font); font-weight: 400;
+    font-size: clamp(14px, 1.5vw, 18px);
+    color: var(--ink-2); letter-spacing: 0.18em;
+    margin: 28px auto 36px; max-width: 780px;
+    text-shadow: 0 0 6px rgba(240, 225, 255, 0.3);
+  }
+  .hero-sub .accent { color: var(--electric-cyan); text-shadow: 0 0 10px var(--electric-cyan); }
+  .meta-strip {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    border-top: 2px solid var(--electric-cyan);
+    border-bottom: 2px solid var(--hot-pink);
+    padding: 20px 0;
+    margin-top: 36px;
+    background: rgba(42, 19, 82, 0.7);
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
+  }
+  .meta-cell {
+    font-family: var(--mono-font); font-size: 13px;
+    color: var(--ink-2);
+    letter-spacing: 0.1em;
+  }
+  .meta-cell .label {
+    color: var(--electric-cyan); letter-spacing: 0.2em;
+    font-size: 11px; margin-bottom: 6px; display: block;
+    text-transform: uppercase;
+  }
+  .meta-cell .val { color: var(--ink); font-size: 14.5px; font-weight: 500; }
+
+  /* Section base */
+  section.block { padding: 80px 32px; max-width: 1280px; margin: 0 auto; }
+  .sec-head {
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 22px;
+    margin-bottom: 36px;
+    padding-bottom: 14px; border-bottom: 2px dashed var(--hot-pink);
+    text-shadow: 0 0 10px rgba(255, 62, 201, 0.4);
+  }
+  .sec-num {
+    font-family: var(--mono-font); font-size: 14px;
+    color: var(--electric-cyan); letter-spacing: 0.2em;
+    font-weight: 700;
+  }
+  .sec-title-jp {
+    font-family: var(--jp-accent-font); font-size: 14px;
+    color: var(--ink-3); letter-spacing: 0.3em;
+  }
+  .sec-title {
+    font-family: var(--latin-chrome-font); font-size: clamp(28px, 4.5vw, 48px);
+    font-weight: normal; letter-spacing: 0.08em;
+    color: var(--ink);
+    margin-right: auto;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 0 var(--chrome-lo), -2px -2px 0 var(--chrome-hi), 0 0 20px var(--soft-lavender);
+  }
+  .sec-title .ph { color: var(--hot-pink); }
+
+  /* Curatorial statement */
+  .statement {
+    max-width: 880px; margin: 0 auto;
+    font-family: var(--body-font); font-size: 16px; line-height: 2;
+    color: var(--ink-2);
+    padding: 20px 40px;
+    background: rgba(42, 19, 82, 0.6);
+    border: 1px solid var(--soft-lavender);
+    box-shadow: 0 0 30px rgba(196, 125, 255, 0.3);
+    position: relative;
+  }
+  .statement::before, .statement::after {
+    content: ''; position: absolute;
+    width: 20px; height: 100%;
+    background: repeating-linear-gradient(to bottom, var(--hot-pink) 0%, var(--electric-cyan) 10%, var(--soft-lavender) 20%, transparent 25%, transparent 100%);
+    background-size: 100% 80px;
+    opacity: 0.2;
+  }
+  .statement::before { left: 0; top: 0; }
+  .statement::after { right: 0; top: 0; }
+
+  .statement p { margin-bottom: 20px; }
+  .statement .em { color: var(--electric-cyan); font-weight: 500; text-shadow: 0 0 6px var(--electric-cyan); }
+  .statement .strong { color: var(--hot-pink); font-weight: 700; letter-spacing: 0.06em; text-shadow: 0 0 8px var(--hot-pink); }
+  .statement blockquote {
+    border-left: 4px solid var(--hot-pink);
+    padding: 16px 24px;
+    margin: 24px 0;
+    background: rgba(255, 62, 201, 0.1);
+    font-family: var(--mono-font); color: var(--ink);
+    font-size: 14px; letter-spacing: 0.05em;
+    text-shadow: 0 0 4px rgba(255, 255, 255, 0.2);
+  }
+
+  /* Designer grid */
+  .designers {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .designer-card {
+    border: 2px solid var(--soft-lavender);
+    background: linear-gradient(135deg, rgba(42, 19, 82, 0.8) 0%, rgba(107, 75, 163, 0.6) 100%);
+    padding: 18px 20px;
+    position: relative;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(196, 125, 255, 0.2);
+    overflow: hidden;
+  }
+  .designer-card::before {
+    content: attr(data-id);
+    position: absolute; top: 8px; left: 8px;
+    font-family: var(--mono-font); font-size: 11px;
+    color: var(--electric-cyan); opacity: 0.6;
+    letter-spacing: 0.1em;
+  }
+  .designer-card::after {
+    content: '';
+    position: absolute; bottom: 0; left: 0; width: 100%; height: 5px;
+    background: linear-gradient(to right, var(--hot-pink), var(--electric-cyan));
+    opacity: 0.4;
+  }
+  .designer-card:hover {
+    border-color: var(--hot-pink);
+    box-shadow: 0 0 30px var(--hot-pink);
+    transform: translateY(-5px);
+  }
+  .designer-card .idx {
+    font-family: var(--mono-font); font-size: 12px;
+    color: var(--electric-cyan); letter-spacing: 0.18em;
+    margin-bottom: 10px; opacity: 0.8;
+  }
+  .designer-card .name-jp {
+    font-family: var(--jp-accent-font); font-size: 12.5px;
+    color: var(--ink-3); letter-spacing: 0.2em;
+    margin-bottom: 4px;
+    text-shadow: 0 0 4px rgba(194, 168, 232, 0.3);
+  }
+  .designer-card .name {
+    font-family: var(--latin-chrome-font); font-size: 18px; font-weight: normal;
+    color: var(--ink); letter-spacing: 0.05em;
+    margin-bottom: 8px;
+    text-shadow: 1px 1px 0 var(--chrome-lo), -1px -1px 0 var(--chrome-hi), 0 0 10px var(--soft-lavender);
+  }
+  .designer-card .tag {
+    font-family: var(--mono-font); font-size: 12px;
+    color: var(--hot-pink); letter-spacing: 0.1em;
+    text-shadow: 0 0 6px var(--hot-pink);
+  }
+  .designer-card .tag::before { content: '>> '; color: var(--ink-3); }
+
+  /* Designer avatar */
+  .designer-thumb {
+    margin: -18px -20px 14px;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-bottom: 1px solid var(--soft-lavender);
+    position: relative;
+    background-color: rgba(0,0,0,0.1);
+  }
+  .designer-thumb img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: saturate(1.2) contrast(1.1) brightness(0.9);
+    transition: transform 0.3s ease, filter 0.3s ease;
+  }
+  .designer-card:hover .designer-thumb img { transform: scale(1.08); filter: saturate(1.5) contrast(1.2) brightness(1); }
+  .designer-card .pad-top { padding-top: 4px; }
+
+  /* Venue section */
+  .venue-section {
+    position: relative;
+    padding: 0;
+    overflow: hidden;
+    margin: 80px auto;
+    max-width: 1440px;
+  }
+  .venue-image {
+    width: 100%; height: 500px;
+    background-image: url('images/venue.webp');
+    background-size: cover; background-position: center;
+    filter: saturate(1.3) contrast(1.1) blur(1px);
+    position: relative;
+  }
+  .venue-image::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to top, var(--bg) 0%, transparent 50%, var(--bg) 100%);
+    opacity: 0.8;
+  }
+  .venue-info-bar {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: rgba(42, 19, 82, 0.8);
+    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    border-top: 2px solid var(--electric-cyan);
+    padding: 20px 32px;
+    display: flex; flex-wrap: wrap; justify-content: space-around;
+    color: var(--ink-2);
+    font-family: var(--mono-font); font-size: 13px;
+    letter-spacing: 0.15em;
+    text-shadow: 0 0 8px rgba(0, 240, 255, 0.4);
+  }
+  .venue-info-bar div span:first-child { color: var(--hot-pink); margin-right: 8px; }
+
+  /* Zone map */
+  .zones {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .zone {
+    background: linear-gradient(135deg, rgba(42, 19, 82, 0.7) 0%, rgba(107, 75, 163, 0.5) 100%);
+    border: 2px solid var(--soft-lavender);
+    padding: 24px 26px;
+    position: relative; overflow: hidden;
+    box-shadow: 0 0 20px rgba(196, 125, 255, 0.3);
+    transition: all 0.3s ease;
+  }
+  .zone:hover {
+    border-color: var(--hot-pink);
+    box-shadow: 0 0 35px var(--hot-pink);
+    transform: translateY(-5px);
+  }
+  .zone::before {
+    content: ''; position: absolute;
+    top: 0; right: 0; width: 80px; height: 80px;
+    background: linear-gradient(135deg, transparent 50%, var(--electric-cyan) 50%);
+    opacity: 0.18;
+  }
+  .zone .zone-id {
+    font-family: var(--display-font); font-size: 48px; font-weight: normal;
+    color: var(--hot-pink); line-height: 1;
+    margin-bottom: 8px;
+    text-shadow: 0 0 20px var(--hot-pink);
+  }
+  .zone .zone-cn {
+    font-family: var(--body-font); font-size: 20px; font-weight: 500;
+    color: var(--ink); margin-bottom: 4px;
+    letter-spacing: 0.06em;
+  }
+  .zone .zone-en {
+    font-family: var(--mono-font); font-size: 13px;
+    color: var(--electric-cyan); letter-spacing: 0.2em;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+  }
+  .zone .zone-desc {
+    font-family: var(--body-font); font-size: 14.5px; line-height: 1.9;
+    color: var(--ink-2);
+  }
+  .zone .zone-coord {
+    margin-top: 16px; padding-top: 14px;
+    border-top: 1px dashed var(--soft-lavender);
+    font-family: var(--mono-font); font-size: 12px;
+    color: var(--ink-3); letter-spacing: 0.15em;
+  }
+
+  /* Zone with image */
+  .zone-img {
+    margin: -24px -26px 18px;
+    aspect-ratio: 5 / 3;
+    overflow: hidden;
+    border-bottom: 1px solid var(--hot-pink);
+    position: relative;
+  }
+  .zone-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: saturate(1.3) contrast(1.1);
+    transition: transform 0.4s ease;
+  }
+  .zone:hover .zone-img img { transform: scale(1.06); }
+  .zone-img::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 55%, var(--bg) 100%);
+    pointer-events: none;
+  }
+
+  /* Schedule */
+  .schedule-table {
+    width: 100%; border-collapse: collapse;
+    font-family: var(--mono-font); font-size: 13px;
+    background: rgba(42, 19, 82, 0.7);
+    box-shadow: 0 0 25px rgba(196, 125, 255, 0.3);
+  }
+  .schedule-table th, .schedule-table td {
+    padding: 14px 18px; text-align: left;
+    border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+  }
+  .schedule-table th {
+    color: var(--electric-cyan); letter-spacing: 0.2em;
+    font-size: 12px; font-weight: 700;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--electric-cyan);
+    background: rgba(0, 240, 255, 0.1);
+  }
+  .schedule-table td { color: var(--ink-2); }
+  .schedule-table td:first-child {
+    color: var(--hot-pink); font-weight: 700;
+    width: 130px;
+    text-shadow: 0 0 5px var(--hot-pink);
+  }
+  .schedule-table tr:nth-child(even) { background: rgba(255, 62, 201, 0.05); }
+  .schedule-table tr:hover td { color: var(--ink); background: rgba(0, 240, 255, 0.15); text-shadow: 0 0 8px rgba(255, 255, 255, 0.4); }
+
+  /* Tickets */
+  .tickets {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .ticket {
+    border: 2px solid var(--soft-lavender);
+    padding: 30px 28px;
+    position: relative;
+    background: linear-gradient(160deg, rgba(42, 19, 82, 0.8) 0%, rgba(107, 75, 163, 0.6) 100%);
+    text-align: center;
+    box-shadow: 0 0 20px rgba(196, 125, 255, 0.3);
+    overflow: hidden;
+  }
+  .ticket::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path fill="%23c47dff" opacity="0.1" d="M0 0h100v100H0z"/></svg>') repeat;
+    mix-blend-mode: overlay;
+    opacity: 0.4;
+    z-index: -1;
+  }
+  .ticket.featured {
+    border-color: var(--hot-pink);
+    background: linear-gradient(160deg, var(--bg-grad-top) 0%, var(--bg-grad-mid) 20%, rgba(42, 19, 82, 0.8) 100%);
+    box-shadow: 0 0 40px var(--hot-pink);
+    transform: scale(1.05);
+    z-index: 1;
+  }
+  .ticket .badge {
+    display: inline-block;
+    font-family: var(--mono-font); font-size: 11px;
+    color: var(--bg); background: var(--electric-cyan);
+    padding: 4px 12px; letter-spacing: 0.25em;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+  }
+  .ticket.featured .badge { background: var(--hot-pink); }
+  .ticket .tier {
+    font-family: var(--latin-chrome-font); font-size: 24px; font-weight: normal;
+    color: var(--ink); letter-spacing: 0.1em;
+    margin-bottom: 8px;
+    text-shadow: 1px 1px 0 var(--chrome-lo), -1px -1px 0 var(--chrome-hi), 0 0 15px var(--soft-lavender);
+  }
+  .ticket .tier-jp {
+    font-family: var(--jp-accent-font); font-size: 12px;
+    color: var(--ink-3); letter-spacing: 0.3em;
+    margin-bottom: 20px;
+  }
+  .ticket .price {
+    font-family: var(--display-font); font-size: 42px; font-weight: normal;
+    color: var(--electric-cyan); line-height: 1;
+    margin-bottom: 6px;
+    text-shadow: 0 0 20px var(--electric-cyan);
+  }
+  .ticket.featured .price { color: var(--hot-pink); text-shadow: 0 0 25px var(--hot-pink); }
+  .ticket .price-unit {
+    font-family: var(--mono-font); font-size: 13px;
+    color: var(--ink-3); letter-spacing: 0.18em;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+  .ticket ul {
+    list-style: none; text-align: left;
+    font-family: var(--mono-font); font-size: 13px;
+    color: var(--ink-2); line-height: 2.1;
+    margin-bottom: 24px;
+    padding-left: 20px;
+  }
+  .ticket li::before {
+    content: '‣ '; color: var(--electric-cyan); margin-right: 6px;
+  }
+
+  /* CTA */
+  .cta-btn {
+    display: inline-block;
+    font-family: var(--mono-font); font-weight: 700;
+    font-size: 14px; letter-spacing: 0.25em;
+    padding: 15px 35px;
+    background: transparent;
+    color: var(--hot-pink);
+    border: 2px solid var(--hot-pink);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    position: relative;
+    box-shadow: 0 0 15px rgba(255, 62, 201, 0.4);
+  }
+  .cta-btn:hover {
+    background: var(--hot-pink); color: var(--bg);
+    box-shadow: 0 0 35px var(--hot-pink);
+    transform: translateY(-3px);
+  }
+  .cta-btn[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+    border-color: var(--ink-3);
+    color: var(--ink-3);
+    box-shadow: none;
+  }
+  .cta-btn[disabled]:hover {
+    background: transparent;
+    color: var(--ink-3);
+    transform: none;
+  }
+
+  /* Ticket showcase */
+  .ticket-showcase {
+    margin: 0 0 48px;
+    display: flex; align-items: center; gap: 32px;
+    padding: 28px;
+    border: 2px dashed var(--soft-lavender);
+    background: linear-gradient(135deg, rgba(42, 19, 82, 0.7) 0%, rgba(107, 75, 163, 0.5) 100%);
+    position: relative; overflow: hidden;
+    box-shadow: 0 0 30px rgba(196, 125, 255, 0.3);
+  }
+  .ticket-showcase::before {
+    content: ''; position: absolute;
+    top: -2px; right: -2px; width: 90px; height: 90px;
+    background: linear-gradient(135deg, transparent 50%, var(--hot-pink) 50%);
+    opacity: 0.25;
+  }
+  .ticket-showcase img {
+    width: 260px; height: auto; border: 2px solid var(--hot-pink);
+    box-shadow: 0 0 40px var(--hot-pink);
+    flex-shrink: 0;
+    filter: saturate(1.2) contrast(1.1);
+  }
+  .ticket-showcase .ts-info { flex: 1; }
+  .ticket-showcase .ts-label {
+    font-family: var(--mono-font); font-size: 12px;
+    color: var(--electric-cyan); letter-spacing: 0.22em;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .ticket-showcase .ts-title {
+    font-family: var(--latin-chrome-font); font-weight: normal;
+    font-size: 24px; color: var(--ink); letter-spacing: 0.08em;
+    margin-bottom: 12px;
+    text-shadow: 1px 1px 0 var(--chrome-lo), -1px -1px 0 var(--chrome-hi), 0 0 18px var(--soft-lavender);
+  }
+  .ticket-showcase .ts-desc {
+    font-family: var(--body-font); font-size: 14.5px;
+    color: var(--ink-2); line-height: 1.9;
+  }
+  @media (max-width: 768px) {
+    .ticket-showcase { flex-direction: column; gap: 18px; padding: 20px; }
+    .ticket-showcase img { width: 100%; max-width: 280px; }
+  }
+
+  /* Footer */
+  footer {
+    margin-top: 80px;
+    padding: 60px 32px 32px;
+    border-top: 2px solid var(--electric-cyan);
+    background: rgba(42, 19, 82, 0.9);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  footer::before {
+    content: ''; position: absolute; inset: 0;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="1" result="f1" /><feColorMatrix in="f1" type="matrix" values="0 0 0 0 0, 0 0 0 0 0, 0 0 0 0 0, 0 0 0 0.08 0" /></filter><rect width="100" height="100" filter="url(%23noise)" /></svg>') repeat;
+    opacity: 0.6; mix-blend-mode: overlay;
+  }
+
+  .marquee {
+    overflow: hidden;
+    white-space: nowrap;
+    margin-bottom: 20px;
+    font-family: var(--mono-font); font-size: 14px;
+    color: var(--hot-pink); letter-spacing: 0.3em;
+    text-shadow: 0 0 10px var(--hot-pink);
+  }
+  .marquee-text {
+    display: inline-block;
+    padding-left: 100%;
+    animation: marquee 30s linear infinite;
+  }
+  @keyframes marquee {
+    0%   { transform: translate(0, 0); }
+    100% { transform: translate(-100%, 0); }
+  }
+
+  footer .signature {
+    font-family: var(--latin-chrome-font); font-size: 16px;
+    color: var(--ink); letter-spacing: 0.18em;
+    margin-bottom: 16px;
+    text-shadow: 1px 1px 0 var(--chrome-lo), -1px -1px 0 var(--chrome-hi), 0 0 15px var(--soft-lavender);
+  }
+  footer .signature .ph { color: var(--hot-pink); }
+  footer .credit {
+    font-family: var(--mono-font); font-size: 12px;
+    color: var(--ink-3); letter-spacing: 0.12em; line-height: 2;
+  }
+  footer .credit a { color: var(--ink-2); }
+  footer .terminal {
+    font-family: var(--mono-font); font-size: 11.5px;
+    color: var(--ink-3); letter-spacing: 0.1em;
+    margin-top: 25px;
+  }
+  footer .terminal .cursor {
+    color: var(--hot-pink);
+    animation: blink 0.9s steps(2) infinite;
+  }
+  footer .aqualux-logo {
+    width: 200px; height: auto;
+    color: var(--soft-lavender);
+    filter: drop-shadow(0 0 15px var(--soft-lavender));
+    margin: 20px auto 30px;
+    transition: all 0.3s ease;
+  }
+  footer .aqualux-logo:hover {
+    color: var(--electric-cyan);
+    filter: drop-shadow(0 0 25px var(--electric-cyan));
+  }
+
+  @media (max-width: 600px) {
+    .topbar { padding: 10px 15px; font-size: 11px; }
+    .topbar .nav-links a { margin-left: 10px; }
+    .hero { padding: 60px 15px 40px; }
+    .kicker { font-size: 12px; }
+    .hero-jp { font-size: 18px; }
+    .hero h1 { font-size: clamp(40px, 12vw, 80px); }
+    .hero-sub { font-size: 13px; margin: 20px auto 30px; }
+    .meta-strip { grid-template-columns: 1fr; padding: 15px 0; }
+    section.block { padding: 60px 15px; }
+    .sec-head { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .sec-title { font-size: clamp(24px, 6vw, 36px); }
+    .statement { padding: 15px 20px; font-size: 14px; }
+    .designer-card { padding: 15px; }
+    .designer-card .name { font-size: 16px; }
+    .zone { padding: 20px; }
+    .zone .zone-id { font-size: 40px; }
+    .zone .zone-cn { font-size: 18px; }
+    .schedule-table th, .schedule-table td { padding: 10px 12px; font-size: 12px; }
+    .ticket { padding: 25px 20px; }
+    .ticket .tier { font-size: 20px; }
+    .ticket .price { font-size: 36px; }
+    .cta-btn { padding: 12px 25px; font-size: 12px; }
+    .venue-info-bar { flex-direction: column; gap: 10px; padding: 15px; }
+    .venue-image { height: 350px; }
+  }
+</style>
+</head>
+<body>
+<div class="scanlines"></div>
+
+<header class="topbar">
+  <div class="left">
+    <a href="../../index.html" aria-label="Back to Gallery">
+      <svg viewBox="0 0 600 280" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="aqualux">
+        <text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text>
+        <line x1="80" y1="165" x2="520" y2="165" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+        <g transform="translate(0,330) scale(1,-1)" opacity="0.28"><text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text></g>
+      </svg>
+    </a>
+    <span>← GALLERY</span>
+    <nav class="nav-links">
+      <a href="#statement">CONCEPT</a>
+      <a href="#designers">DESIGNERS</a>
+      <a href="#zones">ZONES</a>
+      <a href="#schedule">SCHEDULE</a>
+      <a href="#tickets">TICKETS</a>
+    </nav>
+  </div>
+  <div class="right">
+    STATUS: <span class="blink">LIVE</span>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero-bg-img"></div>
+    <div class="palm-left"></div>
+    <div class="palm-right"></div>
+    <p class="kicker">AQUALUX 2026 // DESIGN SPECTRUM</p>
+    <p class="hero-jp">失われた未来の夢</p>
+    <h1 data-text="TOMORROW NEVER ARRIVED">TOMORROW NEVER ARRIVED</h1>
+    <p class="hero-sub">歡迎來到 <span class="accent">aqualux 2026 設計光譜展</span>，一次對未曾發生的 1996 年夏日午夜夢迴。我們在夕陽網格地平線下，追尋那份<span class="accent">未完成的未來</span>。</p>
+
+    <div class="meta-strip">
+      <div class="meta-cell">
+        <span class="label">DATE</span>
+        <span class="val">2026.12.06 — 12.21</span>
+      </div>
+      <div class="meta-cell">
+        <span class="label">VENUE</span>
+        <span class="val">松山文創園區 5 號倉庫</span>
+      </div>
+      <div class="meta-cell">
+        <span class="label">CURATOR</span>
+        <span class="val">JERRY @ AQUALUX.DEV</span>
+      </div>
+      <div class="meta-cell">
+        <span class="label">SCALE</span>
+        <span class="val">12 DESIGNERS / 40 WORKS</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="statement" class="block">
+    <div class="sec-head">
+      <span class="sec-num">01.</span>
+      <span class="sec-title-jp">キュレーション</span>
+      <h2 class="sec-title">策展論述 <span class="ph">/ ECHOES FROM THE PAST</span></h2>
+    </div>
+    <div class="statement">
+      <p>在 <span class="em">aqualux 2026 設計光譜展</span> 的迷霧中，我們邀請您踏入一個從未存在的時代。這不是懷舊，而是對<span class="strong">「未曾發生的未來」</span>的深情凝視。蒸氣波，作為一種文化殘響，捕捉了九零年代末期，科技狂熱與消費主義交織出的<span class="em">夢幻泡影</span>。</p>
+      <blockquote>
+        <p>「所有昨日的未來，都將成為今日的殘骸。而我們，正是在這片殘骸上，重新編織那些失語的夢境。」</p>
+        <p>— J. AQUA, 2026</p>
+      </blockquote>
+      <p>本次展覽將引導觀者穿越一片<span class="strong">粉紅與青色的海市蜃樓</span>，感受那份既熟悉又陌生的電子迷幻。從羅馬雕像的斷臂，到棕櫚樹的剪影，每一件作品都是對<span class="em">失落烏托邦</span>的低語。這是一場關於速度、關於寂靜，關於在數位洪流中尋找<span class="strong">人類靈魂頻率</span>的旅程。</p>
+      <p>讓我們一同在<span class="em">夕陽網格</span>之上，重構那些閃爍的記憶碎片，體驗一場<span class="strong">半夢遊式的審美狂歡</span>。歡迎進入 1996 年從未發生的那個冬天。</p>
+    </div>
+  </section>
+
+  <section id="designers" class="block">
+    <div class="sec-head">
+      <span class="sec-num">02.</span>
+      <span class="sec-title-jp">デザイナー</span>
+      <h2 class="sec-title">設計師名單 <span class="ph">/ THE DREAMWEAVERS</span></h2>
+    </div>
+    <div class="designers">
+      <div class="designer-card" data-id="D-001">
+        <div class="designer-thumb"><img src="images/designer-d001.webp" loading="lazy" decoding="async" alt="Abstract chrome V emblem"></div>
+        <div class="pad-top">
+          <p class="idx">D-001</p>
+          <p class="name-jp">林 蒸氣</p>
+          <h3 class="name">VAPOR LIN</h3>
+          <p class="tag">RETRO / AESTHETIC</p>
+        </div>
+      </div>
+      <div class="designer-card" data-id="D-002">
+        <div class="designer-thumb"><img src="images/designer-d002.webp" loading="lazy" decoding="async" alt="Stylized pink Roman bust silhouette"></div>
+        <div class="pad-top">
+          <p class="idx">D-002</p>
+          <p class="name-jp">吳 粉紅</p>
+          <h3 class="name">PINK WU</h3>
+          <p class="tag">ROMAN / GLITCH</p>
+        </div>
+      </div>
+      <div class="designer-card" data-id="D-003">
+        <div class="designer-thumb"><img src="images/designer-d003.webp" loading="lazy" decoding="async" alt="Perspective grid with chrome sphere"></div>
+        <div class="pad-top">
+          <p class="idx">D-003</p>
+          <p class="name-jp">趙 格子</p>
+          <h3 class="name">GRID CHAO</h3>
+          <p class="tag">GEOMETRIC / ORDER</p>
+        </div>
+      </div>
+      <div class="designer-card" data-id="D-004">
+        <div class="designer-thumb"><img src="images/designer-d004.webp" loading="lazy" decoding="async" alt="Chrome 3D wave pattern"></div>
+        <div class="pad-top">
+          <p class="idx">D-004</p>
+          <p class="name-jp">楊 玻璃</p>
+          <h3 class="name">GLASS YANG</h3>
+          <p class="tag">LIQUID / REFLECTION</p>
+        </div>
+      </div>
+      <div class="designer-card" data-id="D-005">
+        <div class="designer-thumb"><img src="images/designer-d005.webp" loading="lazy" decoding="async" alt="Soft gradient abstract form"></div>
+        <div class="pad-top">
+          <p class="idx">D-005</p>
+          <p class="name-jp">陳 霜霧</p>
+          <h3 class="name">FROST CHEN</h3>
+          <p class="tag">MATERIAL / SOFT</p>
+        </div>
+      </div>
+      <div class="designer-card" data-id="D-006">
+        <div class="designer-thumb"><img src="images/designer-d006.webp" loading="lazy" decoding="async" alt="Dark immersive UI elements"></div>
+        <div class="pad-top">
+          <p class="idx">D-006</p>
+          <p class="name-jp">林 極光</p>
+          <h3 class="name">AURORA LIN</h3>
+          <p class="tag">IMMERSIVE / DARK</p>
+        </div>
+      </div>
+      <div class="designer-card" data-id="D-007">
+        <div class="designer-thumb"><img src="images/designer-d007.webp" loading="lazy" decoding="async" alt="Minimalist paper texture"></div>
+        <div class="pad-top">
+          <p class="idx">D-007</p>
+          <p class="name-jp">吳 紙意</p>
+          <h3 class="name">PAPER WU</h3>
+          <p class="tag">EDITORIAL / MINIMAL</p>
+        </div>
+      </div>
+      <div class="designer-card" data-id="D-008">
+        <div class="designer-thumb"><img src="images/designer-d008.webp" loading="lazy" decoding="async" alt="Swiss grid with cultural motifs"></div>
+        <div class="pad-top">
+          <p class="idx">D-008</p>
+          <p class="name-jp">陳 瑞式</p>
+          <h3 class="name">SWISS CHEN</h3>
+          <p class="tag">CULTURAL / GRID</p>
+        </div>
+      </div>
+      <div class="designer-card" data-id="D-009">
+        <div class="designer-thumb"><img src="images/designer-d009.webp" loading="lazy" decoding="async" alt="Neon glowing abstract shape"></div>
+        <div class="pad-top">
+          <p class="idx">D-009</p>
+          <p class="name-jp">李 霓虹</p>
+          <h3 class="name">NEON LEE</h3>
+          <p class="tag">UI / BRUTALISM</p>
+        </div>
+      </div>
+      <div class="designer-card" data-id="D-010">
+        <div class="designer-thumb"><img src="images/designer-d010.webp" loading="lazy" decoding="async" alt="ASCII art pattern"></div>
+        <div class="pad-top">
+          <p class="idx">D-010</p>
+          <p class="name-jp">范 碼農</p>
+          <h3 class="name">ASCII FAN</h3>
+          <p class="tag">TERMINAL / CLI</p>
+        </div>
+      </div>
+      <div class="designer-card" data-id="D-011">
+        <div class="designer-thumb"><img src="images/designer-d011.webp" loading="lazy" decoding="async" alt="Hand-drawn doodle art"></div>
+        <div class="pad-top">
+          <p class="idx">D-011</p>
+          <p class="name-jp">趙 手繪</p>
+          <h3 class="name">HAND CHAO</h3>
+          <p class="tag">SKETCH / DOODLE</p>
+        </div>
+      </div>
+      <div class="designer-card" data-id="D-012">
+        <div class="designer-thumb"><img src="images/designer-d012.webp" loading="lazy" decoding="async" alt="Abstract noise texture"></div>
+        <div class="pad-top">
+          <p class="idx">D-012</p>
+          <p class="name-jp">高 噪點</p>
+          <h3 class="name">NOISE KAO</h3>
+          <p class="tag">FILM / GRAIN</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="venue-section">
+    <div class="sec-head block">
+      <span class="sec-num">03.</span>
+      <span class="sec-title-jp">会場</span>
+      <h2 class="sec-title">展覽場地 <span class="ph">/ MALLSOFT DREAMS</span></h2>
+    </div>
+    <div class="venue-image" role="img" aria-label="Empty 1990s shopping mall atrium in vaporwave style">
+      <div class="venue-info-bar">
+        <div><span>LOCATION:</span> SONGSHAN CULTURAL PARK, WAREHOUSE NO.5</div>
+        <div><span>CAPACITY:</span> INFINITE DREAMS</div>
+        <div><span>AMBIENCE:</span> NOSTALGIC ECHOS</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="zones" class="block">
+    <div class="sec-head">
+      <span class="sec-num">04.</span>
+      <span class="sec-title-jp">エリア</span>
+      <h2 class="sec-title">五大展區 <span class="ph">/ SPECTRUM ZONES</span></h2>
+    </div>
+    <div class="zones">
+      <div class="zone">
+        <div class="zone-img"><img src="images/zone-z01.webp" loading="lazy" decoding="async" alt="Chrome geometric shapes floating over pink-cyan sunset grid"></div>
+        <p class="zone-id">Z01</p>
+        <p class="zone-cn">主流頻譜</p>
+        <p class="zone-en">MAINSTREAM FREQUENCY</p>
+        <p class="zone-desc">探索那些在廣闊數位海洋中，被無數次複製、黏貼的符號。這裡，流行與迷因交織，構築出一片<span class="em">既熟悉又陌生的視覺景觀</span>。</p>
+        <p class="zone-coord">5F-A1 // 5 WORKS</p>
+      </div>
+      <div class="zone">
+        <div class="zone-img"><img src="images/zone-z02.webp" loading="lazy" decoding="async" alt="CRT monitor displaying static noise with magenta and teal glow"></div>
+        <p class="zone-id">Z02</p>
+        <p class="zone-cn">時光殘響</p>
+        <p class="zone-en">RETRO ECHO</p>
+        <p class="zone-desc">回溯至錄影帶的雪花、撥號上網的噪音，以及<span class="em">CRT螢幕的磷光</span>。此區重現了九零年代末期，科技尚未完全成熟的<span class="strong">粗糙美學</span>。</p>
+        <p class="zone-coord">5F-A2 // 6 WORKS</p>
+      </div>
+      <div class="zone">
+        <div class="zone-img"><img src="images/zone-z03.webp" loading="lazy" decoding="async" alt="Broken Greek statue head fragmented over neon grid"></div>
+        <p class="zone-id">Z03</p>
+        <p class="zone-cn">前衛實驗室</p>
+        <p class="zone-en">AVANT LAB</p>
+        <p class="zone-desc">在這裡，古老的羅馬雕塑與<span class="em">未來主義的網格</span>碰撞，展現出對古典美學的解構與重塑。一場跨越時空的對話，挑戰既定的審美界限。</p>
+        <p class="zone-coord">5F-B1 // 6 WORKS</p>
+      </div>
+      <div class="zone">
+        <div class="zone-img"><img src="images/zone-z04.webp" loading="lazy" decoding="async" alt="Asian-tropical fusion: lotus, palm, chrome torii gate in pastel sunset"></div>
+        <p class="zone-id">Z04</p>
+        <p class="zone-cn">文化光譜</p>
+        <p class="zone-en">CULTURAL SPECTRUM</p>
+        <p class="zone-desc">融合東方禪意與熱帶風情，以<span class="em">粉彩夕陽</span>為背景，呈現出多元文化在蒸氣波語境下的奇幻交響。這裡沒有邊界，只有<span class="strong">無限的想像</span>。</p>
+        <p class="zone-coord">5F-B2 // 5 WORKS</p>
+      </div>
+      <div class="zone">
+        <div class="zone-img"><img src="images/zone-z05.webp" loading="lazy" decoding="async" alt="Swirling chrome ribbons in mid-motion with neon trails"></div>
+        <p class="zone-id">Z05</p>
+        <p class="zone-cn">動態廳</p>
+        <p class="zone-en">MOTION HALL</p>
+        <p class="zone-desc">沉浸於<span class="em">流動的鉻金屬緞帶</span>與霓虹光影之中。此區專注於動態設計，透過重複的律動與迷幻的色彩，創造<span class="strong">感官的超載體驗</span>。</p>
+        <p class="zone-coord">5F-C1 // 15 WORKS</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="schedule" class="block">
+    <div class="sec-head">
+      <span class="sec-num">05.</span>
+      <span class="sec-title-jp">スケジュール</span>
+      <h2 class="sec-title">講座排程 <span class="ph">/ TIMELINE GLITCH</span></h2>
+    </div>
+    <table class="schedule-table" role="table" aria-label="Exhibition Schedule">
+      <thead>
+        <tr>
+          <th scope="col">TIME</th>
+          <th scope="col">EVENT</th>
+          <th scope="col">SPEAKER</th>
+          <th scope="col">LOCATION</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>13:00 - 14:00</td>
+          <td>開幕式：失落的九零年代</td>
+          <td>Jerry @ aqualux.dev</td>
+          <td>主舞台</td>
+        </tr>
+        <tr>
+          <td>14:30 - 15:30</td>
+          <td>Vaporwave 的文化溯源</td>
+          <td>Vapor Lin</td>
+          <td>Z02 時光殘響</td>
+        </tr>
+        <tr>
+          <td>16:00 - 17:00</td>
+          <td>數位幻象：Chrome 設計工作坊</td>
+          <td>Grid Chao</td>
+          <td>Z01 主流頻譜</td>
+        </tr>
+        <tr>
+          <td>17:30 - 18:30</td>
+          <td>未來主義的回聲：設計對談</td>
+          <td>Aurora Lin & Neon Lee</td>
+          <td>主舞台</td>
+        </tr>
+        <tr>
+          <td>19:00 - 20:00</td>
+          <td>閉幕派對：Synthwave 之夜</td>
+          <td>DJ Aqua</td>
+          <td>Z05 動態廳</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="tickets" class="block">
+    <div class="sec-head">
+      <span class="sec-num">06.</span>
+      <span class="sec-title-jp">チケット</span>
+      <h2 class="sec-title">票務資訊 <span class="ph">/ ACCESS GRANTED</span></h2>
+    </div>
+
+    <div class="ticket-showcase">
+      <img src="images/ticket-mockup.webp" loading="lazy" decoding="async" alt="Vaporwave admission ticket mockup">
+      <div class="ts-info">
+        <p class="ts-label">FEATURED TICKET</p>
+        <h3 class="ts-title">FULL ACCESS PASS // アクアラックス</h3>
+        <p class="ts-desc">這張全展期通票是您進入 aqualux 2026 設計光譜展的<span class="em">黃金鑰匙</span>。它不僅僅是一張門票，更是您對<span class="strong">未完成未來</span>的承諾。持此票，您將能自由穿梭於所有展區，沉浸在蒸氣波的<span class="em">迷幻氛圍</span>中，無限次體驗這場超現實的視覺盛宴。</p>
+      </div>
+    </div>
+
+    <div class="tickets">
+      <div class="ticket">
+        <span class="badge">BASIC</span>
+        <p class="tier">SINGLE PASS</p>
+        <p class="tier-jp">シングルパス</p>
+        <p class="price">NT$ 480</p>
+        <p class="price-unit">一日入場 / ONE DAY ACCESS</p>
+        <ul>
+          <li>展覽單日入場</li>
+          <li>所有展區參觀</li>
+          <li>數位導覽手冊</li>
+        </ul>
+        <button class="cta-btn" disabled aria-label="Demo only — not for sale">PURCHASE</button>
+      </div>
+      <div class="ticket featured">
+        <span class="badge">RECOMMENDED</span>
+        <p class="tier">FULL ACCESS</p>
+        <p class="tier-jp">フルアクセス</p>
+        <p class="price">NT$ 1,280</p>
+        <p class="price-unit">全展期通票 / FULL EXHIBITION</p>
+        <ul>
+          <li>展覽期間無限次入場</li>
+          <li>所有展區參觀</li>
+          <li>限定周邊商品折扣</li>
+          <li>獨家線上內容</li>
+        </ul>
+        <button class="cta-btn" disabled aria-label="Demo only — not for sale">PURCHASE</button>
+      </div>
+      <div class="ticket">
+        <span class="badge">PREMIUM</span>
+        <p class="tier">CURATOR PASS</p>
+        <p class="tier-jp">キュレーターパス</p>
+        <p class="price">NT$ 2,880</p>
+        <p class="price-unit">策展人通行證 / WORKSHOP INCL.</p>
+        <ul>
+          <li>全展期通票所有權益</li>
+          <li>策展人導覽一次</li>
+          <li>限定設計工作坊名額</li>
+          <li>專屬紀念品</li>
+        </ul>
+        <button class="cta-btn" disabled aria-label="Demo only — not for sale">PURCHASE</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-text">
+      アクアラックス・スペクトル ／ AQUALUX SPECTRUM ／ 設計光譜 ／ アクアラックス・スペクトル ／ AQUALUX SPECTRUM ／ 設計光譜 ／
+    </div>
+  </div>
+  <svg class="aqualux-logo" viewBox="0 0 600 280" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="aqualux">
+    <text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text>
+    <line x1="80" y1="165" x2="520" y2="165" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+    <g transform="translate(0,330) scale(1,-1)" opacity="0.28"><text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text></g>
+  </svg>
+  <p class="signature">MMXXVI · <span class="ph">AQUALUX.DEV</span></p>
+  <p class="credit">
+    AQUALUX DESIGN SPECTRUM EXHIBITION CODEX<br>
+    C06 VAPORWAVE DEMO / ALL RIGHTS RESERVED
+  </p>
+  <p class="terminal">
+    > _ SYSTEM ONLINE. DREAM SEQUENCE INITIATED <span class="cursor">_</span>
+  </p>
+</footer>
+
+</body>
+</html>

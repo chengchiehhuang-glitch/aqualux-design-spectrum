@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AQUALUX 2026 // DESIGN SPECTRUM EXHIBITION · 包浩斯 Bauhaus Demo</title>
+<meta name="description" content="aqualux 2026 設計光譜展 · 包浩斯風格 demo · single-file HTML showcase">
+<link rel="canonical" href="https://design.aqualux.dev/works/c11-bauhaus/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://design.aqualux.dev/works/c11-bauhaus/">
+<meta property="og:title" content="C11 包浩斯 · aqualux 設計光譜展">
+<meta property="og:description" content="包浩斯風格 single-file HTML demo · aqualux 2026 設計光譜展">
+<meta property="og:image" content="images/hero.webp">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="C11 包浩斯 · aqualux 設計光譜展">
+<meta name="twitter:image" content="images/hero.webp">
+<link rel="icon" type="image/svg+xml" href="../../assets/aqualux-logo-mark.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Futura+PT:wght@400;700&family=IBM+Plex+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Sans+JP:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #f0f0f0; /* 主背景灰白 */
+    --bg-card: #ffffff; /* 卡片底白 */
+    --primary-red: #e30022; /* 主強調紅 */
+    --primary-blue: #004586; /* 次強調藍 */
+    --primary-yellow: #f8d210; /* 點綴黃 */
+    --ink: #212121; /* 主字黑 */
+    --ink-2: #666666; /* 次字灰 */
+    --line: #cccccc; /* 分隔線 */
+    --display: 'Futura PT', 'Futura', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+    --body: 'Noto Sans TC', 'Helvetica Neue', sans-serif;
+    --jp: 'Noto Sans JP', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--body);
+    line-height: 1.7;
+    font-size: 15px;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Grid Overlay */
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: 0.4;
+    mix-blend-mode: soft-light;
+    pointer-events: none; z-index: -1;
+  }
+
+  a { color: var(--primary-blue); text-decoration: none; }
+  a:hover { color: var(--primary-red); }
+
+  /* Top bar */
+  .topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    padding: 14px 32px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--mono); font-size: 12px;
+  }
+  .topbar .logo-container {
+    display: flex; align-items: center;
+    gap: 10px;
+  }
+  .topbar .logo-container svg {
+    height: 24px; width: auto;
+    color: var(--ink);
+  }
+  .topbar .left { color: var(--ink); letter-spacing: 0.1em; }
+  .topbar .right { color: var(--ink-2); letter-spacing: 0.1em; }
+  .topbar .right .status { color: var(--primary-red); animation: blink 1.2s steps(2) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* Hero */
+  .hero {
+    padding: 80px 32px 60px;
+    max-width: 1280px; margin: 0 auto;
+    position: relative;
+    text-align: center;
+  }
+  .hero-banner {
+    margin: 0 auto 40px;
+    width: 100%; max-width: 960px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--line);
+  }
+  .hero-banner img {
+    width: 100%; height: auto; display: block;
+    filter: grayscale(0.1) contrast(1.05);
+  }
+  .kicker {
+    font-family: var(--mono); font-size: 14px;
+    color: var(--primary-blue); letter-spacing: 0.2em;
+    margin-bottom: 16px;
+    display: flex; align-items: center; justify-content: center; gap: 14px;
+  }
+  .kicker::before, .kicker::after {
+    content: ''; display: inline-block;
+    width: 30px; height: 1px; background: var(--primary-blue);
+  }
+  .hero-jp {
+    font-family: var(--jp); font-weight: 300;
+    font-size: clamp(18px, 2.2vw, 26px);
+    color: var(--ink-2); letter-spacing: 0.2em;
+    margin-bottom: 12px;
+  }
+  .hero h1 {
+    font-family: var(--display); font-weight: 700;
+    font-size: clamp(48px, 9vw, 128px);
+    line-height: 0.95; letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .hero h1 .red { color: var(--primary-red); }
+  .hero h1 .blue { color: var(--primary-blue); }
+  .hero-sub {
+    font-family: var(--body); font-weight: 400;
+    font-size: clamp(16px, 1.8vw, 20px);
+    color: var(--ink-2); letter-spacing: 0.02em;
+    margin: 28px auto 36px; max-width: 720px;
+  }
+  .hero-sub .accent { color: var(--primary-red); font-weight: 500; }
+  .meta-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 20px 0;
+    margin-top: 36px;
+  }
+  .meta-cell {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--ink-2);
+    text-align: left;
+  }
+  .meta-cell .label {
+    color: var(--primary-blue); letter-spacing: 0.1em;
+    font-size: 11px; margin-bottom: 6px; display: block;
+  }
+  .meta-cell .val { color: var(--ink); font-size: 14px; font-weight: 700; }
+
+  /* Section base */
+  section.block { padding: 80px 32px; max-width: 1280px; margin: 0 auto; }
+  .sec-head {
+    display: flex; align-items: baseline; gap: 22px;
+    margin-bottom: 36px;
+    padding-bottom: 14px; border-bottom: 1px solid var(--line);
+  }
+  .sec-num {
+    font-family: var(--mono); font-size: 13px;
+    color: var(--primary-red); letter-spacing: 0.1em;
+    font-weight: 700;
+  }
+  .sec-title-jp {
+    font-family: var(--jp); font-size: 13px;
+    color: var(--ink-2); letter-spacing: 0.2em;
+  }
+  .sec-title {
+    font-family: var(--display); font-size: clamp(28px, 4vw, 48px);
+    font-weight: 700; letter-spacing: 0.04em;
+    color: var(--ink);
+    margin-right: auto;
+  }
+  .sec-title .ph { color: var(--primary-red); }
+
+  /* Curatorial statement */
+  .statement {
+    max-width: 880px;
+    font-family: var(--body); font-size: 16px; line-height: 1.9;
+    color: var(--ink-2);
+  }
+  .statement p { margin-bottom: 18px; }
+  .statement .em { color: var(--primary-blue); font-weight: 500; }
+  .statement .strong { color: var(--primary-red); font-weight: 700; letter-spacing: 0.02em; }
+  .statement blockquote {
+    border-left: 4px solid var(--primary-red);
+    padding: 16px 24px;
+    margin: 24px 0;
+    background: var(--bg-card);
+    font-family: var(--mono); color: var(--ink);
+    font-size: 14px; letter-spacing: 0.02em;
+  }
+
+  /* Designer grid */
+  .designers {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .designer-card {
+    border: 1px solid var(--line);
+    background: var(--bg-card);
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s ease-out;
+  }
+  .designer-card:hover {
+    border-color: var(--primary-red);
+    box-shadow: 0 0 0 3px var(--primary-red) inset;
+  }
+  .designer-thumb {
+    margin: -20px -20px 18px;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    position: relative;
+    background: var(--bg);
+  }
+  .designer-thumb img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: grayscale(0.2);
+    transition: transform 0.3s ease-out, filter 0.3s ease-out;
+  }
+  .designer-card:hover .designer-thumb img { transform: scale(1.05); filter: grayscale(0); }
+  .designer-card .idx {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--primary-red); letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+  .designer-card .name-jp {
+    font-family: var(--jp); font-size: 12px;
+    color: var(--ink-2); letter-spacing: 0.1em;
+    margin-bottom: 4px;
+  }
+  .designer-card .name {
+    font-family: var(--display); font-size: 18px; font-weight: 700;
+    color: var(--ink); letter-spacing: 0.02em;
+    margin-bottom: 10px;
+  }
+  .designer-card .tag {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--primary-blue); letter-spacing: 0.08em;
+  }
+  .designer-card .tag::before { content: '→ '; color: var(--ink-2); }
+
+  /* Venue map */
+  .venue-map {
+    max-width: 960px; margin: 0 auto;
+    border: 1px solid var(--line);
+    background: var(--bg-card);
+    padding: 20px;
+    position: relative;
+  }
+  .venue-map img {
+    width: 100%; height: auto; display: block;
+    filter: grayscale(0.1);
+  }
+  .venue-caption {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--ink-2); letter-spacing: 0.05em;
+    margin-top: 15px;
+    text-align: center;
+  }
+  .venue-caption .highlight { color: var(--primary-red); }
+
+  /* Zone map */
+  .zones {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+  }
+  .zone {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.2s ease-out;
+  }
+  .zone:hover { border-color: var(--primary-blue); }
+  .zone-img {
+    margin: -24px -24px 18px;
+    aspect-ratio: 5 / 3;
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  .zone-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: grayscale(0.1) contrast(1.05);
+    transition: transform 0.4s ease-out, filter 0.4s ease-out;
+  }
+  .zone:hover .zone-img img { transform: scale(1.04); filter: grayscale(0); }
+  .zone .zone-id {
+    font-family: var(--display); font-size: 48px; font-weight: 700;
+    color: var(--primary-red); line-height: 1;
+    margin-bottom: 8px;
+  }
+  .zone .zone-cn {
+    font-family: var(--body); font-size: 20px; font-weight: 500;
+    color: var(--ink); margin-bottom: 4px;
+    letter-spacing: 0.02em;
+  }
+  .zone .zone-en {
+    font-family: var(--mono); font-size: 13px;
+    color: var(--primary-blue); letter-spacing: 0.1em;
+    margin-bottom: 14px;
+  }
+  .zone .zone-desc {
+    font-family: var(--body); font-size: 14.5px; line-height: 1.8;
+    color: var(--ink-2);
+  }
+  .zone .zone-coord {
+    margin-top: 16px; padding-top: 12px;
+    border-top: 1px solid var(--line);
+    font-family: var(--mono); font-size: 11px;
+    color: var(--ink-2); letter-spacing: 0.08em;
+  }
+
+  /* Schedule */
+  .schedule-table {
+    width: 100%; border-collapse: collapse;
+    font-family: var(--mono); font-size: 13.5px;
+    background: var(--bg-card);
+  }
+  .schedule-table th, .schedule-table td {
+    padding: 14px 18px; text-align: left;
+    border-bottom: 1px solid var(--line);
+  }
+  .schedule-table th {
+    color: var(--ink); letter-spacing: 0.1em;
+    font-size: 12px; font-weight: 700;
+    text-transform: uppercase;
+    background: var(--bg);
+    border-bottom: 2px solid var(--primary-blue);
+  }
+  .schedule-table td { color: var(--ink-2); }
+  .schedule-table td:first-child {
+    color: var(--primary-red); font-weight: 700;
+    width: 140px;
+  }
+  .schedule-table tr:hover td { background: var(--bg); color: var(--ink); }
+
+  /* Tickets */
+  .tickets {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .ticket {
+    border: 1px solid var(--line);
+    padding: 30px 28px;
+    position: relative;
+    background: var(--bg-card);
+    text-align: center;
+    overflow: hidden;
+  }
+  .ticket.featured {
+    border-color: var(--primary-red);
+    box-shadow: 0 0 0 4px var(--primary-red) inset;
+  }
+  .ticket::before {
+    content: '';
+    position: absolute;
+    top: -20px; left: -20px;
+    width: 40px; height: 40px;
+    background-color: var(--primary-yellow);
+    transform: rotate(45deg);
+    opacity: 0.6;
+  }
+  .ticket.featured::before {
+    background-color: var(--primary-blue);
+  }
+  .ticket .badge {
+    display: inline-block;
+    font-family: var(--mono); font-size: 11px;
+    color: var(--bg-card); background: var(--primary-blue);
+    padding: 4px 12px; letter-spacing: 0.15em;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  .ticket.featured .badge { background: var(--primary-red); }
+  .ticket .tier {
+    font-family: var(--display); font-size: 24px; font-weight: 700;
+    color: var(--ink); letter-spacing: 0.04em;
+    margin-bottom: 8px;
+  }
+  .ticket .tier-jp {
+    font-family: var(--jp); font-size: 12px;
+    color: var(--ink-2); letter-spacing: 0.2em;
+    margin-bottom: 20px;
+  }
+  .ticket .price {
+    font-family: var(--display); font-size: 42px; font-weight: 700;
+    color: var(--primary-red); line-height: 1;
+    margin-bottom: 6px;
+  }
+  .ticket.featured .price { color: var(--primary-blue); }
+  .ticket .price-unit {
+    font-family: var(--mono); font-size: 13px;
+    color: var(--ink-2); letter-spacing: 0.1em;
+    margin-bottom: 20px;
+  }
+  .ticket ul {
+    list-style: none; text-align: left;
+    font-family: var(--body); font-size: 14px;
+    color: var(--ink-2); line-height: 2;
+    margin-bottom: 24px;
+  }
+  .ticket li::before {
+    content: '▪ '; color: var(--primary-yellow); margin-right: 6px;
+  }
+
+  /* CTA */
+  .cta-btn {
+    display: inline-block;
+    font-family: var(--display); font-weight: 700;
+    font-size: 14px; letter-spacing: 0.15em;
+    padding: 15px 35px;
+    background: var(--primary-red);
+    color: var(--bg-card);
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+    text-transform: uppercase;
+  }
+  .cta-btn:hover {
+    background: var(--primary-blue);
+    box-shadow: 0 0 0 3px var(--primary-blue);
+  }
+  .cta-btn:disabled {
+    background: var(--line);
+    color: var(--ink-2);
+    cursor: not-allowed;
+  }
+
+  /* Footer */
+  footer {
+    margin-top: 80px;
+    padding: 60px 32px 32px;
+    border-top: 1px solid var(--line);
+    background: var(--bg);
+    text-align: center;
+  }
+  footer .bauhaus-pattern {
+    display: flex; justify-content: center; align-items: center;
+    gap: 10px; margin-bottom: 24px;
+  }
+  footer .bauhaus-pattern .shape {
+    width: 20px; height: 20px;
+    background: var(--primary-red);
+  }
+  footer .bauhaus-pattern .shape.circle {
+    border-radius: 50%; background: var(--primary-blue);
+  }
+  footer .bauhaus-pattern .shape.triangle {
+    width: 0; height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 20px solid var(--primary-yellow);
+    background: none;
+  }
+  footer .signature-box {
+    display: inline-block;
+    border: 1px solid var(--line);
+    background: var(--bg-card);
+    padding: 20px 30px;
+    margin-bottom: 20px;
+  }
+  footer .signature-box svg {
+    width: 180px; height: auto;
+    color: var(--ink);
+    margin-bottom: 15px;
+  }
+  footer .signature {
+    font-family: var(--display); font-size: 16px;
+    color: var(--ink); letter-spacing: 0.1em;
+  }
+  footer .signature .ph { color: var(--primary-red); }
+  footer .credit {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--ink-2); letter-spacing: 0.08em; line-height: 1.8;
+    margin-top: 20px;
+  }
+  footer .credit a { color: var(--ink-2); }
+  footer .terminal {
+    font-family: var(--mono); font-size: 10.5px;
+    color: var(--ink-2); letter-spacing: 0.06em;
+    margin-top: 22px;
+  }
+  footer .terminal .cursor {
+    color: var(--primary-red);
+    animation: blink 0.9s steps(2) infinite;
+  }
+
+  /* Ticket showcase */
+  .ticket-showcase {
+    margin: 0 0 48px;
+    display: flex; align-items: center; gap: 32px;
+    padding: 28px;
+    border: 1px solid var(--line);
+    background: var(--bg-card);
+    position: relative; overflow: hidden;
+  }
+  .ticket-showcase::before {
+    content: ''; position: absolute;
+    top: -15px; right: -15px; width: 30px; height: 30px;
+    background: var(--primary-yellow);
+    transform: rotate(45deg);
+    opacity: 0.7;
+  }
+  .ticket-showcase img {
+    width: 240px; height: auto; border: 1px solid var(--primary-red);
+    box-shadow: 4px 4px 0 var(--primary-blue);
+    flex-shrink: 0;
+  }
+  .ticket-showcase .ts-info { flex: 1; }
+  .ticket-showcase .ts-label {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--primary-blue); letter-spacing: 0.15em;
+    margin-bottom: 10px;
+  }
+  .ticket-showcase .ts-title {
+    font-family: var(--display); font-weight: 700;
+    font-size: 22px; color: var(--ink); letter-spacing: 0.02em;
+    margin-bottom: 12px;
+  }
+  .ticket-showcase .ts-desc {
+    font-family: var(--body); font-size: 14.5px;
+    color: var(--ink-2); line-height: 1.8;
+  }
+  @media (max-width: 720px) {
+    .ticket-showcase { flex-direction: column; gap: 18px; padding: 20px; }
+    .ticket-showcase img { width: 100%; max-width: 280px; }
+  }
+
+  /* prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    .topbar .right .status, @keyframes blink { animation: none !important; }
+    .designer-card:hover { box-shadow: none; }
+    .designer-card:hover .designer-thumb img { transform: none; filter: grayscale(0.2); }
+    .zone:hover .zone-img img { transform: none; filter: grayscale(0.1) contrast(1.05); }
+    .cta-btn:hover { box-shadow: none; }
+    .ticket-showcase img { box-shadow: 4px 4px 0 var(--primary-blue); }
+  }
+</style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="logo-container">
+      <a href="../../index.html" aria-label="Back to Gallery">
+        <svg viewBox="0 0 600 280" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="aqualux">
+          <text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text>
+          <line x1="80" y1="165" x2="520" y2="165" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+          <g transform="translate(0,330) scale(1,-1)" opacity="0.28"><text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text></g>
+        </svg>
+      </a>
+      <span class="left">← GALLERY</span>
+    </div>
+    <div class="right">STATUS: <span class="status">ONLINE</span></div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="hero-banner">
+        <img src="images/hero.webp" alt="Aqualux Design Spectrum 2026 Bauhaus abstract composition" loading="lazy" decoding="async">
+      </div>
+      <p class="kicker">AQUALUX 2026</p>
+      <p class="hero-jp">設計光譜展 · 包浩斯</p>
+      <h1>
+        DESIGN <span class="red">SPECTRUM</span><br>
+        <span class="blue">BAUHAUS</span> CODEX
+      </h1>
+      <p class="hero-sub">
+        aqualux 2026 設計光譜展，<span class="accent">C11 包浩斯風格</span>演示頁面。
+        探索功能主義、幾何純粹與三原色構成的設計哲學，致敬現代主義的基石。
+      </p>
+
+      <div class="meta-strip">
+        <div class="meta-cell">
+          <span class="label">EXHIBITION</span>
+          <span class="val">Aqualux Design Spectrum</span>
+        </div>
+        <div class="meta-cell">
+          <span class="label">DATE</span>
+          <span class="val">2026.12.06 — 12.21</span>
+        </div>
+        <div class="meta-cell">
+          <span class="label">VENUE</span>
+          <span class="val">松山文創園區 5 號倉庫</span>
+        </div>
+        <div class="meta-cell">
+          <span class="label">CURATOR</span>
+          <span class="val">Jerry @ aqualux.dev</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="sec-head">
+        <span class="sec-num">01</span>
+        <span class="sec-title-jp">策展論述</span>
+        <h2 class="sec-title">FUNCTION & <span class="ph">FORM</span></h2>
+      </div>
+      <div class="statement">
+        <p>aqualux 2026 設計光譜展，C11 包浩斯專題，旨在重申現代主義設計的 <em class="em">核心原則</em>。我們相信設計的本質在於其 <strong class="strong">功能性、清晰度與普遍性</strong>。此展區將引導觀者回溯至一個設計革命的時代，當時的先驅者們挑戰傳統，尋求一種能與工業化時代精神共鳴的新美學。</p>
+        <blockquote>
+          「形式追隨功能。」<br>
+          「設計應服務於大眾，而非少數人。」<br>
+          「材料的誠實運用。」
+        </blockquote>
+        <p>展覽作品將以 <em class="em">幾何純粹</em>、<strong class="strong">三原色與非色彩的精準運用</strong>，以及對 <em class="em">網格系統</em> 的嚴格遵循為特點。每一件展品都旨在去除冗餘，揭示其最本質的結構與目的。我們邀請您體驗這場關於 <em class="em">秩序、平衡與創新</em> 的視覺對話，感受包浩斯運動對於當代設計的深遠影響。</p>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="sec-head">
+        <span class="sec-num">02</span>
+        <span class="sec-title-jp">設計師名單</span>
+        <h2 class="sec-title">THE <span class="ph">ARCHITECTS</span></h2>
+      </div>
+      <div class="designers">
+        <div class="designer-card">
+          <div class="designer-thumb"><img src="images/designer-01.webp" alt="Abstract geometric emblem for Grid Lee" loading="lazy" decoding="async"></div>
+          <p class="idx">D_001</p>
+          <p class="name-jp">グリッド リー</p>
+          <h3 class="name">Grid Lee</h3>
+          <p class="tag">UI / Brutalism</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb"><img src="images/designer-02.webp" alt="Abstract geometric emblem for Circle Ho" loading="lazy" decoding="async"></div>
+          <p class="idx">D_002</p>
+          <p class="name-jp">サークル ホー</p>
+          <h3 class="name">Circle Ho</h3>
+          <p class="tag">Motion / Parallax</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb"><img src="images/designer-03.webp" alt="Abstract geometric emblem for Triangle Chang" loading="lazy" decoding="async"></div>
+          <p class="idx">D_003</p>
+          <p class="name-jp">トライアングル チャン</p>
+          <h3 class="name">Triangle Chang</h3>
+          <p class="tag">Experimental</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb"><img src="images/designer-04.webp" alt="Abstract geometric emblem for Paper Wu" loading="lazy" decoding="async"></div>
+          <p class="idx">D_004</p>
+          <p class="name-jp">ペーパー ウー</p>
+          <h3 class="name">Paper Wu</h3>
+          <p class="tag">Editorial / Minimal</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb"><img src="images/designer-05.webp" alt="Abstract geometric emblem for Vapor Lin" loading="lazy" decoding="async"></div>
+          <p class="idx">D_005</p>
+          <p class="name-jp">ヴェイパー リン</p>
+          <h3 class="name">Vapor Lin</h3>
+          <p class="tag">Retro / Aesthetic</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb"><img src="images/designer-06.webp" alt="Abstract geometric emblem for Swiss Chen" loading="lazy" decoding="async"></div>
+          <p class="idx">D_006</p>
+          <p class="name-jp">スイス チェン</p>
+          <h3 class="name">Swiss Chen</h3>
+          <p class="tag">Cultural / Grid</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb"><img src="images/designer-07.webp" alt="Abstract geometric emblem for Glass Yang" loading="lazy" decoding="async"></div>
+          <p class="idx">D_007</p>
+          <p class="name-jp">ガラス ヤン</p>
+          <h3 class="name">Glass Yang</h3>
+          <p class="tag">Glassmorphism</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb"><img src="images/designer-08.webp" alt="Abstract geometric emblem for ASCII Fan" loading="lazy" decoding="async"></div>
+          <p class="idx">D_008</p>
+          <p class="name-jp">アスキー ファン</p>
+          <h3 class="name">ASCII Fan</h3>
+          <p class="tag">Terminal / CLI</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb"><img src="images/designer-09.webp" alt="Abstract geometric emblem for Hand Chao" loading="lazy" decoding="async"></div>
+          <p class="idx">D_009</p>
+          <p class="name-jp">ハンド チャオ</p>
+          <h3 class="name">Hand Chao</h3>
+          <p class="tag">Sketch / Doodle</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb"><img src="images/designer-10.webp" alt="Abstract geometric emblem for Magne Huang" loading="lazy" decoding="async"></div>
+          <p class="idx">D_010</p>
+          <p class="name-jp">マグネ ホアン</p>
+          <h3 class="name">Magne Huang</h3>
+          <p class="tag">Interaction</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb"><img src="images/designer-11.webp" alt="Abstract geometric emblem for Cyber Su" loading="lazy" decoding="async"></div>
+          <p class="idx">D_011</p>
+          <p class="name-jp">サイバー スー</p>
+          <h3 class="name">Cyber Su</h3>
+          <p class="tag">Cyberpunk / Glow</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb"><img src="images/designer-12.webp" alt="Abstract geometric emblem for Noise Kao" loading="lazy" decoding="async"></div>
+          <p class="idx">D_012</p>
+          <p class="name-jp">ノイズ カオ</p>
+          <h3 class="name">Noise Kao</h3>
+          <p class="tag">Film Grain</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="sec-head">
+        <span class="sec-num">03</span>
+        <span class="sec-title-jp">場地平面圖</span>
+        <h2 class="sec-title">VENUE <span class="ph">LAYOUT</span></h2>
+      </div>
+      <div class="venue-map">
+        <img src="images/venue.webp" alt="Simplified Bauhaus-style architectural floor plan of the exhibition venue with primary color accents for zones." loading="lazy" decoding="async">
+        <p class="venue-caption">松山文創園區 5 號倉庫 · <span class="highlight">展區規劃示意圖</span></p>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="sec-head">
+        <span class="sec-num">04</span>
+        <span class="sec-title-jp">五大展區</span>
+        <h2 class="sec-title">EXHIBITION <span class="ph">ZONES</span></h2>
+      </div>
+      <div class="zones">
+        <div class="zone">
+          <div class="zone-img"><img src="images/zone-z01.webp" alt="Abstract geometric composition for Mainstream Frequency zone" loading="lazy" decoding="async"></div>
+          <p class="zone-id">Z01</p>
+          <h3 class="zone-cn">主流頻譜</h3>
+          <p class="zone-en">MAINSTREAM FREQUENCY</p>
+          <p class="zone-desc">探索當代設計中普遍且具影響力的趨勢，展現其結構與形式的簡潔之美。</p>
+          <p class="zone-coord">5F-A1 · 5 作品</p>
+        </div>
+        <div class="zone">
+          <div class="zone-img"><img src="images/zone-z02.webp" alt="Abstract geometric composition for Retro Echo zone" loading="lazy" decoding="async"></div>
+          <p class="zone-id">Z02</p>
+          <h3 class="zone-cn">時光殘響</h3>
+          <p class="zone-en">RETRO ECHO</p>
+          <p class="zone-desc">回顧經典設計語彙的現代轉譯，在歷史與創新之間尋找平衡點。</p>
+          <p class="zone-coord">5F-A2 · 6 作品</p>
+        </div>
+        <div class="zone">
+          <div class="zone-img"><img src="images/zone-z03.webp" alt="Abstract geometric composition for Avant Lab zone" loading="lazy" decoding="async"></div>
+          <p class="zone-id">Z03</p>
+          <h3 class="zone-cn">前衛實驗室</h3>
+          <p class="zone-en">AVANT LAB</p>
+          <p class="zone-desc">呈現大膽、實驗性的設計概念，挑戰既有框架，探索未來可能性。</p>
+          <p class="zone-coord">5F-B1 · 6 作品</p>
+        </div>
+        <div class="zone">
+          <div class="zone-img"><img src="images/zone-z04.webp" alt="Abstract geometric composition for Cultural Spectrum zone" loading="lazy" decoding="async"></div>
+          <p class="zone-id">Z04</p>
+          <h3 class="zone-cn">文化光譜</h3>
+          <p class="zone-en">CULTURAL SPECTRUM</p>
+          <p class="zone-desc">檢視設計如何反映並塑造多元文化，以幾何語言詮釋文化符號。</p>
+          <p class="zone-coord">5F-B2 · 5 作品</p>
+        </div>
+        <div class="zone">
+          <div class="zone-img"><img src="images/zone-z05.webp" alt="Abstract geometric composition for Motion Hall zone" loading="lazy" decoding="async"></div>
+          <p class="zone-id">Z05</p>
+          <h3 class="zone-cn">動態廳</h3>
+          <p class="zone-en">MOTION HALL</p>
+          <p class="zone-desc">專注於動態視覺與互動設計，強調運動中的形式與功能。</p>
+          <p class="zone-coord">5F-C1 · 15 作品</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="sec-head">
+        <span class="sec-num">05</span>
+        <span class="sec-title-jp">講座排程</span>
+        <h2 class="sec-title">SCHEDULE <span class="ph">OVERVIEW</span></h2>
+      </div>
+      <table class="schedule-table">
+        <thead>
+          <tr>
+            <th scope="col">TIME</th>
+            <th scope="col">EVENT</th>
+            <th scope="col">SPEAKER</th>
+            <th scope="col">LOCATION</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>13:00 - 14:00</td>
+            <td>包浩斯設計精神</td>
+            <td>Grid Lee</td>
+            <td>Z01 主流頻譜</td>
+          </tr>
+          <tr>
+            <td>14:30 - 15:30</td>
+            <td>幾何與動態美學</td>
+            <td>Circle Ho</td>
+            <td>Z05 動態廳</td>
+          </tr>
+          <tr>
+            <td>16:00 - 17:00</td>
+            <td>現代主義的當代詮釋</td>
+            <td>Swiss Chen</td>
+            <td>Z04 文化光譜</td>
+          </tr>
+          <tr>
+            <td>17:30 - 18:30</td>
+            <td>設計與社會功能</td>
+            <td>Paper Wu</td>
+            <td>Z02 時光殘響</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="block">
+      <div class="sec-head">
+        <span class="sec-num">06</span>
+        <span class="sec-title-jp">票務資訊</span>
+        <h2 class="sec-title">TICKET <span class="ph">ACCESS</span></h2>
+      </div>
+      <div class="ticket-showcase">
+        <img src="images/ticket.webp" alt="Minimalist Bauhaus-style admission ticket mockup" loading="lazy" decoding="async">
+        <div class="ts-info">
+          <p class="ts-label">DIGITAL ACCESS</p>
+          <h3 class="ts-title">AQUALUX SPECTRUM 2026<br>FULL ACCESS PASS</h3>
+          <p class="ts-desc">這張數位票券代表著對 aqualux 2026 設計光譜展的完整體驗。憑此票可於展期內無限次入場，並享有所有展區的優先參觀權。設計簡潔，功能至上。</p>
+        </div>
+      </div>
+
+      <div class="tickets">
+        <div class="ticket">
+          <span class="badge">STANDARD</span>
+          <p class="tier">SINGLE PASS</p>
+          <p class="tier-jp">單日入場</p>
+          <p class="price">NT$ 480</p>
+          <p class="price-unit">PER DAY</p>
+          <ul>
+            <li>單日展區入場</li>
+            <li>所有作品觀看</li>
+            <li>限定紀念品購買權</li>
+          </ul>
+          <button class="cta-btn" aria-label="Purchase Single Pass" disabled>PURCHASE</button>
+        </div>
+        <div class="ticket featured">
+          <span class="badge">RECOMMENDED</span>
+          <p class="tier">FULL ACCESS</p>
+          <p class="tier-jp">全展期通票</p>
+          <p class="price">NT$ 1,280</p>
+          <p class="price-unit">FULL EXHIBITION</p>
+          <ul>
+            <li>展期內無限次入場</li>
+            <li>所有作品觀看</li>
+            <li>限定紀念品購買權</li>
+            <li>講座優先入場</li>
+          </ul>
+          <button class="cta-btn" aria-label="Purchase Full Access Pass" disabled>PURCHASE</button>
+        </div>
+        <div class="ticket">
+          <span class="badge">PREMIUM</span>
+          <p class="tier">CURATOR PASS</p>
+          <p class="tier-jp">含 workshop</p>
+          <p class="price">NT$ 2,880</p>
+          <p class="price-unit">PREMIUM ACCESS</p>
+          <ul>
+            <li>展期內無限次入場</li>
+            <li>所有作品觀看</li>
+            <li>限定紀念品購買權</li>
+            <li>專屬設計工作坊</li>
+          </ul>
+          <button class="cta-btn" aria-label="Purchase Curator Pass" disabled>PURCHASE</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="bauhaus-pattern">
+      <div class="shape"></div>
+      <div class="shape circle"></div>
+      <div class="shape triangle"></div>
+    </div>
+    <div class="signature-box">
+      <svg viewBox="0 0 600 280" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="aqualux">
+        <text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text>
+        <line x1="80" y1="165" x2="520" y2="165" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+        <g transform="translate(0,330) scale(1,-1)" opacity="0.28"><text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text></g>
+      </svg>
+      <p class="signature">MMXXVI · <span class="ph">AQUALUX.DEV</span></p>
+    </div>
+    <p class="credit">
+      AQUALUX 2026 DESIGN SPECTRUM EXHIBITION<br>
+      C11 BAUHAUS DEMO · <a href="https://aqualux.dev" target="_blank" rel="noopener noreferrer">AQUALUX.DEV</a>
+    </p>
+    <p class="terminal">
+      <span class="cursor">_</span>
+    </p>
+  </footer>
+
+  <script>
+    // Typewriter effect for a key statement in the curatorial section
+    document.addEventListener('DOMContentLoaded', () => {
+      const statementParagraphs = document.querySelectorAll('.statement p');
+      const keySentence = "功能性、清晰度與普遍性"; // The sentence to animate
+      let hasAnimated = false;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !hasAnimated && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            const targetP = Array.from(statementParagraphs).find(p => p.textContent.includes(keySentence));
+            if (targetP) {
+              const originalText = targetP.innerHTML;
+              targetP.innerHTML = ''; // Clear content for typewriter effect
+              let i = 0;
+              const typeWriter = () => {
+                if (i < originalText.length) {
+                  targetP.innerHTML += originalText.charAt(i);
+                  i++;
+                  setTimeout(typeWriter, 40); // Typing speed
+                }
+              };
+              typeWriter();
+              hasAnimated = true; // Ensure it only animates once
+            }
+          }
+        });
+      }, { threshold: 0.8 }); // Trigger when 80% of the element is visible
+
+      const targetP = Array.from(statementParagraphs).find(p => p.textContent.includes(keySentence));
+      if (targetP) {
+        observer.observe(targetP);
+      }
+    });
+  </script>
+</body>
+</html>

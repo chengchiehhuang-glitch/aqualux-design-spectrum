@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AQUALUX 2026 // DESIGN SPECTRUM EXHIBITION · ASCII Terminal Demo</title>
+<meta name="description" content="aqualux 2026 設計光譜展 · ASCII Terminal 風格 demo · single-file HTML showcase">
+<link rel="canonical" href="https://design.aqualux.dev/works/c16-ascii-terminal/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://design.aqualux.dev/works/c16-ascii-terminal/">
+<meta property="og:title" content="C16 ASCII 終端機 · aqualux 設計光譜展">
+<meta property="og:description" content="ASCII Terminal 風格 single-file HTML demo · aqualux 2026 設計光譜展">
+<meta property="og:image" content="https://design.aqualux.dev/works/c16-ascii-terminal/images/hero.webp">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="C16 ASCII 終端機 · aqualux 設計光譜展">
+<meta name="twitter:image" content="https://design.aqualux.dev/works/c16-ascii-terminal/images/hero.webp">
+<link rel="icon" type="image/svg+xml" href="../../assets/aqualux-logo-mark.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=IBM+Plex+Mono:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;500;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #000000;
+    --phosphor: #00ff00;
+    --phosphor-dim: #008800;
+    --text-main: #00ff00;
+    --text-dim: #00aa00;
+    --grid-line: #003300;
+    --error-red: #ff0000;
+    --blink: #00ff00;
+
+    --display-font: 'VT323', monospace;
+    --mono-font: 'IBM Plex Mono', monospace;
+    --jp-font: 'Noto Sans JP', monospace; /* Using monospace for JP as per spec */
+    --tc-font: 'IBM Plex Mono', monospace; /* Using monospace for TC as per spec */
+  }
+
+  /* Accessibility: prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text-main);
+    font-family: var(--mono-font);
+    line-height: 1.5;
+    font-size: 14px;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    text-shadow: 0 0 1px var(--phosphor), 0 0 2px var(--phosphor);
+  }
+
+  /* Scanlines overlay */
+  .scanlines {
+    position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+    background: repeating-linear-gradient(0deg, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 2px, rgba(0,0,0,0.18) 3px, rgba(0,0,0,0) 4px);
+    mix-blend-mode: overlay;
+  }
+
+  a { color: var(--text-main); text-decoration: none; }
+  a:hover { color: var(--phosphor-dim); }
+
+  /* Top bar */
+  .topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--grid-line);
+    padding: 8px 16px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--mono-font); font-size: 12px;
+    white-space: pre; /* Ensure ASCII art alignment */
+  }
+  .topbar .left { color: var(--text-main); letter-spacing: 0.05em; }
+  .topbar .right { color: var(--text-dim); letter-spacing: 0.05em; }
+  .topbar .right .blink { animation: blink 0.8s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .topbar .aqualux-logo-mark {
+    height: 24px; width: auto;
+    color: var(--text-main);
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+
+  .topbar a {
+    color: var(--text-main);
+    text-decoration: none;
+  }
+  .topbar a:hover {
+    color: var(--phosphor-dim);
+  }
+
+  /* Hero */
+  .hero {
+    padding: 40px 16px 30px;
+    max-width: 80ch; /* 80 character width */
+    margin: 0 auto;
+    position: relative;
+  }
+  .kicker {
+    font-family: var(--mono-font); font-size: 11px;
+    color: var(--phosphor-dim); letter-spacing: 0.1em;
+    margin-bottom: 16px;
+  }
+  .hero-jp {
+    font-family: var(--jp-font); font-weight: 300;
+    font-size: 14px;
+    color: var(--text-dim); letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+  .hero h1 {
+    font-family: var(--display-font); font-weight: 400;
+    font-size: clamp(28px, 5vw, 48px);
+    line-height: 1; letter-spacing: 0.05em;
+    color: var(--text-main);
+    margin-bottom: 16px;
+    white-space: pre-wrap; /* Allow ASCII art to wrap if needed, but prefer pre */
+  }
+  .hero-sub {
+    font-family: var(--mono-font); font-weight: 400;
+    font-size: 13px;
+    color: var(--text-dim); letter-spacing: 0.03em;
+    margin: 18px 0 24px; max-width: 72ch;
+  }
+  .hero-sub .accent { color: var(--text-main); }
+  .meta-strip {
+    border-top: 1px solid var(--grid-line);
+    border-bottom: 1px solid var(--grid-line);
+    padding: 12px 0;
+    margin-top: 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 8px;
+  }
+  .meta-cell {
+    font-family: var(--mono-font); font-size: 12px;
+    color: var(--text-dim);
+  }
+  .meta-cell .label {
+    color: var(--text-main); letter-spacing: 0.08em;
+    font-size: 10px; margin-bottom: 4px; display: block;
+  }
+  .meta-cell .val { color: var(--text-main); font-size: 12px; font-weight: 500; }
+
+  /* Section base */
+  section.block { padding: 40px 16px; max-width: 80ch; margin: 0 auto; }
+  .sec-head {
+    display: flex; align-items: baseline; gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 8px; border-bottom: 1px solid var(--grid-line);
+    white-space: pre-wrap;
+  }
+  .sec-num {
+    font-family: var(--mono-font); font-size: 12px;
+    color: var(--text-main); letter-spacing: 0.1em;
+    font-weight: 700;
+  }
+  .sec-title-jp {
+    font-family: var(--jp-font); font-size: 12px;
+    color: var(--text-dim); letter-spacing: 0.1em;
+  }
+  .sec-title {
+    font-family: var(--display-font); font-size: clamp(20px, 3vw, 32px);
+    font-weight: 700; letter-spacing: 0.05em;
+    color: var(--text-main);
+    margin-right: auto;
+  }
+  .sec-title .ph { color: var(--text-main); } /* All green in ASCII terminal */
+
+  /* Curatorial statement */
+  .statement {
+    max-width: 72ch;
+    font-family: var(--tc-font); font-size: 14px; line-height: 1.6;
+    color: var(--text-dim);
+  }
+  .statement p { margin-bottom: 16px; }
+  .statement .em { color: var(--text-main); font-weight: 500; }
+  .statement .strong { color: var(--text-main); font-weight: 700; }
+  .statement blockquote {
+    border-left: 1px solid var(--text-main);
+    padding: 8px 12px;
+    margin: 16px 0;
+    background: rgba(0, 255, 0, 0.05);
+    font-family: var(--mono-font); color: var(--text-main);
+    font-size: 13px; letter-spacing: 0.02em;
+    white-space: pre-wrap;
+  }
+
+  /* Designer grid */
+  .designers {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 8px;
+  }
+  .designer-card {
+    border: 1px solid var(--grid-line);
+    background: var(--bg);
+    padding: 12px 14px;
+    position: relative;
+    transition: border-color 0.1s ease;
+    white-space: pre-wrap;
+  }
+  .designer-card:hover {
+    border-color: var(--text-main);
+    box-shadow: 0 0 8px rgba(0, 255, 0, 0.4);
+  }
+  .designer-card .idx {
+    font-family: var(--mono-font); font-size: 10px;
+    color: var(--text-main); letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+  .designer-card .name-jp {
+    font-family: var(--jp-font); font-size: 10px;
+    color: var(--text-dim); letter-spacing: 0.05em;
+    margin-bottom: 2px;
+  }
+  .designer-card .name {
+    font-family: var(--display-font); font-size: 15px; font-weight: 700;
+    color: var(--text-main); letter-spacing: 0.02em;
+    margin-bottom: 6px;
+  }
+  .designer-card .tag {
+    font-family: var(--mono-font); font-size: 10px;
+    color: var(--phosphor-dim); letter-spacing: 0.05em;
+  }
+
+  /* Zone map */
+  .zones {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+  }
+  .zone {
+    background: var(--bg);
+    border: 1px solid var(--grid-line);
+    padding: 18px 20px;
+    position: relative;
+    white-space: pre-wrap;
+  }
+  .zone .zone-id {
+    font-family: var(--display-font); font-size: 36px; font-weight: 400;
+    color: var(--text-main); line-height: 1;
+    margin-bottom: 6px;
+    text-shadow: 0 0 1px var(--phosphor), 0 0 2px var(--phosphor);
+  }
+  .zone .zone-cn {
+    font-family: var(--tc-font); font-size: 16px; font-weight: 500;
+    color: var(--text-main); margin-bottom: 4px;
+    letter-spacing: 0.03em;
+  }
+  .zone .zone-en {
+    font-family: var(--mono-font); font-size: 11px;
+    color: var(--phosphor-dim); letter-spacing: 0.1em;
+    margin-bottom: 10px;
+  }
+  .zone .zone-desc {
+    font-family: var(--tc-font); font-size: 13px; line-height: 1.6;
+    color: var(--text-dim);
+  }
+  .zone .zone-coord {
+    margin-top: 10px; padding-top: 8px;
+    border-top: 1px dashed var(--grid-line);
+    font-family: var(--mono-font); font-size: 10px;
+    color: var(--text-dim); letter-spacing: 0.08em;
+  }
+
+  /* Schedule */
+  .schedule-table {
+    width: 100%; border-collapse: collapse;
+    font-family: var(--mono-font); font-size: 13px;
+    white-space: pre; /* Essential for ASCII alignment */
+  }
+  .schedule-table th, .schedule-table td {
+    padding: 10px 12px; text-align: left;
+    border-bottom: 1px solid var(--grid-line);
+  }
+  .schedule-table th {
+    color: var(--text-main); letter-spacing: 0.08em;
+    font-size: 10px; font-weight: 700;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--text-main);
+  }
+  .schedule-table td { color: var(--text-dim); }
+  .schedule-table td:first-child {
+    color: var(--text-main); font-weight: 700;
+    width: 100px;
+  }
+  .schedule-table tr:hover td { color: var(--text-main); background: rgba(0, 255, 0, 0.03); }
+
+  /* Tickets */
+  .tickets {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .ticket {
+    border: 1px solid var(--grid-line);
+    padding: 20px 18px;
+    position: relative;
+    background: var(--bg);
+    text-align: center;
+    white-space: pre-wrap;
+  }
+  .ticket.featured {
+    border-color: var(--text-main);
+    box-shadow: 0 0 12px rgba(0, 255, 0, 0.4);
+  }
+  .ticket .badge {
+    display: inline-block;
+    font-family: var(--mono-font); font-size: 10px;
+    color: var(--bg); background: var(--text-main);
+    padding: 2px 8px; letter-spacing: 0.1em;
+    margin-bottom: 10px;
+  }
+  .ticket.featured .badge { background: var(--text-main); }
+  .ticket .tier {
+    font-family: var(--display-font); font-size: 20px; font-weight: 700;
+    color: var(--text-main); letter-spacing: 0.05em;
+    margin-bottom: 4px;
+  }
+  .ticket .tier-jp {
+    font-family: var(--jp-font); font-size: 10px;
+    color: var(--text-dim); letter-spacing: 0.1em;
+    margin-bottom: 14px;
+  }
+  .ticket .price {
+    font-family: var(--display-font); font-size: 32px; font-weight: 400;
+    color: var(--text-main); line-height: 1;
+    margin-bottom: 2px;
+    text-shadow: 0 0 1px var(--phosphor), 0 0 2px var(--phosphor);
+  }
+  .ticket .price-unit {
+    font-family: var(--mono-font); font-size: 11px;
+    color: var(--text-dim); letter-spacing: 0.08em;
+    margin-bottom: 14px;
+  }
+  .ticket ul {
+    list-style: none; text-align: left;
+    font-family: var(--mono-font); font-size: 12px;
+    color: var(--text-dim); line-height: 1.8;
+    margin-bottom: 18px;
+  }
+  .ticket li::before {
+    content: '> '; color: var(--text-main); margin-right: 4px;
+  }
+
+  /* CTA */
+  .cta-btn {
+    display: inline-block;
+    font-family: var(--mono-font); font-weight: 700;
+    font-size: 12px; letter-spacing: 0.1em;
+    padding: 10px 24px;
+    background: transparent;
+    color: var(--text-main);
+    border: 1px solid var(--text-main);
+    cursor: pointer;
+    transition: all 0.1s ease;
+    text-transform: uppercase;
+    position: relative;
+    white-space: pre;
+  }
+  .cta-btn:hover {
+    background: var(--text-main); color: var(--bg);
+    box-shadow: 0 0 16px rgba(0, 255, 0, 0.6);
+  }
+  .cta-btn[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    border-color: var(--phosphor-dim);
+    color: var(--phosphor-dim);
+  }
+  .cta-btn[disabled]:hover {
+    background: transparent;
+    color: var(--phosphor-dim);
+    box-shadow: none;
+  }
+
+  /* Footer */
+  footer {
+    margin-top: 60px;
+    padding: 40px 16px 20px;
+    border-top: 1px solid var(--grid-line);
+    background: var(--bg);
+    text-align: center;
+    white-space: pre-wrap;
+  }
+  footer .ascii-line {
+    font-family: var(--mono-font); font-size: 10px;
+    color: var(--phosphor-dim); letter-spacing: 0.08em;
+    margin-bottom: 12px;
+    white-space: pre; overflow: hidden;
+  }
+  footer .signature {
+    font-family: var(--display-font); font-size: 13px;
+    color: var(--text-main); letter-spacing: 0.1em;
+    margin-bottom: 10px;
+  }
+  footer .signature .ph { color: var(--text-main); }
+  footer .credit {
+    font-family: var(--mono-font); font-size: 10px;
+    color: var(--text-dim); letter-spacing: 0.05em; line-height: 1.6;
+  }
+  footer .credit a { color: var(--text-dim); }
+  footer .terminal {
+    font-family: var(--mono-font); font-size: 10px;
+    color: var(--text-dim); letter-spacing: 0.05em;
+    margin-top: 16px;
+  }
+  footer .terminal .cursor {
+    color: var(--blink);
+    animation: blink 0.8s steps(1) infinite;
+  }
+  footer .aqualux-logo {
+    width: 180px; height: auto;
+    color: var(--text-main);
+    margin: 20px auto;
+    display: block;
+    border: 1px dashed var(--grid-line);
+    padding: 8px 0;
+  }
+
+  /* Images (ASCII Art Placeholders) */
+  .img-placeholder {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9; /* Default for hero */
+    background-color: var(--bg);
+    border: 1px solid var(--grid-line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono-font);
+    font-size: 12px;
+    color: var(--text-dim);
+    text-align: center;
+    white-space: pre;
+    overflow: hidden; /* Hide overflow from ASCII art */
+    position: relative;
+  }
+  .img-placeholder::before {
+    content: "FILE NOT FOUND\nLOADING ASCII ART...";
+    white-space: pre;
+    animation: load-text 2s steps(1) infinite;
+  }
+  @keyframes load-text {
+    0% { content: "FILE NOT FOUND\nLOADING ASCII ART..."; }
+    50% { content: "FILE NOT FOUND\nLOADING ASCII ART.  "; }
+    100% { content: "FILE NOT FOUND\nLOADING ASCII ART.. "; }
+  }
+
+  .zone-img-placeholder {
+    margin: -18px -20px 14px;
+    aspect-ratio: 5 / 3;
+    border-bottom: 1px solid var(--grid-line);
+  }
+  .designer-thumb-placeholder {
+    margin: -12px -14px 10px;
+    aspect-ratio: 1 / 1;
+    border-bottom: 1px solid var(--grid-line);
+  }
+  .ticket-showcase-img-placeholder {
+    width: 180px; height: auto;
+    aspect-ratio: 1 / 1.5;
+    border: 1px solid var(--text-main);
+    box-shadow: 0 0 16px rgba(0, 255, 0, 0.4);
+    flex-shrink: 0;
+  }
+  .ticket-showcase-img-placeholder::before {
+    content: "TICKET.IMG\n[SIMULATED]";
+  }
+
+  /* Ticket showcase */
+  .ticket-showcase {
+    margin: 0 0 32px;
+    display: flex; align-items: center; gap: 24px;
+    padding: 20px;
+    border: 1px dashed var(--grid-line);
+    background: var(--bg);
+    position: relative;
+    white-space: pre-wrap;
+  }
+  .ticket-showcase .ts-info { flex: 1; }
+  .ticket-showcase .ts-label {
+    font-family: var(--mono-font); font-size: 10px;
+    color: var(--phosphor-dim); letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+  .ticket-showcase .ts-title {
+    font-family: var(--display-font); font-size: 18px; font-weight: 700;
+    color: var(--text-main); letter-spacing: 0.03em;
+    margin-bottom: 10px;
+  }
+  .ticket-showcase .ts-desc {
+    font-family: var(--tc-font); font-size: 12px;
+    color: var(--text-dim); line-height: 1.6;
+  }
+  @media (max-width: 600px) {
+    .ticket-showcase { flex-direction: column; gap: 16px; padding: 16px; }
+    .ticket-showcase-img-placeholder { width: 100%; max-width: 180px; }
+  }
+
+  /* General ASCII art dividers */
+  .ascii-divider {
+    font-family: var(--mono-font);
+    color: var(--grid-line);
+    margin: 20px 0;
+    white-space: pre;
+    overflow: hidden;
+    line-height: 1;
+  }
+  .ascii-divider.solid { content: "--------------------------------------------------------------------------------"; }
+  .ascii-divider.dashed { content: "- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - "; }
+  .ascii-divider.hash { content: "################################################################################"; }
+
+  /* Glitch effect for specific elements */
+  .glitch-text {
+    position: relative;
+    display: inline-block;
+  }
+  .glitch-text::before, .glitch-text::after {
+    content: attr(data-text);
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    overflow: hidden;
+    color: var(--text-main);
+    text-shadow: 0 0 1px var(--phosphor), 0 0 2px var(--phosphor);
+  }
+  .glitch-text::before {
+    transform: translate(1px, 0);
+    clip-path: polygon(0 0, 100% 0, 100% 30%, 0 30%);
+    opacity: 0.8;
+    animation: glitch-1 2s infinite linear alternate;
+  }
+  .glitch-text::after {
+    transform: translate(-1px, 0);
+    clip-path: polygon(0 70%, 100% 70%, 100% 100%, 0 100%);
+    opacity: 0.8;
+    animation: glitch-2 1.8s infinite linear alternate;
+  }
+  @keyframes glitch-1 {
+    0%,90%,100% { transform: translate(1px, 0); }
+    93% { transform: translate(-2px, 0); }
+    96% { transform: translate(2px, 0); }
+  }
+  @keyframes glitch-2 {
+    0%,88%,100% { transform: translate(-1px, 0); }
+    91% { transform: translate(2px, 0); }
+    94% { transform: translate(-2px, 0); }
+  }
+
+</style>
+</head>
+<body>
+  <div class="scanlines"></div>
+
+  <header class="topbar">
+    <div class="left">
+      <a href="../../index.html" aria-label="返回設計光譜展首頁">
+        <svg class="aqualux-logo-mark" viewBox="0 0 600 280" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="aqualux logo mark">
+          <text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text>
+          <line x1="80" y1="165" x2="520" y2="165" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+          <g transform="translate(0,330) scale(1,-1)" opacity="0.28"><text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text></g>
+        </svg>
+        &lt;- GALLERY
+      </a>
+    </div>
+    <div class="right">
+      <span class="blink">_</span> SYSTEM_STATUS: ONLINE | AQUALUX_2026.CODEX
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="kicker">> INIT: AQUALUX_SPECTRUM_2026.EXE</div>
+      <p class="hero-jp">アクアリュクス 2026 デザイン スペクトラム</p>
+      <h1>
+        <span class="glitch-text" data-text="AQUALUX 2026">AQUALUX 2026</span><br>
+        <span class="glitch-text" data-text="DESIGN SPECTRUM">DESIGN SPECTRUM</span><br>
+        <span class="glitch-text" data-text="EXHIBITION">EXHIBITION</span>
+      </h1>
+      <p class="hero-sub">
+        <span class="accent">COMMAND: DISPLAY_OVERVIEW</span><br>
+        > 透過 ASCII 終端機介面，探索 <span class="accent">AQUALUX 2026 設計光譜展</span>。
+        此介面模擬經典綠色螢光 CRT 顯示器，以純文字、等寬字體與 ASCII 藝術呈現所有展覽資訊。
+        <br>> 數據流已啟動。
+      </p>
+
+      <div class="img-placeholder" style="aspect-ratio: 16/9;">
+        <img src="images/hero.webp" alt="ASCII art rendering of AQUALUX SPECTRUM 2026 banner with futuristic cityscape" style="display: none;">
+        <pre class="ascii-art">
+.-----------------------------------------------------------------------------.
+|  _    _  _   _  ____   _      _    _  ____  ____  _   _  ____  _   _  ____  |
+| |  \ | || \ | || ___| | |    | |  | ||  _ \|  _ \| \ | ||  _ \| | | || ___| |
+| |   \| ||  \| || |__  | |    | |  | || |_) | |_) |  \| || |_) | |_| || |__  |
+| | |\  || |\  || ___| | |    | |  | ||  _ <|  _ <| |\  ||  _ <|  _  || ___| |
+| |_| \_||_| \_||____| | |____| |__| || |_) | |_) | | \_|| |_) | | | ||____| |
+|                                                                             |
+|            AQUALUX 2026 DESIGN SPECTRUM EXHIBITION - CODEX TERMINAL         |
+|                          LOADING DATA STREAM...                             |
+'-----------------------------------------------------------------------------'
+        </pre>
+      </div>
+
+      <div class="meta-strip">
+        <div class="meta-cell">
+          <span class="label">EVENT_ID</span>
+          <span class="val">AX-2026-DS</span>
+        </div>
+        <div class="meta-cell">
+          <span class="label">DATE_RANGE</span>
+          <span class="val">2026.12.06 - 12.21</span>
+        </div>
+        <div class="meta-cell">
+          <span class="label">LOCATION</span>
+          <span class="val">松山文創園區 5 號倉庫</span>
+        </div>
+        <div class="meta-cell">
+          <span class="label">CURATOR</span>
+          <span class="val">JERRY @ AQUALUX.DEV</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="ascii-divider solid"></div>
+
+    <section class="block">
+      <div class="sec-head">
+        <span class="sec-num">01.</span>
+        <h2 class="sec-title">CURATORIAL <span class="ph">STATEMENT</span></h2>
+        <span class="sec-title-jp">キュレーション ステートメント</span>
+      </div>
+      <div class="statement">
+        <p>> <span class="em">PROCESS: ANALYZE_SPECTRUM_DATA</span></p>
+        <p>> <span class="strong">AQUALUX 2026 設計光譜展</span> 旨在探討設計在數位時代下的無限可能性。
+          我們將設計視為一道不斷演變的光譜，從傳統形式到前衛實驗，每一個波長都承載著獨特的能量與訊息。
+          本次展覽透過 <span class="em">12 位設計師</span>的 <span class="em">40 件作品</span>，
+          呈現多元的設計語彙與未來趨勢。</p>
+        <blockquote>
+          > SYSTEM_MESSAGE: "DESIGN IS NOT STATIC. IT IS A DYNAMIC WAVEFORM IN CONSTANT FLUX."<br>
+          > [STATUS: VERIFIED]
+        </blockquote>
+        <p>> <span class="em">EXECUTE: EXPLORE_NEW_DIMENSIONS</span><br>
+          我們邀請觀者進入一個由符號、代碼和像素構築的虛擬場域，體驗設計如何透過不同的「頻譜」傳達意義。
+          從 <span class="strong">主流頻譜</span> 的經典重現，到 <span class="strong">前衛實驗室</span> 的邊界探索，
+          每個展區都是一次對設計本質的深度剖析。期待您能在此次數據流中，找到屬於自己的設計頻率。</p>
+        <p>> <span class="em">END_OF_STATEMENT</span></p>
+      </div>
+    </section>
+
+    <div class="ascii-divider dashed"></div>
+
+    <section class="block">
+      <div class="sec-head">
+        <span class="sec-num">02.</span>
+        <h2 class="sec-title">DESIGNER <span class="ph">MANIFEST</span></h2>
+        <span class="sec-title-jp">デザイナー マニフェスト</span>
+      </div>
+      <div class="designers">
+        <div class="designer-card">
+          <div class="designer-thumb-placeholder" style="aspect-ratio: 1/1;">
+            <img src="images/designer-d01.webp" alt="ASCII art emblem for Neon Lee" style="display: none;">
+            <pre class="ascii-art">
+  _  _
+ | \| |
+ |  ` |
+ |_|\_|
+            </pre>
+          </div>
+          <p class="idx">D_001.EXE</p>
+          <p class="name-jp">ネオン リー</p>
+          <p class="name">NEON LEE</p>
+          <p class="tag">UI / BRUTALISM</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb-placeholder" style="aspect-ratio: 1/1;">
+            <img src="images/designer-d02.webp" alt="ASCII art emblem for Chrome Ho" style="display: none;">
+            <pre class="ascii-art">
+ >>>>
+<<<<
+ >>>>
+<<<<
+            </pre>
+          </div>
+          <p class="idx">D_002.EXE</p>
+          <p class="name-jp">クローム ホー</p>
+          <p class="name">CHROME HO</p>
+          <p class="tag">MOTION / PARALLAX</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb-placeholder" style="aspect-ratio: 1/1;">
+            <img src="images/designer-d03.webp" alt="ASCII art emblem for Glitch Chang" style="display: none;">
+            <pre class="ascii-art">
+  _ _
+ | ' |
+ | _ |
+ |_|_|
+            </pre>
+          </div>
+          <p class="idx">D_003.EXE</p>
+          <p class="name-jp">グリッチ チャン</p>
+          <p class="name">GLITCH CHANG</p>
+          <p class="tag">EXPERIMENTAL</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb-placeholder" style="aspect-ratio: 1/1;">
+            <img src="images/designer-d04.webp" alt="ASCII art emblem for Paper Wu" style="display: none;">
+            <pre class="ascii-art">
+ .----.
+ |____|
+ |    |
+ '----'
+            </pre>
+          </div>
+          <p class="idx">D_004.EXE</p>
+          <p class="name-jp">ペーパー ウー</p>
+          <p class="name">PAPER WU</p>
+          <p class="tag">EDITORIAL / MINIMAL</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb-placeholder" style="aspect-ratio: 1/1;">
+            <img src="images/designer-d05.webp" alt="ASCII art emblem for Vapor Lin" style="display: none;">
+            <pre class="ascii-art">
+ ~~~
+~ ~ ~
+ ~~~
+            </pre>
+          </div>
+          <p class="idx">D_005.EXE</p>
+          <p class="name-jp">ヴェイパー リン</p>
+          <p class="name">VAPOR LIN</p>
+          <p class="tag">RETRO / AESTHETIC</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb-placeholder" style="aspect-ratio: 1/1;">
+            <img src="images/designer-d06.webp" alt="ASCII art emblem for Swiss Chen" style="display: none;">
+            <pre class="ascii-art">
+ +---+
+ |   |
+ +---+
+            </pre>
+          </div>
+          <p class="idx">D_006.EXE</p>
+          <p class="name-jp">スイス チェン</p>
+          <p class="name">SWISS CHEN</p>
+          <p class="tag">CULTURAL / GRID</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb-placeholder" style="aspect-ratio: 1/1;">
+            <img src="images/designer-d07.webp" alt="ASCII art emblem for Glass Yang" style="display: none;">
+            <pre class="ascii-art">
+ /---\
+|     |
+ \---/
+            </pre>
+          </div>
+          <p class="idx">D_007.EXE</p>
+          <p class="name-jp">ガラス ヤン</p>
+          <p class="name">GLASS YANG</p>
+          <p class="tag">GLASSMORHISM</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb-placeholder" style="aspect-ratio: 1/1;">
+            <img src="images/designer-d08.webp" alt="ASCII art emblem for ASCII Fan" style="display: none;">
+            <pre class="ascii-art">
+ # #
+#####
+ # #
+            </pre>
+          </div>
+          <p class="idx">D_008.EXE</p>
+          <p class="name-jp">アスキー ファン</p>
+          <p class="name">ASCII FAN</p>
+          <p class="tag">TERMINAL / CLI</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb-placeholder" style="aspect-ratio: 1/1;">
+            <img src="images/designer-d09.webp" alt="ASCII art emblem for Hand Chao" style="display: none;">
+            <pre class="ascii-art">
+ (\/)
+(oo)
+  \/
+            </pre>
+          </div>
+          <p class="idx">D_009.EXE</p>
+          <p class="name-jp">ハンド ジョー</p>
+          <p class="name">HAND CHAO</p>
+          <p class="tag">SKETCH / DOODLE</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb-placeholder" style="aspect-ratio: 1/1;">
+            <img src="images/designer-d10.webp" alt="ASCII art emblem for Magne Huang" style="display: none;">
+            <pre class="ascii-art">
+ <->
+<--->
+ <->
+            </pre>
+          </div>
+          <p class="idx">D_010.EXE</p>
+          <p class="name-jp">マグネ ホアン</p>
+          <p class="name">MAGNE HUANG</p>
+          <p class="tag">INTERACTION</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb-placeholder" style="aspect-ratio: 1/1;">
+            <img src="images/designer-d11.webp" alt="ASCII art emblem for Cyber Su" style="display: none;">
+            <pre class="ascii-art">
+ { }
+<--->
+ { }
+            </pre>
+          </div>
+          <p class="idx">D_011.EXE</p>
+          <p class="name-jp">サイバー スー</p>
+          <p class="name">CYBER SU</p>
+          <p class="tag">CYBERPUNK / GLOW</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb-placeholder" style="aspect-ratio: 1/1;">
+            <img src="images/designer-d12.webp" alt="ASCII art emblem for Noise Kao" style="display: none;">
+            <pre class="ascii-art">
+ .--.
+|/\/\ |
+`--`
+            </pre>
+          </div>
+          <p class="idx">D_012.EXE</p>
+          <p class="name-jp">ノイズ カオ</p>
+          <p class="name">NOISE KAO</p>
+          <p class="tag">FILM GRAIN</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="ascii-divider solid"></div>
+
+    <section class="block">
+      <div class="sec-head">
+        <span class="sec-num">03.</span>
+        <h2 class="sec-title">VENUE <span class="ph">MAP</span></h2>
+        <span class="sec-title-jp">会場マップ</span>
+      </div>
+      <div class="img-placeholder" style="aspect-ratio: 4/3;">
+        <img src="images/venue.webp" alt="ASCII art map of the exhibition venue" style="display: none;">
+        <pre class="ascii-art">
+.-----------------------------------------------------------------------------.
+|                            [AQUALUX 2026 EXHIBITION]                        |
+|                                                                             |
+|  [ENTRANCE] >>----------------------------------------------------------->  |
+|               |                                                           |
+|               |  [Z01] MAINSTREAM FREQUENCY  [Z02] RETRO ECHO             |
+|               |  +---------------------+     +---------------------+      |
+|               |  |                     |     |                     |      |
+|               |  |      (5F-A1)        |     |      (5F-A2)        |      |
+|               |  |                     |     |                     |      |
+|               |  +---------------------+     +---------------------+      |
+|               |                                                           |
+|               |  [Z03] AVANT LAB             [Z04] CULTURAL SPECTRUM      |
+|               |  +---------------------+     +---------------------+      |
+|               |  |                     |     |                     |      |
+|               |  |      (5F-B1)        |     |      (5F-B2)        |      |
+|               |  |                     |     |                     |      |
+|               |  +---------------------+     +---------------------+      |
+|               |                                                           |
+|               |  [Z05] MOTION HALL                                        |
+|               |  +---------------------------------------------------+    |
+|               |  |                                                   |    |
+|               |  |                 (5F-C1)                           |    |
+|               |  |                                                   |    |
+|               |  +---------------------------------------------------+    |
+|               |                                                           |
+|               <--------------------------------------------------------<< [EXIT]
+'-----------------------------------------------------------------------------'
+        </pre>
+      </div>
+      <div class="statement" style="margin-top: 20px;">
+        <p>> <span class="em">LOCATE: 松山文創園區 5 號倉庫</span></p>
+        <p>> 本次展覽位於松山文創園區 <span class="strong">5 號倉庫</span>。
+           展區規劃為五個主要區域 (Z01-Z05)，透過清晰的動線引導，確保觀者能流暢體驗各類設計頻譜。
+           請依照指示牌與地圖進行導航。</p>
+        <p>> <span class="em">STATUS: NAVIGATION_ASSISTANCE_ACTIVE</span></p>
+      </div>
+    </section>
+
+    <div class="ascii-divider dashed"></div>
+
+    <section class="block">
+      <div class="sec-head">
+        <span class="sec-num">04.</span>
+        <h2 class="sec-title">ZONE <span class="ph">MANIFEST</span></h2>
+        <span class="sec-title-jp">ゾーン マニフェスト</span>
+      </div>
+      <div class="zones">
+        <div class="zone">
+          <div class="zone-img-placeholder">
+            <img src="images/zone-z01.webp" alt="ASCII art for Mainstream Frequency zone" style="display: none;">
+            <pre class="ascii-art" style="font-size: 10px;">
+  .-'-.
+ /     \
+|-------|
+ \     /
+  '-.-'
+            </pre>
+          </div>
+          <p class="zone-id">Z01</p>
+          <p class="zone-cn">主流頻譜</p>
+          <p class="zone-en">MAINSTREAM FREQUENCY</p>
+          <p class="zone-desc">探索當代設計中最具影響力與普遍性的風格，呈現經典設計語彙的創新詮釋。</p>
+          <p class="zone-coord">COORD: 5F-A1 | WORKS: 5</p>
+        </div>
+        <div class="zone">
+          <div class="zone-img-placeholder">
+            <img src="images/zone-z02.webp" alt="ASCII art for Retro Echo zone" style="display: none;">
+            <pre class="ascii-art" style="font-size: 10px;">
+ +-----+
+ |  _  |
+ | | | |
+ | |_| |
+ +-----+
+            </pre>
+          </div>
+          <p class="zone-id">Z02</p>
+          <p class="zone-cn">時光殘響</p>
+          <p class="zone-en">RETRO ECHO</p>
+          <p class="zone-desc">回溯經典設計的黃金時代，透過現代視角重新演繹復古美學的永恆魅力。</p>
+          <p class="zone-coord">COORD: 5F-A2 | WORKS: 6</p>
+        </div>
+        <div class="zone">
+          <div class="zone-img-placeholder">
+            <img src="images/zone-z03.webp" alt="ASCII art for Avant Lab zone" style="display: none;">
+            <pre class="ascii-art" style="font-size: 10px;">
+ |\ /|
+ | X |
+ |/ \|
+            </pre>
+          </div>
+          <p class="zone-id">Z03</p>
+          <p class="zone-cn">前衛實驗室</p>
+          <p class="zone-en">AVANT LAB</p>
+          <p class="zone-desc">挑戰設計邊界，展示大膽創新的概念與實驗性作品，預示未來設計走向。</p>
+          <p class="zone-coord">COORD: 5F-B1 | WORKS: 6</p>
+        </div>
+        <div class="zone">
+          <div class="zone-img-placeholder">
+            <img src="images/zone-z04.webp" alt="ASCII art for Cultural Spectrum zone" style="display: none;">
+            <pre class="ascii-art" style="font-size: 10px;">
+  _.-._
+ /     \
+ |  _  |
+ \_`-'_/
+            </pre>
+          </div>
+          <p class="zone-id">Z04</p>
+          <p class="zone-cn">文化光譜</p>
+          <p class="zone-en">CULTURAL SPECTRUM</p>
+          <p class="zone-desc">融合多元文化元素與在地語境，探索設計如何轉譯並傳承文化符碼。</p>
+          <p class="zone-coord">COORD: 5F-B2 | WORKS: 5</p>
+        </div>
+        <div class="zone">
+          <div class="zone-img-placeholder">
+            <img src="images/zone-z05.webp" alt="ASCII art for Motion Hall zone" style="display: none;">
+            <pre class="ascii-art" style="font-size: 10px;">
+  > > >
+ >>>>>
+  > > >
+            </pre>
+          </div>
+          <p class="zone-id">Z05</p>
+          <p class="zone-cn">動態廳</p>
+          <p class="zone-en">MOTION HALL</p>
+          <p class="zone-desc">聚焦動態設計與互動體驗，展現時間、空間與使用者之間的多維對話。</p>
+          <p class="zone-coord">COORD: 5F-C1 | WORKS: 15</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="ascii-divider solid"></div>
+
+    <section class="block">
+      <div class="sec-head">
+        <span class="sec-num">05.</span>
+        <h2 class="sec-title">SCHEDULE <span class="ph">LOG</span></h2>
+        <span class="sec-title-jp">スケジュール ログ</span>
+      </div>
+      <table class="schedule-table" aria-label="Exhibition Schedule">
+        <thead>
+          <tr>
+            <th scope="col">TIME_SLOT</th>
+            <th scope="col">EVENT_TITLE</th>
+            <th scope="col">LOCATION</th>
+            <th scope="col">STATUS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>DEC 06, 10:00</td>
+            <td>OPENING_CEREMONY</td>
+            <td>MAIN_HALL</td>
+            <td>[ACTIVE]</td>
+          </tr>
+          <tr>
+            <td>DEC 08, 14:00</td>
+            <td>LECTURE: DESIGN_FUTURES</td>
+            <td>Z03_LAB</td>
+            <td>[SCHEDULED]</td>
+          </tr>
+          <tr>
+            <td>DEC 10, 19:00</td>
+            <td>WORKSHOP: ASCII_ART_CODING</td>
+            <td>Z04_STUDIO</td>
+            <td>[REGISTERED]</td>
+          </tr>
+          <tr>
+            <td>DEC 12, 11:00</td>
+            <td>GUIDED_TOUR: Z01-Z02</td>
+            <td>MEET_POINT_A</td>
+            <td>[SCHEDULED]</td>
+          </tr>
+          <tr>
+            <td>DEC 15, 16:00</td>
+            <td>PANEL: SPECTRUM_DIALOGUE</td>
+            <td>MAIN_HALL</td>
+            <td>[SCHEDULED]</td>
+          </tr>
+          <tr>
+            <td>DEC 18, 14:00</td>
+            <td>LECTURE: MOTION_GRAPHICS</td>
+            <td>Z05_HALL</td>
+            <td>[SCHEDULED]</td>
+          </tr>
+          <tr>
+            <td>DEC 21, 17:00</td>
+            <td>CLOSING_EVENT</td>
+            <td>MAIN_HALL</td>
+            <td>[FINAL]</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <div class="ascii-divider dashed"></div>
+
+    <section class="block">
+      <div class="sec-head">
+        <span class="sec-num">06.</span>
+        <h2 class="sec-title">TICKET <span class="ph">ACCESS</span></h2>
+        <span class="sec-title-jp">チケット アクセス</span>
+      </div>
+
+      <div class="ticket-showcase">
+        <div class="ticket-showcase-img-placeholder">
+          <img src="images/ticket.webp" alt="ASCII art mockup of a Full Access ticket" style="display: none;">
+          <pre class="ascii-art">
+.-----------------------.
+| AQUALUX SPECTRUM 2026 |
+|  [FULL ACCESS TICKET] |
+|-----------------------|
+|  AX-2026-016          |
+|  VALID: 2026.12.06-21 |
+|  ADMIT ONE            |
+|                       |
+|  [QR CODE]            |
+|  # # # # # # # # # #  |
+|  # # # # # # # # # #  |
+|  # # # # # # # # # #  |
+|  # # # # # # # # # #  |
+|  # # # # # # # # # #  |
+'-----------------------'
+          </pre>
+        </div>
+        <div class="ts-info">
+          <p class="ts-label">> TICKET_PREVIEW: FULL_ACCESS</p>
+          <h3 class="ts-title">SYSTEM_INITIATED: ACCESS_GRANTED</h3>
+          <p class="ts-desc">此為 <span class="strong">FULL ACCESS</span> 票券的模擬預覽。
+            憑此票券，您可在展覽期間 <span class="em">無限次入場</span>，
+            並享有特定講座與活動的優先參與權。立即獲取您的數據流通行證！</p>
+        </div>
+      </div>
+
+      <div class="tickets">
+        <div class="ticket">
+          <span class="badge">STANDARD</span>
+          <p class="tier">SINGLE PASS</p>
+          <p class="tier-jp">シングルパス</p>
+          <p class="price">NT$ 480</p>
+          <p class="price-unit">UNIT: PER_DAY</p>
+          <ul>
+            <li>單日入場</li>
+            <li>所有展區參觀</li>
+          </ul>
+          <button class="cta-btn" disabled aria-label="購票：單日入場">PURCHASE <span class="blink">_</span></button>
+        </div>
+        <div class="ticket featured">
+          <span class="badge">FEATURED</span>
+          <p class="tier">FULL ACCESS</p>
+          <p class="tier-jp">フルアクセス</p>
+          <p class="price">NT$ 1,280</p>
+          <p class="price-unit">UNIT: EXHIBITION_PERIOD</p>
+          <ul>
+            <li>全展期通票</li>
+            <li>所有展區參觀</li>
+            <li>優先入場權</li>
+          </ul>
+          <button class="cta-btn" disabled aria-label="購票：全展期通票">PURCHASE <span class="blink">_</span></button>
+        </div>
+        <div class="ticket">
+          <span class="badge">PREMIUM</span>
+          <p class="tier">CURATOR PASS</p>
+          <p class="tier-jp">キュレーターパス</p>
+          <p class="price">NT$ 2,880</p>
+          <p class="price-unit">UNIT: ALL_INCLUSIVE</p>
+          <ul>
+            <li>全展期通票</li>
+            <li>含限定工作坊</li>
+            <li>專屬導覽</li>
+          </ul>
+          <button class="cta-btn" disabled aria-label="購票：策展人通票">PURCHASE <span class="blink">_</span></button>
+        </div>
+      </div>
+      <p class="statement" style="text-align: center; margin-top: 30px; font-size: 12px; color: var(--error-red);">
+        > <span class="strong">WARNING: TICKET_SALES_TEMPORARILY_OFFLINE</span><br>
+        > 購票系統維護中，請稍後再試。
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <div class="ascii-line">--------------------------------------------------------------------------------</div>
+    <svg class="aqualux-logo" viewBox="0 0 600 280" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="aqualux logo">
+      <text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text>
+      <line x1="80" y1="165" x2="520" y2="165" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+      <g transform="translate(0,330) scale(1,-1)" opacity="0.28"><text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text></g>
+    </svg>
+    <p class="signature">MMXXVI · AQUALUX.<span class="ph">DEV</span></p>
+    <p class="credit">
+      CODEX TERMINAL INTERFACE BY AQUALUX.DEV<br>
+      ALL RIGHTS RESERVED.<br>
+      <a href="https://design.aqualux.dev/works/c16-ascii-terminal/" target="_blank">VIEW_SOURCE.HTML</a>
+    </p>
+    <p class="terminal">
+      > SYSTEM_SHUTDOWN_INITIATED<span class="cursor">_</span>
+    </p>
+  </footer>
+
+  <script>
+    // Simple typewriter effect for the footer terminal line
+    const terminalText = "> SYSTEM_SHUTDOWN_INITIATED";
+    const terminalElement = document.querySelector('footer .terminal');
+    let i = 0;
+    function typeWriter() {
+      if (i < terminalText.length) {
+        terminalElement.innerHTML = terminalText.substring(0, i + 1) + '<span class="cursor">_</span>';
+        i++;
+        setTimeout(typeWriter, 80); // Adjust typing speed
+      } else {
+        // Keep cursor blinking after text is fully typed
+        terminalElement.innerHTML = terminalText + '<span class="cursor">_</span>';
+      }
+    }
+    typeWriter();
+
+    // Hide img tags and show pre-formatted ASCII art
+    document.querySelectorAll('.img-placeholder img, .designer-thumb-placeholder img, .ticket-showcase-img-placeholder img').forEach(img => {
+      img.style.display = 'none';
+      const parent = img.parentElement;
+      const pre = parent.querySelector('pre.ascii-art');
+      if (pre) {
+        pre.style.display = 'block';
+        // Remove the default placeholder text if ASCII art is present
+        parent.classList.remove('img-placeholder');
+        parent.style.setProperty('--content-before', 'none');
+      }
+    });
+  </script>
+</body>
+</html>

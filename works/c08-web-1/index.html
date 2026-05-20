@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AQUALUX 2026 // DESIGN SPECTRUM EXHIBITION · Web 1.0 Demo</title>
+<meta name="description" content="aqualux 2026 設計光譜展 · 90s Web 1.0 風格 demo · single-file HTML showcase">
+<link rel="canonical" href="https://design.aqualux.dev/works/c08-web1.0/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://design.aqualux.dev/works/c08-web1.0/">
+<meta property="og:title" content="C08 90s Web 1.0 · aqualux 設計光譜展">
+<meta property="og:description" content="90s Web 1.0 風格 single-file HTML demo · aqualux 2026 設計光譜展">
+<meta property="og:image" content="images/hero.webp">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="C08 90s Web 1.0 · aqualux 設計光譜展">
+<meta name="twitter:image" content="images/hero.webp">
+<link rel="icon" type="image/x-icon" href="images/favicon.ico">
+
+<style>
+  :root {
+    --bg: #cccccc; /* 主灰背景 */
+    --bg-card: #eeeeee; /* 卡片淺灰 */
+    --ink: #000000; /* 主文字黑 */
+    --ink-2: #333333; /* 次要文字深灰 */
+    --link-default: #0000ee; /* 預設連結藍 */
+    --link-visited: #551a8b; /* 已瀏覽連結紫 */
+    --button-bg: #c0c0c0; /* 按鈕背景灰 */
+    --button-border: #808080; /* 按鈕邊框深灰 */
+    --accent-yellow: #ffff00; /* 強調黃（GIF） */
+    --hr-color: #a0a0a0; /* 水平線顏色 */
+  }
+
+  /* Base Reset & Typography */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: "Arial", Helvetica, sans-serif;
+    line-height: 1.6;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    background-image: url('images/tile.gif'); /* Tiled background */
+    background-repeat: repeat;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+    marquee { display: none; } /* Disable marquee */
+    .blink { animation: none !important; } /* Disable blinking */
+    .gif-animated { animation: none !important; } /* Disable GIF animation */
+  }
+
+  a { color: var(--link-default); text-decoration: underline; }
+  a:visited { color: var(--link-visited); }
+  a:hover { background-color: var(--accent-yellow); color: var(--ink); text-decoration: none; }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Times New Roman", Times, serif;
+    color: var(--ink);
+    margin-bottom: 0.5em;
+  }
+  h1 { font-size: 32px; margin-bottom: 1em; }
+  h2 { font-size: 24px; margin-bottom: 0.8em; }
+  h3 { font-size: 18px; margin-bottom: 0.6em; }
+
+  /* Top bar */
+  .topbar {
+    background-color: var(--button-bg);
+    border-bottom: 2px solid var(--button-border);
+    padding: 8px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .topbar .left { display: flex; align-items: center; gap: 8px; }
+  .topbar .right { color: var(--ink-2); }
+  .topbar .right .blink { animation: blink-text 1s infinite step-end; }
+  @keyframes blink-text {
+    from, to { visibility: visible; }
+    50% { visibility: hidden; }
+  }
+  .topbar marquee {
+    flex-grow: 1;
+    margin: 0 15px;
+    color: var(--ink);
+    font-weight: bold;
+  }
+  .topbar .aqualux-logo {
+    width: 28px; height: auto;
+    color: var(--ink);
+    flex-shrink: 0;
+  }
+  .topbar .aqualux-logo svg { display: block; }
+
+  /* Hero Section */
+  .hero {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--button-border);
+    text-align: center;
+  }
+  .hero-image {
+    width: 100%; height: auto;
+    border: 1px solid var(--button-border);
+    margin-bottom: 15px;
+  }
+  .hero h1 {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 48px;
+    color: var(--ink);
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    line-height: 1;
+  }
+  .hero h1 span { color: #ff0000; } /* Red accent for "AQUALUX" */
+  .hero p {
+    font-family: "Arial", Helvetica, sans-serif;
+    font-size: 14px;
+    color: var(--ink-2);
+    margin-bottom: 15px;
+  }
+  .hero-nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+  .hero-nav li {
+    background-color: var(--button-bg);
+    border: 2px outset var(--button-border);
+    padding: 5px 10px;
+  }
+  .hero-nav li a {
+    font-family: "Courier New", Courier, monospace;
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+  }
+  .hero-nav li:hover {
+    background-color: var(--accent-yellow);
+    border: 2px inset var(--button-border);
+  }
+  .meta-strip {
+    margin-top: 20px;
+    border-top: 1px dashed var(--hr-color);
+    padding-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 12px;
+    color: var(--ink-2);
+  }
+  .meta-cell {
+    margin: 5px 10px;
+    line-height: 1.4;
+  }
+  .meta-cell strong { color: var(--ink); }
+
+  /* Section Styles */
+  .section {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--button-border);
+  }
+  .section h2 {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 28px;
+    color: var(--ink);
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    border-bottom: 1px dashed var(--hr-color);
+    padding-bottom: 5px;
+  }
+  .section h2 span { color: #008000; } /* Green accent for section numbers */
+
+  /* Curatorial Statement */
+  .statement p { margin-bottom: 1em; color: var(--ink-2); }
+  .statement blockquote {
+    background-color: #e0e0e0;
+    border: 1px solid var(--hr-color);
+    padding: 10px 15px;
+    margin: 15px 0;
+    font-family: "Courier New", Courier, monospace;
+    font-style: italic;
+    color: var(--ink);
+  }
+  .statement .email-gif {
+    display: block;
+    margin: 15px auto;
+    width: 32px; height: 32px; /* Standard GIF size */
+  }
+
+  /* Designer List */
+  .designers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+  }
+  .designer-card {
+    border: 1px solid var(--hr-color);
+    background-color: var(--bg);
+    padding: 10px;
+    text-align: center;
+  }
+  .designer-card img {
+    width: 96px; height: 96px;
+    border: 1px solid var(--ink-2);
+    margin-bottom: 8px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .designer-card strong {
+    display: block;
+    font-family: "Arial", Helvetica, sans-serif;
+    font-size: 13px;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .designer-card span {
+    display: block;
+    font-family: "MS PGothic", "Osaka", sans-serif;
+    font-size: 11px;
+    color: var(--ink-2);
+  }
+
+  /* Venue */
+  .venue-content img {
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--button-border);
+    margin-bottom: 10px;
+  }
+  .venue-content p {
+    font-family: "Courier New", Courier, monospace;
+    color: var(--ink-2);
+    font-size: 12px;
+    text-align: center;
+  }
+
+  /* Zones */
+  .zones-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+  }
+  .zone-card {
+    border: 1px solid var(--hr-color);
+    background-color: var(--bg);
+    padding: 10px;
+  }
+  .zone-card img {
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--ink-2);
+    margin-bottom: 8px;
+  }
+  .zone-card h3 {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 18px;
+    color: #0000ff; /* Blue for zone titles */
+    margin-bottom: 5px;
+  }
+  .zone-card h3 span {
+    font-family: "MS PGothic", "Osaka", sans-serif;
+    font-size: 14px;
+    color: var(--ink-2);
+  }
+  .zone-card p {
+    font-family: "Arial", Helvetica, sans-serif;
+    font-size: 12px;
+    color: var(--ink-2);
+  }
+
+  /* Schedule */
+  .schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 13px;
+    background-color: var(--bg);
+    border: 1px solid var(--hr-color);
+  }
+  .schedule-table th, .schedule-table td {
+    border: 1px solid var(--hr-color);
+    padding: 8px;
+    text-align: left;
+  }
+  .schedule-table th {
+    background-color: var(--button-bg);
+    color: var(--ink);
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  .schedule-table td {
+    color: var(--ink-2);
+  }
+  .schedule-table tr:nth-child(even) {
+    background-color: #e8e8e8;
+  }
+  .schedule-table tr:hover {
+    background-color: #d0d0d0;
+  }
+
+  /* Tickets */
+  .tickets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+  }
+  .ticket-card {
+    border: 2px outset var(--button-border);
+    background-color: var(--button-bg);
+    padding: 15px;
+    text-align: center;
+    font-family: "Arial", Helvetica, sans-serif;
+  }
+  .ticket-card.featured {
+    border: 2px outset #ff0000; /* Red border for featured */
+    background-color: #ffcccc; /* Light red background */
+  }
+  .ticket-card h3 {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 20px;
+    color: var(--ink);
+    margin-bottom: 5px;
+  }
+  .ticket-card .price {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 28px;
+    font-weight: bold;
+    color: #0000ff; /* Blue for prices */
+    margin-bottom: 10px;
+  }
+  .ticket-card.featured .price { color: #ff0000; }
+  .ticket-card ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 15px;
+    font-size: 12px;
+    color: var(--ink-2);
+    text-align: left;
+  }
+  .ticket-card li::before {
+    content: "• ";
+    color: var(--ink-2);
+  }
+  .cta-button {
+    background-color: var(--button-bg);
+    border: 2px outset var(--button-border);
+    padding: 8px 15px;
+    font-family: "Courier New", Courier, monospace;
+    font-weight: bold;
+    color: var(--ink);
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 12px;
+  }
+  .cta-button:hover {
+    border: 2px inset var(--button-border);
+    background-color: var(--accent-yellow);
+  }
+  .cta-button:active {
+    border: 2px inset var(--button-border);
+    background-color: var(--button-bg); /* Simulate press */
+  }
+  .cta-button:disabled {
+    background-color: #a0a0a0;
+    color: #606060;
+    border: 2px outset #606060;
+    cursor: not-allowed;
+  }
+  .buy-now-gif {
+    display: block;
+    margin: 10px auto 0;
+    width: 88px; height: 31px; /* Common banner GIF size */
+  }
+
+  /* Footer */
+  footer {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--button-border);
+    text-align: center;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 11px;
+    color: var(--ink-2);
+  }
+  footer hr {
+    border: none;
+    border-top: 1px dashed var(--hr-color);
+    margin: 15px 0;
+  }
+  footer .aqualux-logo-footer {
+    width: 180px; height: auto;
+    color: var(--ink);
+    margin: 0 auto 10px;
+    display: block;
+  }
+  footer .aqualux-logo-footer svg { display: block; }
+  footer p { margin-bottom: 0.5em; }
+  footer .best-viewed {
+    margin-top: 15px;
+    display: block;
+  }
+  footer .counter-gif {
+    margin-top: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 88px; height: 31px;
+  }
+</style>
+</head>
+<body>
+  <div class="scanlines"></div>
+
+  <div class="topbar">
+    <div class="left">
+      <div class="aqualux-logo" role="img" aria-label="aqualux logo">
+        <svg viewBox="0 0 600 280" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text>
+          <line x1="80" y1="165" x2="520" y2="165" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+          <g transform="translate(0,330) scale(1,-1)" opacity="0.28"><text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text></g>
+        </svg>
+      </div>
+      <a href="../../index.html">← Gallery Index</a>
+    </div>
+    <marquee behavior="scroll" direction="left" scrollamount="3">
+      WELCOME TO AQUALUX 2026 DESIGN SPECTRUM EXHIBITION! EXPLORE THE FUTURE OF DESIGN!
+    </marquee>
+    <div class="right">
+      <span class="blink">ONLINE NOW!</span> [13:37:00]
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <img src="images/hero.webp" alt="Aqualux 2026 Design Spectrum Exhibition - Hero Image" class="hero-image" loading="lazy" decoding="async">
+      <h1>AQUALUX <span>2026</span><br>DESIGN SPECTRUM</h1>
+      <p>
+        <strong>GET READY FOR THE ULTIMATE DESIGN EXPERIENCE!</strong> Discover groundbreaking concepts and innovative creations from 12 visionary designers. This is your portal to the future of design!
+      </p>
+      <nav class="hero-nav">
+        <ul>
+          <li><a href="#statement">CURATOR'S MESSAGE</a></li>
+          <li><a href="#designers">MEET THE DESIGNERS</a></li>
+          <li><a href="#venue">VENUE INFO</a></li>
+          <li><a href="#zones">EXPLORE ZONES</a></li>
+          <li><a href="#schedule">EVENT SCHEDULE</a></li>
+          <li><a href="#tickets">GET YOUR TICKETS!</a></li>
+        </ul>
+      </nav>
+      <div class="meta-strip">
+        <div class="meta-cell"><strong>DATE:</strong> 2026.12.06 — 12.21</div>
+        <div class="meta-cell"><strong>LOCATION:</strong> Songshan Cultural Park</div>
+        <div class="meta-cell"><strong>CURATOR:</strong> Jerry @ aqualux.dev</div>
+        <div class="meta-cell"><strong>SCALE:</strong> 12 Designers / 40 Works</div>
+      </div>
+    </section>
+
+    <section id="statement" class="section">
+      <h2><span style="color: #008000;">§01</span> CURATORIAL STATEMENT</h2>
+      <p>
+        Greetings, internet explorer! Welcome to the official online presence of the Aqualux 2026 Design Spectrum Exhibition. We are thrilled to present a groundbreaking showcase that transcends traditional design boundaries. This exhibition is a vibrant tapestry woven from diverse design philosophies, pushing the limits of creativity and innovation.
+      </p>
+      <p>
+        Our mission is simple: to ignite your imagination and challenge your perceptions of what design can achieve. From the raw energy of Brutalism to the ethereal beauty of Glassmorphism, each piece tells a unique story. Prepare to be amazed by the sheer breadth and depth of talent on display!
+      </p>
+      <blockquote>
+        "Design is not just about aesthetics; it's about solving problems, evoking emotions, and shaping the future. Aqualux 2026 is a testament to this philosophy."<br>
+        — Jerry, Lead Curator
+      </blockquote>
+      <p>
+        Join us on this exciting journey as we explore the dynamic interplay between form and function, tradition and avant-garde. Your participation makes this event truly special. Don't miss out on this limited-time opportunity!
+      </p>
+      <img src="images/email.gif" alt="Email Us!" class="email-gif gif-animated" loading="lazy" decoding="async">
+      <p>
+        For inquiries, please <a href="mailto:info@aqualux.dev">email us</a>. We'd love to hear from you!
+      </p>
+    </section>
+
+    <section id="designers" class="section">
+      <h2><span style="color: #008000;">§02</span> FEATURED DESIGNERS</h2>
+      <p>Meet the brilliant minds shaping the future of design! Click on a designer to learn more about their unique vision and contributions to the Aqualux 2026 exhibition.</p>
+      <hr style="border-top: 1px dashed var(--hr-color); margin-bottom: 15px;">
+      <div class="designers-grid">
+        <div class="designer-card">
+          <img src="images/designer-d01.webp" alt="Neon Lee Avatar" loading="lazy" decoding="async">
+          <strong>NEON LEE</strong>
+          <span>ネオン リー (UI / Brutalism)</span>
+        </div>
+        <div class="designer-card">
+          <img src="images/designer-d02.webp" alt="Chrome Ho Avatar" loading="lazy" decoding="async">
+          <strong>CHROME HO</strong>
+          <span>クローム ホー (Motion / Parallax)</span>
+        </div>
+        <div class="designer-card">
+          <img src="images/designer-d03.webp" alt="Glitch Chang Avatar" loading="lazy" decoding="async">
+          <strong>GLITCH CHANG</strong>
+          <span>グリッチ チャン (Experimental)</span>
+        </div>
+        <div class="designer-card">
+          <img src="images/designer-d04.webp" alt="Paper Wu Avatar" loading="lazy" decoding="async">
+          <strong>PAPER WU</strong>
+          <span>ペーパー ウー (Editorial / Minimal)</span>
+        </div>
+        <div class="designer-card">
+          <img src="images/designer-d05.webp" alt="Vapor Lin Avatar" loading="lazy" decoding="async">
+          <strong>VAPOR LIN</strong>
+          <span>ヴェイパー リン (Retro / Aesthetic)</span>
+        </div>
+        <div class="designer-card">
+          <img src="images/designer-d06.webp" alt="Swiss Chen Avatar" loading="lazy" decoding="async">
+          <strong>SWISS CHEN</strong>
+          <span>スイス チェン (Cultural / Grid)</span>
+        </div>
+        <div class="designer-card">
+          <img src="images/designer-d07.webp" alt="Glass Yang Avatar" loading="lazy" decoding="async">
+          <strong>GLASS YANG</strong>
+          <span>ガラス ヤン (Glassmorphism)</span>
+        </div>
+        <div class="designer-card">
+          <img src="images/designer-d08.webp" alt="ASCII Fan Avatar" loading="lazy" decoding="async">
+          <strong>ASCII FAN</strong>
+          <span>アスキー ファン (Terminal / CLI)</span>
+        </div>
+        <div class="designer-card">
+          <img src="images/designer-d09.webp" alt="Hand Chao Avatar" loading="lazy" decoding="async">
+          <strong>HAND CHAO</strong>
+          <span>ハンド ジョー (Sketch / Doodle)</span>
+        </div>
+        <div class="designer-card">
+          <img src="images/designer-d10.webp" alt="Magne Huang Avatar" loading="lazy" decoding="async">
+          <strong>MAGNE HUANG</strong>
+          <span>マグネ ホアン (Interaction)</span>
+        </div>
+        <div class="designer-card">
+          <img src="images/designer-d11.webp" alt="Cyber Su Avatar" loading="lazy" decoding="async">
+          <strong>CYBER SU</strong>
+          <span>サイバー スー (Cyberpunk / Glow)</span>
+        </div>
+        <div class="designer-card">
+          <img src="images/designer-d12.webp" alt="Noise Kao Avatar" loading="lazy" decoding="async">
+          <strong>NOISE KAO</strong>
+          <span>ノイズ カオ (Film Grain)</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="venue" class="section">
+      <h2><span style="color: #008000;">§03</span> EXHIBITION VENUE</h2>
+      <div class="venue-content">
+        <img src="images/venue.webp" alt="Exhibition Venue at Songshan Cultural Park" loading="lazy" decoding="async">
+        <p>
+          <strong>SONGSHAN CULTURAL AND CREATIVE PARK, WAREHOUSE NO. 5</strong><br>
+          Experience the Aqualux 2026 Design Spectrum Exhibition in the historic and vibrant setting of Songshan Cultural and Creative Park. Warehouse No. 5 provides the perfect industrial-chic backdrop for our cutting-edge designs. Easy access by public transport.
+        </p>
+        <p>
+          <a href="https://maps.google.com/?q=Songshan+Cultural+and+Creative+Park" target="_blank">VIEW MAP AND DIRECTIONS</a>
+        </p>
+      </div>
+    </section>
+
+    <section id="zones" class="section">
+      <h2><span style="color: #008000;">§04</span> EXPLORE THE ZONES</h2>
+      <p>Journey through five distinct exhibition zones, each curated to offer a unique perspective on design. Prepare for an immersive experience!</p>
+      <hr style="border-top: 1px dashed var(--hr-color); margin-bottom: 15px;">
+      <div class="zones-grid">
+        <div class="zone-card">
+          <img src="images/zone-z01.webp" alt="Zone 01 Mainstream Frequency" loading="lazy" decoding="async">
+          <h3>Z01 <span>主流頻譜</span></h3>
+          <p>Explore the prevalent design trends and widely embraced aesthetics that define our contemporary visual landscape. (5 Works)</p>
+        </div>
+        <div class="zone-card">
+          <img src="images/zone-z02.webp" alt="Zone 02 Retro Echo" loading="lazy" decoding="async">
+          <h3>Z02 <span>時光殘響</span></h3>
+          <p>Delve into the nostalgic echoes of past design eras, reinterpreted and revitalized for the modern age. (6 Works)</p>
+        </div>
+        <div class="zone-card">
+          <img src="images/zone-z03.webp" alt="Zone 03 Avant Lab" loading="lazy" decoding="async">
+          <h3>Z03 <span>前衛實驗室</span></h3>
+          <p>Witness the daring and experimental frontiers of design, where conventions are challenged and new forms emerge. (6 Works)</p>
+        </div>
+        <div class="zone-card">
+          <img src="images/zone-z04.webp" alt="Zone 04 Cultural Spectrum" loading="lazy" decoding="async">
+          <h3>Z04 <span>文化光譜</span></h3>
+          <p>Discover designs deeply rooted in cultural heritage, showcasing the rich tapestry of global and local influences. (5 Works)</p>
+        </div>
+        <div class="zone-card">
+          <img src="images/zone-z05.webp" alt="Zone 05 Motion Hall" loading="lazy" decoding="async">
+          <h3>Z05 <span>動態廳</span></h3>
+          <p>Immerse yourself in the captivating world of motion graphics, interactive installations, and dynamic visual experiences. (15 Works)</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="schedule" class="section">
+      <h2><span style="color: #008000;">§05</span> EVENT SCHEDULE</h2>
+      <p>Plan your visit! Check out our exciting lineup of talks and workshops during the exhibition period.</p>
+      <hr style="border-top: 1px dashed var(--hr-color); margin-bottom: 15px;">
+      <table class="schedule-table">
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Time</th>
+            <th scope="col">Event</th>
+            <th scope="col">Speaker</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Dec 07</td>
+            <td>14:00 - 15:00</td>
+            <td>Opening Talk: The Future of UI</td>
+            <td>Neon Lee</td>
+          </tr>
+          <tr>
+            <td>Dec 09</td>
+            <td>10:30 - 12:00</td>
+            <td>Workshop: Retro Aesthetics</td>
+            <td>Vapor Lin</td>
+          </tr>
+          <tr>
+            <td>Dec 12</td>
+            <td>16:00 - 17:00</td>
+            <td>Panel: Design & Culture</td>
+            <td>Swiss Chen & Guests</td>
+          </tr>
+          <tr>
+            <td>Dec 15</td>
+            <td>19:00 - 20:00</td>
+            <td>Talk: Experimental Typography</td>
+            <td>Glitch Chang</td>
+          </tr>
+          <tr>
+            <td>Dec 18</td>
+            <td>14:00 - 15:30</td>
+            <td>Workshop: Interactive Design</td>
+            <td>Magne Huang</td>
+          </tr>
+          <tr>
+            <td>Dec 20</td>
+            <td>11:00 - 12:00</td>
+            <td>Closing Talk: Spectrum Synthesis</td>
+            <td>Jerry</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="margin-top: 15px; font-family: 'Courier New', Courier, monospace; font-size: 11px; color: var(--ink-2);">
+        *All events subject to change. Please check official website for latest updates.
+      </p>
+    </section>
+
+    <section id="tickets" class="section">
+      <h2><span style="color: #008000;">§06</span> GET YOUR TICKETS!</h2>
+      <p>Don't miss the Aqualux 2026 Design Spectrum Exhibition! Secure your pass today.</p>
+      <hr style="border-top: 1px dashed var(--hr-color); margin-bottom: 15px;">
+      <div class="tickets-grid">
+        <div class="ticket-card">
+          <h3>SINGLE PASS</h3>
+          <p class="price">NT$ 480</p>
+          <ul>
+            <li>• Single-day admission</li>
+            <li>• Access to all 5 zones</li>
+            <li>• Digital exhibition guide</li>
+          </ul>
+          <button class="cta-button" disabled aria-label="Demo only — not for sale">PURCHASE</button>
+          <img src="images/buy-now.gif" alt="Buy Now!" class="buy-now-gif gif-animated" loading="lazy" decoding="async">
+        </div>
+        <div class="ticket-card featured">
+          <h3>FULL ACCESS</h3>
+          <p class="price">NT$ 1,280</p>
+          <ul>
+            <li>• Full exhibition period access</li>
+            <li>• Access to all 5 zones</li>
+            <li>• Digital exhibition guide</li>
+            <li>• Exclusive digital wallpaper pack</li>
+          </ul>
+          <button class="cta-button" disabled aria-label="Demo only — not for sale">PURCHASE</button>
+          <img src="images/buy-now.gif" alt="Buy Now!" class="buy-now-gif gif-animated" loading="lazy" decoding="async">
+        </div>
+        <div class="ticket-card">
+          <h3>CURATOR PASS</h3>
+          <p class="price">NT$ 2,880</p>
+          <ul>
+            <li>• Full exhibition period access</li>
+            <li>• Access to all 5 zones</li>
+            <li>• Digital exhibition guide</li>
+            <li>• Invitation to one workshop</li>
+            <li>• Limited edition merchandise</li>
+          </ul>
+          <button class="cta-button" disabled aria-label="Demo only — not for sale">PURCHASE</button>
+          <img src="images/buy-now.gif" alt="Buy Now!" class="buy-now-gif gif-animated" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <p style="margin-top: 15px; font-family: 'Courier New', Courier, monospace; font-size: 11px; color: #ff0000; font-weight: bold;">
+        **DEMO VERSION: TICKETS NOT ACTUALLY FOR SALE!**
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <hr>
+    <div class="aqualux-logo-footer" role="img" aria-label="aqualux logo">
+      <svg viewBox="0 0 600 280" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text>
+        <line x1="80" y1="165" x2="520" y2="165" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+        <g transform="translate(0,330) scale(1,-1)" opacity="0.28"><text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text></g>
+      </svg>
+    </div>
+    <p>MMXXVI · AQUALUX.DEV</p>
+    <p>All Rights Reserved. Unauthorized duplication is a violation of applicable laws.</p>
+    <hr>
+    <img src="images/under-construction.gif" alt="Site Under Construction" class="best-viewed gif-animated" loading="lazy" decoding="async">
+    <p>This site is optimized for viewing with Netscape Navigator 3.0 or higher at 800x600 resolution.</p>
+    <img src="images/counter.gif" alt="Page Visitor Counter" class="counter-gif gif-animated" loading="lazy" decoding="async">
+  </footer>
+
+</body>
+</html>

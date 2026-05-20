@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AQUALUX 2026 // DESIGN SPECTRUM EXHIBITION · 極簡主義 Minimalism Demo</title>
+<meta name="description" content="aqualux 2026 設計光譜展 · 極簡主義風格 demo · single-file HTML showcase">
+<link rel="canonical" href="https://design.aqualux.dev/works/c04-minimalism/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://design.aqualux.dev/works/c04-minimalism/">
+<meta property="og:title" content="C04 極簡主義 · aqualux 設計光譜展">
+<meta property="og:description" content="極簡主義風格 single-file HTML demo · aqualux 2026 設計光譜展">
+<meta property="og:image" content="https://design.aqualux.dev/works/c04-minimalism/images/hero.webp">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="C04 極簡主義 · aqualux 設計光譜展">
+<meta name="twitter:image" content="https://design.aqualux.dev/works/c04-minimalism/images/hero.webp">
+<link rel="icon" type="image/svg+xml" href="../../assets/aqualux-logo-mark.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400&family=JetBrains+Mono:wght@300;700&family=Noto+Sans+TC:wght@400&family=Cormorant+Garamond:ital@1&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #ffffff;
+    --paper: #fafaf5;
+    --ink: #1a1a1a;
+    --ink-2: #4a4a4a;
+    --ink-3: #8a8a8a;
+    --accent: #5c7a9a;
+    --accent-soft: rgba(92, 122, 154, 0.1);
+    --line: #e8e6e0;
+    --line-soft: #f0eee8;
+
+    --display: 'Noto Serif TC', serif;
+    --mono: 'JetBrains Mono', monospace;
+    --body: 'Noto Sans TC', 'PingFang TC', sans-serif;
+    --garamond: 'Cormorant Garamond', serif;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+    .fade-in { opacity: 1 !important; }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--body);
+    line-height: 1.7;
+    font-size: 16px;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    cursor: none; /* Hide default cursor */
+  }
+
+  /* Custom Cursor */
+  .custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    background-color: var(--accent);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s ease, height 0.2s ease, background-color 0.2s ease;
+  }
+  a:hover + .custom-cursor, button:hover + .custom-cursor, .interactive:hover + .custom-cursor {
+    width: 24px;
+    height: 24px;
+    background-color: var(--ink-3);
+  }
+
+  a { color: var(--accent); text-decoration: none; transition: color 0.3s ease-out; }
+  a:hover { color: var(--ink-2); }
+
+  /* Fade-in effect */
+  .fade-in {
+    opacity: 0;
+    transition: opacity 0.8s ease-out;
+  }
+  .fade-in.is-visible {
+    opacity: 1;
+  }
+
+  /* Top bar */
+  .topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    padding: 18px 40px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--mono); font-size: 13px;
+    letter-spacing: 0.05em;
+  }
+  .topbar .left { display: flex; align-items: center; gap: 12px; }
+  .topbar .left .aqualux-logo-mark { height: 28px; width: auto; color: var(--ink); }
+  .topbar .left span { color: var(--ink-2); }
+  .topbar .right { color: var(--ink-3); }
+  .topbar .right a { color: var(--ink-3); }
+  .topbar .right a:hover { color: var(--accent); }
+
+  /* Hero */
+  .hero {
+    padding: 80px 40px 60px;
+    max-width: 1300px; margin: 0 auto;
+    position: relative;
+    text-align: center;
+  }
+  .hero-image {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto 60px;
+    display: block;
+    border: 1px solid var(--line-soft);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  }
+  .hero-kicker {
+    font-family: var(--garamond); font-style: italic; font-size: 20px;
+    color: var(--accent); letter-spacing: 0.08em;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: var(--display); font-weight: 300;
+    font-size: clamp(48px, 8vw, 96px);
+    line-height: 1.1; letter-spacing: 0.05em;
+    color: var(--ink);
+    margin-bottom: 30px;
+  }
+  .hero-sub {
+    font-family: var(--body); font-size: 17px;
+    color: var(--ink-2); line-height: 1.8;
+    max-width: 760px; margin: 0 auto 50px;
+  }
+  .meta-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 25px 0;
+    margin-top: 40px;
+    text-align: left;
+  }
+  .meta-cell {
+    font-family: var(--mono); font-size: 13px;
+    color: var(--ink-3);
+  }
+  .meta-cell .label {
+    color: var(--accent); letter-spacing: 0.08em;
+    font-size: 11px; margin-bottom: 8px; display: block;
+    text-transform: uppercase;
+  }
+  .meta-cell .val { color: var(--ink); font-size: 15px; font-weight: 400; }
+
+  /* Section base */
+  section.block { padding: 80px 40px; max-width: 1300px; margin: 0 auto; }
+  .sec-head {
+    display: flex; flex-direction: column; align-items: flex-start;
+    margin-bottom: 50px;
+    padding-bottom: 20px; border-bottom: 1px solid var(--line);
+  }
+  .sec-num {
+    font-family: var(--garamond); font-style: italic; font-size: 24px;
+    color: var(--accent); letter-spacing: 0.05em;
+    margin-bottom: 8px;
+  }
+  .sec-title {
+    font-family: var(--display); font-weight: 400;
+    font-size: clamp(32px, 5vw, 56px);
+    line-height: 1.2; letter-spacing: 0.03em;
+    color: var(--ink);
+  }
+  .sec-title .ph { color: var(--accent); }
+
+  /* Curatorial statement */
+  .statement {
+    max-width: 800px;
+    font-family: var(--body); font-size: 17px; line-height: 1.9;
+    color: var(--ink-2);
+  }
+  .statement p { margin-bottom: 22px; }
+  .statement .em { color: var(--accent); font-weight: 400; }
+  .statement .strong { color: var(--ink); font-weight: 400; letter-spacing: 0.02em; }
+  .statement blockquote {
+    border-left: 2px solid var(--line);
+    padding: 18px 28px;
+    margin: 30px 0;
+    background: var(--line-soft);
+    font-family: var(--display); font-style: italic; color: var(--ink-2);
+    font-size: 18px; line-height: 1.6;
+  }
+
+  /* Designer grid */
+  .designers {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  .designer-card {
+    background: var(--paper);
+    border: 1px solid var(--line-soft);
+    padding: 24px;
+    position: relative;
+    transition: all 0.2s ease;
+    text-align: center;
+  }
+  .designer-card:hover {
+    border-color: var(--accent);
+    box-shadow: inset 0 0 0 1px var(--accent);
+  }
+  .designer-thumb {
+    width: 100px; height: 100px;
+    margin: 0 auto 18px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background-color: var(--bg);
+  }
+  .designer-thumb img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: grayscale(100%) brightness(1.1);
+    transition: filter 0.3s ease;
+  }
+  .designer-card:hover .designer-thumb img { filter: grayscale(0%) brightness(1); }
+  .designer-card .idx {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--ink-3); letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+  .designer-card .name {
+    font-family: var(--display); font-size: 20px; font-weight: 400;
+    color: var(--ink); letter-spacing: 0.02em;
+    margin-bottom: 6px;
+  }
+  .designer-card .tag {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--accent); letter-spacing: 0.05em;
+  }
+
+  /* Venue */
+  .venue-content {
+    display: flex; flex-direction: column; align-items: center;
+    max-width: 900px; margin: 0 auto;
+  }
+  .venue-img {
+    width: 100%;
+    margin-bottom: 30px;
+    border: 1px solid var(--line-soft);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+  }
+  .venue-caption {
+    font-family: var(--body); font-size: 15px;
+    color: var(--ink-3); text-align: center;
+    line-height: 1.8; max-width: 600px;
+  }
+
+  /* Zone map */
+  .zones {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .zone {
+    background: var(--paper);
+    border: 1px solid var(--line-soft);
+    padding: 0;
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+  }
+  .zone:hover { border-color: var(--accent); }
+  .zone-img {
+    margin-bottom: 20px;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .zone-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: grayscale(100%) contrast(1.05);
+    transition: filter 0.3s ease, transform 0.3s ease;
+  }
+  .zone:hover .zone-img img { filter: grayscale(0%) contrast(1.1); transform: scale(1.03); }
+  .zone-content { padding: 0 24px 24px; }
+  .zone .zone-id {
+    font-family: var(--garamond); font-style: italic; font-size: 36px;
+    color: var(--accent); line-height: 1;
+    margin-bottom: 8px;
+  }
+  .zone .zone-cn {
+    font-family: var(--display); font-size: 20px; font-weight: 400;
+    color: var(--ink); margin-bottom: 6px;
+    letter-spacing: 0.02em;
+  }
+  .zone .zone-en {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--ink-3); letter-spacing: 0.08em;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  .zone .zone-desc {
+    font-family: var(--body); font-size: 14px; line-height: 1.8;
+    color: var(--ink-2);
+  }
+  .zone .zone-coord {
+    margin-top: 18px; padding-top: 14px;
+    border-top: 1px dashed var(--line-soft);
+    font-family: var(--mono); font-size: 11px;
+    color: var(--ink-3); letter-spacing: 0.05em;
+  }
+
+  /* Schedule */
+  .schedule-table {
+    width: 100%; border-collapse: collapse;
+    font-family: var(--body); font-size: 15px;
+    max-width: 900px; margin: 0 auto;
+  }
+  .schedule-table th, .schedule-table td {
+    padding: 16px 20px; text-align: left;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .schedule-table th {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--ink-3); letter-spacing: 0.08em;
+    font-weight: 700; text-transform: uppercase;
+    border-bottom: 1px solid var(--line);
+  }
+  .schedule-table td { color: var(--ink-2); }
+  .schedule-table td:first-child {
+    font-family: var(--mono); color: var(--ink); font-weight: 400;
+    width: 140px;
+  }
+  .schedule-table tr:hover td { background: var(--line-soft); }
+
+  /* Tickets */
+  .tickets {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+  }
+  .ticket {
+    border: 1px solid var(--line-soft);
+    padding: 30px;
+    background: var(--paper);
+    text-align: center;
+    transition: all 0.2s ease;
+  }
+  .ticket.featured {
+    border-color: var(--accent);
+    box-shadow: inset 0 0 0 1px var(--accent);
+    background: linear-gradient(180deg, var(--accent-soft) 0%, var(--paper) 100%);
+  }
+  .ticket .badge {
+    display: inline-block;
+    font-family: var(--mono); font-size: 11px;
+    color: var(--bg); background: var(--ink-3);
+    padding: 4px 12px; letter-spacing: 0.1em;
+    margin-bottom: 16px;
+  }
+  .ticket.featured .badge { background: var(--accent); }
+  .ticket .tier {
+    font-family: var(--display); font-size: 24px; font-weight: 400;
+    color: var(--ink); letter-spacing: 0.03em;
+    margin-bottom: 8px;
+  }
+  .ticket .tier-jp {
+    font-family: var(--body); font-size: 12px;
+    color: var(--ink-3); letter-spacing: 0.08em;
+    margin-bottom: 20px;
+  }
+  .ticket .price {
+    font-family: var(--garamond); font-style: italic; font-size: 48px;
+    color: var(--accent); line-height: 1;
+    margin-bottom: 6px;
+  }
+  .ticket.featured .price { color: var(--ink); }
+  .ticket .price-unit {
+    font-family: var(--mono); font-size: 13px;
+    color: var(--ink-3); letter-spacing: 0.08em;
+    margin-bottom: 24px;
+  }
+  .ticket ul {
+    list-style: none; text-align: left;
+    font-family: var(--body); font-size: 14px;
+    color: var(--ink-2); line-height: 2.2;
+    margin-bottom: 26px;
+    padding-left: 10px;
+  }
+  .ticket li::before {
+    content: '— '; color: var(--ink-3); margin-right: 4px;
+    font-family: var(--mono);
+  }
+
+  /* CTA */
+  .cta-btn {
+    display: inline-block;
+    font-family: var(--mono); font-weight: 700;
+    font-size: 13px; letter-spacing: 0.1em;
+    padding: 14px 32px;
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+  }
+  .cta-btn:hover {
+    background: var(--accent-soft);
+    color: var(--ink);
+  }
+  .cta-btn[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+    border-color: var(--ink-3);
+    color: var(--ink-3);
+    background: transparent;
+  }
+  .cta-btn[disabled]:hover {
+    background: transparent;
+    box-shadow: none;
+  }
+
+  /* Ticket showcase */
+  .ticket-showcase {
+    margin: 0 0 50px;
+    display: flex; align-items: center; gap: 40px;
+    padding: 30px;
+    border: 1px solid var(--line);
+    background: var(--paper);
+  }
+  .ticket-showcase img {
+    width: 280px; height: auto;
+    border: 1px solid var(--line-soft);
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  }
+  .ticket-showcase .ts-info { flex: 1; }
+  .ticket-showcase .ts-label {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--ink-3); letter-spacing: 0.08em;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+  .ticket-showcase .ts-title {
+    font-family: var(--display); font-weight: 400;
+    font-size: 26px; color: var(--ink); letter-spacing: 0.02em;
+    margin-bottom: 14px;
+  }
+  .ticket-showcase .ts-desc {
+    font-family: var(--body); font-size: 15px;
+    color: var(--ink-2); line-height: 1.8;
+  }
+  @media (max-width: 768px) {
+    .ticket-showcase { flex-direction: column; gap: 20px; padding: 20px; }
+    .ticket-showcase img { width: 100%; max-width: 240px; }
+  }
+
+  /* Footer */
+  footer {
+    margin-top: 80px;
+    padding: 60px 40px 40px;
+    border-top: 1px solid var(--line);
+    background: var(--paper);
+    text-align: center;
+  }
+  footer .aqualux-logo-full {
+    width: 180px; height: auto;
+    color: var(--ink-2); opacity: 0.8;
+    margin-bottom: 25px;
+  }
+  footer .signature {
+    font-family: var(--mono); font-size: 13px;
+    color: var(--ink-3); letter-spacing: 0.08em;
+    margin-bottom: 18px;
+  }
+  footer .credit {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--ink-3); letter-spacing: 0.05em; line-height: 1.8;
+  }
+  footer .credit a { color: var(--ink-3); }
+  footer .credit a:hover { color: var(--accent); }
+
+  @media (max-width: 768px) {
+    .topbar { padding: 14px 20px; font-size: 12px; }
+    .hero { padding: 60px 20px 40px; }
+    .hero h1 { font-size: clamp(36px, 7vw, 64px); }
+    .hero-sub { font-size: 16px; margin-bottom: 40px; }
+    .meta-strip { grid-template-columns: 1fr; padding: 20px 0; }
+    section.block { padding: 60px 20px; }
+    .sec-head { margin-bottom: 40px; }
+    .sec-title { font-size: clamp(28px, 6vw, 48px); }
+    .statement { font-size: 16px; }
+    .designers { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+    .zones { grid-template-columns: 1fr; }
+    .schedule-table th, .schedule-table td { padding: 12px 15px; }
+    .ticket { padding: 24px; }
+    footer { padding: 40px 20px 30px; }
+  }
+</style>
+</head>
+<body>
+<div class="custom-cursor"></div>
+
+<header class="topbar">
+  <div class="left">
+    <a href="../../index.html" aria-label="Back to Gallery">
+      <svg class="aqualux-logo-mark" viewBox="0 0 100 100" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path d="M50 0C22.38 0 0 22.38 0 50s22.38 50 50 50 50-22.38 50-50S77.62 0 50 0zm0 10c22.09 0 40 17.91 40 40s-17.91 40-40 40-40-17.91-40-40 17.91-40 40-40zM30 30h40v40H30z"/>
+      </svg>
+    </a>
+    <span>AQUALUX 2026 // DESIGN SPECTRUM</span>
+  </div>
+  <div class="right">
+    <a href="../../index.html">← Gallery</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero fade-in">
+    <img src="images/hero.webp" alt="A minimalist editorial illustration of an empty gallery space with subtle architectural lines." class="hero-image" loading="lazy" decoding="async">
+    <p class="hero-kicker">C04 — Minimalism</p>
+    <h1>極簡主義<br>本質的迴響</h1>
+    <p class="hero-sub">
+      在資訊過載的時代，極簡主義不僅是一種風格，更是一種哲學。它剝離冗餘，聚焦核心，在留白中尋找秩序與和諧。
+      此次展覽，我們探索設計如何透過 <span class="em">精煉的語彙</span>、<span class="em">純粹的形態</span>，以及 <span class="em">深思熟慮的佈局</span>，呈現超越視覺的感官體驗。
+    </p>
+    <div class="meta-strip">
+      <div class="meta-cell">
+        <span class="label">Exhibition Name</span>
+        <span class="val">Aqualux Design Spectrum</span>
+      </div>
+      <div class="meta-cell">
+        <span class="label">Date</span>
+        <span class="val">2026.12.06 — 12.21</span>
+      </div>
+      <div class="meta-cell">
+        <span class="label">Venue</span>
+        <span class="val">松山文創園區 5 號倉庫</span>
+      </div>
+      <div class="meta-cell">
+        <span class="label">Curator</span>
+        <span class="val">Jerry @ aqualux.dev</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="block fade-in">
+    <div class="sec-head">
+      <span class="sec-num">I.</span>
+      <h2 class="sec-title">策展論述 <span class="ph">Curatorial Statement</span></h2>
+    </div>
+    <div class="statement">
+      <p>
+        在設計的廣闊光譜中，極簡主義以其獨特的靜謐與力量，引導我們回歸事物的本質。它不是空無一物，而是 <span class="strong">深思熟慮後的選擇與捨棄</span>，每一次的減法，都旨在放大核心價值，讓形式服務於功能，並在簡潔中蘊藏豐富的意涵。
+      </p>
+      <p>
+        本次「極簡主義：本質的迴響」展覽，旨在呈現設計師們如何透過 <span class="em">嚴謹的排版</span>、<span class="em">精準的線條</span>、以及 <span class="em">豐富的留白</span>，構築一個個純粹而富有表現力的作品。我們相信，真正的美學，往往存在於最簡約的表達之中。
+      </p>
+      <blockquote>
+        「少即是多。」—— Mies van der Rohe<br>
+        極簡主義的精髓，在於透過最少的元素，傳達最深刻的訊息。
+      </blockquote>
+      <p>
+        展覽將引導觀眾體驗一種 <span class="strong">寧靜的沉浸感</span>，在作品與空間的對話中，重新審視設計的意義。我們將見證，當設計褪去繁冗的外衣，其內在的秩序與和諧，將如何清晰地迴響。
+      </p>
+    </div>
+  </section>
+
+  <section class="block fade-in">
+    <div class="sec-head">
+      <span class="sec-num">II.</span>
+      <h2 class="sec-title">設計師名單 <span class="ph">Featured Designers</span></h2>
+    </div>
+    <div class="designers">
+      <div class="designer-card interactive">
+        <div class="designer-thumb">
+          <img src="images/designer-d001-paper-wu.webp" alt="Abstract emblem for Paper Wu: a single, perfectly folded white paper crane." loading="lazy" decoding="async">
+        </div>
+        <div class="pad-top">
+          <p class="idx">D_001</p>
+          <h3 class="name">吳珮 Paper Wu</h3>
+          <p class="tag">Editorial / Minimal</p>
+        </div>
+      </div>
+      <div class="designer-card interactive">
+        <div class="designer-thumb">
+          <img src="images/designer-d002-grid-chen.webp" alt="Abstract emblem for Grid Chen: a precise, minimalist grid pattern with one intersection highlighted by a subtle blue dot." loading="lazy" decoding="async">
+        </div>
+        <div class="pad-top">
+          <p class="idx">D_002</p>
+          <h3 class="name">陳格 Grid Chen</h3>
+          <p class="tag">Swiss / Grid</p>
+        </div>
+      </div>
+      <div class="designer-card interactive">
+        <div class="designer-thumb">
+          <img src="images/designer-d003-ink-lee.webp" alt="Abstract emblem for Ink Lee: a perfectly balanced, abstract composition of black ink strokes on white." loading="lazy" decoding="async">
+        </div>
+        <div class="pad-top">
+          <p class="idx">D_003</p>
+          <h3 class="name">李墨 Ink Lee</h3>
+          <p class="tag">Typography / Minimal</p>
+        </div>
+      </div>
+      <div class="designer-card interactive">
+        <div class="designer-thumb">
+          <img src="images/designer-d004-quiet-lin.webp" alt="Abstract emblem for Quiet Lin: a zen-like composition of smooth, organic lines on a white background, emphasizing negative space." loading="lazy" decoding="async">
+        </div>
+        <div class="pad-top">
+          <p class="idx">D_004</p>
+          <h3 class="name">林靜 Quiet Lin</h3>
+          <p class="tag">Zen / Negative Space</p>
+        </div>
+      </div>
+      <div class="designer-card interactive">
+        <div class="designer-thumb">
+          <img src="images/designer-d005-pure-wang.webp" alt="Abstract emblem for Pure Wang: a clean, geometric shape with a subtle, perfectly aligned sans-serif initial." loading="lazy" decoding="async">
+        </div>
+        <div class="pad-top">
+          <p class="idx">D_005</p>
+          <h3 class="name">王純 Pure Wang</h3>
+          <p class="tag">Clean UI / Sans Serif</p>
+        </div>
+      </div>
+      <div class="designer-card interactive">
+        <div class="designer-thumb">
+          <img src="images/designer-d006-white-hsu.webp" alt="Abstract emblem for White Hsu: a monochromatic composition with subtle textural variations in white and light grey." loading="lazy" decoding="async">
+        </div>
+        <div class="pad-top">
+          <p class="idx">D_006</p>
+          <h3 class="name">許白 White Hsu</h3>
+          <p class="tag">Monochromatic / Subtle Texture</p>
+        </div>
+      </div>
+      <div class="designer-card interactive">
+        <div class="designer-thumb">
+          <img src="images/designer-d007-simple-cheng.webp" alt="Abstract emblem for Simple Cheng: a minimalist icon representing clarity and directness, perhaps a single arrow or a simplified symbol." loading="lazy" decoding="async">
+        </div>
+        <div class="pad-top">
+          <p class="idx">D_007</p>
+          <h3 class="name">鄭簡 Simple Cheng</h3>
+          <p class="tag">Functional / Clarity</p>
+        </div>
+      </div>
+      <div class="designer-card interactive">
+        <div class="designer-thumb">
+          <img src="images/designer-d008-void-huang.webp" alt="Abstract emblem for Void Huang: a composition emphasizing empty space, with minimal elements defining a boundary or form." loading="lazy" decoding="async">
+        </div>
+        <div class="pad-top">
+          <p class="idx">D_008</p>
+          <h3 class="name">黃空 Void Huang</h3>
+          <p class="tag">Empty Space / Composition</p>
+        </div>
+      </div>
+      <div class="designer-card interactive">
+        <div class="designer-thumb">
+          <img src="images/designer-d009-plain-tsai.webp" alt="Abstract emblem for Plain Tsai: an unadorned, essential geometric shape, like a perfect circle or square, in a muted tone." loading="lazy" decoding="async">
+        </div>
+        <div class="pad-top">
+          <p class="idx">D_009</p>
+          <h3 class="name">蔡素 Plain Tsai</h3>
+          <p class="tag">Unadorned / Essential</p>
+        </div>
+      </div>
+      <div class="designer-card interactive">
+        <div class="designer-thumb">
+          <img src="images/designer-d010-order-chang.webp" alt="Abstract emblem for Order Chang: a systematic arrangement of subtle lines or dots, suggesting structure and precision." loading="lazy" decoding="async">
+        </div>
+        <div class="pad-top">
+          <p class="idx">D_010</p>
+          <h3 class="name">張序 Order Chang</h3>
+          <p class="tag">Systematic / Structure</p>
+        </div>
+      </div>
+      <div class="designer-card interactive">
+        <div class="designer-thumb">
+          <img src="images/designer-d011-clear-peng.webp" alt="Abstract emblem for Clear Peng: a translucent, layered form or a subtle gradient, representing transparency and lightness." loading="lazy" decoding="async">
+        </div>
+        <div class="pad-top">
+          <p class="idx">D_011</p>
+          <h3 class="name">彭淨 Clear Peng</h3>
+          <p class="tag">Transparency / Lightness</p>
+        </div>
+      </div>
+      <div class="designer-card interactive">
+        <div class="designer-thumb">
+          <img src="images/designer-d012-wu-chao.webp" alt="Abstract emblem for Wu Chao: a subtle interplay of absence and form, perhaps a void within a simple shape, or a barely visible outline." loading="lazy" decoding="async">
+        </div>
+        <div class="pad-top">
+          <p class="idx">D_012</p>
+          <h3 class="name">趙無 Wu Chao</h3>
+          <p class="tag">Absence / Form</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block fade-in">
+    <div class="sec-head">
+      <span class="sec-num">III.</span>
+      <h2 class="sec-title">場地資訊 <span class="ph">Venue Map</span></h2>
+    </div>
+    <div class="venue-content">
+      <img src="images/venue.webp" alt="A minimalist editorial illustration of a gallery interior with pure white walls and polished concrete floor." class="venue-img" loading="lazy" decoding="async">
+      <p class="venue-caption">
+        松山文創園區 5 號倉庫，作為本次展覽的場地，其簡潔的工業風格與開闊的空間，
+        為極簡主義作品提供了完美的背景，讓每一件設計都能在光線與留白中自由呼吸。
+      </p>
+    </div>
+  </section>
+
+  <section class="block fade-in">
+    <div class="sec-head">
+      <span class="sec-num">IV.</span>
+      <h2 class="sec-title">五大展區 <span class="ph">Exhibition Zones</span></h2>
+    </div>
+    <div class="zones">
+      <div class="zone interactive">
+        <div class="zone-img">
+          <img src="images/zone-z01.webp" alt="Minimalist illustration of a clean white gallery cube with a single abstract geometric shape in soft grey-blue." loading="lazy" decoding="async">
+        </div>
+        <div class="zone-content">
+          <p class="zone-id">Z01</p>
+          <h3 class="zone-cn">主流頻譜</h3>
+          <p class="zone-en">Mainstream Frequency</p>
+          <p class="zone-desc">
+            探索極簡主義在主流應用中的實踐，如何將複雜的訊息轉化為清晰直觀的體驗。
+          </p>
+          <p class="zone-coord">5F-A1, 5 Works</p>
+        </div>
+      </div>
+      <div class="zone interactive">
+        <div class="zone-img">
+          <img src="images/zone-z02.webp" alt="Minimalist depiction of an antique object, a single, perfectly preserved glass bottle on a clean white pedestal." loading="lazy" decoding="async">
+        </div>
+        <div class="zone-content">
+          <p class="zone-id">Z02</p>
+          <h3 class="zone-cn">時光殘響</h3>
+          <p class="zone-en">Retro Echo</p>
+          <p class="zone-desc">
+            回溯極簡主義的歷史脈絡，從傳統美學中汲取精華，展現其跨越時代的永恆魅力。
+          </p>
+          <p class="zone-coord">5F-A2, 6 Works</p>
+        </div>
+      </div>
+      <div class="zone interactive">
+        <div class="zone-img">
+          <img src="images/zone-z03.webp" alt="Abstract grid lines on a white background, suggesting order and structure, with a single, subtle disruption." loading="lazy" decoding="async">
+        </div>
+        <div class="zone-content">
+          <p class="zone-id">Z03</p>
+          <h3 class="zone-cn">前衛實驗室</h3>
+          <p class="zone-en">Avant Lab</p>
+          <p class="zone-desc">
+            展示極簡主義在當代藝術與科技領域的前沿探索，挑戰傳統邊界。
+          </p>
+          <p class="zone-coord">5F-B1, 6 Works</p>
+        </div>
+      </div>
+      <div class="zone interactive">
+        <div class="zone-img">
+          <img src="images/zone-z04.webp" alt="Minimalist interpretation of a traditional Asian architectural element, a single, clean wooden beam in a modern space." loading="lazy" decoding="async">
+        </div>
+        <div class="zone-content">
+          <p class="zone-id">Z04</p>
+          <h3 class="zone-cn">文化光譜</h3>
+          <p class="zone-en">Cultural Spectrum</p>
+          <p class="zone-desc">
+            探討極簡主義如何與不同文化語境融合，呈現多元而統一的設計表達。
+          </p>
+          <p class="zone-coord">5F-B2, 5 Works</p>
+        </div>
+      </div>
+      <div class="zone interactive">
+        <div class="zone-img">
+          <img src="images/zone-z05.webp" alt="A single, graceful curve or line in motion, rendered with a subtle blur against a pure white background." loading="lazy" decoding="async">
+        </div>
+        <div class="zone-content">
+          <p class="zone-id">Z05</p>
+          <h3 class="zone-cn">動態廳</h3>
+          <p class="zone-en">Motion Hall</p>
+          <p class="zone-desc">
+            透過動態影像與互動裝置，呈現極簡主義在時間與空間中的流動之美。
+          </p>
+          <p class="zone-coord">5F-C1, 15 Works</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block fade-in">
+    <div class="sec-head">
+      <span class="sec-num">V.</span>
+      <h2 class="sec-title">講座排程 <span class="ph">Schedule</span></h2>
+    </div>
+    <table class="schedule-table">
+      <thead>
+        <tr>
+          <th scope="col">Time</th>
+          <th scope="col">Event</th>
+          <th scope="col">Speaker</th>
+          <th scope="col">Location</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>12.07 (Sat) 14:00</td>
+          <td>極簡設計的哲學</td>
+          <td>吳珮 Paper Wu</td>
+          <td>動態廳</td>
+        </tr>
+        <tr>
+          <td>12.08 (Sun) 16:00</td>
+          <td>網格系統與秩序</td>
+          <td>陳格 Grid Chen</td>
+          <td>前衛實驗室</td>
+        </tr>
+        <tr>
+          <td>12.14 (Sat) 14:00</td>
+          <td>字體排印的藝術</td>
+          <td>李墨 Ink Lee</td>
+          <td>主流頻譜</td>
+        </tr>
+        <tr>
+          <td>12.15 (Sun) 16:00</td>
+          <td>留白中的力量</td>
+          <td>林靜 Quiet Lin</td>
+          <td>時光殘響</td>
+        </tr>
+        <tr>
+          <td>12.21 (Sat) 14:00</td>
+          <td>本質設計論壇</td>
+          <td>策展人 Jerry &amp; All Designers</td>
+          <td>動態廳</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="block fade-in">
+    <div class="sec-head">
+      <span class="sec-num">VI.</span>
+      <h2 class="sec-title">票務資訊 <span class="ph">Tickets</span></h2>
+    </div>
+    <div class="ticket-showcase fade-in">
+      <img src="images/ticket.webp" alt="A minimalist admission ticket mockup with clean typography." loading="lazy" decoding="async">
+      <div class="ts-info">
+        <p class="ts-label">Special Offer</p>
+        <h3 class="ts-title">全展期通票</h3>
+        <p class="ts-desc">
+          一張票，無限次探索設計光譜的奧秘。
+          憑通票可自由進出展覽期間所有展區，並享有周邊商品折扣。
+        </p>
+      </div>
+    </div>
+    <div class="tickets">
+      <div class="ticket interactive">
+        <p class="badge">Basic</p>
+        <h3 class="tier">SINGLE PASS</h3>
+        <p class="tier-jp">單日入場</p>
+        <p class="price">NT$ 480</p>
+        <p class="price-unit">per person</p>
+        <ul>
+          <li>展區單日入場</li>
+          <li>電子導覽手冊</li>
+          <li>限定明信片一份</li>
+        </ul>
+        <button class="cta-btn" disabled aria-label="Demo only — not for sale">PURCHASE</button>
+      </div>
+      <div class="ticket featured interactive">
+        <p class="badge">Recommended</p>
+        <h3 class="tier">FULL ACCESS</h3>
+        <p class="tier-jp">全展期通票</p>
+        <p class="price">NT$ 1,280</p>
+        <p class="price-unit">per person</p>
+        <ul>
+          <li>展區全期無限次入場</li>
+          <li>電子導覽手冊</li>
+          <li>限定設計海報一張</li>
+          <li>周邊商品 9 折優惠</li>
+        </ul>
+        <button class="cta-btn" disabled aria-label="Demo only — not for sale">PURCHASE</button>
+      </div>
+      <div class="ticket interactive">
+        <p class="badge">Premium</p>
+        <h3 class="tier">CURATOR PASS</h3>
+        <p class="tier-jp">含 Workshop</p>
+        <p class="price">NT$ 2,880</p>
+        <p class="price-unit">per person</p>
+        <ul>
+          <li>展區全期無限次入場</li>
+          <li>電子導覽手冊</li>
+          <li>限定設計海報一張</li>
+          <li>周邊商品 85 折優惠</li>
+          <li>策展人導覽 Workshop</li>
+        </ul>
+        <button class="cta-btn" disabled aria-label="Demo only — not for sale">PURCHASE</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <svg class="aqualux-logo-full" viewBox="0 0 600 280" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="aqualux">
+    <text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text>
+    <line x1="80" y1="165" x2="520" y2="165" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+    <g transform="translate(0,330) scale(1,-1)" opacity="0.28"><text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text></g>
+  </svg>
+  <p class="signature">MMXXVI · AQUALUX.DEV</p>
+  <p class="credit">
+    AQUALUX.DEV © 2026. All rights reserved.<br>
+    This page is a demo for aqualux 2026 design spectrum exhibition.
+  </p>
+</footer>
+
+<script>
+  // Fade-in on scroll
+  const fadeInElements = document.querySelectorAll('.fade-in');
+
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  fadeInElements.forEach(element => {
+    observer.observe(element);
+  });
+
+  // Custom cursor
+  const cursor = document.querySelector('.custom-cursor');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
+</script>
+</body>
+</html>

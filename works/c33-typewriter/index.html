@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AQUALUX 2026 // DESIGN SPECTRUM EXHIBITION · 打字機 Typewriter Demo</title>
+<meta name="description" content="aqualux 2026 設計光譜展 · Typewriter 風格 demo · single-file HTML showcase">
+<link rel="canonical" href="https://design.aqualux.dev/works/m33-typewriter/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://design.aqualux.dev/works/m33-typewriter/">
+<meta property="og:title" content="M33 打字機 · aqualux 設計光譜展">
+<meta property="og:description" content="Typewriter 風格 single-file HTML demo · aqualux 2026 設計光譜展">
+<meta property="og:image" content="https://design.aqualux.dev/works/m33-typewriter/images/hero.webp">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="M33 打字機 · aqualux 設計光譜展">
+<meta name="twitter:image" content="https://design.aqualux.dev/works/m33-typewriter/images/hero.webp">
+<link rel="icon" type="image/svg+xml" href="../../assets/aqualux-logo-mark.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=IBM+Plex+Mono:wght@400;700&family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+JP:wght@400&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #f0f0e8; /* 主紙色 */
+    --bg-card: #e8e8df; /* 卡片底 */
+    --ink: #2c2c2c; /* 主字墨色 */
+    --ink-light: #5c5c5c; /* 次字墨色 */
+    --ink-faded: #8c8c8c; /* 淡墨色 */
+    --accent: #a020f0; /* 紫墨水 */
+    --line: #d0d0c8; /* 分隔線 */
+    --line-dashed: dashed #d0d0c8;
+
+    --display: 'Special Elite', cursive;
+    --mono: 'IBM Plex Mono', monospace;
+    --body: 'Noto Serif TC', serif;
+    --jp: 'Noto Sans JP', sans-serif;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .typewriter, .caret { animation: none !important; }
+    html { scroll-behavior: auto !important; }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-snap-type: y proximity; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--body);
+    line-height: 1.8;
+    font-size: 16px;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Paper texture overlay */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(0,0,0,0.02) 0%, transparent 70%);
+    pointer-events: none; z-index: -2;
+  }
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="3" height="3"><filter id="noise"><feTurbulence baseFrequency="0.9" numOctaves="1" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.04"/></svg>');
+    pointer-events: none; z-index: -1;
+    mix-blend-mode: multiply;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* Typewriter effect */
+  .typewriter {
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typing 0.05s steps(1) forwards; /* Adjusted for faster reveal */
+    animation-delay: var(--delay, 0s);
+  }
+  .typewriter-block {
+    overflow: hidden;
+    animation: typing-block 0.05s steps(1) forwards; /* Adjusted for faster reveal */
+    animation-delay: var(--delay, 0s);
+  }
+  @keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+  @keyframes typing-block {
+    from { height: 0; }
+    to { height: 100%; }
+  }
+
+  .caret {
+    display: inline-block;
+    width: 8px; height: 1.2em;
+    background: var(--ink);
+    margin-left: 4px;
+    vertical-align: middle;
+    animation: blink-caret 0.8s steps(1) infinite;
+  }
+  @keyframes blink-caret {
+    from, to { background: transparent; }
+    50% { background: var(--ink); }
+  }
+
+  /* Top bar */
+  .topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    padding: 12px 32px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--mono); font-size: 12px;
+    letter-spacing: 0.05em;
+  }
+  .topbar .left { display: flex; align-items: center; gap: 12px; color: var(--ink-light); }
+  .topbar .left svg { height: 28px; width: auto; color: var(--ink-light); }
+  .topbar .right { color: var(--ink-faded); }
+  .topbar .right .blink { color: var(--accent); animation: blink 1.2s steps(2) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* Hero */
+  .hero {
+    padding: 60px 32px 50px;
+    max-width: 960px; margin: 0 auto;
+    text-align: center;
+    scroll-snap-align: start;
+    position: relative;
+  }
+  .hero-img {
+    margin-bottom: 40px;
+    border: 1px solid var(--line);
+    box-shadow: 2px 2px 0px var(--line-faded), 4px 4px 0px var(--ink-faded);
+  }
+  .hero-img img { width: 100%; height: auto; display: block; }
+
+  .kicker {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--ink-faded); letter-spacing: 0.1em;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  .hero-jp {
+    font-family: var(--jp); font-weight: 400;
+    font-size: clamp(16px, 2vw, 22px);
+    color: var(--ink-light); letter-spacing: 0.2em;
+    margin-bottom: 8px;
+  }
+  .hero h1 {
+    font-family: var(--display); font-weight: 700;
+    font-size: clamp(48px, 9vw, 96px);
+    line-height: 0.95; letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 24px;
+    white-space: pre-wrap; /* Allow line breaks for typewriter effect */
+  }
+  .hero h1 .accent { color: var(--accent); }
+
+  .hero-sub {
+    font-family: var(--mono); font-weight: 400;
+    font-size: clamp(13px, 1.4vw, 16px);
+    color: var(--ink-light); letter-spacing: 0.05em;
+    margin: 24px auto 36px; max-width: 720px;
+  }
+  .meta-strip {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    border-top: 1px dashed var(--line);
+    border-bottom: 1px dashed var(--line);
+    padding: 18px 0;
+    margin-top: 36px;
+  }
+  .meta-cell {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--ink-faded);
+    text-align: left;
+  }
+  .meta-cell .label {
+    color: var(--ink-light); letter-spacing: 0.08em;
+    font-size: 11px; margin-bottom: 4px; display: block;
+    text-transform: uppercase;
+  }
+  .meta-cell .val { color: var(--ink); font-size: 14px; font-weight: 700; }
+
+  /* Section base */
+  section.block {
+    padding: 60px 32px; max-width: 960px; margin: 0 auto;
+    scroll-snap-align: start;
+    border-top: 1px solid var(--line);
+    margin-top: 40px;
+  }
+  .sec-head {
+    display: flex; flex-direction: column; align-items: flex-start;
+    margin-bottom: 30px;
+    padding-bottom: 12px; border-bottom: 1px solid var(--line);
+  }
+  .sec-num {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--accent); letter-spacing: 0.1em;
+    font-weight: 700; margin-bottom: 6px;
+  }
+  .sec-title-jp {
+    font-family: var(--jp); font-size: 12px;
+    color: var(--ink-faded); letter-spacing: 0.2em;
+    margin-bottom: 4px;
+  }
+  .sec-title {
+    font-family: var(--display); font-size: clamp(24px, 4vw, 36px);
+    font-weight: 700; letter-spacing: 0.03em;
+    color: var(--ink);
+  }
+  .sec-title .accent { color: var(--accent); }
+
+  /* Curatorial statement */
+  .statement {
+    font-family: var(--body); font-size: 16px; line-height: 1.9;
+    color: var(--ink-light);
+  }
+  .statement p { margin-bottom: 1.2em; }
+  .statement .em { color: var(--ink); font-weight: 700; }
+  .statement .strong { color: var(--accent); font-weight: 700; letter-spacing: 0.02em; }
+  .statement blockquote {
+    border-left: 3px solid var(--accent);
+    padding: 12px 20px;
+    margin: 20px 0;
+    background: var(--bg-card);
+    font-family: var(--mono); color: var(--ink);
+    font-size: 14px; letter-spacing: 0.02em;
+  }
+
+  /* Designer grid */
+  .designers {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 10px;
+  }
+  .designer-card {
+    border: 1px solid var(--line);
+    background: var(--bg-card);
+    padding: 16px;
+    position: relative;
+    box-shadow: 1px 1px 0px var(--line-faded), 2px 2px 0px var(--ink-faded);
+  }
+  .designer-card:hover {
+    border-color: var(--accent);
+    box-shadow: 2px 2px 0px var(--accent), 3px 3px 0px var(--ink);
+  }
+  .designer-thumb {
+    margin: -16px -16px 14px;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
+    background: var(--bg);
+  }
+  .designer-thumb img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: grayscale(100%) contrast(1.2);
+    transition: transform 0.3s ease;
+  }
+  .designer-card:hover .designer-thumb img { transform: scale(1.05); }
+
+  .designer-card .idx {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--accent); letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+  .designer-card .name-jp {
+    font-family: var(--jp); font-size: 11px;
+    color: var(--ink-faded); letter-spacing: 0.15em;
+    margin-bottom: 2px;
+  }
+  .designer-card .name {
+    font-family: var(--display); font-size: 16px; font-weight: 700;
+    color: var(--ink); letter-spacing: 0.02em;
+    margin-bottom: 8px;
+  }
+  .designer-card .tag {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--ink-light); letter-spacing: 0.05em;
+  }
+  .designer-card .tag::before { content: '// '; color: var(--ink-faded); }
+
+  /* Venue map */
+  .venue-map {
+    margin: 0 0 40px;
+    border: 1px solid var(--line);
+    box-shadow: 2px 2px 0px var(--line-faded), 4px 4px 0px var(--ink-faded);
+  }
+  .venue-map img { width: 100%; height: auto; display: block; }
+  .venue-caption {
+    font-family: var(--mono); font-size: 13px;
+    color: var(--ink-light); letter-spacing: 0.04em;
+    margin-top: 14px;
+    text-align: center;
+  }
+  .venue-caption .accent { color: var(--accent); }
+
+  /* Zone map */
+  .zones {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px;
+  }
+  .zone {
+    background: var(--bg-card);
+    border: 1px solid var(--line);
+    padding: 20px 22px;
+    position: relative; overflow: hidden;
+    box-shadow: 1px 1px 0px var(--line-faded), 2px 2px 0px var(--ink-faded);
+  }
+  .zone-img {
+    margin: -20px -22px 16px;
+    aspect-ratio: 5 / 3;
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
+  }
+  .zone-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: grayscale(100%) contrast(1.1);
+    transition: transform 0.4s ease;
+  }
+  .zone:hover .zone-img img { transform: scale(1.04); }
+
+  .zone .zone-id {
+    font-family: var(--display); font-size: 40px; font-weight: 700;
+    color: var(--accent); line-height: 1;
+    margin-bottom: 6px;
+  }
+  .zone .zone-cn {
+    font-family: var(--body); font-size: 18px; font-weight: 700;
+    color: var(--ink); margin-bottom: 4px;
+    letter-spacing: 0.02em;
+  }
+  .zone .zone-en {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--ink-light); letter-spacing: 0.1em;
+    margin-bottom: 12px;
+  }
+  .zone .zone-desc {
+    font-family: var(--body); font-size: 14px; line-height: 1.8;
+    color: var(--ink-light);
+  }
+  .zone .zone-coord {
+    margin-top: 12px; padding-top: 10px;
+    border-top: 1px dashed var(--line);
+    font-family: var(--mono); font-size: 10px;
+    color: var(--ink-faded); letter-spacing: 0.08em;
+  }
+
+  /* Schedule */
+  .schedule-table {
+    width: 100%; border-collapse: collapse;
+    font-family: var(--mono); font-size: 13px;
+  }
+  .schedule-table th, .schedule-table td {
+    padding: 12px 15px; text-align: left;
+    border-bottom: 1px dashed var(--line);
+  }
+  .schedule-table th {
+    color: var(--ink-light); letter-spacing: 0.08em;
+    font-size: 11px; font-weight: 700;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--ink-faded);
+  }
+  .schedule-table td { color: var(--ink-light); }
+  .schedule-table td:first-child {
+    color: var(--accent); font-weight: 700;
+    width: 120px;
+  }
+  .schedule-table tr:hover td { color: var(--ink); background: var(--bg-card); }
+
+  /* Tickets */
+  .ticket-showcase {
+    margin: 0 0 40px;
+    display: flex; align-items: center; gap: 28px;
+    padding: 24px;
+    border: 1px dashed var(--line);
+    background: var(--bg-card);
+    box-shadow: 2px 2px 0px var(--line-faded), 4px 4px 0px var(--ink-faded);
+  }
+  .ticket-showcase img {
+    width: 200px; height: auto; border: 1px solid var(--line);
+    filter: grayscale(100%) contrast(1.1);
+    flex-shrink: 0;
+  }
+  .ticket-showcase .ts-info { flex: 1; }
+  .ticket-showcase .ts-label {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--ink-faded); letter-spacing: 0.1em;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  .ticket-showcase .ts-title {
+    font-family: var(--display); font-weight: 700;
+    font-size: 20px; color: var(--ink); letter-spacing: 0.03em;
+    margin-bottom: 10px;
+  }
+  .ticket-showcase .ts-desc {
+    font-family: var(--body); font-size: 14px;
+    color: var(--ink-light); line-height: 1.8;
+  }
+  @media (max-width: 720px) {
+    .ticket-showcase { flex-direction: column; gap: 18px; padding: 20px; }
+    .ticket-showcase img { width: 100%; max-width: 240px; }
+  }
+
+  .tickets {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .ticket {
+    border: 1px solid var(--line);
+    padding: 24px 22px;
+    background: var(--bg-card);
+    text-align: center;
+    box-shadow: 1px 1px 0px var(--line-faded), 2px 2px 0px var(--ink-faded);
+  }
+  .ticket.featured {
+    border-color: var(--accent);
+    box-shadow: 2px 2px 0px var(--accent), 3px 3px 0px var(--ink);
+  }
+  .ticket .badge {
+    display: inline-block;
+    font-family: var(--mono); font-size: 10px;
+    color: var(--bg); background: var(--ink-light);
+    padding: 2px 8px; letter-spacing: 0.1em;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+  .ticket.featured .badge { background: var(--accent); }
+  .ticket .tier {
+    font-family: var(--display); font-size: 20px; font-weight: 700;
+    color: var(--ink); letter-spacing: 0.05em;
+    margin-bottom: 4px;
+  }
+  .ticket .tier-jp {
+    font-family: var(--jp); font-size: 10px;
+    color: var(--ink-faded); letter-spacing: 0.2em;
+    margin-bottom: 16px;
+  }
+  .ticket .price {
+    font-family: var(--display); font-size: 36px; font-weight: 700;
+    color: var(--accent); line-height: 1;
+    margin-bottom: 2px;
+  }
+  .ticket .price-unit {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--ink-faded); letter-spacing: 0.1em;
+    margin-bottom: 16px;
+  }
+  .ticket ul {
+    list-style: none; text-align: left;
+    font-family: var(--mono); font-size: 12px;
+    color: var(--ink-light); line-height: 1.9;
+    margin-bottom: 20px;
+  }
+  .ticket li::before {
+    content: '- '; color: var(--accent); margin-right: 4px;
+  }
+
+  /* CTA */
+  .cta-btn {
+    display: inline-block;
+    font-family: var(--mono); font-weight: 700;
+    font-size: 12px; letter-spacing: 0.1em;
+    padding: 12px 28px;
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    position: relative;
+    box-shadow: 1px 1px 0px var(--ink-faded);
+  }
+  .cta-btn:hover {
+    background: var(--accent); color: var(--bg);
+    box-shadow: 2px 2px 0px var(--ink);
+  }
+  .cta-btn.disabled {
+    opacity: 0.6; cursor: not-allowed;
+    border-color: var(--ink-faded); color: var(--ink-faded);
+    background: var(--bg-card);
+    box-shadow: 1px 1px 0px var(--line);
+  }
+  .cta-btn.disabled:hover {
+    background: var(--bg-card); color: var(--ink-faded);
+    box-shadow: 1px 1px 0px var(--line);
+  }
+
+  /* Footer */
+  footer {
+    margin-top: 60px;
+    padding: 50px 32px 30px;
+    border-top: 1px dashed var(--line);
+    background: var(--bg-card);
+    text-align: center;
+    font-family: var(--mono);
+  }
+  footer .ascii-line {
+    font-size: 11px;
+    color: var(--ink-faded); letter-spacing: 0.08em;
+    margin-bottom: 16px;
+    white-space: pre; /* Preserve ASCII art spacing */
+  }
+  footer .aqualux-logo-seal {
+    display: block;
+    margin: 0 auto 20px;
+    width: 180px; /* Adjust size */
+    color: var(--ink-light);
+    border: 1px solid var(--line);
+    padding: 10px;
+  }
+  footer .aqualux-logo-seal svg { width: 100%; height: auto; display: block; }
+  footer .signature {
+    font-family: var(--mono); font-size: 13px;
+    color: var(--ink); letter-spacing: 0.05em;
+    margin-bottom: 12px;
+  }
+  footer .signature .accent { color: var(--accent); }
+  footer .credit {
+    font-size: 10.5px;
+    color: var(--ink-faded); letter-spacing: 0.05em; line-height: 1.8;
+  }
+  footer .credit a { color: var(--ink-light); }
+  footer .terminal {
+    font-size: 10px;
+    color: var(--ink-faded); letter-spacing: 0.04em;
+    margin-top: 20px;
+  }
+  footer .terminal .caret {
+    animation: blink-caret 0.9s steps(1) infinite;
+    background: var(--accent);
+  }
+</style>
+</head>
+<body>
+  <div class="scanlines"></div>
+
+  <header class="topbar">
+    <div class="left">
+      <a href="../../index.html" aria-label="Back to Gallery">
+        <svg viewBox="0 0 600 280" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="aqualux logo">
+          <text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text>
+          <line x1="80" y1="165" x2="520" y2="165" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+          <g transform="translate(0,330) scale(1,-1)" opacity="0.28"><text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text></g>
+        </svg>
+      </a>
+      <span class="typewriter" data-text="← Gallery // M33 Typewriter Demo"></span>
+    </div>
+    <div class="right">
+      <span class="typewriter" data-text="STATUS: ONLINE "></span><span class="blink">█</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-img">
+        <img src="images/hero.webp" alt="A vintage photograph of an empty, dimly lit exhibition hall with a typewriter on a pedestal." loading="eager" decoding="async">
+      </div>
+      <p class="kicker"><span class="typewriter" data-text="AQUALUX 2026 CODEX // M33"></span></p>
+      <p class="hero-jp"><span class="typewriter" data-text="デザイン・スペクトル展"></span></p>
+      <h1><span class="typewriter" data-text="AQUALUX 2026"></span><br><span class="typewriter" data-text="DESIGN SPECTRUM"></span><br><span class="typewriter accent" data-text="EXHIBITION"></span></h1>
+      <p class="hero-sub typewriter-block" data-text="深入探討設計的核心與邊界，以打字機的精準與復古魅力，重新詮釋數位時代下的創作脈絡。本展覽透過嚴謹的編排與文字的溫度，引導觀者穿越設計的時光迴廊。">
+      </p>
+
+      <div class="meta-strip">
+        <div class="meta-cell">
+          <span class="label typewriter" data-text="DATE"></span>
+          <span class="val typewriter" data-text="2026.12.06 — 12.21"></span>
+        </div>
+        <div class="meta-cell">
+          <span class="label typewriter" data-text="VENUE"></span>
+          <span class="val typewriter" data-text="松山文創園區 5 號倉庫"></span>
+        </div>
+        <div class="meta-cell">
+          <span class="label typewriter" data-text="CURATOR"></span>
+          <span class="val typewriter" data-text="Jerry @ aqualux.dev"></span>
+        </div>
+        <div class="meta-cell">
+          <span class="label typewriter" data-text="SCALE"></span>
+          <span class="val typewriter" data-text="12 Designers / 40 Works"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="sec-head">
+        <p class="sec-num"><span class="typewriter" data-text="01."></span></p>
+        <p class="sec-title-jp"><span class="typewriter" data-text="キュレーション・ステートメント"></span></p>
+        <h2 class="sec-title"><span class="typewriter" data-text="策展論述 // CURATORIAL "></span><span class="typewriter accent" data-text="STATEMENT"></span></h2>
+      </div>
+      <div class="statement">
+        <p class="typewriter-block" data-text="aqualux 2026 設計光譜展，旨在透過「打字機」這一經典媒介，對當代設計語彙進行一次深度的回溯與解構。我們觀察到，在高速迭代的數位洪流中，設計的本質與其核心價值常被形式與速度所掩蓋。本展覽試圖以一種刻意放緩的姿態，重新審視設計作為一種嚴謹「書寫」與「編纂」的過程。">
+        </p>
+        <p class="typewriter-block" data-text="展覽將設計師視為「文字工作者」，其作品則是透過精確的思考、反覆的修正，如同文字般逐字敲擊而成的視覺文本。我們強調的是設計背後那份對結構、排版、字體、留白以及訊息傳達的精煉與執著，這些都是打字機時代所追求的極致。">
+        </p>
+        <blockquote><span class="typewriter-block" data-text="「設計，從來不是一蹴可幾的靈光乍現，而是如同敲打鍵盤般，在反覆的輸入、刪除、修正中，逐漸浮現其精髓。」">
+        </span><span class="caret"></span></blockquote>
+        <p class="typewriter-block" data-text="透過這種復古的視角，本展覽不僅呈現作品的最終樣貌，更邀請觀者進入設計師的思考軌跡，感受其在每個「字元」與「行距」間所投入的匠心。這是一場關於<span class="em">「精準」</span>、<span class="em">「耐心」</span>與<span class="strong">「本真」</span>的設計對話，旨在提醒我們，無論科技如何演進，設計的根基始終在於清晰且有力的表達。">
+        </p>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="sec-head">
+        <p class="sec-num"><span class="typewriter" data-text="02."></span></p>
+        <p class="sec-title-jp"><span class="typewriter" data-text="デザイナーリスト"></span></p>
+        <h2 class="sec-title"><span class="typewriter" data-text="設計師名單 // FEATURED "></span><span class="typewriter accent" data-text="DESIGNERS"></span></h2>
+      </div>
+      <div class="designers">
+        <div class="designer-card">
+          <div class="designer-thumb"><img src="images/designer-d001.webp" alt="Abstract emblem for Neon Lee (UI/Brutalism)" loading="lazy" decoding="async"></div>
+          <p class="idx typewriter" data-text="D_001"></p>
+          <p class="name-jp typewriter" data-text="ネオン リー"></p>
+          <h3 class="name typewriter" data-text="Neon Lee"></h3>
+          <p class="tag typewriter" data-text="UI / Brutalism"></p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb"><img src="images/designer-d002.webp" alt="Abstract emblem for Chrome Ho (Motion/Parallax)" loading="lazy" decoding="async"></div>
+          <p class="idx typewriter" data-text="D_002"></p>
+          <p class="name-jp typewriter" data-text="クローム ホー"></p>
+          <h3 class="name typewriter" data-text="Chrome Ho"></h3>
+          <p class="tag typewriter" data-text="Motion / Parallax"></p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb"><img src="images/designer-d003.webp" alt="Abstract emblem for Glitch Chang (Experimental)" loading="lazy" decoding="async"></div>
+          <p class="idx typewriter" data-text="D_003"></p>
+          <p class="name-jp typewriter" data-text="グリッチ チャン"></p>
+          <h3 class="name typewriter" data-text="Glitch Chang"></h3>
+          <p class="tag typewriter" data-text="Experimental"></p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb"><img src="images/designer-d004.webp" alt="Abstract emblem for Paper Wu (Editorial/Minimal)" loading="lazy" decoding="async"></div>
+          <p class="idx typewriter" data-text="D_004"></p>
+          <p class="name-jp typewriter" data-text="ペーパー ウー"></p>
+          <h3 class="name typewriter" data-text="Paper Wu"></h3>
+          <p class="tag typewriter" data-text="Editorial / Minimal"></p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb"><img src="images/designer-d005.webp" alt="Abstract emblem for Vapor Lin (Retro/Aesthetic)" loading="lazy" decoding="async"></div>
+          <p class="idx typewriter" data-text="D_005"></p>
+          <p class="name-jp typewriter" data-text="ヴェイパー リン"></p>
+          <h3 class="name typewriter" data-text="Vapor Lin"></h3>
+          <p class="tag typewriter" data-text="Retro / Aesthetic"></p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb"><img src="images/designer-d006.webp" alt="Abstract emblem for Swiss Chen (Cultural/Grid)" loading="lazy" decoding="async"></div>
+          <p class="idx typewriter" data-text="D_006"></p>
+          <p class="name-jp typewriter" data-text="スイス チェン"></p>
+          <h3 class="name typewriter" data-text="Swiss Chen"></h3>
+          <p class="tag typewriter" data-text="Cultural / Grid"></p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb"><img src="images/designer-d007.webp" alt="Abstract emblem for Glass Yang (Glassmorphism)" loading="lazy" decoding="async"></div>
+          <p class="idx typewriter" data-text="D_007"></p>
+          <p class="name-jp typewriter" data-text="ガラス ヤン"></p>
+          <h3 class="name typewriter" data-text="Glass Yang"></h3>
+          <p class="tag typewriter" data-text="Glassmorphism"></p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb"><img src="images/designer-d008.webp" alt="Abstract emblem for ASCII Fan (Terminal/CLI)" loading="lazy" decoding="async"></div>
+          <p class="idx typewriter" data-text="D_008"></p>
+          <p class="name-jp typewriter" data-text="アスキー ファン"></p>
+          <h3 class="name typewriter" data-text="ASCII Fan"></h3>
+          <p class="tag typewriter" data-text="Terminal / CLI"></p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb"><img src="images/designer-d009.webp" alt="Abstract emblem for Hand Chao (Sketch/Doodle)" loading="lazy" decoding="async"></div>
+          <p class="idx typewriter" data-text="D_009"></p>
+          <p class="name-jp typewriter" data-text="ハンド ジョー"></p>
+          <h3 class="name typewriter" data-text="Hand Chao"></h3>
+          <p class="tag typewriter" data-text="Sketch / Doodle"></p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb"><img src="images/designer-d010.webp" alt="Abstract emblem for Magne Huang (Interaction)" loading="lazy" decoding="async"></div>
+          <p class="idx typewriter" data-text="D_010"></p>
+          <p class="name-jp typewriter" data-text="マグネ ホアン"></p>
+          <h3 class="name typewriter" data-text="Magne Huang"></h3>
+          <p class="tag typewriter" data-text="Interaction"></p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb"><img src="images/designer-d011.webp" alt="Abstract emblem for Cyber Su (Cyberpunk/Glow)" loading="lazy" decoding="async"></div>
+          <p class="idx typewriter" data-text="D_011"></p>
+          <p class="name-jp typewriter" data-text="サイバー スー"></p>
+          <h3 class="name typewriter" data-text="Cyber Su"></h3>
+          <p class="tag typewriter" data-text="Cyberpunk / Glow"></p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb"><img src="images/designer-d012.webp" alt="Abstract emblem for Noise Kao (Film Grain)" loading="lazy" decoding="async"></div>
+          <p class="idx typewriter" data-text="D_012"></p>
+          <p class="name-jp typewriter" data-text="ノイズ カオ"></p>
+          <h3 class="name typewriter" data-text="Noise Kao"></h3>
+          <p class="tag typewriter" data-text="Film Grain"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="sec-head">
+        <p class="sec-num"><span class="typewriter" data-text="03."></span></p>
+        <p class="sec-title-jp"><span class="typewriter" data-text="会場案内"></span></p>
+        <h2 class="sec-title"><span class="typewriter" data-text="場地 // VENUE "></span><span class="typewriter accent" data-text="MAP"></span></h2>
+      </div>
+      <div class="venue-map">
+        <img src="images/venue.webp" alt="A black and white photograph of an old, grand library or archive room." loading="lazy" decoding="async">
+      </div>
+      <p class="venue-caption typewriter" data-text="松山文創園區 5 號倉庫 // Taipei, Taiwan <span class='accent'>[ EST. 1937 ]</span>"></p>
+    </section>
+
+    <section class="block">
+      <div class="sec-head">
+        <p class="sec-num"><span class="typewriter" data-text="04."></span></p>
+        <p class="sec-title-jp"><span class="typewriter" data-text="展示エリア"></span></p>
+        <h2 class="sec-title"><span class="typewriter" data-text="五大展區 // EXHIBITION "></span><span class="typewriter accent" data-text="ZONES"></span></h2>
+      </div>
+      <div class="zones">
+        <div class="zone">
+          <div class="zone-img"><img src="images/zone-z01.webp" alt="Clean, minimalist gallery, black and white" loading="lazy" decoding="async"></div>
+          <p class="zone-id typewriter" data-text="Z01"></p>
+          <p class="zone-cn typewriter" data-text="主流頻譜"></p>
+          <p class="zone-en typewriter" data-text="MAINSTREAM FREQUENCY"></p>
+          <p class="zone-desc typewriter-block" data-text="探索當前設計趨勢，解構其普及背後的共通語彙與美學原則。">
+          </p>
+          <p class="zone-coord typewriter" data-text="AREA: 5F-A1 // WORKS: 5"></p>
+        </div>
+        <div class="zone">
+          <div class="zone-img"><img src="images/zone-z02.webp" alt="Old photograph of a dusty attic with vintage electronics" loading="lazy" decoding="async"></div>
+          <p class="zone-id typewriter" data-text="Z02"></p>
+          <p class="zone-cn typewriter" data-text="時光殘響"></p>
+          <p class="zone-en typewriter" data-text="RETRO ECHO"></p>
+          <p class="zone-desc typewriter-block" data-text="回顧經典設計風格，分析其如何影響並形塑今日的視覺文化。">
+          </p>
+          <p class="zone-coord typewriter" data-text="AREA: 5F-A2 // WORKS: 6"></p>
+        </div>
+        <div class="zone">
+          <div class="zone-img"><img src="images/zone-z03.webp" alt="Stark, high-contrast black and white image of scientific equipment" loading="lazy" decoding="async"></div>
+          <p class="zone-id typewriter" data-text="Z03"></p>
+          <p class="zone-cn typewriter" data-text="前衛實驗室"></p>
+          <p class="zone-en typewriter" data-text="AVANT LAB"></p>
+          <p class="zone-desc typewriter-block" data-text="展示尖端與實驗性設計，挑戰傳統界限，探索未來可能性。">
+          </p>
+          <p class="zone-coord typewriter" data-text="AREA: 5F-B1 // WORKS: 6"></p>
+        </div>
+        <div class="zone">
+          <div class="zone-img"><img src="images/zone-z04.webp" alt="Vintage postcards collage of various cultural motifs" loading="lazy" decoding="async"></div>
+          <p class="zone-id typewriter" data-text="Z04"></p>
+          <p class="zone-cn typewriter" data-text="文化光譜"></p>
+          <p class="zone-en typewriter" data-text="CULTURAL SPECTRUM"></p>
+          <p class="zone-desc typewriter-block" data-text="聚焦在地文化與國際語境的交織，呈現設計的多元文化面向。">
+          </p>
+          <p class="zone-coord typewriter" data-text="AREA: 5F-B2 // WORKS: 5"></p>
+        </div>
+        <div class="zone">
+          <div class="zone-img"><img src="images/zone-z05.webp" alt="Blurred long exposure photograph of moving machinery or light trails" loading="lazy" decoding="async"></div>
+          <p class="zone-id typewriter" data-text="Z05"></p>
+          <p class="zone-cn typewriter" data-text="動態廳"></p>
+          <p class="zone-en typewriter" data-text="MOTION HALL"></p>
+          <p class="zone-desc typewriter-block" data-text="專注於動態影像、互動裝置與數位藝術，體驗設計的生命力。">
+          </p>
+          <p class="zone-coord typewriter" data-text="AREA: 5F-C1 // WORKS: 15"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="sec-head">
+        <p class="sec-num"><span class="typewriter" data-text="05."></span></p>
+        <p class="sec-title-jp"><span class="typewriter" data-text="タイムテーブル"></span></p>
+        <h2 class="sec-title"><span class="typewriter" data-text="講座排程 // EVENT "></span><span class="typewriter accent" data-text="SCHEDULE"></span></h2>
+      </div>
+      <table class="schedule-table">
+        <thead>
+          <tr>
+            <th scope="col" class="typewriter" data-text="TIME"></th>
+            <th scope="col" class="typewriter" data-text="EVENT / TOPIC"></th>
+            <th scope="col" class="typewriter" data-text="SPEAKER"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="typewriter" data-text="12.07 14:00"></span></td>
+            <td><span class="typewriter" data-text="開幕導覽：設計光譜的啟程"></span></td>
+            <td><span class="typewriter" data-text="Jerry (策展人)"></span></td>
+          </tr>
+          <tr>
+            <td><span class="typewriter" data-text="12.08 15:30"></span></td>
+            <td><span class="typewriter" data-text="數位字體設計的演變"></span></td>
+            <td><span class="typewriter" data-text="Paper Wu"></span></td>
+          </tr>
+          <tr>
+            <td><span class="typewriter" data-text="12.10 16:00"></span></td>
+            <td><span class="typewriter" data-text="互動介面與使用者體驗"></span></td>
+            <td><span class="typewriter" data-text="Magne Huang"></span></td>
+          </tr>
+          <tr>
+            <td><span class="typewriter" data-text="12.14 14:00"></span></td>
+            <td><span class="typewriter" data-text="設計中的懷舊與未來"></span></td>
+            <td><span class="typewriter" data-text="Vapor Lin"></span></td>
+          </tr>
+          <tr>
+            <td><span class="typewriter" data-text="12.15 17:00"></span></td>
+            <td><span class="typewriter" data-text="CLI 介面美學與效率"></span></td>
+            <td><span class="typewriter" data-text="ASCII Fan"></span></td>
+          </tr>
+          <tr>
+            <td><span class="typewriter" data-text="12.20 15:00"></span></td>
+            <td><span class="typewriter" data-text="閉幕座談：設計的永續性"></span></td>
+            <td><span class="typewriter" data-text="Jerry & Designers"></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="block">
+      <div class="sec-head">
+        <p class="sec-num"><span class="typewriter" data-text="06."></span></p>
+        <p class="sec-title-jp"><span class="typewriter" data-text="チケット情報"></span></p>
+        <h2 class="sec-title"><span class="typewriter" data-text="票務 // TICKET "></span><span class="typewriter accent" data-text="INFORMATION"></span></h2>
+      </div>
+
+      <div class="ticket-showcase">
+        <img src="images/ticket-mockup.webp" alt="A vintage admission ticket mockup for Aqualux Spectrum 2026" loading="lazy" decoding="async">
+        <div class="ts-info">
+          <p class="ts-label typewriter" data-text="ADMISSION PASS"></p>
+          <h3 class="ts-title typewriter" data-text="典藏票券預覽 // COLLECTOR'S EDITION"></h3>
+          <p class="ts-desc typewriter-block" data-text="每張票券皆為特別設計的復古印刷風格，不僅是入場憑證，更是值得收藏的藝術品。票面詳細印有展覽資訊與獨特編號，旨在向打字機時代的精緻工藝致敬。">
+          </p>
+        </div>
+      </div>
+
+      <div class="tickets">
+        <div class="ticket">
+          <p class="badge typewriter" data-text="STANDARD"></p>
+          <p class="tier typewriter" data-text="SINGLE PASS"></p>
+          <p class="tier-jp typewriter" data-text="シングルパス"></p>
+          <p class="price typewriter" data-text="NT$ 480"></p>
+          <p class="price-unit typewriter" data-text="/ 單日入場"></p>
+          <ul>
+            <li><span class="typewriter" data-text="展覽單日入場"></span></li>
+            <li><span class="typewriter" data-text="限量紀念票卡"></span></li>
+          </ul>
+          <button class="cta-btn disabled" aria-label="Demo only — not for sale">PURCHASE</button>
+        </div>
+        <div class="ticket featured">
+          <p class="badge typewriter" data-text="RECOMMENDED"></p>
+          <p class="tier typewriter" data-text="FULL ACCESS"></p>
+          <p class="tier-jp typewriter" data-text="フル・アクセス"></p>
+          <p class="price typewriter" data-text="NT$ 1,280"></p>
+          <p class="price-unit typewriter" data-text="/ 全展期通票"></p>
+          <ul>
+            <li><span class="typewriter" data-text="展覽全展期通行"></span></li>
+            <li><span class="typewriter" data-text="專屬導覽手冊"></span></li>
+            <li><span class="typewriter" data-text="優先入場資格"></span></li>
+          </ul>
+          <button class="cta-btn disabled" aria-label="Demo only — not for sale">PURCHASE</button>
+        </div>
+        <div class="ticket">
+          <p class="badge typewriter" data-text="PREMIUM"></p>
+          <p class="tier typewriter" data-text="CURATOR PASS"></p>
+          <p class="tier-jp typewriter" data-text="キュレーターパス"></p>
+          <p class="price typewriter" data-text="NT$ 2,880"></p>
+          <p class="price-unit typewriter" data-text="/ 含 workshop"></p>
+          <ul>
+            <li><span class="typewriter" data-text="全展期通行 + 紀念品"></span></li>
+            <li><span class="typewriter" data-text="限定工作坊參與"></span></li>
+            <li><span class="typewriter" data-text="策展人專屬導覽"></span></li>
+          </ul>
+          <button class="cta-btn disabled" aria-label="Demo only — not for sale">PURCHASE</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <pre class="ascii-line typewriter" data-text="--------------------------------------------------------------------------------"></pre>
+    <div class="aqualux-logo-seal">
+      <svg viewBox="0 0 600 280" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="aqualux logo">
+        <text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text>
+        <line x1="80" y1="165" x2="520" y2="165" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+        <g transform="translate(0,330) scale(1,-1)" opacity="0.28"><text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text></g>
+      </svg>
+    </div>
+    <p class="signature typewriter" data-text="MMXXVI · AQUALUX.DEV"></p>
+    <p class="credit typewriter" data-text="AQUALUX 2026 DESIGN SPECTRUM EXHIBITION CODEX // M33 TYPEWRITER DEMO"></p>
+    <p class="credit typewriter" data-text="DESIGNED & DEVELOPED BY <a href='https://aqualux.dev' target='_blank'>AQUALUX.DEV</a>"></p>
+    <p class="terminal typewriter" data-text="READY> _"></p>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const typewriterElements = document.querySelectorAll('.typewriter, .typewriter-block');
+      let delay = 0;
+      const baseDelay = 10; // milliseconds per character/block
+
+      typewriterElements.forEach(el => {
+        const text = el.getAttribute('data-text');
+        if (!text) return;
+
+        el.style.setProperty('--delay', `${delay / 1000}s`);
+
+        if (el.classList.contains('typewriter')) {
+          el.style.width = '0%';
+          el.textContent = '';
+          let charIndex = 0;
+          const typeChar = () => {
+            if (charIndex < text.length) {
+              el.textContent += text.charAt(charIndex);
+              charIndex++;
+              setTimeout(typeChar, baseDelay);
+            } else {
+              // Add blinking caret if it's the last element or has a specific class
+              if (el.nextElementSibling && el.nextElementSibling.classList.contains('caret')) {
+                el.nextElementSibling.style.display = 'inline-block';
+              } else if (el.classList.contains('terminal')) { // For terminal prompt
+                const caret = document.createElement('span');
+                caret.classList.add('caret');
+                el.appendChild(caret);
+              }
+            }
+          };
+          setTimeout(typeChar, delay);
+          delay += text.length * baseDelay;
+        } else if (el.classList.contains('typewriter-block')) {
+          el.style.height = '0';
+          el.style.whiteSpace = 'pre-wrap'; // Allow text to wrap
+          el.style.overflow = 'hidden';
+          el.textContent = text; // Set full text initially for block typing
+          const totalHeight = el.scrollHeight; // Get actual height
+          el.style.height = '0'; // Reset to 0 for animation
+
+          let currentHeight = 0;
+          const typeBlock = () => {
+            if (currentHeight < totalHeight) {
+              currentHeight += 2; // Increment height
+              el.style.height = `${currentHeight}px`;
+              requestAnimationFrame(typeBlock);
+            } else {
+              el.style.height = 'auto'; // Ensure it takes full height after animation
+              if (el.nextElementSibling && el.nextElementSibling.classList.contains('caret')) {
+                el.nextElementSibling.style.display = 'inline-block';
+              }
+            }
+          };
+          setTimeout(() => requestAnimationFrame(typeBlock), delay);
+          delay += (text.length * baseDelay) / 2; // Simulate block typing speed
+        }
+      });
+
+      // Handle terminal caret separately as it's often the very last element
+      const terminalElement = document.querySelector('.terminal');
+      if (terminalElement) {
+        const terminalText = terminalElement.getAttribute('data-text');
+        terminalElement.textContent = ''; // Clear for typing
+        let charIndex = 0;
+        const typeTerminal = () => {
+          if (charIndex < terminalText.length - 1) { // -1 to exclude the initial underscore
+            terminalElement.textContent += terminalText.charAt(charIndex);
+            charIndex++;
+            setTimeout(typeTerminal, baseDelay);
+          } else {
+            terminalElement.textContent += terminalText.charAt(charIndex); // Add the underscore
+            const caret = document.createElement('span');
+            caret.classList.add('caret');
+            terminalElement.appendChild(caret);
+          }
+        };
+        setTimeout(typeTerminal, delay);
+      }
+    });
+
+    // Simple scroll snap polyfill for older browsers/smoother behavior if needed
+    // This is optional and can be removed if CSS scroll-snap is sufficient.
+    const sections = document.querySelectorAll('section.block, .hero');
+    let isScrolling;
+
+    window.addEventListener('scroll', () => {
+      window.clearTimeout(isScrolling);
+      isScrolling = setTimeout(() => {
+        const currentScroll = window.scrollY;
+        let closestSection = null;
+        let minDiff = Infinity;
+
+        sections.forEach(section => {
+          const rect = section.getBoundingClientRect();
+          const diff = Math.abs(rect.top);
+          if (diff < minDiff) {
+            minDiff = diff;
+            closestSection = section;
+          }
+        });
+
+        if (closestSection && minDiff > 50) { // Only snap if not already close
+          closestSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 66); // Adjust debounce time as needed
+    }, false);
+
+  </script>
+</body>
+</html>

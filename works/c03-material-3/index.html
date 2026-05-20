@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AQUALUX 2026 // DESIGN SPECTRUM EXHIBITION · Material 3 Demo</title>
+<meta name="description" content="aqualux 2026 設計光譜展 · Material You/3 風格 demo · single-file HTML showcase">
+<link rel="canonical" href="https://design.aqualux.dev/works/c03-material-3/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://design.aqualux.dev/works/c03-material-3/">
+<meta property="og:title" content="C03 Material 3 · aqualux 設計光譜展">
+<meta property="og:description" content="Material You/3 風格 single-file HTML demo · aqualux 2026 設計光譜展">
+<meta property="og:image" content="https://design.aqualux.dev/works/c03-material-3/images/hero.webp">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="C03 Material 3 · aqualux 設計光譜展">
+<meta name="twitter:image" content="https://design.aqualux.dev/works/c03-material-3/images/hero.webp">
+<link rel="icon" type="image/svg+xml" href="../../assets/aqualux-logo-mark.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,300;8..144,400;8..144,500;8..144,700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    /* Color palette from seed #6750A4 */
+    --md-primary: #6750a4;
+    --md-primary-container: #eaddff;
+    --md-on-primary: #ffffff;
+    --md-on-primary-container: #21005d;
+
+    --md-secondary: #625b71;
+    --md-secondary-container: #e8def8;
+    --md-on-secondary: #ffffff;
+    --md-on-secondary-container: #1d192b;
+
+    --md-tertiary: #7d5260;
+    --md-tertiary-container: #ffd8e4;
+    --md-on-tertiary: #ffffff;
+    --md-on-tertiary-container: #31111d;
+
+    --md-surface: #fef7ff;
+    --md-surface-dim: #ded8e1;
+    --md-surface-bright: #fef7ff;
+    --md-surface-container-low: #f7f2fa;
+    --md-surface-container: #f3edf7;
+    --md-surface-container-high: #ece6f0;
+    --md-surface-container-highest: #e6e0e9;
+
+    --md-on-surface: #1d1b20;
+    --md-on-surface-variant: #49454f;
+    --md-outline: #79747e;
+    --md-outline-variant: #cac4d0;
+
+    --md-error: #b3261e;
+    --md-on-error: #ffffff;
+    --md-error-container: #f9dedc;
+    --md-on-error-container: #410e0b;
+
+    /* Typography */
+    --font-display: 'Roboto Flex', sans-serif; /* opsz, wght */
+    --font-headline: 'Roboto Flex', sans-serif; /* wght 500 */
+    --font-body: 'Roboto Flex', 'Noto Sans TC', sans-serif; /* wght 400 */
+    --font-label: 'Roboto Flex', sans-serif; /* wght 500, small caps */
+    --font-numerals: 'Roboto Flex', sans-serif; /* tabular-nums */
+
+    /* Shapes */
+    --shape-extra-small: 4px;
+    --shape-small: 8px;
+    --shape-medium: 12px;
+    --shape-large: 16px;
+    --shape-extra-large: 28px;
+    --shape-full: 9999px; /* pill shape */
+
+    /* Motion */
+    --motion-duration-short: 150ms;
+    --motion-duration-medium: 250ms;
+    --motion-duration-long: 350ms;
+    --motion-easing-standard: cubic-bezier(0.2, 0.0, 0.0, 1.0);
+    --motion-easing-emphasized: cubic-bezier(0.2, 0.0, 0.0, 1.0); /* Material 3 default */
+  }
+
+  /* Base styles */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background-color: var(--md-surface);
+    color: var(--md-on-surface);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Ripple effect */
+  .ripple-container {
+    position: relative;
+    overflow: hidden;
+    transform: translate3d(0, 0, 0); /* Force GPU acceleration */
+  }
+  .ripple {
+    position: absolute;
+    border-radius: 50%;
+    background-color: var(--md-primary);
+    opacity: 0.16; /* 16% primary for pressed state */
+    transform: scale(0);
+    animation: ripple-animation var(--motion-duration-long) var(--motion-easing-standard) forwards;
+    pointer-events: none;
+  }
+  @keyframes ripple-animation {
+    to {
+      transform: scale(4); /* Max scale to cover parent */
+      opacity: 0;
+    }
+  }
+
+  /* State layer for hover/focus */
+  .state-layer::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background-color: var(--md-primary);
+    opacity: 0;
+    transition: opacity var(--motion-duration-short) var(--motion-easing-standard);
+    pointer-events: none;
+  }
+  .state-layer:hover::before { opacity: 0.08; } /* 8% primary for hover */
+  .state-layer:focus-visible::before { opacity: 0.12; } /* 12% primary for focus */
+  .state-layer:active::before { opacity: 0.16; } /* 16% primary for pressed */
+
+  /* Focus ring */
+  *:focus-visible {
+    outline: 2px solid var(--md-primary);
+    outline-offset: 2px;
+    border-radius: var(--shape-small); /* Adjust based on element */
+  }
+
+  a {
+    color: var(--md-primary);
+    text-decoration: none;
+    position: relative;
+    outline: none;
+  }
+  a:hover { text-decoration: underline; }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-headline);
+    color: var(--md-on-surface);
+    letter-spacing: 0;
+  }
+
+  /* Top App Bar */
+  .top-app-bar {
+    position: sticky; top: 0; z-index: 1000;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+    padding: 0 16px;
+    background-color: var(--md-surface-container-low);
+    border-bottom: 1px solid var(--md-outline-variant);
+    transition: background-color var(--motion-duration-medium) var(--motion-easing-standard);
+  }
+  .top-app-bar.elevated {
+    background-color: var(--md-surface-container);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for elevation */
+  }
+  .top-app-bar .logo-container {
+    display: flex; align-items: center;
+    gap: 8px;
+    color: var(--md-on-surface-variant);
+  }
+  .top-app-bar .aqualux-logo-mark {
+    width: 28px; height: 28px;
+    color: var(--md-primary);
+  }
+  .top-app-bar .title {
+    font-family: var(--font-headline);
+    font-weight: 500;
+    font-size: 1.125rem; /* 18px */
+    color: var(--md-on-surface);
+  }
+  .top-app-bar .nav-button {
+    display: flex; align-items: center; justify-content: center;
+    width: 40px; height: 40px;
+    border-radius: var(--shape-full);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--md-on-surface-variant);
+    position: relative; /* For ripple */
+    outline: none;
+  }
+  .top-app-bar .nav-button:hover {
+    background-color: rgba(var(--md-on-surface-rgb), 0.08); /* 8% on-surface */
+  }
+  .top-app-bar .nav-button svg {
+    width: 24px; height: 24px;
+    fill: currentColor;
+  }
+
+  /* Main content layout */
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  section {
+    padding: 48px 24px;
+    position: relative;
+  }
+
+  /* Hero Section */
+  .hero {
+    padding: 0; /* Full bleed image */
+    position: relative;
+    background-color: var(--md-surface-bright);
+    overflow: hidden;
+  }
+  .hero-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: clamp(300px, 60vh, 600px);
+    overflow: hidden;
+  }
+  .hero-image {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: saturate(1.05) brightness(0.95);
+  }
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 40%, var(--md-surface) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 48px 24px;
+  }
+  .hero-kicker {
+    font-family: var(--font-label);
+    font-weight: 500;
+    font-size: 0.75rem; /* 12px */
+    letter-spacing: 0.1em;
+    color: var(--md-primary);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2.5rem, 8vw, 4.5rem); /* 40px to 72px */
+    line-height: 1.1;
+    color: var(--md-on-surface);
+    max-width: 800px;
+  }
+  .hero-subtitle {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 1.125rem; /* 18px */
+    color: var(--md-on-surface-variant);
+    margin-top: 16px;
+    max-width: 600px;
+  }
+  .hero .meta-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 16px;
+    padding: 24px 0;
+    border-top: 1px solid var(--md-outline-variant);
+    margin-top: 32px;
+  }
+  .meta-cell {
+    font-family: var(--font-label);
+    font-size: 0.875rem; /* 14px */
+    color: var(--md-on-surface-variant);
+  }
+  .meta-cell .label {
+    font-weight: 500;
+    color: var(--md-primary);
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .meta-cell .value {
+    font-family: var(--font-body);
+    font-weight: 500;
+    color: var(--md-on-surface);
+    font-size: 1rem; /* 16px */
+  }
+
+  /* Section Header */
+  .section-header {
+    margin-bottom: 32px;
+  }
+  .section-header .kicker {
+    font-family: var(--font-label);
+    font-weight: 500;
+    font-size: 0.75rem; /* 12px */
+    letter-spacing: 0.1em;
+    color: var(--md-primary);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .section-header h2 {
+    font-family: var(--font-headline);
+    font-weight: 700;
+    font-size: 2rem; /* 32px */
+    line-height: 1.2;
+    color: var(--md-on-surface);
+  }
+
+  /* Curatorial Statement */
+  .statement {
+    max-width: 800px;
+    color: var(--md-on-surface-variant);
+    font-size: 1.0625rem; /* 17px */
+  }
+  .statement p { margin-bottom: 16px; }
+  .statement strong {
+    font-weight: 500;
+    color: var(--md-on-surface);
+  }
+  .statement em {
+    font-style: normal;
+    color: var(--md-primary);
+  }
+  .statement blockquote {
+    background-color: var(--md-primary-container);
+    color: var(--md-on-primary-container);
+    padding: 24px;
+    border-radius: var(--shape-medium);
+    margin: 24px 0;
+    font-family: var(--font-body);
+    font-size: 1rem; /* 16px */
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  /* Designer Grid */
+  .designers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 16px;
+  }
+  .designer-card {
+    background-color: var(--md-surface-container-low);
+    border-radius: var(--shape-large);
+    padding: 16px;
+    position: relative;
+    overflow: hidden;
+    transition: background-color var(--motion-duration-short) var(--motion-easing-standard);
+  }
+  .designer-card:hover {
+    background-color: var(--md-surface-container-high);
+  }
+  .designer-card .avatar {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: var(--shape-medium);
+    object-fit: cover;
+    margin-bottom: 12px;
+    filter: saturate(1.05);
+  }
+  .designer-card .name {
+    font-family: var(--font-headline);
+    font-weight: 500;
+    font-size: 1.125rem; /* 18px */
+    color: var(--md-on-surface);
+    margin-bottom: 4px;
+  }
+  .designer-card .role {
+    font-family: var(--font-label);
+    font-weight: 500;
+    font-size: 0.75rem; /* 12px */
+    color: var(--md-on-surface-variant);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Venue Section */
+  .venue-card {
+    background-color: var(--md-surface-container);
+    border-radius: var(--shape-extra-large);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .venue-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+  }
+  .venue-image {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: saturate(1.05) brightness(0.95);
+  }
+  .venue-content {
+    padding: 24px;
+  }
+  .venue-content h3 {
+    font-family: var(--font-headline);
+    font-weight: 700;
+    font-size: 1.5rem; /* 24px */
+    color: var(--md-on-surface);
+    margin-bottom: 8px;
+  }
+  .venue-content p {
+    color: var(--md-on-surface-variant);
+    font-size: 1rem; /* 16px */
+    margin-bottom: 16px;
+  }
+  .chips-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: var(--shape-full);
+    background-color: var(--md-secondary-container);
+    color: var(--md-on-secondary-container);
+    font-family: var(--font-label);
+    font-weight: 500;
+    font-size: 0.75rem; /* 12px */
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* Zone Cards */
+  .zones-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .zone-card {
+    background-color: var(--md-surface-container-low);
+    border-radius: var(--shape-extra-large);
+    overflow: hidden;
+    position: relative;
+    transition: background-color var(--motion-duration-short) var(--motion-easing-standard);
+  }
+  .zone-card:hover {
+    background-color: var(--md-surface-container);
+  }
+  .zone-image-wrapper {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    position: relative;
+  }
+  .zone-image {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: saturate(1.05);
+    transition: transform var(--motion-duration-medium) var(--motion-easing-standard);
+  }
+  .zone-card:hover .zone-image { transform: scale(1.05); }
+  .zone-content {
+    padding: 20px 24px;
+  }
+  .zone-id {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 2.25rem; /* 36px */
+    color: var(--md-primary);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .zone-title {
+    font-family: var(--font-headline);
+    font-weight: 500;
+    font-size: 1.25rem; /* 20px */
+    color: var(--md-on-surface);
+    margin-bottom: 8px;
+  }
+  .zone-description {
+    font-size: 0.9375rem; /* 15px */
+    color: var(--md-on-surface-variant);
+  }
+  .zone-meta {
+    font-family: var(--font-label);
+    font-size: 0.75rem; /* 12px */
+    color: var(--md-on-surface-variant);
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--md-outline-variant);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Schedule Table */
+  .schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-body);
+    font-size: 0.9375rem; /* 15px */
+  }
+  .schedule-table th, .schedule-table td {
+    text-align: left;
+    padding: 16px 12px;
+    border-bottom: 1px solid var(--md-outline-variant);
+  }
+  .schedule-table th {
+    font-family: var(--font-label);
+    font-weight: 500;
+    font-size: 0.75rem; /* 12px */
+    color: var(--md-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .schedule-table tbody tr:hover {
+    background-color: var(--md-surface-container-low);
+  }
+  .schedule-table td:first-child {
+    font-family: var(--font-numerals);
+    color: var(--md-on-surface);
+    font-weight: 500;
+    width: 100px;
+  }
+  .schedule-table td:nth-child(2) {
+    color: var(--md-on-surface);
+    font-weight: 500;
+  }
+  .schedule-table td:last-child {
+    color: var(--md-on-surface-variant);
+  }
+
+  /* Ticket Cards */
+  .tickets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+  }
+  .ticket-card {
+    background-color: var(--md-surface-container-low);
+    border-radius: var(--shape-extra-large);
+    padding: 32px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: background-color var(--motion-duration-short) var(--motion-easing-standard);
+  }
+  .ticket-card:hover {
+    background-color: var(--md-surface-container);
+  }
+  .ticket-card.featured {
+    background-color: var(--md-primary-container);
+    color: var(--md-on-primary-container);
+  }
+  .ticket-card.featured .price {
+    color: var(--md-primary);
+  }
+  .ticket-card .badge {
+    display: inline-block;
+    background-color: var(--md-secondary);
+    color: var(--md-on-secondary);
+    padding: 4px 10px;
+    border-radius: var(--shape-full);
+    font-family: var(--font-label);
+    font-weight: 500;
+    font-size: 0.75rem; /* 12px */
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .ticket-card.featured .badge {
+    background-color: var(--md-primary);
+    color: var(--md-on-primary);
+  }
+  .ticket-card .tier {
+    font-family: var(--font-headline);
+    font-weight: 500;
+    font-size: 1.5rem; /* 24px */
+    margin-bottom: 8px;
+  }
+  .ticket-card .price {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 2.75rem; /* 44px */
+    line-height: 1;
+    color: var(--md-secondary);
+    margin-bottom: 4px;
+  }
+  .ticket-card .price-unit {
+    font-family: var(--font-label);
+    font-weight: 500;
+    font-size: 0.875rem; /* 14px */
+    color: var(--md-on-surface-variant);
+    margin-bottom: 24px;
+  }
+  .ticket-card.featured .price-unit {
+    color: var(--md-on-primary-container);
+  }
+  .ticket-card ul {
+    list-style: none;
+    text-align: left;
+    margin-bottom: 24px;
+  }
+  .ticket-card li {
+    font-size: 0.9375rem; /* 15px */
+    color: var(--md-on-surface-variant);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: flex-start;
+  }
+  .ticket-card.featured li {
+    color: var(--md-on-primary-container);
+  }
+  .ticket-card li::before {
+    content: '•';
+    color: var(--md-primary);
+    margin-right: 8px;
+    font-size: 1.2em;
+    line-height: 1;
+  }
+  .ticket-card.featured li::before {
+    color: var(--md-primary);
+  }
+
+  /* CTA Button */
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 104px;
+    height: 40px;
+    padding: 0 24px;
+    border-radius: var(--shape-full);
+    font-family: var(--font-label);
+    font-weight: 500;
+    font-size: 0.875rem; /* 14px */
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    position: relative; /* For ripple */
+    transition: background-color var(--motion-duration-short) var(--motion-easing-standard),
+                color var(--motion-duration-short) var(--motion-easing-standard);
+  }
+  .cta-button.filled {
+    background-color: var(--md-primary);
+    color: var(--md-on-primary);
+  }
+  .cta-button.filled:hover {
+    background-color: color-mix(in srgb, var(--md-primary) 92%, black); /* Darken slightly on hover */
+  }
+  .cta-button.outlined {
+    background-color: transparent;
+    color: var(--md-primary);
+    border: 1px solid var(--md-outline);
+  }
+  .cta-button.outlined:hover {
+    background-color: var(--md-primary-container); /* Subtle background on hover */
+  }
+  .cta-button:disabled {
+    background-color: var(--md-surface-dim);
+    color: var(--md-outline);
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  /* Floating Action Button (FAB) */
+  .fab {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    height: 56px;
+    padding: 0 16px;
+    border-radius: var(--shape-large);
+    background-color: var(--md-primary-container);
+    color: var(--md-on-primary-container);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: width var(--motion-duration-medium) var(--motion-easing-standard),
+                background-color var(--motion-duration-short) var(--motion-easing-standard);
+    z-index: 999;
+  }
+  .fab:hover {
+    background-color: color-mix(in srgb, var(--md-primary-container) 92%, black);
+  }
+  .fab svg {
+    width: 24px; height: 24px;
+    fill: currentColor;
+  }
+  .fab .label {
+    font-family: var(--font-label);
+    font-weight: 500;
+    font-size: 0.875rem; /* 14px */
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 0;
+    transition: max-width var(--motion-duration-medium) var(--motion-easing-standard),
+                opacity var(--motion-duration-short) var(--motion-easing-standard);
+    opacity: 0;
+  }
+  .fab.extended {
+    width: auto;
+    padding: 0 20px;
+  }
+  .fab.extended .label {
+    max-width: 120px; /* Arbitrary max-width for label */
+    opacity: 1;
+  }
+
+  /* Footer */
+  footer {
+    background-color: var(--md-surface-container-highest);
+    padding: 48px 24px 24px;
+    text-align: center;
+    color: var(--md-on-surface-variant);
+    margin-top: 48px;
+  }
+  footer .aqualux-logo {
+    width: 180px; /* Adjust size as needed */
+    height: auto;
+    color: var(--md-on-surface-variant);
+    margin-bottom: 24px;
+  }
+  footer .signature {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 1.125rem; /* 18px */
+    color: var(--md-on-surface);
+    margin-bottom: 12px;
+  }
+  footer .credit {
+    font-family: var(--font-body);
+    font-size: 0.875rem; /* 14px */
+    line-height: 1.5;
+    color: var(--md-on-surface-variant);
+  }
+  footer .credit a {
+    color: var(--md-primary);
+  }
+  footer .social-chips {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 24px;
+  }
+  footer .social-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border-radius: var(--shape-full);
+    background-color: var(--md-surface-container);
+    color: var(--md-on-surface-variant);
+    font-family: var(--font-label);
+    font-weight: 500;
+    font-size: 0.75rem; /* 12px */
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  footer .social-chip svg {
+    width: 16px; height: 16px;
+    margin-right: 6px;
+    fill: currentColor;
+  }
+
+  @media (max-width: 768px) {
+    .top-app-bar { height: 56px; padding: 0 12px; }
+    .hero-overlay { padding: 32px 16px; }
+    .hero h1 { font-size: clamp(2rem, 8vw, 3.5rem); }
+    .hero-subtitle { font-size: 1rem; }
+    section { padding: 32px 16px; }
+    .section-header h2 { font-size: 1.75rem; }
+    .venue-image-wrapper { height: 240px; }
+    .venue-content { padding: 16px; }
+    .fab { bottom: 16px; right: 16px; height: 48px; }
+    .fab.extended { padding: 0 16px; }
+    .fab .label { font-size: 0.8125rem; }
+  }
+
+  @media (min-width: 1024px) {
+    .hero-overlay { padding: 64px 48px; }
+    section { padding: 64px 48px; }
+  }
+
+</style>
+</head>
+<body>
+<svg style="display:none;">
+  <filter id="noiseFilter">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch" />
+    <feColorMatrix type="saturate" values="0" />
+    <feComponentTransfer>
+      <feFuncA type="linear" slope="0.08"/>
+    </feComponentTransfer>
+    <feBlend in="SourceGraphic" in2="noiseFilter" mode="multiply" />
+  </filter>
+</svg>
+
+<div class="top-app-bar ripple-container" id="topAppBar">
+  <a href="../../index.html" class="nav-button state-layer" aria-label="回藝廊首頁">
+    <svg viewBox="0 0 24 24"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+  </a>
+  <div class="logo-container">
+    <svg class="aqualux-logo-mark" viewBox="0 0 600 280" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="aqualux">
+      <text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text>
+      <line x1="80" y1="165" x2="520" y2="165" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+      <g transform="translate(0,330) scale(1,-1)" opacity="0.28"><text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text></g>
+    </svg>
+    <span class="title">AQUALUX 2026</span>
+  </div>
+  <button class="nav-button state-layer" aria-label="更多選項">
+    <svg viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+  </button>
+</div>
+
+<main>
+  <section class="hero">
+    <div class="hero-image-wrapper">
+      <img src="images/hero.webp" alt="Material 3 expressive illustration with rounded blob shapes and soft pastel colors" width="1536" height="1024" loading="lazy" decoding="async" class="hero-image">
+    </div>
+    <div class="hero-overlay">
+      <p class="hero-kicker">AQUALUX 2026 EXHIBITION</p>
+      <h1>設計光譜展</h1>
+      <p class="hero-subtitle">探索設計的無限可能，感受 Material You 的自適應魅力。十二位設計師，一個光譜。</p>
+      <div class="meta-strip">
+        <div class="meta-cell">
+          <span class="label">日期</span>
+          <span class="value">2026.12.06 – 12.21</span>
+        </div>
+        <div class="meta-cell">
+          <span class="label">地點</span>
+          <span class="value">松山文創園區 5 號倉庫</span>
+        </div>
+        <div class="meta-cell">
+          <span class="label">策展人</span>
+          <span class="value">Jerry @ aqualux.dev</span>
+        </div>
+        <div class="meta-cell">
+          <span class="label">規模</span>
+          <span class="value">12 設計師 / 40 作品</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-header">
+      <p class="kicker">Curatorial Statement</p>
+      <h2>設計，始於感性，終於理性。</h2>
+    </div>
+    <div class="statement">
+      <p>在數位時代的浪潮中，設計不再僅是視覺的呈現，更是體驗的流動。aqualux 2026 設計光譜展，以 Material You 的核心理念為引，探討設計如何從單一美學走向<em>個人化</em>、<em>自適應</em>與<em>動態性</em>。</p>
+      <p>我們相信，優秀的設計是與使用者產生共鳴的。它能根據您的偏好、情境與裝置，<em>流暢地調整其形態與色彩</em>，提供一致且愉悅的互動體驗。這不僅是技術的革新，更是對人性化設計的深度思考。</p>
+      <blockquote>「設計的真正力量，在於它能無縫地融入生活，並在每個細節中，彰顯獨特的個人風格。」</blockquote>
+      <p>本次展覽匯聚了十二位頂尖設計師，他們以各自的視角與創作語彙，回應 Material You 的哲學。從柔和的色彩過渡到富有彈性的形狀，從直觀的互動模式到深層的情感連結，您將親身感受設計如何<em>從靜態走向動態</em>，從通用走向專屬。</p>
+      <p>誠摯邀請您一同踏入這個充滿變革與創新的設計世界，探索屬於您的光譜。我們期待，這場展覽能激發您對未來設計的無限想像。</p>
+      <a href="#tickets" class="cta-button filled state-layer ripple-container" aria-label="立即購票，探索設計光譜">
+        立即購票 <svg viewBox="0 0 24 24" style="width:18px;height:18px;margin-left:8px;"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-header">
+      <p class="kicker">Featured Creators</p>
+      <h2>設計師名單</h2>
+    </div>
+    <div class="designers-grid">
+      <div class="designer-card state-layer ripple-container">
+        <img src="images/designer-glass-yang.webp" alt="Glass Yang avatar: stacked translucent squircles" width="1024" height="1024" loading="lazy" decoding="async" class="avatar">
+        <h3 class="name">Glass Yang</h3>
+        <p class="role">Glassmorphism</p>
+      </div>
+      <div class="designer-card state-layer ripple-container">
+        <img src="images/designer-frost-chen.webp" alt="Frost Chen avatar: monogram 'F' in Roboto Flex inside a primary-container blob" width="1024" height="1024" loading="lazy" decoding="async" class="avatar">
+        <h3 class="name">Frost Chen</h3>
+        <p class="role">Material 3</p>
+      </div>
+      <div class="designer-card state-layer ripple-container">
+        <img src="images/designer-aurora-lin.webp" alt="Aurora Lin avatar: gradient ring around a single dot" width="1024" height="1024" loading="lazy" decoding="async" class="avatar">
+        <h3 class="name">Aurora Lin</h3>
+        <p class="role">Immersive Dark</p>
+      </div>
+      <div class="designer-card state-layer ripple-container">
+        <img src="images/designer-paper-wu.webp" alt="Paper Wu avatar: folded paper effect with soft shadows" width="1024" height="1024" loading="lazy" decoding="async" class="avatar">
+        <h3 class="name">Paper Wu</h3>
+        <p class="role">Editorial / Minimal</p>
+      </div>
+      <div class="designer-card state-layer ripple-container">
+        <img src="images/designer-vapor-lin.webp" alt="Vapor Lin avatar: retro vaporwave gradient with geometric shapes" width="1024" height="1024" loading="lazy" decoding="async" class="avatar">
+        <h3 class="name">Vapor Lin</h3>
+        <p class="role">Retro / Aesthetic</p>
+      </div>
+      <div class="designer-card state-layer ripple-container">
+        <img src="images/designer-swiss-chen.webp" alt="Swiss Chen avatar: grid-based composition with red accent" width="1024" height="1024" loading="lazy" decoding="async" class="avatar">
+        <h3 class="name">Swiss Chen</h3>
+        <p class="role">Cultural / Grid</p>
+      </div>
+      <div class="designer-card state-layer ripple-container">
+        <img src="images/designer-neon-lee.webp" alt="Neon Lee avatar: glowing neon lines forming abstract shape" width="1024" height="1024" loading="lazy" decoding="async" class="avatar">
+        <h3 class="name">Neon Lee</h3>
+        <p class="role">UI / Brutalism</p>
+      </div>
+      <div class="designer-card state-layer ripple-container">
+        <img src="images/designer-ascii-fan.webp" alt="ASCII Fan avatar: text characters forming a pattern" width="1024" height="1024" loading="lazy" decoding="async" class="avatar">
+        <h3 class="name">ASCII Fan</h3>
+        <p class="role">Terminal / CLI</p>
+      </div>
+      <div class="designer-card state-layer ripple-container">
+        <img src="images/designer-hand-chao.webp" alt="Hand Chao avatar: hand-drawn sketchy lines and organic shapes" width="1024" height="1024" loading="lazy" decoding="async" class="avatar">
+        <h3 class="name">Hand Chao</h3>
+        <p class="role">Sketch / Doodle</p>
+      </div>
+      <div class="designer-card state-layer ripple-container">
+        <img src="images/designer-magne-huang.webp" alt="Magne Huang avatar: dynamic interaction flow lines" width="1024" height="1024" loading="lazy" decoding="async" class="avatar">
+        <h3 class="name">Magne Huang</h3>
+        <p class="role">Interaction</p>
+      </div>
+      <div class="designer-card state-layer ripple-container">
+        <img src="images/designer-cyber-su.webp" alt="Cyber Su avatar: futuristic glowing circuit board pattern" width="1024" height="1024" loading="lazy" decoding="async" class="avatar">
+        <h3 class="name">Cyber Su</h3>
+        <p class="role">Cyberpunk / Glow</p>
+      </div>
+      <div class="designer-card state-layer ripple-container">
+        <img src="images/designer-noise-kao.webp" alt="Noise Kao avatar: subtle film grain texture with abstract form" width="1024" height="1024" loading="lazy" decoding="async" class="avatar">
+        <h3 class="name">Noise Kao</h3>
+        <p class="role">Film Grain</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-header">
+      <p class="kicker">Exhibition Venue</p>
+      <h2>場地導覽</h2>
+    </div>
+    <div class="venue-card">
+      <div class="venue-image-wrapper">
+        <img src="images/venue.webp" alt="Gallery interior rendered in Material 3 expressive flat-illustration style" width="1536" height="1024" loading="lazy" decoding="async" class="venue-image">
+      </div>
+      <div class="venue-content">
+        <h3>松山文創園區 5 號倉庫</h3>
+        <p>本次設計光譜展選址於充滿歷史韻味與現代活力的松山文創園區 5 號倉庫。寬敞的空間與獨特的工業風格，為 Material You 的動態美學提供了絕佳的展演舞台。</p>
+        <p>我們將透過精心規劃的動線與互動裝置，引導您沉浸於每個設計師的創作世界。展區內設有舒適的休憩區與資訊站，確保您的參觀體驗流暢而豐富。</p>
+        <div class="chips-container">
+          <span class="chip">歷史建築</span>
+          <span class="chip">開放空間</span>
+          <span class="chip">交通便利</span>
+          <span class="chip">互動體驗</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-header">
+      <p class="kicker">Explore the Spectrum</p>
+      <h2>五大展區</h2>
+    </div>
+    <div class="zones-grid">
+      <div class="zone-card state-layer ripple-container">
+        <div class="zone-image-wrapper">
+          <img src="images/zone-z01.webp" alt="Cluster of overlapping squircle cards in lavender tonal palette" width="1024" height="1024" loading="lazy" decoding="async" class="zone-image">
+        </div>
+        <div class="zone-content">
+          <p class="zone-id">Z01</p>
+          <h3 class="zone-title">主流頻譜 Mainstream Frequency</h3>
+          <p class="zone-description">探索 Material You 如何引領當代主流設計趨勢，展現其在日常應用中的廣泛影響力。</p>
+          <p class="zone-meta">5F-A1 · 5 作品</p>
+        </div>
+      </div>
+      <div class="zone-card state-layer ripple-container">
+        <div class="zone-image-wrapper">
+          <img src="images/zone-z02.webp" alt="Flat illustration of vintage radio shapes restyled with squircle corners" width="1024" height="1024" loading="lazy" decoding="async" class="zone-image">
+        </div>
+        <div class="zone-content">
+          <p class="zone-id">Z02</p>
+          <h3 class="zone-title">時光殘響 Retro Echo</h3>
+          <p class="zone-description">回溯經典設計元素，透過 Material You 的視角重新詮釋，創造懷舊與創新並存的風格。</p>
+          <p class="zone-meta">5F-A2 · 6 作品</p>
+        </div>
+      </div>
+      <div class="zone-card state-layer ripple-container">
+        <div class="zone-image-wrapper">
+          <img src="images/zone-z03.webp" alt="Asymmetric blob shapes with single accent dot, lab-like flat style" width="1024" height="1024" loading="lazy" decoding="async" class="zone-image">
+        </div>
+        <div class="zone-content">
+          <p class="zone-id">Z03</p>
+          <h3 class="zone-title">前衛實驗室 Avant Lab</h3>
+          <p class="zone-description">挑戰設計邊界，探索 Material You 在實驗性介面、未來科技應用中的無限可能。</p>
+          <p class="zone-meta">5F-B1 · 6 作品</p>
+        </div>
+      </div>
+      <div class="zone-card state-layer ripple-container">
+        <div class="zone-image-wrapper">
+          <img src="images/zone-z04.webp" alt="Flat illustration referencing east-asian motifs (lattice, moon-gate) in muted purple" width="1024" height="1024" loading="lazy" decoding="async" class="zone-image">
+        </div>
+        <div class="zone-content">
+          <p class="zone-id">Z04</p>
+          <h3 class="zone-title">文化光譜 Cultural Spectrum</h3>
+          <p class="zone-description">融合在地文化元素與 Material You 設計語彙，展現跨文化設計的多元面貌。</p>
+          <p class="zone-meta">5F-B2 · 5 作品</p>
+        </div>
+      </div>
+      <div class="zone-card state-layer ripple-container">
+        <div class="zone-image-wrapper">
+          <img src="images/zone-z05.webp" alt="Motion lines emerging from a blob, dynamic mid-action flat illustration" width="1024" height="1024" loading="lazy" decoding="async" class="zone-image">
+        </div>
+        <div class="zone-content">
+          <p class="zone-id">Z05</p>
+          <h3 class="zone-title">動態廳 Motion Hall</h3>
+          <p class="zone-description">沉浸式體驗 Material You 的動態效果與流暢過渡，感受介面設計的生命力。</p>
+          <p class="zone-meta">5F-C1 · 15 作品</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-header">
+      <p class="kicker">Agenda</p>
+      <h2>講座排程</h2>
+    </div>
+    <div class="schedule-container">
+      <table class="schedule-table">
+        <thead>
+          <tr>
+            <th scope="col">時間</th>
+            <th scope="col">主題</th>
+            <th scope="col">講者</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>13:00 - 14:00</td>
+            <td>Material You：設計的自適應未來</td>
+            <td>Frost Chen</td>
+          </tr>
+          <tr>
+            <td>14:15 - 15:15</td>
+            <td>沉浸式暗黑介面設計策略</td>
+            <td>Aurora Lin</td>
+          </tr>
+          <tr>
+            <td>15:30 - 16:30</td>
+            <td>從印刷到數位：編輯設計的演變</td>
+            <td>Paper Wu</td>
+          </tr>
+          <tr>
+            <td>16:45 - 17:45</td>
+            <td>復古美學在現代介面中的應用</td>
+            <td>Vapor Lin</td>
+          </tr>
+          <tr>
+            <td>18:00 - 19:00</td>
+            <td>互動設計的感性與理性</td>
+            <td>Magne Huang</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="tickets">
+    <div class="section-header">
+      <p class="kicker">Admission</p>
+      <h2>票務</h2>
+    </div>
+    <div class="tickets-grid">
+      <div class="ticket-card state-layer ripple-container">
+        <span class="badge">基本</span>
+        <h3 class="tier">SINGLE PASS</h3>
+        <p class="price">NT$ 480</p>
+        <p class="price-unit">單日入場</p>
+        <ul>
+          <li>展覽全區參觀</li>
+          <li>數位導覽手冊</li>
+          <li>限定紀念品加購權</li>
+        </ul>
+        <button class="cta-button filled state-layer" disabled aria-label="Demo only — not for sale">PURCHASE</button>
+      </div>
+      <div class="ticket-card featured state-layer ripple-container">
+        <span class="badge">推薦</span>
+        <h3 class="tier">FULL ACCESS</h3>
+        <p class="price">NT$ 1,280</p>
+        <p class="price-unit">全展期通票</p>
+        <ul>
+          <li>展覽全區無限次參觀</li>
+          <li>優先預約講座席次</li>
+          <li>限定紀念品加購權</li>
+          <li>專屬 Material You 壁紙</li>
+        </ul>
+        <button class="cta-button filled state-layer" disabled aria-label="Demo only — not for sale">PURCHASE</button>
+      </div>
+      <div class="ticket-card state-layer ripple-container">
+        <span class="badge">尊榮</span>
+        <h3 class="tier">CURATOR PASS</h3>
+        <p class="price">NT$ 2,880</p>
+        <p class="price-unit">含 workshop</p>
+        <ul>
+          <li>展覽全區無限次參觀</li>
+          <li>優先預約講座席次</li>
+          <li>限定紀念品加購權</li>
+          <li>專屬 Material You 壁紙</li>
+          <li>策展人專屬導覽</li>
+          <li>設計工作坊參與資格</li>
+        </ul>
+        <button class="cta-button filled state-layer" disabled aria-label="Demo only — not for sale">PURCHASE</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <svg class="aqualux-logo" viewBox="0 0 600 280" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="aqualux">
+    <text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text>
+    <line x1="80" y1="165" x2="520" y2="165" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+    <g transform="translate(0,330) scale(1,-1)" opacity="0.28"><text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text></g>
+  </svg>
+  <p class="signature">MMXXVI · AQUALUX.DEV</p>
+  <p class="credit">此頁面為 aqualux 2026 設計光譜展的 Material You / Material 3 演示範例。<br>
+    由 <a href="https://aqualux.dev" target="_blank" rel="noopener noreferrer">aqualux.dev</a> 製作，遵循 MIT-style 授權。</p>
+  <div class="social-chips">
+    <a href="#" class="social-chip state-layer ripple-container">
+      <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2zm-.2 2.2C5.5 4.2 4.2 5.5 4.2 7.6v8.8c0 2.1 1.3 3.4 3.4 3.4h8.8c2.1 0 3.4-1.3 3.4-3.4V7.6c0-2.1-1.3-3.4-3.4-3.4H7.6zM12 7a5 5 0 100 10 5 5 0 000-10zm0 8a3 3 0 110-6 3 3 0 010 6z"/></svg> Instagram
+    </a>
+    <a href="#" class="social-chip state-layer ripple-container">
+      <svg viewBox="0 0 24 24"><path d="M22.46 6c-.8.35-1.64.58-2.5.66.9-.54 1.5-1.4 1.8-2.4-.83.5-1.76.85-2.76 1.05C18.3 4.2 17.22 3.5 16 3.5c-2.4 0-4.35 1.95-4.35 4.35 0 .34.04.68.12 1-.36-.02-.7-.08-1.05-.12-3.6-.2-6.8-1.9-8.9-4.7-.37.6-.58 1.3-.58 2.1 0 1.5.76 2.8 1.9 3.6-.7-.02-1.3-.2-1.9-.5v.05c0 2.1 1.5 3.9 3.5 4.3-.36.1-.7.15-1.08.15-.26 0-.5-.02-.73-.07.55 1.7 2.15 3 4 3.04-1.5 1.2-3.4 1.9-5.5 1.9-.36 0-.7-.02-1.05-.07 2 1.3 4.4 2 6.9 2 8.3 0 12.8-6.9 12.8-12.8V6h-.02z"/></svg> Twitter
+    </a>
+  </div>
+</footer>
+
+<button class="fab ripple-container" id="fabTickets" aria-label="購票">
+  <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2h1.93l-.93 1.93zM17.93 11c-.11.3-.22.59-.34.86L15 13v-1c0-1.1-.9-2-2-2h-1.93l.93-1.93C15.51 6.36 18 8.61 18 12c0 .62-.08 1.21-.21 1.79L15 9v-1c0-1.1.9-2 2-2h1.93l-.93 1.93z"/></svg>
+  <span class="label">購票</span>
+</button>
+
+<script>
+  // Ripple effect
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.ripple-container').forEach(container => {
+      container.addEventListener('click', function(e) {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          return;
+        }
+
+        const ripple = document.createElement('span');
+        ripple.classList.add('ripple');
+        this.appendChild(ripple);
+
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - (size / 2);
+        const y = e.clientY - rect.top - (size / 2);
+
+        ripple.style.width = ripple.style.height = `${size}px`;
+        ripple.style.left = `${x}px`;
+        ripple.style.top = `${y}px`;
+
+        ripple.addEventListener('animationend', () => {
+          ripple.remove();
+        });
+      });
+    });
+
+    // FAB scroll behavior
+    const fab = document.getElementById('fabTickets');
+    const heroSection = document.querySelector('.hero');
+    const topAppBar = document.getElementById('topAppBar');
+    let heroHeight = heroSection.offsetHeight;
+
+    function handleScroll() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        fab.classList.add('extended'); // Always extended if motion is reduced
+        topAppBar.classList.remove('elevated'); // No elevation if motion is reduced
+        return;
+      }
+
+      const scrollY = window.scrollY;
+
+      // FAB extension
+      if (scrollY > heroHeight / 2) { // Extend FAB when past half of hero
+        fab.classList.add('extended');
+      } else {
+        fab.classList.remove('extended');
+      }
+
+      // Top App Bar elevation
+      if (scrollY > 0) {
+        topAppBar.classList.add('elevated');
+      } else {
+        topAppBar.classList.remove('elevated');
+      }
+    }
+
+    // Recalculate hero height on resize
+    window.addEventListener('resize', () => {
+      heroHeight = heroSection.offsetHeight;
+      handleScroll(); // Adjust FAB state immediately
+    });
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial check on load
+
+    // Smooth scroll for FAB
+    fab.addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('tickets').scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+</body>
+</html>

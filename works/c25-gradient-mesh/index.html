@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AQUALUX 2026 // DESIGN SPECTRUM EXHIBITION · 漸層 Mesh Gradient Mesh Demo</title>
+<meta name="description" content="aqualux 2026 設計光譜展 · 漸層 Mesh 風格 demo · single-file HTML showcase">
+<link rel="canonical" href="https://design.aqualux.dev/works/c25-gradient-mesh/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://design.aqualux.dev/works/c25-gradient-mesh/">
+<meta property="og:title" content="C25 漸層 Mesh · aqualux 設計光譜展">
+<meta property="og:description" content="漸層 Mesh 風格 single-file HTML demo · aqualux 2026 設計光譜展">
+<meta property="og:image" content="https://design.aqualux.dev/works/c25-gradient-mesh/images/hero.webp">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="C25 漸層 Mesh · aqualux 設計光譜展">
+<meta name="twitter:image" content="https://design.aqualux.dev/works/c25-gradient-mesh/images/hero.webp">
+<link rel="icon" type="image/svg+xml" href="../../assets/aqualux-logo-mark.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Fira+Code:wght@300;500&family=Noto+Sans+JP:wght@300;500;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #0d0c1c;
+    --bg-card: #1a1936;
+    --mesh-pink: #ff6bcc;
+    --mesh-cyan: #66e0ff;
+    --mesh-violet: #a066ff;
+    --mesh-orange: #ff9966;
+    --ink: #e0eaff;
+    --ink-2: #c0c6e0;
+    --ink-3: #8a90b3;
+    --display: 'Montserrat', sans-serif;
+    --mono: 'Fira Code', monospace;
+    --jp: 'Noto Sans JP', sans-serif;
+    --tc: 'Noto Sans TC', 'PingFang TC', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--tc);
+    line-height: 1.7;
+    font-size: 15px;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+  }
+
+  /* Liquid Background */
+  body::before {
+    content: '';
+    position: fixed; inset: -20%;
+    background:
+      radial-gradient(ellipse at 10% 15%, var(--mesh-pink) 0%, transparent 60%),
+      radial-gradient(ellipse at 90% 80%, var(--mesh-cyan) 0%, transparent 60%),
+      radial-gradient(ellipse at 40% 60%, var(--mesh-violet) 0%, transparent 60%);
+    background-blend-mode: overlay;
+    opacity: 0.4;
+    animation: liquid-bg 28s linear infinite alternate;
+    pointer-events: none; z-index: -2;
+  }
+  @keyframes liquid-bg {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(5%, -5%); }
+    50% { transform: translate(0, 5%); }
+    75% { transform: translate(-5%, -5%); }
+    100% { transform: translate(0, 0); }
+  }
+
+  /* Pulsating Spheres */
+  .sphere-1, .sphere-2, .sphere-3 {
+    content: '';
+    position: fixed;
+    border-radius: 50%;
+    opacity: 0.15;
+    pointer-events: none; z-index: -1;
+    animation: pulse 5s ease-in-out infinite alternate;
+  }
+  .sphere-1 {
+    width: 300px; height: 300px; top: 10%; left: 5%;
+    background: radial-gradient(circle at center, var(--mesh-pink) 0%, transparent 70%);
+    animation-delay: 0s;
+  }
+  .sphere-2 {
+    width: 400px; height: 400px; bottom: 15%; right: 10%;
+    background: radial-gradient(circle at center, var(--mesh-cyan) 0%, transparent 70%);
+    animation-delay: 1.5s;
+  }
+  .sphere-3 {
+    width: 250px; height: 250px; top: 30%; right: 25%;
+    background: radial-gradient(circle at center, var(--mesh-violet) 0%, transparent 70%);
+    animation-delay: 3s;
+  }
+  @keyframes pulse {
+    0% { transform: scale(1); opacity: 0.15; }
+    50% { transform: scale(1.05); opacity: 0.25; }
+    100% { transform: scale(1); opacity: 0.15; }
+  }
+
+  /* Subtle Mesh Lines */
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 30px 30px;
+    pointer-events: none; z-index: -1;
+    opacity: 0.1;
+  }
+
+  /* Accessibility: prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    body::before, .sphere-1, .sphere-2, .sphere-3 {
+      animation: none !important;
+      transform: none !important;
+      opacity: 0.2 !important; /* Keep a static background */
+    }
+    .hero h1 .gradient-text { animation: none !important; }
+    .topbar .blink { animation: none !important; opacity: 1 !important; }
+    footer .terminal .cursor { animation: none !important; opacity: 1 !important; }
+  }
+
+  a { color: var(--mesh-cyan); text-decoration: none; transition: color 0.3s ease; }
+  a:hover { color: var(--mesh-pink); }
+
+  /* Top bar */
+  .topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(13, 12, 28, 0.7);
+    backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 14px 32px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--mono); font-size: 12px;
+    letter-spacing: 0.1em;
+  }
+  .topbar .left { color: var(--ink-2); display: flex; align-items: center; gap: 12px; }
+  .topbar .left a { color: var(--ink-2); }
+  .topbar .left a:hover { color: var(--mesh-cyan); }
+  .topbar .logo-mark { height: 24px; width: auto; color: var(--ink); }
+  .topbar .right { color: var(--ink-3); }
+  .topbar .right .blink { color: var(--mesh-pink); animation: blink 1.2s steps(2) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* Hero */
+  .hero {
+    padding: 80px 32px 60px;
+    max-width: 1280px; margin: 0 auto;
+    position: relative;
+  }
+  .kicker {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--mesh-cyan); letter-spacing: 0.3em;
+    margin-bottom: 26px;
+    display: flex; align-items: center; gap: 14px;
+    opacity: 0.8;
+  }
+  .kicker::before {
+    content: ''; display: inline-block;
+    width: 32px; height: 1px; background: var(--mesh-cyan);
+    opacity: 0.6;
+  }
+  .hero-jp {
+    font-family: var(--jp); font-weight: 300;
+    font-size: clamp(18px, 2.2vw, 26px);
+    color: var(--mesh-pink); letter-spacing: 0.4em;
+    margin-bottom: 12px;
+    text-shadow: 0 0 18px rgba(255, 107, 204, 0.6);
+  }
+  .hero h1 {
+    font-family: var(--display); font-weight: 700;
+    font-size: clamp(48px, 9vw, 128px);
+    line-height: 0.95; letter-spacing: -0.01em;
+    color: var(--ink);
+    text-shadow: 0 0 30px rgba(102, 224, 255, 0.4);
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .hero h1 .gradient-text {
+    background: linear-gradient(90deg, var(--mesh-pink), var(--mesh-cyan), var(--mesh-violet));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: hero-glow 3s ease-in-out infinite alternate;
+  }
+  @keyframes hero-glow {
+    0% { filter: hue-rotate(0deg) brightness(1); text-shadow: 0 0 20px var(--mesh-pink); }
+    50% { filter: hue-rotate(30deg) brightness(1.2); text-shadow: 0 0 30px var(--mesh-cyan); }
+    100% { filter: hue-rotate(0deg) brightness(1); text-shadow: 0 0 20px var(--mesh-violet); }
+  }
+  .hero-sub {
+    font-family: var(--mono); font-weight: 300;
+    font-size: clamp(13px, 1.4vw, 17px);
+    color: var(--ink-2); letter-spacing: 0.15em;
+    margin: 28px 0 36px; max-width: 720px;
+    opacity: 0.8;
+  }
+  .hero-sub .accent { color: var(--mesh-orange); }
+  .meta-strip {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 20px 0;
+    margin-top: 36px;
+  }
+  .meta-cell {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--ink-2);
+  }
+  .meta-cell .label {
+    color: var(--mesh-cyan); letter-spacing: 0.15em;
+    font-size: 10.5px; margin-bottom: 6px; display: block;
+    opacity: 0.7;
+  }
+  .meta-cell .val { color: var(--ink); font-size: 13.5px; font-weight: 500; }
+
+  /* Section base */
+  section.block { padding: 80px 32px; max-width: 1280px; margin: 0 auto; }
+  .sec-head {
+    display: flex; align-items: baseline; gap: 22px;
+    margin-bottom: 36px;
+    padding-bottom: 14px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .sec-num {
+    font-family: var(--mono); font-size: 13px;
+    color: var(--mesh-pink); letter-spacing: 0.2em;
+    font-weight: 500; opacity: 0.8;
+  }
+  .sec-title-jp {
+    font-family: var(--jp); font-size: 13px;
+    color: var(--ink-3); letter-spacing: 0.3em;
+    opacity: 0.7;
+  }
+  .sec-title {
+    font-family: var(--display); font-size: clamp(26px, 4vw, 42px);
+    font-weight: 700; letter-spacing: 0.06em;
+    color: var(--ink);
+    margin-right: auto;
+  }
+  .sec-title .ph {
+    background: linear-gradient(90deg, var(--mesh-pink), var(--mesh-violet));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Curatorial statement */
+  .statement {
+    max-width: 880px;
+    font-family: var(--tc); font-size: 16px; line-height: 1.95;
+    color: var(--ink-2);
+  }
+  .statement p { margin-bottom: 18px; }
+  .statement .em { color: var(--mesh-cyan); font-weight: 500; }
+  .statement .strong { color: var(--mesh-pink); font-weight: 700; letter-spacing: 0.04em; }
+  .statement blockquote {
+    border-left: 3px solid var(--mesh-pink);
+    padding: 14px 22px;
+    margin: 22px 0;
+    background: rgba(255, 107, 204, 0.05);
+    font-family: var(--mono); color: var(--ink);
+    font-size: 14px; letter-spacing: 0.03em;
+    box-shadow: 0 0 15px rgba(255, 107, 204, 0.1);
+  }
+
+  /* Designer grid */
+  .designers {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .designer-card {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--bg-card);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  }
+  .designer-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, transparent 50%, rgba(255,255,255,0.03) 50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .designer-card:hover {
+    border-color: var(--mesh-pink);
+    box-shadow: 0 0 24px var(--mesh-pink);
+    transform: translateY(-3px);
+  }
+  .designer-card:hover::before { opacity: 1; }
+  .designer-card .idx {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--mesh-pink); letter-spacing: 0.18em;
+    margin-bottom: 10px;
+    padding: 18px 20px 0;
+    opacity: 0.8;
+  }
+  .designer-card .name-jp {
+    font-family: var(--jp); font-size: 11.5px;
+    color: var(--ink-3); letter-spacing: 0.18em;
+    margin-bottom: 4px;
+    padding: 0 20px;
+    opacity: 0.7;
+  }
+  .designer-card .name {
+    font-family: var(--display); font-size: 17px; font-weight: 700;
+    color: var(--ink); letter-spacing: 0.04em;
+    margin-bottom: 8px;
+    padding: 0 20px;
+  }
+  .designer-card .tag {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--mesh-cyan); letter-spacing: 0.1em;
+    padding: 0 20px 18px;
+    opacity: 0.9;
+  }
+  .designer-card .tag::before { content: '▸ '; color: var(--ink-3); }
+  .designer-thumb {
+    margin: 0;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    position: relative;
+    background: linear-gradient(135deg, var(--mesh-violet), var(--mesh-pink));
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 8px 8px 0 0;
+  }
+  .designer-thumb img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: saturate(1.05);
+    transition: transform 0.3s ease;
+  }
+  .designer-card:hover .designer-thumb img { transform: scale(1.05); }
+
+  /* Zone map */
+  .zones {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+  }
+  .zone {
+    background: linear-gradient(135deg, var(--bg-card) 0%, rgba(26, 25, 54, 0.7) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 24px 26px;
+    position: relative; overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+  }
+  .zone:hover {
+    border-color: var(--mesh-cyan);
+    box-shadow: 0 0 24px var(--mesh-cyan);
+    transform: translateY(-3px);
+  }
+  .zone-img {
+    margin: -24px -26px 18px;
+    aspect-ratio: 5 / 3;
+    overflow: hidden;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    position: relative;
+    border-radius: 10px 10px 0 0;
+  }
+  .zone-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: saturate(1.1) contrast(1.04);
+    transition: transform 0.4s ease;
+  }
+  .zone:hover .zone-img img { transform: scale(1.04); }
+  .zone-img::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 55%, rgba(13,12,28,0.85) 100%);
+    pointer-events: none;
+  }
+  .zone .zone-id {
+    font-family: var(--display); font-size: 44px; font-weight: 700;
+    color: var(--mesh-cyan); line-height: 1;
+    margin-bottom: 8px;
+    text-shadow: 0 0 18px rgba(102, 224, 255, 0.4);
+  }
+  .zone .zone-cn {
+    font-family: var(--tc); font-size: 19px; font-weight: 500;
+    color: var(--ink); margin-bottom: 4px;
+    letter-spacing: 0.04em;
+  }
+  .zone .zone-en {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--mesh-pink); letter-spacing: 0.2em;
+    margin-bottom: 14px;
+    opacity: 0.8;
+  }
+  .zone .zone-desc {
+    font-family: var(--tc); font-size: 13.5px; line-height: 1.85;
+    color: var(--ink-2);
+  }
+  .zone .zone-coord {
+    margin-top: 14px; padding-top: 12px;
+    border-top: 1px dashed rgba(255, 255, 255, 0.08);
+    font-family: var(--mono); font-size: 11px;
+    color: var(--ink-3); letter-spacing: 0.15em;
+    opacity: 0.7;
+  }
+
+  /* Schedule */
+  .schedule-table {
+    width: 100%; border-collapse: collapse;
+    font-family: var(--mono); font-size: 13px;
+    border-radius: 8px; overflow: hidden;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+  }
+  .schedule-table th, .schedule-table td {
+    padding: 13px 16px; text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  .schedule-table th {
+    color: var(--mesh-cyan); letter-spacing: 0.18em;
+    font-size: 11px; font-weight: 500;
+    text-transform: uppercase;
+    background: rgba(102, 224, 255, 0.08);
+    border-bottom: 1px solid var(--mesh-cyan);
+    opacity: 0.9;
+  }
+  .schedule-table td { color: var(--ink-2); background: var(--bg-card); }
+  .schedule-table td:first-child {
+    color: var(--mesh-pink); font-weight: 500;
+    width: 130px;
+  }
+  .schedule-table tr:hover td {
+    color: var(--ink);
+    background: linear-gradient(90deg, rgba(255, 107, 204, 0.05), var(--bg-card));
+  }
+  .schedule-table tr:last-child td { border-bottom: none; }
+
+  /* Tickets */
+  .tickets {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 18px;
+  }
+  .ticket {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 28px 26px;
+    position: relative;
+    background: var(--bg-card);
+    text-align: center;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+  }
+  .ticket.featured {
+    border-color: var(--mesh-pink);
+    background: linear-gradient(180deg, rgba(255, 107, 204, 0.1) 0%, var(--bg-card) 100%);
+    box-shadow: 0 0 32px rgba(255, 107, 204, 0.3);
+    transform: translateY(-5px);
+  }
+  .ticket:not(.featured):hover {
+    border-color: var(--mesh-cyan);
+    box-shadow: 0 0 20px rgba(102, 224, 255, 0.2);
+    transform: translateY(-3px);
+  }
+  .ticket .badge {
+    display: inline-block;
+    font-family: var(--mono); font-size: 10.5px;
+    color: var(--bg); background: var(--mesh-cyan);
+    padding: 3px 10px; letter-spacing: 0.2em;
+    margin-bottom: 14px;
+    border-radius: 4px;
+    opacity: 0.9;
+  }
+  .ticket.featured .badge { background: var(--mesh-pink); }
+  .ticket .tier {
+    font-family: var(--display); font-size: 22px; font-weight: 700;
+    color: var(--ink); letter-spacing: 0.08em;
+    margin-bottom: 6px;
+  }
+  .ticket .tier-jp {
+    font-family: var(--jp); font-size: 11px;
+    color: var(--ink-3); letter-spacing: 0.3em;
+    margin-bottom: 18px;
+    opacity: 0.7;
+  }
+  .ticket .price {
+    font-family: var(--display); font-size: 38px; font-weight: 700;
+    color: var(--mesh-cyan); line-height: 1;
+    margin-bottom: 4px;
+    text-shadow: 0 0 14px rgba(102, 224, 255, 0.4);
+  }
+  .ticket.featured .price { color: var(--mesh-pink); text-shadow: 0 0 14px rgba(255, 107, 204, 0.4); }
+  .ticket .price-unit {
+    font-family: var(--mono); font-size: 12px;
+    color: var(--ink-3); letter-spacing: 0.18em;
+    margin-bottom: 18px;
+    opacity: 0.8;
+  }
+  .ticket ul {
+    list-style: none; text-align: left;
+    font-family: var(--mono); font-size: 12px;
+    color: var(--ink-2); line-height: 2;
+    margin-bottom: 22px;
+  }
+  .ticket li::before {
+    content: '▸ '; color: var(--mesh-cyan); margin-right: 4px;
+  }
+  .ticket.featured li::before { color: var(--mesh-pink); }
+
+  /* CTA */
+  .cta-btn {
+    display: inline-block;
+    font-family: var(--display); font-weight: 700;
+    font-size: 13px; letter-spacing: 0.25em;
+    padding: 14px 32px;
+    background: transparent;
+    color: var(--mesh-pink);
+    border: 1px solid var(--mesh-pink);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    position: relative;
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(255, 107, 204, 0.2);
+  }
+  .cta-btn:hover {
+    background: var(--mesh-pink); color: var(--bg);
+    box-shadow: 0 0 28px rgba(255, 107, 204, 0.6);
+    transform: translateY(-2px);
+  }
+  .cta-btn[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+    filter: grayscale(0.5);
+  }
+  .cta-btn.cyan { color: var(--mesh-cyan); border-color: var(--mesh-cyan); box-shadow: 0 0 10px rgba(102, 224, 255, 0.2); }
+  .cta-btn.cyan:hover { background: var(--mesh-cyan); box-shadow: 0 0 28px rgba(102, 224, 255, 0.5); }
+
+  /* Footer */
+  footer {
+    margin-top: 80px;
+    padding: 60px 32px 32px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    background: linear-gradient(180deg, rgba(26, 25, 54, 0.7) 0%, var(--bg-card) 100%);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  footer::before {
+    content: ''; position: absolute; inset: -10%;
+    background: radial-gradient(ellipse at 50% 10%, rgba(160, 102, 255, 0.1) 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+  }
+  footer .ascii-line {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--mesh-cyan); letter-spacing: 0.15em;
+    margin-bottom: 18px;
+    white-space: nowrap; overflow: hidden;
+    opacity: 0.8;
+  }
+  footer .signature {
+    font-family: var(--display); font-size: 14px;
+    color: var(--ink); letter-spacing: 0.18em;
+    margin-bottom: 14px;
+    position: relative; z-index: 1;
+  }
+  footer .signature .ph {
+    background: linear-gradient(90deg, var(--mesh-pink), var(--mesh-violet));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  footer .credit {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--ink-3); letter-spacing: 0.1em; line-height: 2;
+    opacity: 0.7;
+    position: relative; z-index: 1;
+  }
+  footer .credit a { color: var(--ink-2); }
+  footer .terminal {
+    font-family: var(--mono); font-size: 10.5px;
+    color: var(--ink-3); letter-spacing: 0.08em;
+    margin-top: 22px;
+    position: relative; z-index: 1;
+  }
+  footer .terminal .cursor {
+    color: var(--mesh-pink);
+    animation: blink 0.9s steps(2) infinite;
+  }
+  footer .aqualux-logo-container {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    display: inline-block;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    position: relative; z-index: 1;
+  }
+  footer .aqualux-logo-container svg {
+    width: 180px; height: auto;
+    color: var(--ink);
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.1));
+  }
+
+  /* Ticket showcase */
+  .ticket-showcase {
+    margin: 0 0 48px;
+    display: flex; align-items: center; gap: 32px;
+    padding: 28px;
+    border: 1px dashed rgba(255, 255, 255, 0.08);
+    background: linear-gradient(135deg, var(--bg-card) 0%, rgba(26, 25, 54, 0.7) 100%);
+    position: relative; overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  }
+  .ticket-showcase::before {
+    content: ''; position: absolute;
+    top: -2px; right: -2px; width: 80px; height: 80px;
+    background: linear-gradient(135deg, transparent 50%, var(--mesh-pink) 50%);
+    opacity: 0.15;
+    border-radius: 0 12px 0 0;
+  }
+  .ticket-showcase img {
+    width: 240px; height: auto; border: 1px solid var(--mesh-pink);
+    box-shadow: 0 0 32px rgba(255, 107, 204, 0.35);
+    flex-shrink: 0;
+    border-radius: 8px;
+  }
+  .ticket-showcase .ts-info { flex: 1; }
+  .ticket-showcase .ts-label {
+    font-family: var(--mono); font-size: 11px;
+    color: var(--mesh-cyan); letter-spacing: 0.22em;
+    margin-bottom: 10px;
+    opacity: 0.8;
+  }
+  .ticket-showcase .ts-title {
+    font-family: var(--display); font-weight: 700;
+    font-size: 22px; color: var(--ink); letter-spacing: 0.04em;
+    margin-bottom: 12px;
+  }
+  .ticket-showcase .ts-desc {
+    font-family: var(--tc); font-size: 13.5px;
+    color: var(--ink-2); line-height: 1.85;
+  }
+  @media (max-width: 720px) {
+    .ticket-showcase { flex-direction: column; gap: 18px; padding: 20px; }
+    .ticket-showcase img { width: 100%; max-width: 280px; }
+  }
+
+  /* Hero banner image */
+  .hero-banner {
+    margin: 0; padding: 0;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--mesh-pink);
+    box-shadow: 0 0 40px rgba(255, 107, 204, 0.3);
+  }
+  .hero-banner img {
+    width: 100%; height: auto;
+    filter: saturate(1.1) contrast(1.05);
+  }
+</style>
+</head>
+<body>
+  <div class="sphere-1"></div>
+  <div class="sphere-2"></div>
+  <div class="sphere-3"></div>
+
+  <div class="topbar">
+    <div class="left">
+      <a href="../../index.html" aria-label="Back to Gallery">
+        <svg class="logo-mark" viewBox="0 0 600 280" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="aqualux">
+          <text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text>
+          <line x1="80" y1="165" x2="520" y2="165" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+          <g transform="translate(0,330) scale(1,-1)" opacity="0.28"><text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text></g>
+        </svg>
+      </a>
+      <a href="../../index.html">← GALLERY</a>
+    </div>
+    <div class="right">STATUS: <span class="blink">LIVE</span> // C25 GRADIENT MESH</div>
+  </div>
+
+  <main>
+    <div class="hero-banner">
+      <img src="images/hero.webp" alt="Abstract, flowing gradient mesh background in soft pinks, blues, and purples, representing aqualux design spectrum." loading="lazy" decoding="async">
+    </div>
+
+    <section class="hero">
+      <p class="kicker">DESIGN SPECTRUM // CODEX C25</p>
+      <p class="hero-jp">流動する美学</p>
+      <h1>
+        <span class="gradient-text">AQUALUX 2026</span><br>
+        <span class="gradient-text">DESIGN SPECTRUM</span>
+      </h1>
+      <p class="hero-sub">
+        探索 <span class="accent">無形之美</span>，沉浸於 <span class="accent">流動的哲學</span>。
+        aqualux 2026 設計光譜展，C25 漸層 Mesh 風格，
+        以柔和光暈與液態漸變，重新定義數位藝術的邊界。
+      </p>
+      <div class="meta-strip">
+        <div class="meta-cell">
+          <span class="label">DATE</span>
+          <span class="val">2026.12.06 — 12.21</span>
+        </div>
+        <div class="meta-cell">
+          <span class="label">VENUE</span>
+          <span class="val">松山文創園區 5 號倉庫</span>
+        </div>
+        <div class="meta-cell">
+          <span class="label">CURATOR</span>
+          <span class="val">Jerry @ aqualux.dev</span>
+        </div>
+        <div class="meta-cell">
+          <span class="label">SCALE</span>
+          <span class="val">12 DESIGNERS / 40 WORKS</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="sec-head">
+        <span class="sec-num">01</span>
+        <span class="sec-title-jp">策展理念</span>
+        <h2 class="sec-title">CURATORIAL <span class="ph">STATEMENT</span></h2>
+      </div>
+      <div class="statement">
+        <p>
+          在數位時代的浪潮中，設計的邊界不斷被重新定義。
+          <span class="em">aqualux 2026 設計光譜展</span> 透過 C25 漸層 Mesh 的視角，
+          邀請觀者進入一個 <span class="strong">流動、無形、充滿詩意的視覺宇宙</span>。
+          我們相信，美不應被僵硬的線條或固定的形狀所束縛，而應在色彩的交融與光影的變幻中自由呼吸。
+        </p>
+        <blockquote>
+          「硬邊幾何與流動漸層不只呈現不同視覺，更反映兩種對現實的感知。
+          前者追求結構與邏輯，後者擁抱變幻與直覺。」
+          <br>— aqualux.dev
+        </blockquote>
+        <p>
+          此展區旨在探索 <span class="em">漸層 Mesh 技術</span> 如何將平面設計提升至三維的感官體驗，
+          模糊現實與虛擬的界線。每一件作品都是一場關於 <span class="strong">色彩、光線與動態</span> 的實驗，
+          它們如同液態極光般緩慢流淌，又似柔和光球般脈動呼吸。
+          我們將見證設計如何超越功能，觸及靈魂深處的共鳴。
+        </p>
+        <p>
+          <span class="em">JOIN US IN THIS JOURNEY OF ETHEREAL BEAUTY.</span>
+        </p>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="sec-head">
+        <span class="sec-num">02</span>
+        <span class="sec-title-jp">參與設計師</span>
+        <h2 class="sec-title">FEATURED <span class="ph">DESIGNERS</span></h2>
+      </div>
+      <div class="designers">
+        <div class="designer-card">
+          <div class="designer-thumb"><img src="images/avatar-d01.webp" alt="Abstract flowing iridescent A with liquid mesh texture, soft pink-blue glow" loading="lazy" decoding="async"></div>
+          <p class="idx">D_001</p>
+          <p class="name-jp">オーロラ リン</p>
+          <p class="name">Aurora Lin</p>
+          <p class="tag">UI / Liquid</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb"><img src="images/avatar-d02.webp" alt="Abstract spherical translucent layers with pulsating glow, cyan-violet blend" loading="lazy" decoding="async"></div>
+          <p class="idx">D_002</p>
+          <p class="name-jp">スフィア ウー</p>
+          <p class="name">Sphere Wu</p>
+          <p class="tag">Motion / Fluid</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb"><img src="images/avatar-d03.webp" alt="Abstract shimmering form resembling a cloud or mist, soft multi-color gradient" loading="lazy" decoding="async"></div>
+          <p class="idx">D_003</p>
+          <p class="name-jp">エーテル チェン</p>
+          <p class="name">Ethereal Chen</p>
+          <p class="tag">Experimental</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb"><img src="images/avatar-d04.webp" alt="Abstract blending color swatches with smooth transitions, gradient mesh style" loading="lazy" decoding="async"></div>
+          <p class="idx">D_004</p>
+          <p class="name-jp">グラデーション チャオ</p>
+          <p class="name">Gradient Chao</p>
+          <p class="tag">Color / Blend</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb"><img src="images/avatar-d05.webp" alt="Abstract organic wave pattern with flowing lines and soft color shifts" loading="lazy" decoding="async"></div>
+          <p class="idx">D_005</p>
+          <p class="name-jp">ウェーブ ホアン</p>
+          <p class="name">Wave Huang</p>
+          <p class="tag">Organic / Flow</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb"><img src="images/avatar-d06.webp" alt="Abstract diffused light source with subtle glow effects, soft color diffusion" loading="lazy" decoding="async"></div>
+          <p class="idx">D_006</p>
+          <p class="name-jp">グロー ヤン</p>
+          <p class="name">Glow Yang</p>
+          <p class="tag">Light / Diffusion</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb"><img src="images/avatar-d07.webp" alt="Abstract soft mesh texture with subtle interwoven lines and gradient fill" loading="lazy" decoding="async"></div>
+          <p class="idx">D_007</p>
+          <p class="name-jp">メッシュ リー</p>
+          <p class="name">Mesh Lee</p>
+          <p class="tag">Texture / Soft</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb"><img src="images/avatar-d08.webp" alt="Abstract surreal dreamlike landscape with blurred, flowing gradient forms" loading="lazy" decoding="async"></div>
+          <p class="idx">D_008</p>
+          <p class="name-jp">ドリーム スー</p>
+          <p class="name">Dream Su</p>
+          <p class="tag">Abstract / Surreal</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb"><img src="images/avatar-d09.webp" alt="Abstract seamless transition of colors and shapes, fluid motion" loading="lazy" decoding="async"></div>
+          <p class="idx">D_009</p>
+          <p class="name-jp">フロー トゥ</p>
+          <p class="name">Flow Tu</p>
+          <p class="tag">Seamless / Transition</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb"><img src="images/avatar-d10.webp" alt="Abstract ambient lightscape with soft, atmospheric glows and blended colors" loading="lazy" decoding="async"></div>
+          <p class="idx">D_010</p>
+          <p class="name-jp">ルミナ ホー</p>
+          <p class="name">Lumina Ho</p>
+          <p class="tag">Ambient / Lightscape</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb"><img src="images/avatar-d11.webp" alt="Abstract translucent crystal-like forms with shimmering edges and soft refractions" loading="lazy" decoding="async"></div>
+          <p class="idx">D_011</p>
+          <p class="name-jp">クリスタル ファン</p>
+          <p class="name">Crystal Fan</p>
+          <p class="tag">Translucent / Gem</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb"><img src="images/avatar-d12.webp" alt="Abstract soft pastel color blend with serene, gentle gradient transitions" loading="lazy" decoding="async"></div>
+          <p class="idx">D_012</p>
+          <p class="name-jp">パステル ワン</p>
+          <p class="name">Pastel Wang</p>
+          <p class="tag">Soft / Serene</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="sec-head">
+        <span class="sec-num">03</span>
+        <span class="sec-title-jp">展覽場地</span>
+        <h2 class="sec-title">VENUE <span class="ph">ATMOSPHERE</span></h2>
+      </div>
+      <div class="zone" style="padding:0; overflow:hidden;">
+        <div class="zone-img" style="margin:0; border-bottom:none; border-radius:12px;">
+          <img src="images/venue.webp" alt="Futuristic gallery interior with translucent shimmering walls and floor, soft diffused lighting, ethereal blues, pinks, and purples." loading="lazy" decoding="async">
+        </div>
+        <div style="padding: 24px 26px;">
+          <p class="zone-cn">松山文創園區 5 號倉庫</p>
+          <p class="zone-en">SONGSHAN CULTURAL & CREATIVE PARK WAREHOUSE No.5</p>
+          <p class="zone-desc">
+            我們將松山文創園區 5 號倉庫轉化為一個沉浸式的光影空間。
+            透過柔和的漸層光束與半透明的材質，營造出一個充滿流動感的夢幻場域。
+            在這裡，建築的硬朗線條被柔化，成為光譜流動的載體，引導觀者穿梭於不同的視覺維度。
+          </p>
+          <p class="zone-coord">COORD: N 25°02'46.0" E 121°33'40.0"</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="sec-head">
+        <span class="sec-num">04</span>
+        <span class="sec-title-jp">展區導覽</span>
+        <h2 class="sec-title">EXHIBITION <span class="ph">ZONES</span></h2>
+      </div>
+      <div class="zones">
+        <div class="zone">
+          <div class="zone-img"><img src="images/zone-z01.webp" alt="Clean, minimalist gallery with soft white and light blue liquid gradients, representing mainstream frequency." loading="lazy" decoding="async"></div>
+          <p class="zone-id">Z01</p>
+          <p class="zone-cn">主流頻譜</p>
+          <p class="zone-en">MAINSTREAM FREQUENCY</p>
+          <p class="zone-desc">
+            探索當代設計中最受歡迎的漸層應用，從品牌識別到數位介面，
+            展現主流審美中流動與色彩的和諧。
+          </p>
+          <p class="zone-coord">AREA: 5F-A1 // WORKS: 5</p>
+        </div>
+        <div class="zone">
+          <div class="zone-img"><img src="images/zone-z02.webp" alt="Retro-futuristic, dreamlike vaporwave scene with pastel pink and teal mesh, representing retro echo." loading="lazy" decoding="async"></div>
+          <p class="zone-id">Z02</p>
+          <p class="zone-cn">時光殘響</p>
+          <p class="zone-en">RETRO ECHO</p>
+          <p class="zone-desc">
+            回溯漸層技術的歷史淵源，融合復古美學與現代演繹，
+            創造出懷舊而又前衛的視覺體驗。
+          </p>
+          <p class="zone-coord">AREA: 5F-A2 // WORKS: 6</p>
+        </div>
+        <div class="zone">
+          <div class="zone-img"><img src="images/zone-z03.webp" alt="Dark, mysterious lab with glowing purple and cyan abstract forms, blurred effects, representing avant lab." loading="lazy" decoding="async"></div>
+          <p class="zone-id">Z03</p>
+          <p class="zone-cn">前衛實驗室</p>
+          <p class="zone-en">AVANT LAB</p>
+          <p class="zone-desc">
+            展示漸層 Mesh 在實驗性藝術和新媒體領域的突破，
+            挑戰傳統界線，探索未知視覺可能。
+          </p>
+          <p class="zone-coord">AREA: 5F-B1 // WORKS: 6</p>
+        </div>
+        <div class="zone">
+          <div class="zone-img"><img src="images/zone-z04.webp" alt="Fusion of traditional elements with modern gradient mesh, soft gold and jade tones, representing cultural spectrum." loading="lazy" decoding="async"></div>
+          <p class="zone-id">Z04</p>
+          <p class="zone-cn">文化光譜</p>
+          <p class="zone-en">CULTURAL SPECTRUM</p>
+          <p class="zone-desc">
+            將漸層 Mesh 融入在地文化符號與傳統元素，
+            展現跨文化語境下的流動美學。
+          </p>
+          <p class="zone-coord">AREA: 5F-B2 // WORKS: 5</p>
+        </div>
+        <div class="zone">
+          <div class="zone-img"><img src="images/zone-z05.webp" alt="Dynamic, flowing light trails with motion blur and vibrant fluid gradient mesh patterns, representing motion hall." loading="lazy" decoding="async"></div>
+          <p class="zone-id">Z05</p>
+          <p class="zone-cn">動態廳</p>
+          <p class="zone-en">MOTION HALL</p>
+          <p class="zone-desc">
+            沉浸式體驗區，透過大型投影與互動裝置，
+            感受漸層 Mesh 在動態視覺中的無限魅力。
+          </p>
+          <p class="zone-coord">AREA: 5F-C1 // WORKS: 15</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="sec-head">
+        <span class="sec-num">05</span>
+        <span class="sec-title-jp">講座排程</span>
+        <h2 class="sec-title">SPECTRUM <span class="ph">TALKS</span></h2>
+      </div>
+      <table class="schedule-table">
+        <thead>
+          <tr>
+            <th scope="col">TIME</th>
+            <th scope="col">TOPIC</th>
+            <th scope="col">SPEAKER</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>12.07 14:00</td>
+            <td>Liquid UI/UX: The Future of Interface</td>
+            <td>Aurora Lin</td>
+          </tr>
+          <tr>
+            <td>12.08 16:30</td>
+            <td>Fluid Dynamics in Motion Graphics</td>
+            <td>Sphere Wu</td>
+          </tr>
+          <tr>
+            <td>12.10 15:00</td>
+            <td>Ethereal Art: Blending Reality & Digital</td>
+            <td>Ethereal Chen</td>
+          </tr>
+          <tr>
+            <td>12.12 14:00</td>
+            <td>Color Theory in Gradient Mesh</td>
+            <td>Gradient Chao</td>
+          </tr>
+          <tr>
+            <td>12.14 17:00</td>
+            <td>Organic Forms & Flow in Design</td>
+            <td>Wave Huang</td>
+          </tr>
+          <tr>
+            <td>12.16 15:30</td>
+            <td>Light Diffusion & Ambient Visuals</td>
+            <td>Lumina Ho</td>
+          </tr>
+          <tr>
+            <td>12.18 14:00</td>
+            <td>Seamless Transitions: A Design Philosophy</td>
+            <td>Flow Tu</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="block">
+      <div class="sec-head">
+        <span class="sec-num">06</span>
+        <span class="sec-title-jp">票務資訊</span>
+        <h2 class="sec-title">ADMISSION <span class="ph">TICKETS</span></h2>
+      </div>
+      <div class="ticket-showcase">
+        <img src="images/ticket-mockup.webp" alt="A translucent, iridescent admission ticket with soft, flowing gradient mesh patterns and 'AQUALUX SPECTRUM 2026' text." loading="lazy" decoding="async">
+        <div class="ts-info">
+          <p class="ts-label">DIGITAL ACCESS PASS</p>
+          <p class="ts-title">AQUALUX 2026 FULL ACCESS TICKET</p>
+          <p class="ts-desc">
+            這張獨特的數位入場券，本身就是一件藝術品。
+            其半透明的質地與流動的漸層 Mesh 圖案，完美呼應了本次展覽的核心精神。
+            持此票，您將開啟一場超越感官的設計之旅。
+          </p>
+        </div>
+      </div>
+      <div class="tickets">
+        <div class="ticket">
+          <span class="badge">STANDARD</span>
+          <p class="tier">SINGLE PASS</p>
+          <p class="tier-jp">單日入場</p>
+          <p class="price">NT$ 480</p>
+          <p class="price-unit">PER DAY</p>
+          <ul>
+            <li>單日展區入場</li>
+            <li>數位導覽手冊</li>
+            <li>紀念品店 95 折</li>
+          </ul>
+          <button class="cta-btn" disabled aria-label="Demo only — not for sale">PURCHASE</button>
+        </div>
+        <div class="ticket featured">
+          <span class="badge">FEATURED</span>
+          <p class="tier">FULL ACCESS</p>
+          <p class="tier-jp">全展期通票</p>
+          <p class="price">NT$ 1,280</p>
+          <p class="price-unit">ALL EXHIBITION DAYS</p>
+          <ul>
+            <li>全展期無限次入場</li>
+            <li>獨家線上內容</li>
+            <li>紀念品店 9 折</li>
+            <li>優先入場通道</li>
+          </ul>
+          <button class="cta-btn" disabled aria-label="Demo only — not for sale">PURCHASE</button>
+        </div>
+        <div class="ticket">
+          <span class="badge">PREMIUM</span>
+          <p class="tier">CURATOR PASS</p>
+          <p class="tier-jp">策展人專屬</p>
+          <p class="price">NT$ 2,880</p>
+          <p class="price-unit">EXCLUSIVE ACCESS</p>
+          <ul>
+            <li>全展期無限次入場</li>
+            <li>專屬設計工作坊</li>
+            <li>策展人導覽</li>
+            <li>限量紀念品</li>
+          </ul>
+          <button class="cta-btn cyan" disabled aria-label="Demo only — not for sale">PURCHASE</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="aqualux-logo-container">
+      <svg viewBox="0 0 600 280" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="aqualux">
+        <text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text>
+        <line x1="80" y1="165" x2="520" y2="165" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+        <g transform="translate(0,330) scale(1,-1)" opacity="0.28"><text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text></g>
+      </svg>
+    </div>
+    <p class="signature">MMXXVI · <span class="ph">AQUALUX.DEV</span></p>
+    <p class="credit">
+      AQUALUX 2026 DESIGN SPECTRUM EXHIBITION · C25 GRADIENT MESH DEMO<br>
+      ALL RIGHTS RESERVED.<br>
+      DESIGNED & DEVELOPED BY <a href="https://aqualux.dev" target="_blank" rel="noopener noreferrer">AQUALUX.DEV</a>
+    </p>
+    <p class="terminal">
+      <span style="color: var(--mesh-cyan);">aqualux@spectrum</span>:<span style="color: var(--mesh-pink);">~</span>$ echo "Embrace the flow."<span class="cursor">_</span>
+    </p>
+  </footer>
+
+  <script>
+    // No specific JS for this demo beyond CSS animations and prefers-reduced-motion handling.
+    // The pulsating spheres and liquid background are handled purely by CSS animations.
+  </script>
+</body>
+</html>

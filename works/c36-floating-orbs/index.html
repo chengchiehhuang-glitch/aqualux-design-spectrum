@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AQUALUX 2026 // DESIGN SPECTRUM EXHIBITION · M36 Floating Orbs Demo</title>
+<meta name="description" content="aqualux 2026 設計光譜展 · Floating Orbs 風格 demo · single-file HTML showcase">
+<link rel="canonical" href="https://design.aqualux.dev/works/m36-floating-orbs/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://design.aqualux.dev/works/m36-floating-orbs/">
+<meta property="og:title" content="M36 漂浮幾何球 · aqualux 設計光譜展">
+<meta property="og:description" content="Floating Orbs 風格 single-file HTML demo · aqualux 2026 設計光譜展">
+<meta property="og:image" content="https://design.aqualux.dev/works/m36-floating-orbs/images/hero.webp">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="M36 漂浮幾何球 · aqualux 設計光譜展">
+<meta name="twitter:image" content="https://design.aqualux.dev/works/m36-floating-orbs/images/hero.webp">
+<link rel="icon" type="image/svg+xml" href="../../assets/aqualux-logo-mark.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@300;400&family=Fira+Code:wght@300;500&family=Noto+Sans+TC:wght@300;404;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --orb-primary: #8a2be2; /* Violet */
+    --orb-secondary: #00ffff; /* Cyan */
+    --orb-accent: #ff69b4; /* Hot Pink */
+    --glow-light: rgba(138, 43, 226, 0.3);
+    --glow-dark: rgba(0, 255, 255, 0.2);
+    --text-light: #e0e0e0;
+    --text-dark: #9e9e9e;
+    --text-accent: #d3a0f7; /* Lighter violet for emphasis */
+    --border-soft: rgba(138, 43, 226, 0.15);
+    --border-strong: rgba(0, 255, 255, 0.25);
+
+    --display-font: 'Montserrat', sans-serif;
+    --body-font: 'Open Sans', 'Noto Sans TC', sans-serif;
+    --mono-font: 'Fira Code', monospace;
+  }
+
+  /* Base styles */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text-light);
+    font-family: var(--body-font);
+    line-height: 1.7;
+    font-size: 15px;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+  }
+
+  a { color: var(--orb-secondary); text-decoration: none; transition: color 0.3s ease; }
+  a:hover { color: var(--orb-accent); }
+
+  /* Floating Orbs Background */
+  .orb-container {
+    position: fixed; inset: 0; pointer-events: none; z-index: -1;
+    overflow: hidden;
+  }
+
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, var(--color-base) 0%, var(--color-fade) 70%, transparent 100%);
+    box-shadow: 0 0 20px var(--color-base), 0 0 40px var(--color-fade);
+    opacity: 0.4;
+    animation: floatOrb 15s infinite ease-in-out alternate;
+    filter: blur(10px);
+  }
+
+  .orb-small { width: 80px; height: 80px; }
+  .orb-medium { width: 150px; height: 150px; }
+  .orb-large { width: 250px; height: 250px; }
+
+  @keyframes floatOrb {
+    0% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+    25% { transform: translate(20vw, 15vh) scale(0.95); opacity: 0.5; }
+    50% { transform: translate(-10vw, 30vh) scale(1.05); opacity: 0.35; }
+    75% { transform: translate(15vw, -20vh) scale(0.9); opacity: 0.45; }
+    100% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+  }
+
+  /* prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    .orb { animation: none !important; }
+    .orb-glow-pulse { animation: none !important; }
+    .hero h1 .text-glow { animation: none !important; }
+    .cta-btn::before { animation: none !important; }
+  }
+
+  /* Top bar */
+  .topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(10, 10, 15, 0.7);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border-soft);
+    padding: 12px 32px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--mono-font); font-size: 12px;
+    color: var(--text-dark);
+  }
+  .topbar .left { display: flex; align-items: center; gap: 10px; }
+  .topbar .left a { color: var(--orb-primary); letter-spacing: 0.1em; font-weight: 500; }
+  .topbar .left a:hover { color: var(--orb-accent); }
+  .topbar .logo-mark { height: 24px; width: auto; color: var(--orb-secondary); }
+  .topbar .right { letter-spacing: 0.05em; }
+
+  /* Hero Section */
+  .hero {
+    padding: 100px 32px 80px;
+    max-width: 1280px; margin: 0 auto;
+    text-align: center;
+    position: relative;
+    overflow: hidden; /* Ensure orbs don't overflow */
+  }
+
+  .hero-orb {
+    position: absolute; border-radius: 50%; filter: blur(15px);
+    opacity: 0.3;
+    animation: floatOrb 20s infinite ease-in-out alternate;
+    background: radial-gradient(circle at center, var(--color-base) 0%, var(--color-fade) 70%, transparent 100%);
+    box-shadow: 0 0 30px var(--color-base), 0 0 60px var(--color-fade);
+  }
+  .hero-orb-1 { width: 300px; height: 300px; top: 10%; left: 15%; animation-delay: 0s; }
+  .hero-orb-2 { width: 200px; height: 200px; bottom: 5%; right: 20%; animation-delay: 5s; }
+  .hero-orb-3 { width: 250px; height: 250px; top: 30%; right: 5%; animation-delay: 10s; }
+
+
+  .kicker {
+    font-family: var(--mono-font); font-size: 13px;
+    color: var(--orb-primary); letter-spacing: 0.2em;
+    margin-bottom: 20px;
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+  }
+  .kicker::before, .kicker::after {
+    content: ''; display: inline-block;
+    width: 40px; height: 1px; background: var(--orb-primary);
+    opacity: 0.6;
+  }
+
+  .hero-jp {
+    font-family: var(--body-font); font-weight: 300;
+    font-size: clamp(18px, 2.2vw, 26px);
+    color: var(--text-dark); letter-spacing: 0.3em;
+    margin-bottom: 10px;
+  }
+  .hero h1 {
+    font-family: var(--display-font); font-weight: 700;
+    font-size: clamp(48px, 9vw, 120px);
+    line-height: 1.1; letter-spacing: -0.02em;
+    color: var(--text-light);
+    margin-bottom: 20px;
+    position: relative;
+    text-shadow: 0 0 25px var(--orb-primary), 0 0 50px var(--orb-secondary);
+  }
+  .hero h1 .text-glow {
+    position: relative;
+    display: inline-block;
+    animation: pulseGlow 3s infinite alternate;
+  }
+  @keyframes pulseGlow {
+    0% { text-shadow: 0 0 15px var(--orb-primary), 0 0 30px var(--orb-secondary); }
+    100% { text-shadow: 0 0 25px var(--orb-primary), 0 0 50px var(--orb-secondary); }
+  }
+
+  .hero-sub {
+    font-family: var(--body-font); font-weight: 300;
+    font-size: clamp(14px, 1.5vw, 18px);
+    color: var(--text-dark); letter-spacing: 0.05em;
+    margin: 28px auto 40px; max-width: 800px;
+  }
+  .hero-sub .accent { color: var(--orb-accent); font-weight: 400; }
+
+  .meta-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    border-top: 1px solid var(--border-soft);
+    border-bottom: 1px solid var(--border-soft);
+    padding: 24px 0;
+    margin-top: 40px;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .meta-cell {
+    font-family: var(--mono-font); font-size: 13px;
+    color: var(--text-dark);
+    text-align: center;
+  }
+  .meta-cell .label {
+    color: var(--orb-primary); letter-spacing: 0.1em;
+    font-size: 11px; margin-bottom: 8px; display: block;
+  }
+  .meta-cell .val { color: var(--text-light); font-size: 15px; font-weight: 500; }
+
+  /* Section base */
+  section.block { padding: 80px 32px; max-width: 1280px; margin: 0 auto; }
+  .sec-head {
+    display: flex; align-items: baseline; gap: 25px;
+    margin-bottom: 40px;
+    padding-bottom: 16px; border-bottom: 1px solid var(--border-strong);
+  }
+  .sec-num {
+    font-family: var(--mono-font); font-size: 14px;
+    color: var(--orb-primary); letter-spacing: 0.15em;
+    font-weight: 500;
+  }
+  .sec-title-jp {
+    font-family: var(--body-font); font-size: 14px;
+    color: var(--text-dark); letter-spacing: 0.2em;
+  }
+  .sec-title {
+    font-family: var(--display-font); font-size: clamp(28px, 4vw, 48px);
+    font-weight: 700; letter-spacing: 0.03em;
+    color: var(--text-light);
+    margin-right: auto;
+  }
+  .sec-title .ph { color: var(--orb-accent); }
+
+  /* Curatorial statement */
+  .statement {
+    max-width: 960px; margin: 0 auto;
+    font-family: var(--body-font); font-size: 16.5px; line-height: 2;
+    color: var(--text-dark);
+  }
+  .statement p { margin-bottom: 20px; }
+  .statement .em { color: var(--orb-secondary); font-weight: 400; }
+  .statement .strong { color: var(--orb-accent); font-weight: 600; letter-spacing: 0.03em; }
+  .statement blockquote {
+    border-left: 3px solid var(--orb-primary);
+    padding: 16px 24px;
+    margin: 24px 0;
+    background: rgba(138, 43, 226, 0.08);
+    font-family: var(--body-font); color: var(--text-light);
+    font-size: 15px; letter-spacing: 0.02em;
+    position: relative;
+    overflow: hidden;
+  }
+  blockquote::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at top left, var(--orb-primary) 0%, transparent 60%);
+    opacity: 0.05;
+    pointer-events: none;
+  }
+
+  /* Designer grid */
+  .designers {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+  }
+  .designer-card {
+    background: linear-gradient(145deg, rgba(138, 43, 226, 0.05), rgba(0, 255, 255, 0.03));
+    border: 1px solid var(--border-soft);
+    padding-bottom: 18px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  .designer-card:hover {
+    border-color: var(--orb-accent);
+    box-shadow: 0 0 28px rgba(255, 105, 180, 0.25);
+    transform: translateY(-3px);
+  }
+  .designer-card::before {
+    content: ''; position: absolute;
+    width: 60px; height: 60px; border-radius: 50%;
+    background: radial-gradient(circle at center, var(--orb-primary) 0%, transparent 60%);
+    opacity: 0.1; filter: blur(8px);
+    top: -30px; left: -30px;
+    transition: all 0.4s ease;
+  }
+  .designer-card:hover::before {
+    transform: scale(1.2) translate(10px, 10px);
+    opacity: 0.2;
+  }
+
+  .designer-thumb {
+    margin: 0;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border-soft);
+    position: relative;
+  }
+  .designer-thumb img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: saturate(1.1);
+    transition: transform 0.4s ease;
+  }
+  .designer-card:hover .designer-thumb img { transform: scale(1.05); }
+
+  .designer-info { padding: 18px 22px 0; }
+  .designer-card .idx {
+    font-family: var(--mono-font); font-size: 12px;
+    color: var(--orb-primary); letter-spacing: 0.15em;
+    margin-bottom: 8px;
+  }
+  .designer-card .name-jp {
+    font-family: var(--body-font); font-size: 12.5px;
+    color: var(--text-dark); letter-spacing: 0.1em;
+    margin-bottom: 4px;
+  }
+  .designer-card .name {
+    font-family: var(--display-font); font-size: 18px; font-weight: 700;
+    color: var(--text-light); letter-spacing: 0.02em;
+    margin-bottom: 10px;
+  }
+  .designer-card .tag {
+    font-family: var(--mono-font); font-size: 11px;
+    color: var(--orb-secondary); letter-spacing: 0.08em;
+  }
+  .designer-card .tag::before { content: '◎ '; color: var(--text-dark); }
+
+  /* Zone map */
+  .zones {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .zone {
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.03) 0%, rgba(138, 43, 226, 0.05) 100%);
+    border: 1px solid var(--border-soft);
+    padding: 28px;
+    position: relative; overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  .zone:hover {
+    border-color: var(--orb-primary);
+    box-shadow: 0 0 28px rgba(138, 43, 226, 0.25);
+    transform: translateY(-3px);
+  }
+  .zone::before {
+    content: ''; position: absolute;
+    width: 100px; height: 100px; border-radius: 50%;
+    background: radial-gradient(circle at center, var(--orb-secondary) 0%, transparent 60%);
+    opacity: 0.1; filter: blur(10px);
+    bottom: -50px; right: -50px;
+    animation: pulseGlow 4s infinite alternate ease-in-out;
+  }
+
+  .zone-img {
+    margin: -28px -28px 20px;
+    aspect-ratio: 5 / 3;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border-soft);
+    position: relative;
+  }
+  .zone-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: saturate(1.05);
+    transition: transform 0.4s ease;
+  }
+  .zone:hover .zone-img img { transform: scale(1.04); }
+  .zone-img::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 50%, var(--bg) 100%);
+    pointer-events: none;
+  }
+
+  .zone .zone-id {
+    font-family: var(--display-font); font-size: 48px; font-weight: 700;
+    color: var(--orb-secondary); line-height: 1;
+    margin-bottom: 10px;
+    text-shadow: 0 0 20px var(--orb-secondary), 0 0 40px rgba(0, 255, 255, 0.3);
+  }
+  .zone .zone-cn {
+    font-family: var(--body-font); font-size: 20px; font-weight: 400;
+    color: var(--text-light); margin-bottom: 6px;
+    letter-spacing: 0.03em;
+  }
+  .zone .zone-en {
+    font-family: var(--mono-font); font-size: 13px;
+    color: var(--orb-primary); letter-spacing: 0.15em;
+    margin-bottom: 16px;
+  }
+  .zone .zone-desc {
+    font-family: var(--body-font); font-size: 14.5px; line-height: 1.9;
+    color: var(--text-dark);
+  }
+  .zone .zone-coord {
+    margin-top: 16px; padding-top: 14px;
+    border-top: 1px dashed var(--border-soft);
+    font-family: var(--mono-font); font-size: 12px;
+    color: var(--text-dark); letter-spacing: 0.1em;
+  }
+
+  /* Schedule */
+  .schedule-table {
+    width: 100%; border-collapse: collapse;
+    font-family: var(--mono-font); font-size: 13.5px;
+  }
+  .schedule-table th, .schedule-table td {
+    padding: 14px 18px; text-align: left;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .schedule-table th {
+    color: var(--orb-primary); letter-spacing: 0.1em;
+    font-size: 11.5px; font-weight: 500;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--orb-primary);
+  }
+  .schedule-table td { color: var(--text-dark); }
+  .schedule-table td:first-child {
+    color: var(--orb-accent); font-weight: 500;
+    width: 140px;
+  }
+  .schedule-table tr { position: relative; }
+  .schedule-table tr:hover {
+    background: rgba(138, 43, 226, 0.05);
+    color: var(--text-light);
+  }
+  .schedule-table tr:hover::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 4px; background: var(--orb-secondary);
+    opacity: 0.6;
+    animation: highlightRow 0.5s forwards;
+  }
+  @keyframes highlightRow {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(1); }
+  }
+
+  /* Tickets */
+  .tickets {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .ticket {
+    border: 1px solid var(--border-soft);
+    padding: 30px 28px;
+    position: relative;
+    background: linear-gradient(160deg, rgba(0, 255, 255, 0.03) 0%, rgba(138, 43, 226, 0.05) 100%);
+    text-align: center;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  .ticket:hover {
+    border-color: var(--orb-primary);
+    box-shadow: 0 0 32px rgba(138, 43, 226, 0.25);
+    transform: translateY(-5px);
+  }
+  .ticket.featured {
+    border-color: var(--orb-accent);
+    background: linear-gradient(160deg, rgba(255, 105, 180, 0.08) 0%, var(--bg) 100%);
+    box-shadow: 0 0 40px rgba(255, 105, 180, 0.35);
+  }
+  .ticket::before {
+    content: ''; position: absolute;
+    width: 80px; height: 80px; border-radius: 50%; filter: blur(12px);
+    background: radial-gradient(circle at center, var(--orb-primary) 0%, transparent 60%);
+    opacity: 0.15;
+    top: -40px; left: -40px;
+    animation: floatOrbSmall 10s infinite ease-in-out alternate;
+  }
+  .ticket.featured::before {
+    background: radial-gradient(circle at center, var(--orb-accent) 0%, transparent 60%);
+    opacity: 0.25;
+  }
+  @keyframes floatOrbSmall {
+    0% { transform: translate(0, 0); }
+    50% { transform: translate(10px, 15px); }
+    100% { transform: translate(0, 0); }
+  }
+
+
+  .ticket .badge {
+    display: inline-block;
+    font-family: var(--mono-font); font-size: 11px;
+    color: var(--bg); background: var(--orb-secondary);
+    padding: 4px 12px; letter-spacing: 0.15em;
+    margin-bottom: 16px;
+    border-radius: 20px;
+  }
+  .ticket.featured .badge { background: var(--orb-accent); }
+  .ticket .tier {
+    font-family: var(--display-font); font-size: 24px; font-weight: 700;
+    color: var(--text-light); letter-spacing: 0.05em;
+    margin-bottom: 8px;
+  }
+  .ticket .tier-jp {
+    font-family: var(--body-font); font-size: 12px;
+    color: var(--text-dark); letter-spacing: 0.2em;
+    margin-bottom: 20px;
+  }
+  .ticket .price {
+    font-family: var(--display-font); font-size: 42px; font-weight: 700;
+    color: var(--orb-secondary); line-height: 1;
+    margin-bottom: 6px;
+    text-shadow: 0 0 18px var(--orb-secondary), 0 0 30px rgba(0, 255, 255, 0.3);
+  }
+  .ticket.featured .price { color: var(--orb-accent); text-shadow: 0 0 18px var(--orb-accent), 0 0 30px rgba(255, 105, 180, 0.3); }
+  .ticket .price-unit {
+    font-family: var(--mono-font); font-size: 13px;
+    color: var(--text-dark); letter-spacing: 0.1em;
+    margin-bottom: 20px;
+  }
+  .ticket ul {
+    list-style: none; text-align: left;
+    font-family: var(--body-font); font-size: 13.5px;
+    color: var(--text-dark); line-height: 2.2;
+    margin-bottom: 24px;
+    padding-left: 10px;
+  }
+  .ticket li::before {
+    content: '✦ '; color: var(--orb-primary); margin-right: 6px;
+  }
+
+  /* CTA */
+  .cta-btn {
+    display: inline-block;
+    font-family: var(--display-font); font-weight: 700;
+    font-size: 14px; letter-spacing: 0.2em;
+    padding: 15px 35px;
+    background: transparent;
+    color: var(--orb-primary);
+    border: 1px solid var(--orb-primary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+  }
+  .cta-btn::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at center, var(--orb-primary) 0%, transparent 70%);
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.4s ease;
+    z-index: -1;
+  }
+  .cta-btn:hover {
+    color: var(--bg);
+    border-color: var(--orb-accent);
+    box-shadow: 0 0 28px rgba(138, 43, 226, 0.4);
+  }
+  .cta-btn:hover::before {
+    transform: scale(1.5);
+    opacity: 0.3;
+  }
+  .cta-btn.accent { color: var(--orb-accent); border-color: var(--orb-accent); }
+  .cta-btn.accent:hover {
+    color: var(--bg);
+    box-shadow: 0 0 28px rgba(255, 105, 180, 0.4);
+  }
+  .cta-btn.accent::before { background: radial-gradient(circle at center, var(--orb-accent) 0%, transparent 70%); }
+
+
+  /* Footer */
+  footer {
+    margin-top: 100px;
+    padding: 70px 32px 40px;
+    border-top: 1px solid var(--border-soft);
+    background: linear-gradient(180deg, rgba(138, 43, 226, 0.03) 0%, rgba(0, 0, 0, 0.1) 100%);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  footer::before {
+    content: ''; position: absolute;
+    width: 200px; height: 200px; border-radius: 50%; filter: blur(20px);
+    background: radial-gradient(circle at center, var(--orb-secondary) 0%, transparent 60%);
+    opacity: 0.1;
+    bottom: -100px; left: -100px;
+    animation: floatOrb 25s infinite ease-in-out alternate;
+  }
+  footer::after {
+    content: ''; position: absolute;
+    width: 150px; height: 150px; border-radius: 50%; filter: blur(15px);
+    background: radial-gradient(circle at center, var(--orb-primary) 0%, transparent 60%);
+    opacity: 0.1;
+    top: -75px; right: -75px;
+    animation: floatOrb 20s infinite ease-in-out alternate reverse;
+  }
+
+  footer .aqualux-logo {
+    width: 180px; height: auto;
+    color: var(--text-light);
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 10px rgba(138, 43, 226, 0.2));
+  }
+  footer .signature {
+    font-family: var(--display-font); font-size: 15px;
+    color: var(--text-light); letter-spacing: 0.1em;
+    margin-bottom: 16px;
+  }
+  footer .signature .ph { color: var(--orb-accent); }
+  footer .credit {
+    font-family: var(--mono-font); font-size: 11.5px;
+    color: var(--text-dark); letter-spacing: 0.08em; line-height: 1.8;
+  }
+  footer .credit a { color: var(--text-dark); }
+  footer .terminal {
+    font-family: var(--mono-font); font-size: 10.5px;
+    color: var(--text-dark); letter-spacing: 0.05em;
+    margin-top: 25px;
+  }
+  footer .terminal .cursor {
+    color: var(--orb-accent);
+    animation: blink 0.9s steps(2) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* Ticket showcase */
+  .ticket-showcase {
+    margin: 0 0 50px;
+    display: flex; align-items: center; gap: 36px;
+    padding: 30px;
+    border: 1px dashed var(--border-soft);
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.05) 0%, rgba(0, 255, 255, 0.03) 100%);
+    position: relative; overflow: hidden;
+  }
+  .ticket-showcase::before {
+    content: ''; position: absolute;
+    top: -2px; right: -2px; width: 80px; height: 80px;
+    background: linear-gradient(135deg, transparent 50%, var(--orb-accent) 50%);
+    opacity: 0.15;
+  }
+  .ticket-showcase img {
+    width: 260px; height: auto; border: 1px solid var(--orb-accent);
+    box-shadow: 0 0 36px rgba(255, 105, 180, 0.3);
+    flex-shrink: 0;
+  }
+  .ticket-showcase .ts-info { flex: 1; }
+  .ticket-showcase .ts-label {
+    font-family: var(--mono-font); font-size: 12px;
+    color: var(--orb-primary); letter-spacing: 0.18em;
+    margin-bottom: 12px;
+  }
+  .ticket-showcase .ts-title {
+    font-family: var(--display-font); font-weight: 700;
+    font-size: 24px; color: var(--text-light); letter-spacing: 0.03em;
+    margin-bottom: 14px;
+  }
+  .ticket-showcase .ts-desc {
+    font-family: var(--body-font); font-size: 14.5px;
+    color: var(--text-dark); line-height: 1.9;
+  }
+  @media (max-width: 768px) {
+    .ticket-showcase { flex-direction: column; gap: 20px; padding: 25px; }
+    .ticket-showcase img { width: 100%; max-width: 300px; }
+  }
+
+  /* Venue image */
+  .venue-image-wrapper {
+    margin: 0 auto 50px;
+    max-width: 1000px;
+    border: 1px solid var(--border-strong);
+    box-shadow: 0 0 50px rgba(0, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+  }
+  .venue-image-wrapper img {
+    width: 100%; height: auto; display: block;
+    filter: brightness(0.9) contrast(1.1);
+  }
+  .venue-image-wrapper::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 20% 80%, var(--orb-secondary) 0%, transparent 50%);
+    opacity: 0.08;
+    filter: blur(20px);
+    pointer-events: none;
+  }
+  .venue-image-wrapper::after {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at 80% 20%, var(--orb-primary) 0%, transparent 50%);
+    opacity: 0.08;
+    filter: blur(20px);
+    pointer-events: none;
+  }
+
+  @media (max-width: 480px) {
+    .topbar { padding: 10px 15px; }
+    .hero { padding: 60px 15px 40px; }
+    .sec-head { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .sec-title { font-size: 32px; }
+    section.block { padding: 60px 15px; }
+    .meta-strip { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="orb-container">
+  <div class="orb orb-medium" style="top: 5%; left: 10%; animation-delay: 2s; --color-base: var(--orb-primary); --color-fade: var(--glow-light);"></div>
+  <div class="orb orb-large" style="top: 50%; left: -20%; animation-delay: 8s; --color-base: var(--orb-secondary); --color-fade: var(--glow-dark);"></div>
+  <div class="orb orb-small" style="top: 80%; left: 30%; animation-delay: 4s; --color-base: var(--orb-accent); --color-fade: rgba(255, 105, 180, 0.2);"></div>
+  <div class="orb orb-medium" style="top: 20%; right: 5%; animation-delay: 12s; --color-base: var(--orb-secondary); --color-fade: var(--glow-dark);"></div>
+  <div class="orb orb-large" style="top: 70%; right: -10%; animation-delay: 6s; --color-base: var(--orb-primary); --color-fade: var(--glow-light);"></div>
+</div>
+
+<div class="topbar">
+  <div class="left">
+    <a href="../../index.html" aria-label="Back to Gallery">
+      <svg class="logo-mark" viewBox="0 0 600 280" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="aqualux">
+        <text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text>
+        <line x1="80" y1="165" x2="520" y2="165" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+        <g transform="translate(0,330) scale(1,-1)" opacity="0.28"><text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text></g>
+      </svg>
+    </a>
+    <span style="color: var(--orb-primary);">← GALLERY</span>
+  </div>
+  <div class="right">M36 FLOATING ORBS · AQUALUX 2026</div>
+</div>
+
+<main>
+  <section class="hero">
+    <div class="hero-orb hero-orb-1" style="--color-base: var(--orb-primary); --color-fade: var(--glow-light);"></div>
+    <div class="hero-orb hero-orb-2" style="--color-base: var(--orb-secondary); --color-fade: var(--glow-dark);"></div>
+    <div class="hero-orb hero-orb-3" style="--color-base: var(--orb-accent); --color-fade: rgba(255, 105, 180, 0.2);"></div>
+
+    <p class="kicker">DESIGN SPECTRUM EXHIBITION</p>
+    <p class="hero-jp">流動、無界、沉浸</p>
+    <h1><span class="text-glow">AQUALUX</span> <span class="text-glow" style="color: var(--orb-accent);">2026</span></h1>
+    <p class="hero-sub">
+      在 <span class="accent">aqualux 2026 設計光譜展</span>，我們探索設計的無形邊界與動態本質。
+      透過 <span class="accent">漂浮幾何</span> 的視覺語彙，引導觀者進入一個由光、色、形構成的流動宇宙，
+      感受設計在虛實之間、有形與無形之間的微妙平衡。
+    </p>
+
+    <div class="meta-strip">
+      <div class="meta-cell">
+        <span class="label">日期</span>
+        <span class="val">2026.12.06 — 12.21</span>
+      </div>
+      <div class="meta-cell">
+        <span class="label">地點</span>
+        <span class="val">松山文創園區 5 號倉庫</span>
+      </div>
+      <div class="meta-cell">
+        <span class="label">策展人</span>
+        <span class="val">Jerry @ aqualux.dev</span>
+      </div>
+      <div class="meta-cell">
+        <span class="label">規模</span>
+        <span class="val">12 設計師 / 40 作品</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <span class="sec-title-jp">策展理念</span>
+      <h2 class="sec-title">策展 <span class="ph">論述</span></h2>
+    </div>
+    <div class="statement">
+      <p>
+        在無垠的數位浪潮中，設計的本質如同宇宙中的漂浮幾何，無形卻充滿力量。
+        <span class="em">aqualux 2026 設計光譜展</span> 旨在揭示設計在當代語境下的流動性與多維度。
+        我們相信，優秀的設計不應被固定的形態所束縛，而應像光譜般展開，在不同頻率間共振。
+      </p>
+      <p>
+        本次展覽以 <span class="strong">「漂浮幾何」</span> 為核心概念，將實體空間轉化為一個沉浸式的動態場域。
+        觀者將穿梭於由光影、色彩與抽象形體交織而成的維度之間，感受設計如何超越功能，
+        觸及感官與心靈的深層連結。作品不再是靜態的陳列，而是與環境、觀者互動的 <span class="em">生命體</span>。
+      </p>
+      <blockquote>
+        「設計，是觸摸無形、塑造流動、並在永恆的變化中尋找平衡的藝術。」
+      </blockquote>
+      <p>
+        我們邀請您一同探索這場超越感官界限的設計之旅，見證設計如何以 <span class="strong">「無形之形」</span> 構築未來。
+        每一件作品，都將是光譜中的一個獨特頻率，共同編織出一個關於創造與感知的宏大敘事。
+      </p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <span class="sec-title-jp">參與設計師</span>
+      <h2 class="sec-title">設計師 <span class="ph">名單</span></h2>
+    </div>
+    <div class="designers">
+      <div class="designer-card">
+        <div class="designer-thumb"><img src="images/designer-d01.webp" alt="Orb Weaver abstract emblem" loading="lazy" decoding="async"></div>
+        <div class="designer-info">
+          <p class="idx">D_001</p>
+          <p class="name-jp">軌跡 李</p>
+          <h3 class="name">Orb Lee</h3>
+          <p class="tag">Motion / Fluidity</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb"><img src="images/designer-d02.webp" alt="Echo Sphere abstract emblem" loading="lazy" decoding="async"></div>
+        <div class="designer-info">
+          <p class="idx">D_002</p>
+          <p class="name-jp">共振 吳</p>
+          <h3 class="name">Echo Wu</h3>
+          <p class="tag">Sound / Vibration</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb"><img src="images/designer-d03.webp" alt="Phase Shifter abstract emblem" loading="lazy" decoding="async"></div>
+        <div class="designer-info">
+          <p class="idx">D_003</p>
+          <p class="name-jp">相位 林</p>
+          <h3 class="name">Phase Lin</h3>
+          <p class="tag">Interaction / VR</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb"><img src="images/designer-d04.webp" alt="Spectrum abstract emblem" loading="lazy" decoding="async"></div>
+        <div class="designer-info">
+          <p class="idx">D_004</p>
+          <p class="name-jp">光譜 陳</p>
+          <h3 class="name">Spectrum Chen</h3>
+          <p class="tag">Color / Light</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb"><img src="images/designer-d05.webp" alt="Helix abstract emblem" loading="lazy" decoding="async"></div>
+        <div class="designer-info">
+          <p class="idx">D_005</p>
+          <p class="name-jp">迴旋 張</p>
+          <h3 class="name">Helix Chang</h3>
+          <p class="tag">Geometry / Flow</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb"><img src="images/designer-d06.webp" alt="Pulse abstract emblem" loading="lazy" decoding="async"></div>
+        <div class="designer-info">
+          <p class="idx">D_006</p>
+          <p class="name-jp">脈動 王</p>
+          <h3 class="name">Pulse Wang</h3>
+          <p class="tag">Dynamic / Rhythm</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb"><img src="images/designer-d07.webp" alt="Aura abstract emblem" loading="lazy" decoding="async"></div>
+        <div class="designer-info">
+          <p class="idx">D_007</p>
+          <p class="name-jp">透光 楊</p>
+          <h3 class="name">Aura Yang</h3>
+          <p class="tag">Transparency / Glow</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb"><img src="images/designer-d08.webp" alt="Ripple abstract emblem" loading="lazy" decoding="async"></div>
+        <div class="designer-info">
+          <p class="idx">D_008</p>
+          <p class="name-jp">漣漪 許</p>
+          <h3 class="name">Ripple Hsu</h3>
+          <p class="tag">Generative / Pattern</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb"><img src="images/designer-d09.webp" alt="Void abstract emblem" loading="lazy" decoding="async"></div>
+        <div class="designer-info">
+          <p class="idx">D_009</p>
+          <p class="name-jp">虛實 鄭</p>
+          <h3 class="name">Void Cheng</h3>
+          <p class="tag">Abstract / Illusion</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb"><img src="images/designer-d10.webp" alt="Loop abstract emblem" loading="lazy" decoding="async"></div>
+        <div class="designer-info">
+          <p class="idx">D_010</p>
+          <p class="name-jp">迴圈 謝</p>
+          <h3 class="name">Loop Hsieh</h3>
+          <p class="tag">Animation / Cycle</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb"><img src="images/designer-d11.webp" alt="Float abstract emblem" loading="lazy" decoding="async"></div>
+        <div class="designer-info">
+          <p class="idx">D_011</p>
+          <p class="name-jp">漂浮 蔡</p>
+          <h3 class="name">Float Tsai</h3>
+          <p class="tag">Weightless / Ethereal</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb"><img src="images/designer-d12.webp" alt="Wave abstract emblem" loading="lazy" decoding="async"></div>
+        <div class="designer-info">
+          <p class="idx">D_012</p>
+          <p class="name-jp">波動 洪</p>
+          <h3 class="name">Wave Hung</h3>
+          <p class="tag">Sine / Oscillation</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <span class="sec-title-jp">展覽場域</span>
+      <h2 class="sec-title">Venue <span class="ph">場地</span></h2>
+    </div>
+    <div class="venue-image-wrapper">
+      <img src="images/venue.webp" alt="Minimalist futuristic exhibition hall with floating glowing orbs" loading="lazy" decoding="async">
+    </div>
+    <div class="statement" style="text-align: center;">
+      <p>
+        本次 <span class="em">aqualux 2026 設計光譜展</span> 選址於 <span class="strong">松山文創園區 5 號倉庫</span>。
+        這座歷史悠久的空間，將透過光影與漂浮幾何的重新構築，轉化為一個充滿未來感的沉浸式體驗場域。
+        我們將運用先進的投影技術與動態裝置，模糊實體與虛擬的界線，
+        讓每一位觀者都能在流動的空間中，與設計作品進行深層次的對話。
+      </p>
+      <p>
+        展區設計強調開放性與流動感，避免傳統的隔閡，讓各個設計頻譜之間能夠自由交織、相互輝映。
+        期待您在此探索設計的無限可能。
+      </p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <span class="sec-title-jp">探索不同頻譜</span>
+      <h2 class="sec-title">五大 <span class="ph">展區</span></h2>
+    </div>
+    <div class="zones">
+      <div class="zone">
+        <div class="zone-img"><img src="images/zone-z01.webp" alt="Z01 Mainstream Frequency: a large, serene, glowing white orb" loading="lazy" decoding="async"></div>
+        <p class="zone-id">Z01</p>
+        <p class="zone-cn">主流頻譜</p>
+        <p class="zone-en">Mainstream Frequency</p>
+        <p class="zone-desc">
+          探索當代設計的主流趨勢與經典語彙，展現設計如何回應時代脈動，
+          在廣泛受眾中產生共鳴。此區作品以其普適性與精湛工藝，定義了當下設計的基石。
+        </p>
+        <p class="zone-coord">5F-A1 · 5 Works</p>
+      </div>
+      <div class="zone">
+        <div class="zone-img"><img src="images/zone-z02.webp" alt="Z02 Retro Echo: layered, slightly faded orbs in sepia and muted teal" loading="lazy" decoding="async"></div>
+        <p class="zone-id">Z02</p>
+        <p class="zone-cn">時光殘響</p>
+        <p class="zone-en">Retro Echo</p>
+        <p class="zone-desc">
+          回溯設計歷史的迴響，展現經典元素如何被重新詮釋與演繹。
+          透過對過去的致敬與解構，探索時間在設計中留下的印記，並預示未來的趨勢。
+        </p>
+        <p class="zone-coord">5F-A2 · 6 Works</p>
+      </div>
+      <div class="zone">
+        <div class="zone-img"><img src="images/zone-z03.webp" alt="Z03 Avant Lab: abstract, fragmented orbs with sharp, angular edges" loading="lazy" decoding="async"></div>
+        <p class="zone-id">Z03</p>
+        <p class="zone-cn">前衛實驗室</p>
+        <p class="zone-en">Avant Lab</p>
+        <p class="zone-desc">
+          聚焦於設計的邊緣與前沿，展示大膽的實驗性作品。
+          此區塊挑戰傳統觀念，探索新材料、新技術與新形式，引領設計進入未知領域。
+        </p>
+        <p class="zone-coord">5F-B1 · 6 Works</p>
+      </div>
+      <div class="zone">
+        <div class="zone-img"><img src="images/zone-z04.webp" alt="Z04 Cultural Spectrum: interconnected orbs with patterns inspired by East Asian art" loading="lazy" decoding="async"></div>
+        <p class="zone-id">Z04</p>
+        <p class="zone-cn">文化光譜</p>
+        <p class="zone-en">Cultural Spectrum</p>
+        <p class="zone-desc">
+          深入探討設計與在地文化的交織。作品融合傳統元素與現代語彙，
+          展現多元文化如何為設計注入獨特視角與深厚底蘊，創造出具有地域特色的全球化設計。
+        </p>
+        <p class="zone-coord">5F-B2 · 5 Works</p>
+      </div>
+      <div class="zone">
+        <div class="zone-img"><img src="images/zone-z05.webp" alt="Z05 Motion Hall: multiple orbs in motion, leaving subtle light trails, vibrant fuchsia and electric blue" loading="lazy" decoding="async"></div>
+        <p class="zone-id">Z05</p>
+        <p class="zone-cn">動態廳</p>
+        <p class="zone-en">Motion Hall</p>
+        <p class="zone-desc">
+          專注於動態視覺、互動體驗與時間藝術。
+          此區作品以其流動的形態與變化的光影，呈現設計在時間維度上的表現力與沉浸感。
+        </p>
+        <p class="zone-coord">5F-C1 · 15 Works</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head">
+      <span class="sec-num">05</span>
+      <span class="sec-title-jp">活動日程</span>
+      <h2 class="sec-title">講座 <span class="ph">排程</span></h2>
+    </div>
+    <table class="schedule-table">
+      <thead>
+        <tr>
+          <th scope="col">時間</th>
+          <th scope="col">主題</th>
+          <th scope="col">講者</th>
+          <th scope="col">地點</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>12.07 (Sat) 14:00</td>
+          <td>漂浮幾何：無形之形的設計哲學</td>
+          <td>Orb Lee (D_001)</td>
+          <td>動態廳 (Z05)</td>
+        </tr>
+        <tr>
+          <td>12.08 (Sun) 16:00</td>
+          <td>時光殘響：數位時代的復古共振</td>
+          <td>Echo Wu (D_002)</td>
+          <td>時光殘響 (Z02)</td>
+        </tr>
+        <tr>
+          <td>12.10 (Tue) 19:00</td>
+          <td>互動維度：VR/AR 在空間設計的應用</td>
+          <td>Phase Lin (D_003)</td>
+          <td>前衛實驗室 (Z03)</td>
+        </tr>
+        <tr>
+          <td>12.14 (Sat) 14:00</td>
+          <td>光譜解析：色彩與情緒的連結</td>
+          <td>Spectrum Chen (D_004)</td>
+          <td>主流頻譜 (Z01)</td>
+        </tr>
+        <tr>
+          <td>12.15 (Sun) 16:00</td>
+          <td>動態演繹：流動美學的未來</td>
+          <td>Pulse Wang (D_006)</td>
+          <td>動態廳 (Z05)</td>
+        </tr>
+        <tr>
+          <td>12.18 (Wed) 19:00</td>
+          <td>生成藝術：演算法與設計的邊界</td>
+          <td>Ripple Hsu (D_008)</td>
+          <td>前衛實驗室 (Z03)</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="block">
+    <div class="sec-head">
+      <span class="sec-num">06</span>
+      <span class="sec-title-jp">入場票券</span>
+      <h2 class="sec-title">票務 <span class="ph">資訊</span></h2>
+    </div>
+    <div class="ticket-showcase">
+      <img src="images/ticket-mockup.webp" alt="AQUALUX 2026 FULL ACCESS ticket mockup" loading="lazy" decoding="async">
+      <div class="ts-info">
+        <p class="ts-label">Featured Ticket</p>
+        <h3 class="ts-title">FULL ACCESS PASS</h3>
+        <p class="ts-desc">
+          此為 <span class="accent">全展期通票</span> 預覽圖，提供您在整個展覽期間無限次入場的權利。
+          感受每一場講座、每一次光影變幻，深入探索設計光譜的每一個維度。
+          限量發售，把握機會。
+        </p>
+      </div>
+    </div>
+    <div class="tickets">
+      <div class="ticket">
+        <span class="badge">STANDARD</span>
+        <h3 class="tier">SINGLE PASS</h3>
+        <p class="tier-jp">單日入場票</p>
+        <p class="price">NT$ 480</p>
+        <p class="price-unit">每張</p>
+        <ul>
+          <li>✦ 單日展覽入場</li>
+          <li>✦ 探索所有展區</li>
+          <li>✦ 數位導覽手冊</li>
+        </ul>
+        <button class="cta-btn" disabled aria-label="Demo only — not for sale">PURCHASE</button>
+      </div>
+      <div class="ticket featured">
+        <span class="badge">RECOMMENDED</span>
+        <h3 class="tier">FULL ACCESS</h3>
+        <p class="tier-jp">全展期通票</p>
+        <p class="price">NT$ 1,280</p>
+        <p class="price-unit">每張</p>
+        <ul>
+          <li>✦ 展期內無限次入場</li>
+          <li>✦ 優先預約講座</li>
+          <li>✦ 獨家紀念品折扣</li>
+        </ul>
+        <button class="cta-btn accent" disabled aria-label="Demo only — not for sale">PURCHASE</button>
+      </div>
+      <div class="ticket">
+        <span class="badge">PREMIUM</span>
+        <h3 class="tier">CURATOR PASS</h3>
+        <p class="tier-jp">策展人專屬票</p>
+        <p class="price">NT$ 2,880</p>
+        <p class="price-unit">每張</p>
+        <ul>
+          <li>✦ 全展期無限次入場</li>
+          <li>✦ 策展人導覽一次</li>
+          <li>✦ 專屬設計工坊</li>
+          <li>✦ 限量作品抽獎資格</li>
+        </ul>
+        <button class="cta-btn" disabled aria-label="Demo only — not for sale">PURCHASE</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <svg class="aqualux-logo" viewBox="0 0 600 280" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="aqualux">
+    <text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text>
+    <line x1="80" y1="165" x2="520" y2="165" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+    <g transform="translate(0,330) scale(1,-1)" opacity="0.28"><text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text></g>
+  </svg>
+  <p class="signature">MMXXVI · <span class="ph">AQUALUX.DEV</span></p>
+  <p class="credit">
+    aqualux 2026 設計光譜展 · M36 漂浮幾何球 demo<br>
+    © 2024 aqualux.dev. All rights reserved.
+  </p>
+  <p class="terminal">
+    > _
+  </p>
+</footer>
+
+</body>
+</html>

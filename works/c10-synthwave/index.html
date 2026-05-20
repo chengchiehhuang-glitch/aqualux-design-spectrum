@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AQUALUX 2026 // DESIGN SPECTRUM EXHIBITION · SYNTHWAVE EDITION</title>
+<meta name="description" content="aqualux 2026 設計光譜展 · 80s Synthwave 風格 demo · single-file HTML showcase">
+<link rel="canonical" href="https://design.aqualux.dev/works/c10-synthwave/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://design.aqualux.dev/works/c10-synthwave/">
+<meta property="og:title" content="C10 SYNTHWAVE · aqualux 設計光譜展">
+<meta property="og:description" content="80s Synthwave 風格 single-file HTML demo · aqualux 2026 設計光譜展">
+<meta property="og:image" content="images/hero.webp">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="C10 SYNTHWAVE · aqualux 設計光譜展">
+<meta name="twitter:image" content="images/hero.webp">
+<link rel="icon" type="image/svg+xml" href="../../assets/aqualux-logo-mark.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Roboto+Mono:wght@300;700&family=Noto+Sans+TC:wght@300;400;500;700&family=Righteous&family=Bebas+Neue&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #1a0033;
+    --bg-card: #2c0059;
+    --neon-purple: #8a2be2;
+    --neon-pink: #ff0080;
+    --neon-blue: #00ccff;
+    --neon-yellow: #ffee00;
+    --grid-line: #4d0080;
+    --text-light: #f0e6ff;
+    --text-dark: #a077d0;
+    --text-accent: #ff99e6; /* A lighter pink for accents */
+
+    --display-font: 'Press Start 2P', 'VT323', monospace;
+    --mono-font: 'Roboto Mono', monospace;
+    --body-font: 'Noto Sans TC', 'PingFang TC', sans-serif;
+    --accent-font: 'Righteous', 'Bebas Neue', sans-serif;
+  }
+
+  /* Accessibility: Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+    body::before { animation: none !important; }
+    .hero h1 .glitch::before, .hero h1 .glitch::after { animation: none !important; }
+    .topbar .right .blink { animation: none !important; }
+    footer .terminal .cursor { animation: none !important; }
+    .vhs-glitch-active {
+      filter: none !important;
+      transform: none !important;
+    }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text-light);
+    font-family: var(--body-font);
+    line-height: 1.7;
+    font-size: 14.5px;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+  }
+
+  /* Sunset Gradient Background */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background: linear-gradient(135deg, var(--neon-purple) 0%, var(--neon-pink) 50%, var(--neon-blue) 100%);
+    opacity: 0.2;
+    z-index: -2;
+    animation: sunset-cycle 28s linear infinite alternate;
+  }
+
+  @keyframes sunset-cycle {
+    0% { background: linear-gradient(135deg, var(--neon-purple) 0%, var(--neon-pink) 50%, var(--neon-blue) 100%); }
+    25% { background: linear-gradient(135deg, var(--neon-pink) 0%, var(--neon-blue) 50%, var(--neon-purple) 100%); }
+    50% { background: linear-gradient(135deg, var(--neon-blue) 0%, var(--neon-purple) 50%, var(--neon-pink) 100%); }
+    75% { background: linear-gradient(135deg, var(--neon-purple) 0%, var(--neon-blue) 50%, var(--neon-pink) 100%); }
+    100% { background: linear-gradient(135deg, var(--neon-pink) 0%, var(--neon-purple) 50%, var(--neon-blue) 100%); }
+  }
+
+
+  /* Perspective Grid Overlay */
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(to right, transparent 1px, var(--grid-line) 1px),
+      linear-gradient(to bottom, transparent 1px, var(--grid-line) 1px);
+    background-size: 40px 40px;
+    background-position: center center;
+    transform: perspective(500px) rotateX(60deg);
+    transform-origin: bottom center;
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: -1;
+    animation: grid-scroll 60s linear infinite;
+  }
+
+  @keyframes grid-scroll {
+    from { background-position: 0 0; }
+    to { background-position: 4000px 4000px; }
+  }
+
+  /* Scanlines overlay */
+  .scanlines {
+    position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+    background: repeating-linear-gradient(0deg, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 2px, rgba(0,0,0,0.18) 3px, rgba(0,0,0,0) 4px);
+    mix-blend-mode: overlay;
+    opacity: 0.3;
+  }
+
+  a { color: var(--neon-blue); text-decoration: none; }
+  a:hover { color: var(--neon-pink); text-shadow: 0 0 8px var(--neon-pink); }
+
+  /* Top bar */
+  .topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(26, 0, 51, 0.9);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    border-bottom: 2px solid var(--neon-purple);
+    box-shadow: 0 0 15px var(--neon-purple);
+    padding: 12px 32px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--mono-font); font-size: 12px;
+    text-transform: uppercase;
+  }
+  .topbar .left {
+    display: flex; align-items: center; gap: 10px;
+    color: var(--neon-blue); letter-spacing: 0.15em;
+  }
+  .topbar .left svg {
+    height: 24px; width: auto;
+    color: var(--neon-blue);
+    filter: drop-shadow(0 0 5px var(--neon-blue));
+  }
+  .topbar .right { color: var(--text-dark); letter-spacing: 0.1em; }
+  .topbar .right .blink { color: var(--neon-pink); animation: blink 1.2s steps(2) infinite; text-shadow: 0 0 5px var(--neon-pink); }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* Hero */
+  .hero {
+    padding: 80px 32px 60px;
+    max-width: 1280px; margin: 0 auto;
+    position: relative;
+    text-align: center;
+  }
+  .kicker {
+    font-family: var(--mono-font); font-size: 12px;
+    color: var(--neon-blue); letter-spacing: 0.3em;
+    margin-bottom: 26px;
+    display: flex; align-items: center; justify-content: center; gap: 14px;
+    text-shadow: 0 0 8px var(--neon-blue);
+  }
+  .kicker::before, .kicker::after {
+    content: ''; display: inline-block;
+    width: 32px; height: 1px; background: var(--neon-blue);
+    box-shadow: 0 0 8px var(--neon-blue);
+  }
+  .hero-jp {
+    font-family: var(--body-font); font-weight: 300;
+    font-size: clamp(18px, 2.2vw, 26px);
+    color: var(--neon-pink); letter-spacing: 0.4em;
+    margin-bottom: 12px;
+    text-shadow: 0 0 18px var(--neon-pink);
+  }
+  .hero h1 {
+    font-family: var(--display-font); font-weight: 900;
+    font-size: clamp(48px, 9vw, 128px);
+    line-height: 0.95; letter-spacing: 0.05em;
+    color: var(--text-light);
+    text-shadow: 0 0 30px var(--neon-blue), 0 0 50px var(--neon-purple);
+    margin-bottom: 16px;
+    position: relative;
+    animation: neon-pulse 3s infinite alternate;
+  }
+  @keyframes neon-pulse {
+    0% { text-shadow: 0 0 20px var(--neon-blue), 0 0 40px var(--neon-purple); }
+    100% { text-shadow: 0 0 30px var(--neon-blue), 0 0 60px var(--neon-purple), 0 0 80px var(--neon-pink); }
+  }
+
+  .hero h1 .gp { color: var(--neon-pink); }
+  .hero h1 .gc { color: var(--neon-blue); }
+  .glitch {
+    position: relative; display: inline-block;
+  }
+  .glitch::before, .glitch::after {
+    content: attr(data-text);
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    overflow: hidden;
+  }
+  .glitch::before {
+    color: var(--neon-pink);
+    transform: translate(2px, 0);
+    clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+    opacity: 0.7;
+    animation: glitch-1 3s infinite linear alternate;
+  }
+  .glitch::after {
+    color: var(--neon-blue);
+    transform: translate(-2px, 0);
+    clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+    opacity: 0.7;
+    animation: glitch-2 2.5s infinite linear alternate;
+  }
+  @keyframes glitch-1 {
+    0%,90%,100% { transform: translate(2px, 0); }
+    93% { transform: translate(-3px, 1px); }
+    96% { transform: translate(3px, -1px); }
+  }
+  @keyframes glitch-2 {
+    0%,88%,100% { transform: translate(-2px, 0); }
+    91% { transform: translate(3px, -1px); }
+    94% { transform: translate(-3px, 1px); }
+  }
+  .hero-sub {
+    font-family: var(--mono-font); font-weight: 400;
+    font-size: clamp(13px, 1.4vw, 17px);
+    color: var(--text-dark); letter-spacing: 0.15em;
+    margin: 28px auto 36px; max-width: 720px;
+    text-shadow: 0 0 5px rgba(0, 204, 255, 0.3);
+  }
+  .hero-sub .accent { color: var(--neon-yellow); text-shadow: 0 0 8px var(--neon-yellow); }
+  .meta-strip {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    border-top: 2px solid var(--neon-purple);
+    border-bottom: 2px solid var(--neon-purple);
+    box-shadow: 0 0 15px var(--neon-purple);
+    padding: 20px 0;
+    margin-top: 36px;
+    background: rgba(44, 0, 89, 0.4);
+  }
+  .meta-cell {
+    font-family: var(--mono-font); font-size: 12px;
+    color: var(--text-dark);
+  }
+  .meta-cell .label {
+    color: var(--neon-blue); letter-spacing: 0.15em;
+    font-size: 10.5px; margin-bottom: 6px; display: block;
+    text-shadow: 0 0 5px var(--neon-blue);
+  }
+  .meta-cell .val { color: var(--text-light); font-size: 13.5px; font-weight: 500; }
+
+  /* Section base */
+  section.block { padding: 80px 32px; max-width: 1280px; margin: 0 auto; }
+  .sec-head {
+    display: flex; align-items: baseline; gap: 22px;
+    margin-bottom: 36px;
+    padding-bottom: 14px; border-bottom: 2px solid var(--neon-purple);
+    box-shadow: 0 0 10px var(--neon-purple);
+  }
+  .sec-num {
+    font-family: var(--display-font); font-size: 13px;
+    color: var(--neon-pink); letter-spacing: 0.2em;
+    font-weight: 700;
+    text-shadow: 0 0 8px var(--neon-pink);
+  }
+  .sec-title-jp {
+    font-family: var(--body-font); font-size: 13px;
+    color: var(--text-dark); letter-spacing: 0.3em;
+  }
+  .sec-title {
+    font-family: var(--accent-font); font-size: clamp(26px, 4vw, 42px);
+    font-weight: 700; letter-spacing: 0.06em;
+    color: var(--text-light);
+    margin-right: auto;
+    text-shadow: 0 0 15px var(--neon-blue);
+  }
+  .sec-title .ph { color: var(--neon-pink); text-shadow: 0 0 15px var(--neon-pink); }
+
+  /* Curatorial statement */
+  .statement {
+    max-width: 880px;
+    font-family: var(--body-font); font-size: 16px; line-height: 1.95;
+    color: var(--text-dark);
+  }
+  .statement p { margin-bottom: 18px; }
+  .statement .em { color: var(--neon-blue); font-weight: 500; text-shadow: 0 0 5px var(--neon-blue); }
+  .statement .strong { color: var(--neon-pink); font-weight: 700; letter-spacing: 0.04em; text-shadow: 0 0 5px var(--neon-pink); }
+  .statement blockquote {
+    border-left: 3px solid var(--neon-pink);
+    padding: 14px 22px;
+    margin: 22px 0;
+    background: rgba(255, 0, 128, 0.1);
+    font-family: var(--mono-font); color: var(--text-light);
+    font-size: 14px; letter-spacing: 0.03em;
+    box-shadow: inset 0 0 10px rgba(255, 0, 128, 0.2);
+    position: relative;
+  }
+  .statement blockquote::before {
+    content: '> '; color: var(--neon-blue);
+  }
+
+  /* Designer grid */
+  .designers {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+  }
+  .designer-card {
+    border: 2px solid var(--neon-purple);
+    background: var(--bg-card);
+    padding: 18px 20px;
+    position: relative;
+    transition: all 0.2s ease;
+    box-shadow: 0 0 10px rgba(138, 43, 226, 0.4);
+    overflow: hidden;
+  }
+  .designer-card::before, .designer-card::after {
+    content: ''; position: absolute;
+    width: 20px; height: 20px;
+    border: 1px solid var(--neon-blue);
+    opacity: 0.6;
+  }
+  .designer-card::before { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+  .designer-card::after { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+
+  .designer-card:hover {
+    border-color: var(--neon-pink);
+    background: rgba(44, 0, 89, 0.7);
+    box-shadow: 0 0 24px var(--neon-pink), inset 0 0 10px var(--neon-pink);
+    transform: translateY(-3px);
+  }
+  .designer-card .idx {
+    font-family: var(--mono-font); font-size: 11px;
+    color: var(--neon-pink); letter-spacing: 0.18em;
+    margin-bottom: 10px;
+    text-shadow: 0 0 5px var(--neon-pink);
+  }
+  .designer-card .name-jp {
+    font-family: var(--body-font); font-size: 11.5px;
+    color: var(--text-dark); letter-spacing: 0.18em;
+    margin-bottom: 4px;
+  }
+  .designer-card .name {
+    font-family: var(--accent-font); font-size: 17px; font-weight: 700;
+    color: var(--text-light); letter-spacing: 0.04em;
+    margin-bottom: 8px;
+    text-shadow: 0 0 8px var(--neon-blue);
+  }
+  .designer-card .tag {
+    font-family: var(--mono-font); font-size: 11px;
+    color: var(--neon-blue); letter-spacing: 0.1em;
+    text-shadow: 0 0 5px var(--neon-blue);
+  }
+  .designer-card .tag::before { content: '> '; color: var(--text-dark); }
+
+  /* Zone map */
+  .zones {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .zone {
+    background: linear-gradient(135deg, var(--bg-card) 0%, rgba(44, 0, 89, 0.8) 100%);
+    border: 2px solid var(--neon-purple);
+    padding: 24px 26px;
+    position: relative; overflow: hidden;
+    box-shadow: 0 0 12px rgba(138, 43, 226, 0.4);
+  }
+  .zone::before {
+    content: ''; position: absolute;
+    top: 0; right: 0; width: 64px; height: 64px;
+    background: linear-gradient(135deg, transparent 50%, var(--neon-pink) 50%);
+    opacity: 0.18;
+  }
+  .zone .zone-id {
+    font-family: var(--display-font); font-size: 44px; font-weight: 900;
+    color: var(--neon-blue); line-height: 1;
+    margin-bottom: 8px;
+    text-shadow: 0 0 18px var(--neon-blue);
+  }
+  .zone .zone-cn {
+    font-family: var(--body-font); font-size: 19px; font-weight: 500;
+    color: var(--text-light); margin-bottom: 4px;
+    letter-spacing: 0.04em;
+  }
+  .zone .zone-en {
+    font-family: var(--mono-font); font-size: 12px;
+    color: var(--neon-pink); letter-spacing: 0.2em;
+    margin-bottom: 14px;
+    text-shadow: 0 0 5px var(--neon-pink);
+  }
+  .zone .zone-desc {
+    font-family: var(--body-font); font-size: 13.5px; line-height: 1.85;
+    color: var(--text-dark);
+  }
+  .zone .zone-coord {
+    margin-top: 14px; padding-top: 12px;
+    border-top: 1px dashed var(--neon-purple);
+    font-family: var(--mono-font); font-size: 11px;
+    color: var(--text-dark); letter-spacing: 0.15em;
+  }
+
+  /* Schedule */
+  .schedule-table {
+    width: 100%; border-collapse: collapse;
+    font-family: var(--mono-font); font-size: 13px;
+    background: rgba(44, 0, 89, 0.6);
+    box-shadow: 0 0 15px var(--neon-purple);
+  }
+  .schedule-table th, .schedule-table td {
+    padding: 13px 16px; text-align: left;
+    border-bottom: 1px solid var(--grid-line);
+  }
+  .schedule-table th {
+    color: var(--neon-blue); letter-spacing: 0.18em;
+    font-size: 11px; font-weight: 700;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--neon-blue);
+    text-shadow: 0 0 5px var(--neon-blue);
+  }
+  .schedule-table td { color: var(--text-dark); }
+  .schedule-table td:first-child {
+    color: var(--neon-pink); font-weight: 700;
+    width: 130px;
+    text-shadow: 0 0 3px var(--neon-pink);
+  }
+  .schedule-table tr:hover td {
+    color: var(--text-light);
+    background: rgba(0, 204, 255, 0.08);
+    text-shadow: 0 0 3px var(--neon-blue);
+  }
+  .schedule-table tr {
+    transition: background 0.2s ease;
+  }
+
+  /* Tickets */
+  .tickets {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 18px;
+  }
+  .ticket {
+    border: 2px solid var(--neon-purple);
+    padding: 28px 26px;
+    position: relative;
+    background: var(--bg-card);
+    text-align: center;
+    box-shadow: 0 0 10px rgba(138, 43, 226, 0.4);
+  }
+  .ticket.featured {
+    border-color: var(--neon-pink);
+    background: linear-gradient(180deg, rgba(255, 0, 128, 0.15) 0%, var(--bg-card) 100%);
+    box-shadow: 0 0 32px var(--neon-pink), inset 0 0 15px rgba(255, 0, 128, 0.5);
+  }
+  .ticket .badge {
+    display: inline-block;
+    font-family: var(--mono-font); font-size: 10.5px;
+    color: var(--bg); background: var(--neon-blue);
+    padding: 3px 10px; letter-spacing: 0.2em;
+    margin-bottom: 14px;
+    box-shadow: 0 0 8px var(--neon-blue);
+  }
+  .ticket.featured .badge { background: var(--neon-pink); box-shadow: 0 0 8px var(--neon-pink); }
+  .ticket .tier {
+    font-family: var(--accent-font); font-size: 22px; font-weight: 700;
+    color: var(--text-light); letter-spacing: 0.08em;
+    margin-bottom: 6px;
+    text-shadow: 0 0 10px var(--neon-blue);
+  }
+  .ticket .tier-jp {
+    font-family: var(--body-font); font-size: 11px;
+    color: var(--text-dark); letter-spacing: 0.3em;
+    margin-bottom: 18px;
+  }
+  .ticket .price {
+    font-family: var(--display-font); font-size: 38px; font-weight: 900;
+    color: var(--neon-blue); line-height: 1;
+    margin-bottom: 4px;
+    text-shadow: 0 0 14px var(--neon-blue), 0 0 20px rgba(0, 204, 255, 0.6);
+  }
+  .ticket.featured .price { color: var(--neon-pink); text-shadow: 0 0 14px var(--neon-pink), 0 0 20px rgba(255, 0, 128, 0.6); }
+  .ticket .price-unit {
+    font-family: var(--mono-font); font-size: 12px;
+    color: var(--text-dark); letter-spacing: 0.18em;
+    margin-bottom: 18px;
+  }
+  .ticket ul {
+    list-style: none; text-align: left;
+    font-family: var(--mono-font); font-size: 12px;
+    color: var(--text-dark); line-height: 2;
+    margin-bottom: 22px;
+  }
+  .ticket li::before {
+    content: '▸ '; color: var(--neon-blue); margin-right: 4px;
+  }
+
+  /* CTA */
+  .cta-btn {
+    display: inline-block;
+    font-family: var(--accent-font); font-weight: 700;
+    font-size: 13px; letter-spacing: 0.25em;
+    padding: 14px 32px;
+    background: transparent;
+    color: var(--neon-pink);
+    border: 2px solid var(--neon-pink);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    position: relative;
+    box-shadow: 0 0 10px rgba(255, 0, 128, 0.5);
+  }
+  .cta-btn:hover:not(:disabled) {
+    background: var(--neon-pink); color: var(--bg);
+    box-shadow: 0 0 28px var(--neon-pink);
+    transform: translateY(-2px);
+  }
+  .cta-btn.cyan { color: var(--neon-blue); border-color: var(--neon-blue); box-shadow: 0 0 10px rgba(0, 204, 255, 0.5); }
+  .cta-btn.cyan:hover:not(:disabled) { background: var(--neon-blue); box-shadow: 0 0 28px var(--neon-blue); }
+  .cta-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  /* Footer */
+  footer {
+    margin-top: 80px;
+    padding: 60px 32px 32px;
+    border-top: 2px solid var(--neon-purple);
+    background: var(--bg-card);
+    text-align: center;
+    box-shadow: 0 0 20px var(--neon-purple);
+    position: relative;
+    overflow: hidden;
+  }
+  footer::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, transparent 50%, rgba(0, 204, 255, 0.05) 50%);
+    opacity: 0.3;
+    z-index: 0;
+  }
+  footer .ascii-line {
+    font-family: var(--mono-font); font-size: 11px;
+    color: var(--neon-blue); letter-spacing: 0.15em;
+    margin-bottom: 18px;
+    white-space: nowrap; overflow: hidden;
+    text-shadow: 0 0 5px var(--neon-blue);
+    position: relative; z-index: 1;
+  }
+  footer .signature {
+    font-family: var(--accent-font); font-size: 14px;
+    color: var(--text-light); letter-spacing: 0.18em;
+    margin-bottom: 14px;
+    text-shadow: 0 0 8px var(--neon-pink);
+    position: relative; z-index: 1;
+  }
+  footer .signature .ph { color: var(--neon-pink); }
+  footer .credit {
+    font-family: var(--mono-font); font-size: 11px;
+    color: var(--text-dark); letter-spacing: 0.1em; line-height: 2;
+    position: relative; z-index: 1;
+  }
+  footer .credit a { color: var(--text-dark); }
+  footer .terminal {
+    font-family: var(--mono-font); font-size: 10.5px;
+    color: var(--text-dark); letter-spacing: 0.08em;
+    margin-top: 22px;
+    position: relative; z-index: 1;
+  }
+  footer .terminal .cursor {
+    color: var(--neon-pink);
+    animation: blink 0.9s steps(2) infinite;
+    text-shadow: 0 0 3px var(--neon-pink);
+  }
+  footer .footer-logo-container {
+    padding: 20px;
+    margin: 20px auto;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--neon-purple);
+    box-shadow: 0 0 15px var(--neon-purple), inset 0 0 10px rgba(138, 43, 226, 0.3);
+    max-width: 250px;
+    position: relative; z-index: 1;
+  }
+  footer .footer-logo-container svg {
+    width: 180px;
+    height: auto;
+    color: var(--text-light);
+    filter: drop-shadow(0 0 10px var(--neon-blue));
+  }
+
+  /* Zone with image */
+  .zone-img {
+    margin: -24px -26px 18px;
+    aspect-ratio: 5 / 3;
+    overflow: hidden;
+    border-bottom: 1px solid var(--neon-pink);
+    position: relative;
+    box-shadow: 0 0 15px rgba(255, 0, 128, 0.4);
+  }
+  .zone-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: saturate(1.1) contrast(1.04);
+    transition: transform 0.4s ease, filter 0.3s ease;
+  }
+  .zone:hover .zone-img img { transform: scale(1.04); filter: saturate(1.2) contrast(1.1) brightness(1.05); }
+  .zone-img::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 55%, rgba(26, 0, 51, 0.85) 100%);
+    pointer-events: none;
+  }
+  .vhs-glitch-active {
+    animation: vhs-glitch 0.2s linear;
+  }
+  @keyframes vhs-glitch {
+    0% { transform: translateX(0); filter: blur(0); }
+    25% { transform: translateX(2px) translateY(-1px); filter: blur(0.5px); }
+    50% { transform: translateX(-2px) translateY(1px); filter: blur(0.8px); }
+    75% { transform: translateX(1px) translateY(-2px); filter: blur(0.3px); }
+    100% { transform: translateX(0); filter: blur(0); }
+  }
+
+  /* Designer avatar */
+  .designer-card { padding-top: 0; padding-bottom: 16px; }
+  .designer-thumb {
+    margin: 0 -20px 14px;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-bottom: 1px solid var(--neon-blue);
+    position: relative;
+    box-shadow: 0 0 10px rgba(0, 204, 255, 0.3);
+  }
+  .designer-thumb img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: saturate(1.05);
+    transition: transform 0.3s ease, filter 0.3s ease;
+  }
+  .designer-card:hover .designer-thumb img { transform: scale(1.05); filter: saturate(1.1) brightness(1.1); }
+  .designer-card .pad-top { padding-top: 4px; }
+
+  /* Ticket showcase */
+  .ticket-showcase {
+    margin: 0 0 48px;
+    display: flex; align-items: center; gap: 32px;
+    padding: 28px;
+    border: 2px dashed var(--neon-pink);
+    background: linear-gradient(135deg, var(--bg-card) 0%, rgba(44, 0, 89, 0.8) 100%);
+    position: relative; overflow: hidden;
+    box-shadow: 0 0 20px var(--neon-pink);
+  }
+  .ticket-showcase::before {
+    content: ''; position: absolute;
+    top: -2px; right: -2px; width: 80px; height: 80px;
+    background: linear-gradient(135deg, transparent 50%, var(--neon-blue) 50%);
+    opacity: 0.2;
+  }
+  .ticket-showcase img {
+    width: 240px; height: auto; border: 2px solid var(--neon-blue);
+    box-shadow: 0 0 32px rgba(0, 204, 255, 0.6);
+    flex-shrink: 0;
+  }
+  .ticket-showcase .ts-info { flex: 1; }
+  .ticket-showcase .ts-label {
+    font-family: var(--mono-font); font-size: 11px;
+    color: var(--neon-yellow); letter-spacing: 0.22em;
+    margin-bottom: 10px;
+    text-shadow: 0 0 5px var(--neon-yellow);
+  }
+  .ticket-showcase .ts-title {
+    font-family: var(--accent-font); font-weight: 700;
+    font-size: 22px; color: var(--text-light); letter-spacing: 0.04em;
+    margin-bottom: 12px;
+    text-shadow: 0 0 10px var(--neon-pink);
+  }
+  .ticket-showcase .ts-desc {
+    font-family: var(--body-font); font-size: 13.5px;
+    color: var(--text-dark); line-height: 1.85;
+  }
+  @media (max-width: 720px) {
+    .ticket-showcase { flex-direction: column; gap: 18px; padding: 20px; }
+    .ticket-showcase img { width: 100%; max-width: 280px; }
+  }
+</style>
+</head>
+<body>
+<div class="scanlines"></div>
+
+<div class="topbar">
+  <div class="left">
+    <a href="../../index.html" aria-label="Back to Gallery">
+      <svg viewBox="0 0 600 280" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="aqualux">
+        <text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text>
+        <line x1="80" y1="165" x2="520" y2="165" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+        <g transform="translate(0,330) scale(1,-1)" opacity="0.28"><text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text></g>
+      </svg>
+    </a>
+    <span>← GALLERY</span>
+  </div>
+  <div class="right">
+    STATUS: <span class="blink">LIVE</span> // SYNTHWAVE EDITION
+  </div>
+</div>
+
+<main>
+  <section class="hero">
+    <p class="kicker">AQUALUX 2026</p>
+    <p class="hero-jp">デザイン スペクトル展</p>
+    <h1>
+      <span class="glitch" data-text="DESIGN">DESIGN</span>
+      <span class="gp"> SPECTRUM</span>
+      <br>
+      <span class="gc glitch" data-text="EXHIBITION">EXHIBITION</span>
+    </h1>
+    <p class="hero-sub">
+      IMMERSIVE JOURNEY INTO THE <span class="accent">80S FUTURE</span>.
+      A VISUAL SYMPHONY OF NEON, GRIDS, AND DIGITAL DREAMS.
+    </p>
+
+    <div class="meta-strip">
+      <div class="meta-cell">
+        <span class="label">DATE //</span>
+        <span class="val">2026.12.06 — 12.21</span>
+      </div>
+      <div class="meta-cell">
+        <span class="label">VENUE //</span>
+        <span class="val">Songshan Warehouse No.5</span>
+      </div>
+      <div class="meta-cell">
+        <span class="label">CURATOR //</span>
+        <span class="val">Jerry @ aqualux.dev</span>
+      </div>
+      <div class="meta-cell">
+        <span class="label">SCALE //</span>
+        <span class="val">12 DESIGNERS / 40 WORKS</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <h2 class="sec-title">CURATORIAL <span class="ph">STATEMENT</span></h2>
+      <span class="sec-title-jp">策展論述</span>
+    </div>
+    <div class="statement">
+      <p>
+        WELCOME, TRAVELER, TO THE <strong class="strong">AQUALUX 2026 DESIGN SPECTRUM EXHIBITION</strong>.
+        STEP INTO A DIMENSION WHERE THE PAST GLOWS WITH THE FUTURE'S PROMISE.
+        THIS YEAR, WE ARE THRILLED TO PRESENT AN ODE TO THE <em class="em">80S SYNTHWAVE ERA</em>,
+        A TIME WHEN DIGITAL DREAMS MET ANALOG REALITY, FORGING A UNIQUE AESTHETIC THAT CONTINUES TO RESONATE.
+      </p>
+      <p>
+        OUR CURATION EXPLORES THE VIBRANT DICHOTOMY OF ELECTRIC NEONS AND DEEP VIOLETS,
+        THE INFINITE HORIZONS OF GRIDLINES, AND THE BOLD, UNAPOLOGETIC TYPOGRAPHY THAT DEFINED A GENERATION.
+        EACH PIECE IS A NODE IN A LARGER NETWORK, A PULSE IN THE <em class="em">DIGITAL HEARTBEAT</em> OF THIS EXHIBITION.
+      </p>
+      <blockquote>
+        > SYNTHESIS COMPLETE. INITIATING SPECTRUM SEQUENCE.<br>
+        > DISCOVER. IMMERSE. TRANSCEND.
+      </blockquote>
+      <p>
+        PREPARE TO BE TRANSPORTED. THIS IS MORE THAN AN EXHIBITION; IT'S A <strong class="strong">RETRO-FUTURISTIC ODYSSEY</strong>.
+        A CELEBRATION OF DESIGN THAT DARED TO DREAM IN NEON.
+      </p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <h2 class="sec-title">DESIGNER <span class="ph">CODEX</span></h2>
+      <span class="sec-title-jp">設計師名單</span>
+    </div>
+    <div class="designers">
+      <div class="designer-card">
+        <div class="designer-thumb">
+          <img src="images/designer-neon-lee.webp" alt="Abstract emblem for Neon Lee (UI/Brutalism)" loading="lazy" decoding="async">
+        </div>
+        <div class="pad-top">
+          <p class="idx">D_001</p>
+          <p class="name-jp">ネオン リー</p>
+          <p class="name">NEON LEE</p>
+          <p class="tag">UI / BRUTALISM</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb">
+          <img src="images/designer-chrome-ho.webp" alt="Abstract emblem for Chrome Ho (Motion/Parallax)" loading="lazy" decoding="async">
+        </div>
+        <div class="pad-top">
+          <p class="idx">D_002</p>
+          <p class="name-jp">クローム ホー</p>
+          <p class="name">CHROME HO</p>
+          <p class="tag">MOTION / PARALLAX</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb">
+          <img src="images/designer-glitch-chang.webp" alt="Abstract emblem for Glitch Chang (Experimental)" loading="lazy" decoding="async">
+        </div>
+        <div class="pad-top">
+          <p class="idx">D_003</p>
+          <p class="name-jp">グリッチ チャン</p>
+          <p class="name">GLITCH CHANG</p>
+          <p class="tag">EXPERIMENTAL</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb">
+          <img src="images/designer-paper-wu.webp" alt="Abstract emblem for Paper Wu (Editorial/Minimal)" loading="lazy" decoding="async">
+        </div>
+        <div class="pad-top">
+          <p class="idx">D_004</p>
+          <p class="name-jp">ペーパー ウー</p>
+          <p class="name">PAPER WU</p>
+          <p class="tag">EDITORIAL / MINIMAL</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb">
+          <img src="images/designer-vapor-lin.webp" alt="Abstract emblem for Vapor Lin (Retro/Aesthetic)" loading="lazy" decoding="async">
+        </div>
+        <div class="pad-top">
+          <p class="idx">D_005</p>
+          <p class="name-jp">ヴェイパー リン</p>
+          <p class="name">VAPOR LIN</p>
+          <p class="tag">RETRO / AESTHETIC</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb">
+          <img src="images/designer-swiss-chen.webp" alt="Abstract emblem for Swiss Chen (Cultural/Grid)" loading="lazy" decoding="async">
+        </div>
+        <div class="pad-top">
+          <p class="idx">D_006</p>
+          <p class="name-jp">スイス チェン</p>
+          <p class="name">SWISS CHEN</p>
+          <p class="tag">CULTURAL / GRID</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb">
+          <img src="images/designer-glass-yang.webp" alt="Abstract emblem for Glass Yang (Glassmorphism)" loading="lazy" decoding="async">
+        </div>
+        <div class="pad-top">
+          <p class="idx">D_007</p>
+          <p class="name-jp">ガラス ヤン</p>
+          <p class="name">GLASS YANG</p>
+          <p class="tag">GLASSMORHISM</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb">
+          <img src="images/designer-ascii-fan.webp" alt="Abstract emblem for ASCII Fan (Terminal/CLI)" loading="lazy" decoding="async">
+        </div>
+        <div class="pad-top">
+          <p class="idx">D_008</p>
+          <p class="name-jp">アスキー ファン</p>
+          <p class="name">ASCII FAN</p>
+          <p class="tag">TERMINAL / CLI</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb">
+          <img src="images/designer-hand-chao.webp" alt="Abstract emblem for Hand Chao (Sketch/Doodle)" loading="lazy" decoding="async">
+        </div>
+        <div class="pad-top">
+          <p class="idx">D_009</p>
+          <p class="name-jp">ハンド ジョー</p>
+          <p class="name">HAND CHAO</p>
+          <p class="tag">SKETCH / DOODLE</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb">
+          <img src="images/designer-magne-huang.webp" alt="Abstract emblem for Magne Huang (Interaction)" loading="lazy" decoding="async">
+        </div>
+        <div class="pad-top">
+          <p class="idx">D_010</p>
+          <p class="name-jp">マグネ ホアン</p>
+          <p class="name">MAGNE HUANG</p>
+          <p class="tag">INTERACTION</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb">
+          <img src="images/designer-cyber-su.webp" alt="Abstract emblem for Cyber Su (Cyberpunk/Glow)" loading="lazy" decoding="async">
+        </div>
+        <div class="pad-top">
+          <p class="idx">D_011</p>
+          <p class="name-jp">サイバー スー</p>
+          <p class="name">CYBER SU</p>
+          <p class="tag">CYBERPUNK / GLOW</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb">
+          <img src="images/designer-noise-kao.webp" alt="Abstract emblem for Noise Kao (Film Grain)" loading="lazy" decoding="async">
+        </div>
+        <div class="pad-top">
+          <p class="idx">D_012</p>
+          <p class="name-jp">ノイズ カオ</p>
+          <p class="name">NOISE KAO</p>
+          <p class="tag">FILM GRAIN</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <h2 class="sec-title">VENUE <span class="ph">MAP</span></h2>
+      <span class="sec-title-jp">場地圖</span>
+    </div>
+    <div class="zone">
+      <div class="zone-img">
+        <img src="images/venue.webp" alt="Interior of a retro-futuristic art gallery with neon lights and geometric shapes." loading="lazy" decoding="async" class="vhs-glitch-target">
+      </div>
+      <p class="zone-cn">松山文創園區 5 號倉庫</p>
+      <p class="zone-en">SONGSHAN WAREHOUSE NO.5</p>
+      <p class="zone-desc">
+        OUR SANCTUARY FOR THE SPECTRUM. A VAST, INDUSTRIAL SPACE TRANSFORMED INTO A NEON-DRENCHED REALM.
+        NAVIGATE THROUGH ITS GEOMETRIC CORRIDORS, WHERE EACH TURN REVEALS A NEW VISUAL FREQUENCY.
+      </p>
+      <p class="zone-coord">COORD: N 25.045, E 121.560</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <h2 class="sec-title">EXHIBITION <span class="ph">ZONES</span></h2>
+      <span class="sec-title-jp">五大展區</span>
+    </div>
+    <div class="zones">
+      <div class="zone">
+        <div class="zone-img">
+          <img src="images/zone-z01.webp" alt="Clean retro-futuristic gallery with soft neon blue and purple lights, holographic displays." loading="lazy" decoding="async" class="vhs-glitch-target">
+        </div>
+        <p class="zone-id">Z01</p>
+        <p class="zone-cn">主流頻譜</p>
+        <p class="zone-en">MAINSTREAM FREQUENCY</p>
+        <p class="zone-desc">
+          EXPLORE THE VIBRANT PULSE OF CONTEMPORARY SYNTHWAVE DESIGN.
+          FIVE SELECTIONS THAT DEFINE THE CURRENT LANDSCAPE.
+        </p>
+        <p class="zone-coord">LOCATION: 5F-A1 // WORKS: 5</p>
+      </div>
+      <div class="zone">
+        <div class="zone-img">
+          <img src="images/zone-z02.webp" alt="Stack of old CRT monitors displaying static and glitch art, surrounded by VHS tapes, neon pink and green glow." loading="lazy" decoding="async" class="vhs-glitch-target">
+        </div>
+        <p class="zone-id">Z02</p>
+        <p class="zone-cn">時光殘響</p>
+        <p class="zone-en">RETRO ECHO</p>
+        <p class="zone-desc">
+          A NOSTALGIC JOURNEY THROUGH THE PIONEERING WORKS THAT SHAPED THE SYNTHWAVE MOVEMENT.
+          SIX PIECES REVERBERATING WITH HISTORY.
+        </p>
+        <p class="zone-coord">LOCATION: 5F-A2 // WORKS: 6</p>
+      </div>
+      <div class="zone">
+        <div class="zone-img">
+          <img src="images/zone-z03.webp" alt="Dark lab with glowing circuit boards, laser beams, neon yellow accents, 80s sci-fi aesthetic." loading="lazy" decoding="async" class="vhs-glitch-target">
+        </div>
+        <p class="zone-id">Z03</p>
+        <p class="zone-cn">前衛實驗室</p>
+        <p class="zone-en">AVANT LAB</p>
+        <p class="zone-desc">
+          WHERE BOUNDARIES ARE PUSHED AND NEW FREQUENCIES ARE DISCOVERED.
+          SIX EXPERIMENTAL WORKS THAT DEFY CONVENTION.
+        </p>
+        <p class="zone-coord">LOCATION: 5F-B1 // WORKS: 6</p>
+      </div>
+      <div class="zone">
+        <div class="zone-img">
+          <img src="images/zone-z04.webp" alt="Stylized blend of 80s Japanese city lights and traditional elements against a synthwave sunset." loading="lazy" decoding="async" class="vhs-glitch-target">
+        </div>
+        <p class="zone-id">Z04</p>
+        <p class="zone-cn">文化光譜</p>
+        <p class="zone-en">CULTURAL SPECTRUM</p>
+        <p class="zone-desc">
+          A DIVERSE COLLECTION REFLECTING THE GLOBAL INFLUENCE AND ADAPTATION OF SYNTHWAVE.
+          FIVE WORKS FROM ACROSS THE SPECTRUM.
+        </p>
+        <p class="zone-coord">LOCATION: 5F-B2 // WORKS: 5</p>
+      </div>
+      <div class="zone">
+        <div class="zone-img">
+          <img src="images/zone-z05.webp" alt="Abstract kinetic sculpture with glowing lines, motion blur trails, surrounded by shimmering synthwave patterns." loading="lazy" decoding="async" class="vhs-glitch-target">
+        </div>
+        <p class="zone-id">Z05</p>
+        <p class="zone-cn">動態廳</p>
+        <p class="zone-en">MOTION HALL</p>
+        <p class="zone-desc">
+          EXPERIENCE DESIGN IN MOTION. A DYNAMIC SPACE SHOWCASING ANIMATED ART AND INTERACTIVE INSTALLATIONS.
+          FIFTEEN WORKS THAT MOVE AND BREATHE.
+        </p>
+        <p class="zone-coord">LOCATION: 5F-C1 // WORKS: 15</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head">
+      <span class="sec-num">05</span>
+      <h2 class="sec-title">PROGRAM <span class="ph">SCHEDULE</span></h2>
+      <span class="sec-title-jp">講座排程</span>
+    </div>
+    <table class="schedule-table">
+      <thead>
+        <tr>
+          <th scope="col">TIME_SLOT</th>
+          <th scope="col">EVENT_TITLE</th>
+          <th scope="col">SPEAKER</th>
+          <th scope="col">LOCATION</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>12.07 14:00</td>
+          <td>NEON FUTURES: DESIGN VISION</td>
+          <td>NEON LEE</td>
+          <td>Z01 STAGE</td>
+        </tr>
+        <tr>
+          <td>12.08 16:00</td>
+          <td>GLITCH AESTHETICS WORKSHOP</td>
+          <td>GLITCH CHANG</td>
+          <td>Z03 LAB</td>
+        </tr>
+        <tr>
+          <td>12.10 11:00</td>
+          <td>THE ECHOES OF CHROME: MOTION</td>
+          <td>CHROME HO</td>
+          <td>Z05 HALL</td>
+        </tr>
+        <tr>
+          <td>12.12 15:00</td>
+          <td>RETRO-ANALOG REVIVAL PANEL</td>
+          <td>VAPOR LIN</td>
+          <td>Z02 LOUNGE</td>
+        </tr>
+        <tr>
+          <td>12.14 13:00</td>
+          <td>GRID SYSTEMS IN CULTURAL DESIGN</td>
+          <td>SWISS CHEN</td>
+          <td>Z04 FORUM</td>
+        </tr>
+        <tr>
+          <td>12.16 17:00</td>
+          <td>INTERACTIVE DESIGN: NEW FRONTIERS</td>
+          <td>MAGNE HUANG</td>
+          <td>Z05 HALL</td>
+        </tr>
+        <tr>
+          <td>12.18 14:00</td>
+          <td>TERMINAL AESTHETICS: ASCII ART</td>
+          <td>ASCII FAN</td>
+          <td>Z03 LAB</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="block">
+    <div class="sec-head">
+      <span class="sec-num">06</span>
+      <h2 class="sec-title">ACCESS <span class="ph">PASSES</span></h2>
+      <span class="sec-title-jp">票務資訊</span>
+    </div>
+
+    <div class="ticket-showcase">
+      <img src="images/ticket-mockup.webp" alt="A retro 80s synthwave concert ticket shaped like a cassette tape." loading="lazy" decoding="async">
+      <div class="ts-info">
+        <p class="ts-label">DIGITAL ACCESS KEY</p>
+        <p class="ts-title">AQUALUX SPECTRUM 2026</p>
+        <p class="ts-desc">
+          YOUR GATEWAY TO THE SYNTHWAVE SPECTRUM. EACH PASS IS A UNIQUE ARTIFACT,
+          GRANTING YOU ENTRY TO THE VISUAL SYMPHONY. CHOOSE YOUR FREQUENCY.
+        </p>
+      </div>
+    </div>
+
+    <div class="tickets">
+      <div class="ticket">
+        <span class="badge">STANDARD</span>
+        <p class="tier">SINGLE PASS</p>
+        <p class="tier-jp">單日入場</p>
+        <p class="price">NT$ 480</p>
+        <p class="price-unit">PER DAY</p>
+        <ul>
+          <li>▸ ACCESS TO ALL ZONES</li>
+          <li>▸ DIGITAL EXHIBIT GUIDE</li>
+          <li>▸ BASIC SUPPORT PROTOCOL</li>
+        </ul>
+        <button class="cta-btn cyan" disabled aria-label="Demo only — not for sale">PURCHASE</button>
+      </div>
+      <div class="ticket featured">
+        <span class="badge">FEATURED</span>
+        <p class="tier">FULL ACCESS</p>
+        <p class="tier-jp">全展期通票</p>
+        <p class="price">NT$ 1,280</p>
+        <p class="price-unit">FULL EXHIBITION</p>
+        <ul>
+          <li>▸ UNLIMITED ENTRY (16 DAYS)</li>
+          <li>▸ EXCLUSIVE DIGITAL CONTENT</li>
+          <li>▸ PRIORITY EVENT ACCESS</li>
+          <li>▸ SYNTHWAVE SOUNDTRACK</li>
+        </ul>
+        <button class="cta-btn" disabled aria-label="Demo only — not for sale">PURCHASE</button>
+      </div>
+      <div class="ticket">
+        <span class="badge">PREMIUM</span>
+        <p class="tier">CURATOR PASS</p>
+        <p class="tier-jp">含工作坊</p>
+        <p class="price">NT$ 2,880</p>
+        <p class="price-unit">PREMIUM PACKAGE</p>
+        <ul>
+          <li>▸ ALL FULL ACCESS BENEFITS</li>
+          <li>▸ INVITATION TO WORKSHOPS</li>
+          <li>▸ LIMITED EDITION POSTER</li>
+          <li>▸ MEET & GREET OPPORTUNITY</li>
+        </ul>
+        <button class="cta-btn cyan" disabled aria-label="Demo only — not for sale">PURCHASE</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p class="ascii-line">─=≡Σ((( つ•̀ω•́)つ ENTER THE GRID (っ˘ω˘ς )Σ≡=─</p>
+  <div class="footer-logo-container">
+    <svg viewBox="0 0 600 280" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="aqualux">
+      <text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text>
+      <line x1="80" y1="165" x2="520" y2="165" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+      <g transform="translate(0,330) scale(1,-1)" opacity="0.28"><text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text></g>
+    </svg>
+  </div>
+  <p class="signature">MMXXVI · <span class="ph">AQUALUX.DEV</span></p>
+  <p class="credit">
+    CODEX DESIGNED BY <a href="https://aqualux.dev" target="_blank" rel="noopener noreferrer">AQUALUX.DEV</a>
+    <br>POWERED BY SYNTHWAVE PROTOCOL
+  </p>
+  <p class="terminal">
+    C:\>_SYSTEM_READY <span class="cursor">_</span>
+  </p>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('.vhs-glitch-target');
+    images.forEach(img => {
+      img.addEventListener('mouseover', () => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          return; // Skip animation if prefers-reduced-motion is enabled
+        }
+        img.classList.add('vhs-glitch-active');
+      });
+      img.addEventListener('animationend', () => {
+        img.classList.remove('vhs-glitch-active');
+      });
+    });
+  });
+</script>
+</body>
+</html>

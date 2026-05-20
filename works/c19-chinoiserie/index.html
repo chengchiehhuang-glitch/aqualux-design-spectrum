@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AQUALUX 2026 // DESIGN SPECTRUM EXHIBITION · 中國風國潮 Chinoiserie Demo</title>
+<meta name="description" content="aqualux 2026 設計光譜展 · 中國風國潮風格 demo · single-file HTML showcase">
+<link rel="canonical" href="https://design.aqualux.dev/works/c19-chinoiserie-guochao/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://design.aqualux.dev/works/c19-chinoiserie-guochao/">
+<meta property="og:title" content="C19 中國風國潮 · aqualux 設計光譜展">
+<meta property="og:description" content="中國風國潮風格 single-file HTML demo · aqualux 2026 設計光譜展">
+<meta property="og:image" content="https://design.aqualux.dev/works/c19-chinoiserie-guochao/images/hero.webp">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="C19 中國風國潮 · aqualux 設計光譜展">
+<meta name="twitter:image" content="https://design.aqualux.dev/works/c19-chinoiserie-guochao/images/hero.webp">
+<link rel="icon" type="image/svg+xml" href="../../assets/aqualux-logo-mark.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&family=Noto+Sans+SC:wght@400;500;700&family=Source+Han+Serif+SC:wght@400&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #fcfcfc;        /* 主白底 */
+    --bg-card: #fff8e1;   /* 卡片底（米黃宣紙）*/
+    --vermilion: #d73a21; /* 主強調（硃紅）*/
+    --ink-black: #2c2c2c; /* 墨黑 */
+    --jade-green: #60b299; /* 點綴（玉綠）*/
+    --gold-accent: #f0c27b; /* 點綴（描金）*/
+    --ink: var(--ink-black);
+    --ink-2: #5e5e5e;
+    --ink-3: #8f8f8f;
+
+    --display-font: 'Noto Serif SC', 'FZShuSong-Z01S', serif;
+    --mono-font: 'Source Han Serif SC', 'FZKai-Z03S', serif;
+    --body-font: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+    --calligraphic-accent: 'FZShuSong-Z01S', serif; /* For seals, special titles */
+  }
+
+  /* prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--body-font);
+    line-height: 1.8;
+    font-size: 15px;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    position: relative; /* For fixed backgrounds */
+  }
+
+  /* Watermark / Cloud pattern */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e0e0e0' fill-opacity='0.2'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zm0-30V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background-repeat: repeat;
+    opacity: 0.3;
+    pointer-events: none; z-index: -2;
+    animation: scrollCloud 120s linear infinite;
+  }
+  @keyframes scrollCloud {
+    from { background-position: 0 0; }
+    to { background-position: 100% 100%; }
+  }
+
+  /* Ink wash overlay */
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse at 15% 10%, rgba(215, 58, 33, 0.08) 0%, transparent 40%),
+      radial-gradient(ellipse at 80% 85%, rgba(96, 178, 153, 0.08) 0%, transparent 45%),
+      radial-gradient(ellipse at 50% 50%, rgba(240, 194, 123, 0.05) 0%, transparent 50%);
+    mix-blend-mode: multiply;
+    pointer-events: none; z-index: -1;
+    animation: inkSpread 28s ease-in-out infinite alternate;
+  }
+  @keyframes inkSpread {
+    0% { transform: scale(1); opacity: 1; }
+    25% { transform: scale(1.02) rotate(0.5deg); opacity: 0.95; }
+    50% { transform: scale(1.01) rotate(-0.5deg); opacity: 1; }
+    75% { transform: scale(1.03) rotate(0.8deg); opacity: 0.98; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  a { color: var(--vermilion); text-decoration: none; }
+  a:hover { color: var(--ink-black); }
+
+  /* Top bar */
+  .topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(252, 252, 252, 0.9);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--gold-accent);
+    padding: 12px 32px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--mono-font); font-size: 13px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .topbar .left { color: var(--ink-black); display: flex; align-items: center; gap: 8px; }
+  .topbar .left svg { height: 28px; width: auto; color: var(--ink-black); }
+  .topbar .left a { color: var(--ink-black); }
+  .topbar .left a:hover { color: var(--vermilion); }
+  .topbar .right { color: var(--ink-3); letter-spacing: 0.05em; }
+  .topbar .right .stamp {
+    display: inline-block;
+    font-family: var(--calligraphic-accent);
+    color: var(--vermilion);
+    border: 1px solid var(--vermilion);
+    padding: 2px 6px;
+    margin-left: 8px;
+    transform: rotate(2deg);
+  }
+
+  /* Hero */
+  .hero {
+    padding: 80px 32px 60px;
+    max-width: 1280px; margin: 0 auto;
+    position: relative;
+  }
+  .kicker {
+    font-family: var(--mono-font); font-size: 13px;
+    color: var(--jade-green); letter-spacing: 0.2em;
+    margin-bottom: 24px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .kicker::before, .kicker::after {
+    content: ''; display: inline-block;
+    width: 28px; height: 1px; background: var(--jade-green);
+  }
+  .hero-jp {
+    font-family: var(--mono-font); font-weight: 400;
+    font-size: clamp(16px, 2vw, 24px);
+    color: var(--vermilion); letter-spacing: 0.3em;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 3px rgba(215, 58, 33, 0.3);
+  }
+  .hero h1 {
+    font-family: var(--display-font); font-weight: 900;
+    font-size: clamp(52px, 10vw, 130px);
+    line-height: 1.05; letter-spacing: 0.02em;
+    color: var(--ink-black);
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+    margin-bottom: 18px;
+    position: relative;
+    display: inline-block;
+  }
+  .hero h1::before {
+    content: '';
+    position: absolute; inset: -8px;
+    border: 2px solid var(--gold-accent);
+    opacity: 0.6;
+    animation: breathGold 3s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+  @keyframes breathGold {
+    0% { transform: scale(1); opacity: 0.6; }
+    100% { transform: scale(1.015); opacity: 0.75; }
+  }
+  .hero-sub {
+    font-family: var(--body-font); font-weight: 400;
+    font-size: clamp(14px, 1.5vw, 18px);
+    color: var(--ink-2); letter-spacing: 0.05em;
+    margin: 28px 0 36px; max-width: 760px;
+  }
+  .hero-sub .accent { color: var(--vermilion); font-weight: 500; }
+  .meta-strip {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    border-top: 1px solid var(--ink-3);
+    border-bottom: 1px solid var(--ink-3);
+    padding: 20px 0;
+    margin-top: 36px;
+  }
+  .meta-cell {
+    font-family: var(--mono-font); font-size: 13px;
+    color: var(--ink-2);
+  }
+  .meta-cell .label {
+    color: var(--jade-green); letter-spacing: 0.1em;
+    font-size: 11.5px; margin-bottom: 6px; display: block;
+  }
+  .meta-cell .val { color: var(--ink); font-size: 14.5px; font-weight: 500; }
+
+  /* Section base */
+  section.block { padding: 80px 32px; max-width: 1280px; margin: 0 auto; }
+  .sec-head {
+    display: flex; align-items: baseline; gap: 24px;
+    margin-bottom: 40px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--vermilion);
+    position: relative;
+  }
+  .sec-head::before {
+    content: ''; position: absolute;
+    bottom: -4px; left: 0; right: 0;
+    height: 1px; background: var(--gold-accent);
+    opacity: 0.6;
+  }
+  .sec-num {
+    font-family: var(--mono-font); font-size: 14px;
+    color: var(--vermilion); letter-spacing: 0.15em;
+    font-weight: 700;
+  }
+  .sec-title-jp {
+    font-family: var(--body-font); font-size: 14px;
+    color: var(--ink-3); letter-spacing: 0.2em;
+  }
+  .sec-title {
+    font-family: var(--display-font); font-size: clamp(28px, 4.5vw, 48px);
+    font-weight: 900; letter-spacing: 0.04em;
+    color: var(--ink-black);
+    margin-right: auto;
+  }
+  .sec-title .ph { color: var(--vermilion); }
+
+  /* Curatorial statement */
+  .statement {
+    max-width: 880px;
+    font-family: var(--body-font); font-size: 16.5px; line-height: 1.9;
+    color: var(--ink-2);
+    background: var(--bg-card);
+    padding: 40px;
+    border: 1px solid var(--gold-accent);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    position: relative;
+  }
+  .statement::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+    pointer-events: none;
+    mix-blend-mode: multiply;
+  }
+  .statement p { margin-bottom: 20px; }
+  .statement .em { color: var(--jade-green); font-weight: 500; }
+  .statement .strong { color: var(--vermilion); font-weight: 700; letter-spacing: 0.03em; }
+  .statement blockquote {
+    border-left: 4px solid var(--vermilion);
+    padding: 18px 26px;
+    margin: 28px 0;
+    background: rgba(215, 58, 33, 0.05);
+    font-family: var(--mono-font); color: var(--ink);
+    font-size: 14.5px; letter-spacing: 0.02em;
+    position: relative;
+  }
+  .statement blockquote::before, .statement blockquote::after {
+    content: ''; position: absolute;
+    border: 1px solid var(--gold-accent);
+    opacity: 0.5;
+  }
+  .statement blockquote::before { top: 6px; bottom: 6px; left: 6px; right: 6px; }
+  .statement blockquote::after { top: 12px; bottom: 12px; left: 12px; right: 12px; }
+
+  /* Designer grid */
+  .designers {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  .designer-card {
+    border: 1px solid var(--gold-accent);
+    background: var(--bg-card);
+    padding: 0 20px 20px;
+    position: relative;
+    transition: all 0.3s ease;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .designer-card:hover {
+    border-color: var(--vermilion);
+    background: rgba(255, 248, 225, 0.8);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  }
+  .designer-card .idx {
+    font-family: var(--mono-font); font-size: 12px;
+    color: var(--jade-green); letter-spacing: 0.1em;
+    margin-top: 16px;
+  }
+  .designer-card .name-jp {
+    font-family: var(--body-font); font-size: 12.5px;
+    color: var(--ink-3); letter-spacing: 0.1em;
+    margin-bottom: 6px;
+  }
+  .designer-card .name {
+    font-family: var(--display-font); font-size: 19px; font-weight: 700;
+    color: var(--ink); letter-spacing: 0.03em;
+    margin-bottom: 10px;
+  }
+  .designer-card .tag {
+    font-family: var(--mono-font); font-size: 11.5px;
+    color: var(--vermilion); letter-spacing: 0.08em;
+  }
+  .designer-card .tag::before { content: '◎ '; color: var(--ink-3); }
+
+  /* Designer avatar */
+  .designer-thumb {
+    margin: 0 -20px 0;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-bottom: 1px solid var(--gold-accent);
+    position: relative;
+    background: linear-gradient(135deg, var(--bg-card) 0%, #fefefe 100%);
+  }
+  .designer-thumb img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: sepia(0.2) saturate(1.1);
+    transition: transform 0.3s ease;
+  }
+  .designer-card:hover .designer-thumb img { transform: scale(1.05); }
+
+  /* Zone map */
+  .zones {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .zone {
+    background: var(--bg-card);
+    border: 1px solid var(--gold-accent);
+    padding: 28px;
+    position: relative; overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  }
+  .zone::before {
+    content: ''; position: absolute;
+    top: 0; right: 0; width: 80px; height: 80px;
+    background: linear-gradient(135deg, transparent 50%, var(--vermilion) 50%);
+    opacity: 0.1;
+  }
+  .zone .zone-id {
+    font-family: var(--display-font); font-size: 52px; font-weight: 900;
+    color: var(--vermilion); line-height: 1;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 6px rgba(215, 58, 33, 0.3);
+  }
+  .zone .zone-cn {
+    font-family: var(--body-font); font-size: 20px; font-weight: 500;
+    color: var(--ink); margin-bottom: 6px;
+    letter-spacing: 0.03em;
+  }
+  .zone .zone-en {
+    font-family: var(--mono-font); font-size: 13px;
+    color: var(--jade-green); letter-spacing: 0.15em;
+    margin-bottom: 16px;
+  }
+  .zone .zone-desc {
+    font-family: var(--body-font); font-size: 14.5px; line-height: 1.8;
+    color: var(--ink-2);
+  }
+  .zone .zone-coord {
+    margin-top: 18px; padding-top: 16px;
+    border-top: 1px dashed var(--ink-3);
+    font-family: var(--mono-font); font-size: 12px;
+    color: var(--ink-3); letter-spacing: 0.1em;
+  }
+
+  /* Zone with image */
+  .zone-img {
+    margin: -28px -28px 20px;
+    aspect-ratio: 5 / 3;
+    overflow: hidden;
+    border-bottom: 1px solid var(--gold-accent);
+    position: relative;
+  }
+  .zone-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: grayscale(0.1) contrast(1.05) saturate(1.1);
+    transition: transform 0.4s ease;
+  }
+  .zone:hover .zone-img img { transform: scale(1.04); }
+  .zone-img::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 60%, rgba(252, 252, 252, 0.8) 100%);
+    pointer-events: none;
+  }
+
+  /* Schedule */
+  .schedule-table {
+    width: 100%; border-collapse: collapse;
+    font-family: var(--body-font); font-size: 14.5px;
+    background: var(--bg-card);
+    border: 1px solid var(--gold-accent);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  }
+  .schedule-table th, .schedule-table td {
+    padding: 14px 18px; text-align: left;
+    border-bottom: 1px solid var(--ink-3);
+  }
+  .schedule-table th {
+    color: var(--vermilion); letter-spacing: 0.1em;
+    font-size: 12px; font-weight: 700;
+    background: rgba(215, 58, 33, 0.08);
+    border-bottom: 2px solid var(--vermilion);
+  }
+  .schedule-table td { color: var(--ink-2); }
+  .schedule-table td:first-child {
+    color: var(--ink-black); font-weight: 500;
+    width: 140px;
+    font-family: var(--mono-font);
+  }
+  .schedule-table tr:hover td { color: var(--ink); background: rgba(215, 58, 33, 0.03); }
+
+  /* Tickets */
+  .tickets {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+  }
+  .ticket {
+    border: 1px solid var(--gold-accent);
+    padding: 32px 28px;
+    position: relative;
+    background: var(--bg-card);
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  }
+  .ticket.featured {
+    border-color: var(--vermilion);
+    background: linear-gradient(180deg, rgba(215, 58, 33, 0.08) 0%, var(--bg-card) 100%);
+    box-shadow: 0 0 32px rgba(215, 58, 33, 0.18);
+  }
+  .ticket .badge {
+    display: inline-block;
+    font-family: var(--mono-font); font-size: 11px;
+    color: var(--bg); background: var(--jade-green);
+    padding: 4px 12px; letter-spacing: 0.15em;
+    margin-bottom: 16px;
+  }
+  .ticket.featured .badge { background: var(--vermilion); }
+  .ticket .tier {
+    font-family: var(--display-font); font-size: 24px; font-weight: 700;
+    color: var(--ink); letter-spacing: 0.05em;
+    margin-bottom: 8px;
+  }
+  .ticket .tier-jp {
+    font-family: var(--body-font); font-size: 12px;
+    color: var(--ink-3); letter-spacing: 0.2em;
+    margin-bottom: 20px;
+  }
+  .ticket .price {
+    font-family: var(--display-font); font-size: 42px; font-weight: 900;
+    color: var(--vermilion); line-height: 1;
+    margin-bottom: 6px;
+    text-shadow: 2px 2px 8px rgba(215, 58, 33, 0.3);
+  }
+  .ticket.featured .price { color: var(--ink-black); text-shadow: 2px 2px 8px rgba(0,0,0,0.2); }
+  .ticket .price-unit {
+    font-family: var(--mono-font); font-size: 13px;
+    color: var(--ink-3); letter-spacing: 0.1em;
+    margin-bottom: 20px;
+  }
+  .ticket ul {
+    list-style: none; text-align: left;
+    font-family: var(--body-font); font-size: 13.5px;
+    color: var(--ink-2); line-height: 2.1;
+    margin-bottom: 24px;
+  }
+  .ticket li::before {
+    content: '✓ '; color: var(--jade-green); margin-right: 6px;
+  }
+
+  /* CTA */
+  .cta-btn {
+    display: inline-block;
+    font-family: var(--mono-font); font-weight: 700;
+    font-size: 14px; letter-spacing: 0.18em;
+    padding: 16px 36px;
+    background: transparent;
+    color: var(--vermilion);
+    border: 2px solid var(--vermilion);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    position: relative;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  .cta-btn:hover {
+    background: var(--vermilion); color: var(--bg);
+    box-shadow: 0 0 28px rgba(215, 58, 33, 0.4);
+    transform: translateY(-2px);
+  }
+  .cta-btn[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: var(--ink-3);
+    color: var(--bg);
+    border-color: var(--ink-3);
+    box-shadow: none;
+    transform: translateY(0);
+  }
+
+  /* Footer */
+  footer {
+    margin-top: 80px;
+    padding: 60px 32px 32px;
+    border-top: 1px solid var(--gold-accent);
+    background: var(--bg-card);
+    text-align: center;
+    position: relative;
+  }
+  footer::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+    pointer-events: none;
+    mix-blend-mode: multiply;
+  }
+  footer .ascii-line {
+    font-family: var(--mono-font); font-size: 12px;
+    color: var(--jade-green); letter-spacing: 0.1em;
+    margin-bottom: 20px;
+    white-space: nowrap; overflow: hidden;
+    position: relative;
+  }
+  footer .ascii-line::before, footer .ascii-line::after {
+    content: '—'; position: absolute; top: 0;
+    color: var(--ink-3);
+  }
+  footer .ascii-line::before { left: 0; }
+  footer .ascii-line::after { right: 0; }
+  footer .signature {
+    font-family: var(--display-font); font-size: 16px;
+    color: var(--ink-black); letter-spacing: 0.1em;
+    margin-bottom: 16px;
+  }
+  footer .signature .ph { color: var(--vermilion); }
+  footer .credit {
+    font-family: var(--body-font); font-size: 12px;
+    color: var(--ink-3); letter-spacing: 0.05em; line-height: 2;
+  }
+  footer .credit a { color: var(--ink-2); }
+  footer .terminal {
+    font-family: var(--mono-font); font-size: 11.5px;
+    color: var(--ink-3); letter-spacing: 0.05em;
+    margin-top: 24px;
+    opacity: 0;
+    animation: fadeIn 0.9s ease-in forwards;
+    animation-delay: 0.5s;
+  }
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+  footer .terminal .cursor {
+    color: var(--vermilion);
+    animation: blink 0.9s steps(2) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* Ticket showcase */
+  .ticket-showcase {
+    margin: 0 0 48px;
+    display: flex; align-items: center; gap: 32px;
+    padding: 32px;
+    border: 1px dashed var(--jade-green);
+    background: linear-gradient(135deg, var(--bg-card) 0%, #fefefe 100%);
+    position: relative; overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  }
+  .ticket-showcase::before {
+    content: ''; position: absolute;
+    top: -2px; right: -2px; width: 80px; height: 80px;
+    background: linear-gradient(135deg, transparent 50%, var(--jade-green) 50%);
+    opacity: 0.1;
+  }
+  .ticket-showcase img {
+    width: 260px; height: auto; border: 2px solid var(--vermilion);
+    box-shadow: 0 0 32px rgba(215, 58, 33, 0.25);
+    flex-shrink: 0;
+  }
+  .ticket-showcase .ts-info { flex: 1; }
+  .ticket-showcase .ts-label {
+    font-family: var(--mono-font); font-size: 12px;
+    color: var(--jade-green); letter-spacing: 0.18em;
+    margin-bottom: 12px;
+  }
+  .ticket-showcase .ts-title {
+    font-family: var(--display-font); font-weight: 700;
+    font-size: 24px; color: var(--ink); letter-spacing: 0.03em;
+    margin-bottom: 14px;
+  }
+  .ticket-showcase .ts-desc {
+    font-family: var(--body-font); font-size: 14.5px;
+    color: var(--ink-2); line-height: 1.9;
+  }
+  @media (max-width: 768px) {
+    .ticket-showcase { flex-direction: column; gap: 24px; padding: 24px; }
+    .ticket-showcase img { width: 100%; max-width: 260px; }
+  }
+
+  /* Hero banner image */
+  .hero-banner {
+    margin: 0; padding: 0;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 2px solid var(--vermilion);
+    box-shadow: 0 0 40px rgba(215, 58, 33, 0.2);
+  }
+  .hero-banner img {
+    width: 100%; height: auto; display: block;
+    filter: sepia(0.05) contrast(1.02);
+  }
+
+  /* aqualux logo for footer */
+  .aqualux-logo-footer {
+    width: 200px; /* Adjust size as needed */
+    height: auto;
+    margin: 30px auto 20px;
+    color: var(--ink-black);
+    position: relative;
+  }
+  .aqualux-logo-footer::before {
+    content: 'MMXXVI · AQUALUX.DEV';
+    font-family: var(--mono-font);
+    font-size: 10px;
+    color: var(--jade-green);
+    letter-spacing: 0.1em;
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .aqualux-logo-footer text {
+    font-family: var(--display-font) !important;
+    font-weight: 900 !important;
+    font-size: 120px !important; /* Adjust font size within SVG */
+    letter-spacing: 4px !important;
+  }
+  .aqualux-logo-footer line {
+    stroke: var(--vermilion);
+    opacity: 0.6 !important;
+  }
+  .aqualux-logo-footer g {
+    opacity: 0.15 !important;
+  }
+  /* aqualux logo for topbar */
+  .aqualux-logo-topbar {
+    height: 24px;
+    width: auto;
+    color: var(--ink-black);
+  }
+  .aqualux-logo-topbar text {
+    font-family: var(--display-font) !important;
+    font-weight: 900 !important;
+    font-size: 120px !important; /* Adjust font size within SVG */
+    letter-spacing: 4px !important;
+  }
+  .aqualux-logo-topbar line {
+    stroke: var(--vermilion);
+    opacity: 0.6 !important;
+  }
+  .aqualux-logo-topbar g {
+    opacity: 0.15 !important;
+  }
+
+  @media (max-width: 960px) {
+    .topbar { padding: 12px 20px; }
+    .hero, section.block { padding: 60px 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="left">
+    <a href="../../index.html" aria-label="回設計光譜展首頁">
+      <svg class="aqualux-logo-topbar" viewBox="0 0 600 280" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text>
+        <line x1="80" y1="165" x2="520" y2="165" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+        <g transform="translate(0,330) scale(1,-1)" opacity="0.28"><text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text></g>
+      </svg>
+    </a>
+    <a href="../../index.html">← 設計光譜展</a>
+  </div>
+  <div class="right">
+    C19 中國風國潮 · 2026 <span class="stamp">呈獻</span>
+  </div>
+</div>
+
+<main>
+  <div class="hero-banner">
+    <img src="images/hero.webp" alt="A majestic traditional Chinese landscape painting, in Guochao style. Rolling mountains, mist, ancient pavilions, and flowing rivers. Subtle ink wash background with vibrant vermilion and jade green accents. A large, elegant Song-style typography 'AQUALUX 設計光譜展 2026' appears in the foreground, with smaller calligraphic '水光設計' beneath. No people. High contrast between ink and color." loading="lazy" decoding="async">
+  </div>
+
+  <header class="hero">
+    <p class="kicker">水光設計</p>
+    <p class="hero-jp">aqualux 設計光譜</p>
+    <h1><span class="ph">國潮</span>．新生</h1>
+    <p class="hero-sub">
+      <span class="accent">aqualux 2026 設計光譜展</span> 呈獻「中國風國潮」專題。
+      在傳統與現代的交織中，探尋東方美學的無限可能。
+      以硃紅點睛，墨色為骨，承宋體之雅，融水墨之韻，展現文化自信與設計新聲。
+    </p>
+
+    <div class="meta-strip">
+      <div class="meta-cell">
+        <span class="label">展覽日期</span>
+        <span class="val">2026.12.06 — 12.21</span>
+      </div>
+      <div class="meta-cell">
+        <span class="label">展覽地點</span>
+        <span class="val">松山文創園區 5 號倉庫</span>
+      </div>
+      <div class="meta-cell">
+        <span class="label">策展人</span>
+        <span class="val">Jerry @ aqualux.dev</span>
+      </div>
+      <div class="meta-cell">
+        <span class="label">規模</span>
+        <span class="val">12 設計師 / 40 作品</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="block">
+    <div class="sec-head">
+      <span class="sec-num">01.</span>
+      <h2 class="sec-title"><span class="ph">策展</span>論述</h2>
+      <span class="sec-title-jp">Curatorial Statement</span>
+    </div>
+    <div class="statement">
+      <p>
+        「國潮．新生」不僅是一場設計展，更是對東方美學底蘊的深度叩問與當代詮釋。
+        在瞬息萬變的數字洪流中，我們回溯千年文脈，汲取<span class="em">宋代雅韻、水墨意境、傳統工藝</span>之精髓，
+        以現代設計語彙重塑。此展旨在展現傳統與現代並非對立，而是<span class="strong">相生相伴的兩股氣韻</span>，
+        在設計光譜的兩端，共譜和諧新章。
+      </p>
+      <p>
+        我們深信，設計不僅是視覺的呈現，更是文化的載體。
+        本次展覽匯聚十二位設計師，他們以各自獨到的視角，將<span class="em">古典元素與當代思潮</span>巧妙融合，
+        從 UI 介面的東方禪意、動態影像的詩意流轉，到實驗設計的哲學探索，
+        每一件作品都是一次跨越時空的對話，一次對未來東方設計的展望。
+      </p>
+      <blockquote>
+        「取法乎上，得乎其中；取法乎中，得乎其下。」<br>
+        —— 觀乎設計之本源，當求其高遠，方能臻於化境。
+      </blockquote>
+      <p>
+        期盼觀者能在此次設計光譜展中，感受那份源自東方的<span class="strong">沉靜力量與勃勃生機</span>，
+        共同見證國潮設計如何在新時代綻放其獨有的光華，映照出一個更具深度與廣度的設計未來。
+      </p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head">
+      <span class="sec-num">02.</span>
+      <h2 class="sec-title"><span class="ph">設計師</span>名錄</h2>
+      <span class="sec-title-jp">Featured Designers</span>
+    </div>
+    <div class="designers">
+      <div class="designer-card">
+        <div class="designer-thumb">
+          <img src="images/designer-d01.webp" alt="墨軒 Mo Xuan (UI / Minimal) - elegant ink brushstroke 'M' on a rice paper texture, subtle vermilion seal" loading="lazy" decoding="async">
+        </div>
+        <p class="idx">D_001</p>
+        <p class="name-jp">墨軒</p>
+        <h3 class="name">Mo Xuan</h3>
+        <p class="tag">UI / Minimal</p>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb">
+          <img src="images/designer-d02.webp" alt="雲鶴 Yun He (Motion / Animation) - stylized cloud and crane motif, flowing lines, jade green highlight" loading="lazy" decoding="async">
+        </div>
+        <p class="idx">D_002</p>
+        <p class="name-jp">雲鶴</p>
+        <h3 class="name">Yun He</h3>
+        <p class="tag">Motion / Animation</p>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb">
+          <img src="images/designer-d03.webp" alt="璃光 Li Guang (Experimental) - fractured porcelain shards with glowing edges, ink black background" loading="lazy" decoding="async">
+        </div>
+        <p class="idx">D_003</p>
+        <p class="name-jp">璃光</p>
+        <h3 class="name">Li Guang</h3>
+        <p class="tag">Experimental</p>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb">
+          <img src="images/designer-d04.webp" alt="宣紙 Xuan Zhi (Editorial / Calligraphy) - traditional rice paper texture with subtle calligraphic strokes in ink" loading="lazy" decoding="async">
+        </div>
+        <p class="idx">D_004</p>
+        <p class="name-jp">宣紙</p>
+        <h3 class="name">Xuan Zhi</h3>
+        <p class="tag">Editorial / Calligraphy</p>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb">
+          <img src="images/designer-d05.webp" alt="錦繡 Jin Xiu (Retro / Pattern) - intricate brocade pattern with gold and vermilion threads, faded vintage feel" loading="lazy" decoding="async">
+        </div>
+        <p class="idx">D_005</p>
+        <p class="name-jp">錦繡</p>
+        <h3 class="name">Jin Xiu</h3>
+        <p class="tag">Retro / Pattern</p>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb">
+          <img src="images/designer-d06.webp" alt="雅石 Ya Shi (Cultural / Texture) - textured stone with moss and subtle jade green veins, abstract representation of nature" loading="lazy" decoding="async">
+        </div>
+        <p class="idx">D_006</p>
+        <p class="name-jp">雅石</p>
+        <h3 class="name">Ya Shi</h3>
+        <p class="tag">Cultural / Texture</p>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb">
+          <img src="images/designer-d07.webp" alt="青瓷 Qing Ci (Glassmorphism / Glaze) - translucent jade-like glaze with subtle cracks, glowing softly" loading="lazy" decoding="async">
+        </div>
+        <p class="idx">D_007</p>
+        <p class="name-jp">青瓷</p>
+        <h3 class="name">Qing Ci</h3>
+        <p class="tag">Glassmorphism / Glaze</p>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb">
+          <img src="images/designer-d08.webp" alt="篆刻 Zhuan Ke (Terminal / Seal) - stylized ancient seal script character on a stone texture, vermilion ink impression" loading="lazy" decoding="async">
+        </div>
+        <p class="idx">D_008</p>
+        <p class="name-jp">篆刻</p>
+        <h3 class="name">Zhuan Ke</h3>
+        <p class="tag">Terminal / Seal</p>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb">
+          <img src="images/designer-d09.webp" alt="丹青 Dan Qing (Sketch / Ink Painting) - dynamic ink splash and brushstrokes, with a hint of vermilion color" loading="lazy" decoding="async">
+        </div>
+        <p class="idx">D_009</p>
+        <p class="name-jp">丹青</p>
+        <h3 class="name">Dan Qing</h3>
+        <p class="tag">Sketch / Ink Painting</p>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb">
+          <img src="images/designer-d10.webp" alt="玲瓏 Ling Long (Interaction / Craft) - intricate lattice work pattern, with subtle light passing through, representing delicate craft" loading="lazy" decoding="async">
+        </div>
+        <p class="idx">D_010</p>
+        <p class="name-jp">玲瓏</p>
+        <h3 class="name">Ling Long</h3>
+        <p class="tag">Interaction / Craft</p>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb">
+          <img src="images/designer-d11.webp" alt="龍紋 Long Wen (Guochao / Symbolism) - abstract dragon scale pattern in gold and vermilion, with dynamic flow" loading="lazy" decoding="async">
+        </div>
+        <p class="idx">D_011</p>
+        <p class="name-jp">龍紋</p>
+        <h3 class="name">Long Wen</h3>
+        <p class="tag">Guochao / Symbolism</p>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb">
+          <img src="images/designer-d12.webp" alt="飛白 Fei Bai (Film Grain / Brushwork) - textured white space with dynamic brushstrokes, resembling traditional calligraphy" loading="lazy" decoding="async">
+        </div>
+        <p class="idx">D_012</p>
+        <p class="name-jp">飛白</p>
+        <h3 class="name">Fei Bai</h3>
+        <p class="tag">Film Grain / Brushwork</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head">
+      <span class="sec-num">03.</span>
+      <h2 class="sec-title"><span class="ph">展覽</span>場地</h2>
+      <span class="sec-title-jp">Venue Map</span>
+    </div>
+    <div class="ticket-showcase">
+      <img src="images/venue.webp" alt="Serene interior of a modern Chinese garden-style exhibition hall, featuring intricate wooden latticework, moon gates, and soft, warm lighting. Traditional ink wash paintings on the walls, alongside contemporary art installations. Vermilion columns and jade green accents. Wide angle. No people." loading="lazy" decoding="async">
+      <div class="ts-info">
+        <p class="ts-label">松山文創園區 5 號倉庫</p>
+        <h3 class="ts-title">雅築光影 · 藝境悠然</h3>
+        <p class="ts-desc">
+          本次設計光譜展選址於松山文創園區 5 號倉庫，此空間經巧思改造，
+          融入<span class="em">中式園林設計理念</span>，以木質格柵、月洞門、水墨壁畫勾勒東方意境。
+          柔和燈光與自然採光交織，營造出<span class="strong">步移景異、光影流動</span>的觀展體驗。
+          漫步其中，彷彿置身於現代與古典對話的詩意空間。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head">
+      <span class="sec-num">04.</span>
+      <h2 class="sec-title"><span class="ph">五大</span>展區</h2>
+      <span class="sec-title-jp">Exhibition Zones</span>
+    </div>
+    <div class="zones">
+      <div class="zone">
+        <div class="zone-img">
+          <img src="images/zone-z01.webp" alt="Clean gallery space with subtle bamboo patterns and soft jade lighting, representing Mainstream Frequency." loading="lazy" decoding="async">
+        </div>
+        <p class="zone-id">Z01</p>
+        <h3 class="zone-cn">主流頻譜</h3>
+        <p class="zone-en">Mainstream Frequency</p>
+        <p class="zone-desc">
+          探討當代設計趨勢如何吸納並轉化傳統元素，呈現市場主流的國潮設計應用。
+        </p>
+        <p class="zone-coord">位置: 5F-A1 · 展品: 5 件</p>
+      </div>
+      <div class="zone">
+        <div class="zone-img">
+          <img src="images/zone-z02.webp" alt="Vintage Chinese propaganda art style, faded vermilion and gold, retro elements, representing Retro Echo." loading="lazy" decoding="async">
+        </div>
+        <p class="zone-id">Z02</p>
+        <h3 class="zone-cn">時光殘響</h3>
+        <p class="zone-en">Retro Echo</p>
+        <p class="zone-desc">
+          回溯歷史脈絡，展示經典復古設計在國潮浪潮中的回響與新生。
+        </p>
+        <p class="zone-coord">位置: 5F-A2 · 展品: 6 件</p>
+      </div>
+      <div class="zone">
+        <div class="zone-img">
+          <img src="images/zone-z03.webp" alt="Dark, abstract ink painting style, splashes of vermilion and black, dynamic brushstrokes, representing Avant Lab." loading="lazy" decoding="async">
+        </div>
+        <p class="zone-id">Z03</p>
+        <h3 class="zone-cn">前衛實驗室</h3>
+        <p class="zone-en">Avant Lab</p>
+        <p class="zone-desc">
+          聚焦前瞻性與實驗精神的國潮設計，探索未來美學的可能性。
+        </p>
+        <p class="zone-coord">位置: 5F-B1 · 展品: 6 件</p>
+      </div>
+      <div class="zone">
+        <div class="zone-img">
+          <img src="images/zone-z04.webp" alt="Fusion of diverse Chinese regional aesthetics (e.g., Sichuan opera mask + Suzhou embroidery + Hakka architecture elements), vibrant colors, representing Cultural Spectrum." loading="lazy" decoding="async">
+        </div>
+        <p class="zone-id">Z04</p>
+        <h3 class="zone-cn">文化光譜</h3>
+        <p class="zone-en">Cultural Spectrum</p>
+        <p class="zone-desc">
+          呈現多元地域文化如何影響國潮設計，展現豐富的文化底蘊。
+        </p>
+        <p class="zone-coord">位置: 5F-B2 · 展品: 5 件</p>
+      </div>
+      <div class="zone">
+        <div class="zone-img">
+          <img src="images/zone-z05.webp" alt="Flowing silk ribbons, dynamic calligraphy strokes, light projection on traditional screens, motion blur, representing Motion Hall." loading="lazy" decoding="async">
+        </div>
+        <p class="zone-id">Z05</p>
+        <h3 class="zone-cn">動態廳</h3>
+        <p class="zone-en">Motion Hall</p>
+        <p class="zone-desc">
+          專注於動態影像與互動設計，以流動的姿態詮釋國潮之美。
+        </p>
+        <p class="zone-coord">位置: 5F-C1 · 展品: 15 件</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head">
+      <span class="sec-num">05.</span>
+      <h2 class="sec-title"><span class="ph">講座</span>排程</h2>
+      <span class="sec-title-jp">Event Schedule</span>
+    </div>
+    <table class="schedule-table">
+      <thead>
+        <tr>
+          <th scope="col">時間</th>
+          <th scope="col">主題</th>
+          <th scope="col">講者</th>
+          <th scope="col">地點</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>12.07 (Mon) 14:00</td>
+          <td>國潮設計的現代語境</td>
+          <td>墨軒 Mo Xuan</td>
+          <td>演講廳 A</td>
+        </tr>
+        <tr>
+          <td>12.09 (Wed) 10:30</td>
+          <td>水墨動畫的數位轉譯</td>
+          <td>雲鶴 Yun He</td>
+          <td>演講廳 B</td>
+        </tr>
+        <tr>
+          <td>12.11 (Fri) 16:00</td>
+          <td>傳統工藝的實驗設計</td>
+          <td>璃光 Li Guang</td>
+          <td>演講廳 A</td>
+        </tr>
+        <tr>
+          <td>12.13 (Sun) 13:00</td>
+          <td>漢字之美與編輯設計</td>
+          <td>宣紙 Xuan Zhi</td>
+          <td>演講廳 B</td>
+        </tr>
+        <tr>
+          <td>12.15 (Tue) 15:30</td>
+          <td>當代視覺中的復古圖騰</td>
+          <td>錦繡 Jin Xiu</td>
+          <td>演講廳 A</td>
+        </tr>
+        <tr>
+          <td>12.17 (Thu) 11:00</td>
+          <td>文化符號的交互設計</td>
+          <td>玲瓏 Ling Long</td>
+          <td>演講廳 B</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="block">
+    <div class="sec-head">
+      <span class="sec-num">06.</span>
+      <h2 class="sec-title"><span class="ph">票務</span>資訊</h2>
+      <span class="sec-title-jp">Ticket Information</span>
+    </div>
+    <div class="ticket-showcase">
+      <img src="images/ticket.webp" alt="A traditional Chinese jade pendant or carved wooden plaque, serving as an admission ticket. 'AQUALUX 設計光譜展 2026' in elegant Song typeface, with '全通票' (Full Access) in a calligraphic script. Intricate cloud patterns and dragon motifs carved into the edges. A subtle QR code discreetly placed, resembling an ancient seal. Vermilion and jade green accents. Card tilted 3D perspective. Dark background." loading="lazy" decoding="async">
+      <div class="ts-info">
+        <p class="ts-label">珍藏票券</p>
+        <h3 class="ts-title">玉佩銘文 · 展覽通證</h3>
+        <p class="ts-desc">
+          本次設計光譜展票券設計，靈感源自<span class="em">傳統玉佩與牌匾</span>，
+          以精緻雕工與古雅紋飾呈現。每張票券皆為<span class="strong">獨一無二的藝術品</span>，
+          不僅是入場憑證，更是值得珍藏的文化符碼，寓意吉祥，開啟您的設計之旅。
+        </p>
+      </div>
+    </div>
+    <div class="tickets">
+      <div class="ticket">
+        <span class="badge">單日雅座</span>
+        <h3 class="tier">單日票</h3>
+        <p class="tier-jp">一日入場憑證</p>
+        <p class="price">NT$ 480</p>
+        <p class="price-unit">每人 / 單日</p>
+        <ul>
+          <li>展覽全區入場</li>
+          <li>限定紀念書籤</li>
+          <li>電子導覽手冊</li>
+        </ul>
+        <button class="cta-btn" disabled aria-label="展示品 — 不開放購買">PURCHASE</button>
+      </div>
+      <div class="ticket featured">
+        <span class="badge">全展通票</span>
+        <h3 class="tier">全通票</h3>
+        <p class="tier-jp">展期無限次入場</p>
+        <p class="price">NT$ 1,280</p>
+        <p class="price-unit">每人 / 全展期</p>
+        <ul>
+          <li>展覽全區無限次入場</li>
+          <li>限定紀念書籤</li>
+          <li>電子導覽手冊</li>
+          <li>優先預約講座</li>
+        </ul>
+        <button class="cta-btn" disabled aria-label="展示品 — 不開放購買">PURCHASE</button>
+      </div>
+      <div class="ticket">
+        <span class="badge">策展貴賓</span>
+        <h3 class="tier">貴賓票</h3>
+        <p class="tier-jp">專屬尊榮禮遇</p>
+        <p class="price">NT$ 2,880</p>
+        <p class="price-unit">每人 / 全展期</p>
+        <ul>
+          <li>展覽全區無限次入場</li>
+          <li>限定紀念書籤</li>
+          <li>電子導覽手冊</li>
+          <li>優先預約講座</li>
+          <li>雅集工坊體驗</li>
+          <li>專屬導覽服務</li>
+        </ul>
+        <button class="cta-btn" disabled aria-label="展示品 — 不開放購買">PURCHASE</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p class="ascii-line">— 墨韻風華 · 國潮新生 —</p>
+  <div class="aqualux-logo-footer">
+    <svg viewBox="0 0 600 280" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="aqualux">
+      <text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text>
+      <line x1="80" y1="165" x2="520" y2="165" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+      <g transform="translate(0,330) scale(1,-1)" opacity="0.28"><text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text></g>
+    </svg>
+  </div>
+  <p class="credit">
+    AQUALUX 2026 設計光譜展 · C19 中國風國潮 Demo<br>
+    由 <a href="https://aqualux.dev" target="_blank" rel="noopener noreferrer">aqualux.dev</a> 呈獻 · MIT-style license
+  </p>
+  <p class="terminal">
+    > _
+  </p>
+</footer>
+
+<script>
+  // Simple JS for terminal cursor animation in footer
+  document.addEventListener('DOMContentLoaded', () => {
+    const terminal = document.querySelector('footer .terminal');
+    if (terminal) {
+      terminal.innerHTML = '> <span class="cursor">_</span>';
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AQUALUX 2026 // DESIGN SPECTRUM EXHIBITION · 北歐極簡 Scandinavian Demo</title>
+<meta name="description" content="aqualux 2026 設計光譜展 · 北歐極簡風格 demo · single-file HTML showcase">
+<link rel="canonical" href="https://design.aqualux.dev/works/c20-scandinavian/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://design.aqualux.dev/works/c20-scandinavian/">
+<meta property="og:title" content="C20 北歐極簡 · aqualux 設計光譜展">
+<meta property="og:description" content="北歐極簡風格 single-file HTML demo · aqualux 2026 設計光譜展">
+<meta property="og:image" content="https://design.aqualux.dev/works/c20-scandinavian/images/hero.webp">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="C20 北歐極簡 · aqualux 設計光譜展">
+<meta name="twitter:image" content="https://design.aqualux.dev/works/c20-scandinavian/images/hero.webp">
+<link rel="icon" type="image/svg+xml" href="../../assets/aqualux-logo-mark.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&family=Noto+Sans+TC:wght@300;400;500;700&family=Lato:wght@300;400&family=Caveat+Brush&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #fdfdfd; /* 主淺灰底 */
+    --bg-card: #ffffff; /* 卡片白底 */
+    --wood-warm: #d4c1a7; /* 暖木色 */
+    --sage-green: #a7c7b4; /* 鼠尾草綠 */
+    --soft-grey: #e9e9e9;
+    --charcoal: #333333; /* 主文字 */
+    --text-light: #666666; /* 次文字 */
+    --accent-blue: #87bace;
+    --ink: var(--charcoal);
+    --display-font: 'Montserrat', sans-serif;
+    --body-font: 'Noto Sans TC', 'PingFang TC', sans-serif;
+    --accent-font: 'Lato', sans-serif;
+    --illustrative-font: 'Caveat Brush', cursive;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--body-font);
+    line-height: 1.7;
+    font-size: 15px;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+  }
+
+  /* Noise Overlay */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    pointer-events: none; z-index: -1;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity="0.03"/></svg>');
+    mix-blend-mode: multiply;
+  }
+
+  a { color: var(--accent-blue); text-decoration: none; }
+  a:hover { color: var(--sage-green); }
+
+  /* Top bar */
+  .topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--soft-grey);
+    padding: 12px 28px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--accent-font); font-size: 14px;
+    color: var(--text-light);
+  }
+  .topbar .left { display: flex; align-items: center; gap: 10px; }
+  .topbar .logo-mark { height: 28px; width: auto; color: var(--ink); transition: transform 0.2s ease-out; }
+  .topbar .logo-mark:hover { transform: scale(1.05); }
+  .topbar .nav-link {
+    color: var(--text-light);
+    margin-left: 20px;
+    position: relative;
+    padding: 4px 0;
+    transition: color 0.2s ease;
+  }
+  .topbar .nav-link::after {
+    content: ''; position: absolute; bottom: 0; left: 0;
+    width: 0; height: 1px; background: var(--sage-green);
+    transition: width 0.3s ease;
+  }
+  .topbar .nav-link:hover { color: var(--sage-green); }
+  .topbar .nav-link:hover::after { width: 100%; }
+  .topbar .right { font-weight: 300; }
+  .topbar .right .current-year { color: var(--sage-green); font-weight: 400; }
+
+  /* Hero */
+  .hero {
+    padding: 60px 28px 40px;
+    max-width: 1200px; margin: 0 auto;
+    position: relative;
+    text-align: center;
+  }
+  .hero-image-wrapper {
+    margin: 0 auto 40px;
+    max-width: 960px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    opacity: 0; /* for fade-in */
+    transition: opacity 0.8s ease-out;
+  }
+  .hero-image-wrapper img {
+    width: 100%; height: auto; display: block;
+    filter: saturate(1.05) brightness(1.02);
+  }
+  .kicker {
+    font-family: var(--accent-font); font-size: 13px;
+    color: var(--sage-green); letter-spacing: 0.15em;
+    margin-bottom: 12px;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+  }
+  .kicker::before, .kicker::after {
+    content: ''; display: inline-block;
+    width: 20px; height: 1px; background: var(--sage-green);
+  }
+  .hero-jp {
+    font-family: var(--body-font); font-weight: 300;
+    font-size: clamp(16px, 2vw, 22px);
+    color: var(--text-light); letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+  .hero h1 {
+    font-family: var(--display-font); font-weight: 700;
+    font-size: clamp(40px, 8vw, 96px);
+    line-height: 1.1; letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 20px;
+    opacity: 0; /* for fade-in */
+    transition: opacity 0.8s ease-out 0.2s;
+  }
+  .hero-sub {
+    font-family: var(--accent-font); font-weight: 300;
+    font-size: clamp(14px, 1.5vw, 18px);
+    color: var(--text-light); letter-spacing: 0.05em;
+    margin: 20px auto 30px; max-width: 760px;
+    line-height: 1.8;
+    opacity: 0; /* for fade-in */
+    transition: opacity 0.8s ease-out 0.4s;
+  }
+  .hero-sub .accent { color: var(--sage-green); font-weight: 400; }
+  .meta-strip {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    border-top: 1px solid var(--soft-grey);
+    border-bottom: 1px solid var(--soft-grey);
+    padding: 18px 0;
+    margin-top: 40px;
+  }
+  .meta-cell {
+    font-family: var(--accent-font); font-size: 13px;
+    color: var(--text-light);
+    text-align: left;
+    opacity: 0; /* for fade-in */
+    transition: opacity 0.8s ease-out 0.6s;
+  }
+  .meta-cell .label {
+    color: var(--sage-green); letter-spacing: 0.1em;
+    font-size: 11px; margin-bottom: 4px; display: block;
+  }
+  .meta-cell .val { color: var(--ink); font-size: 14.5px; font-weight: 400; }
+
+  /* Section base */
+  section.block { padding: 80px 28px; max-width: 1200px; margin: 0 auto; }
+  .sec-head {
+    display: flex; flex-direction: column; align-items: center;
+    margin-bottom: 40px;
+    padding-bottom: 16px; border-bottom: 1px solid var(--soft-grey);
+    opacity: 0; /* for fade-in */
+    transition: opacity 0.8s ease-out;
+  }
+  .sec-num {
+    font-family: var(--accent-font); font-size: 14px;
+    color: var(--accent-blue); letter-spacing: 0.1em;
+    font-weight: 400; margin-bottom: 8px;
+  }
+  .sec-title-jp {
+    font-family: var(--body-font); font-size: 14px;
+    color: var(--text-light); letter-spacing: 0.08em;
+    margin-bottom: 10px;
+  }
+  .sec-title {
+    font-family: var(--display-font); font-size: clamp(28px, 4vw, 48px);
+    font-weight: 700; letter-spacing: -0.01em;
+    color: var(--ink);
+    text-align: center;
+  }
+  .sec-title .ph { color: var(--sage-green); }
+
+  /* Curatorial statement */
+  .statement {
+    max-width: 800px; margin: 0 auto;
+    font-family: var(--body-font); font-size: 16px; line-height: 1.9;
+    color: var(--text-light);
+    opacity: 0; /* for fade-in */
+    transition: opacity 0.8s ease-out;
+  }
+  .statement p { margin-bottom: 18px; }
+  .statement .em { color: var(--sage-green); font-weight: 500; }
+  .statement .strong { color: var(--ink); font-weight: 700; }
+  .statement blockquote {
+    border-left: 3px solid var(--wood-warm);
+    padding: 16px 24px;
+    margin: 24px 0;
+    background: var(--soft-grey);
+    font-family: var(--accent-font); color: var(--charcoal);
+    font-size: 15px; letter-spacing: 0.02em;
+    line-height: 1.7;
+  }
+
+  /* Designer grid */
+  .designers {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .designer-card {
+    border: 1px solid var(--soft-grey);
+    background: var(--bg-card);
+    padding: 0;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+    border-radius: 6px;
+    overflow: hidden;
+    opacity: 0; /* for fade-in */
+    transform: translateY(10px); /* for slight lift */
+  }
+  .designer-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transform: translateY(-4px);
+    border-color: var(--wood-warm);
+  }
+  .designer-thumb {
+    width: 100%; aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-bottom: 1px solid var(--soft-grey);
+  }
+  .designer-thumb img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: saturate(1.0);
+    transition: transform 0.3s ease;
+  }
+  .designer-card:hover .designer-thumb img { transform: scale(1.05); }
+  .designer-info { padding: 18px 20px; }
+  .designer-card .idx {
+    font-family: var(--accent-font); font-size: 12px;
+    color: var(--accent-blue); letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+  .designer-card .name-jp {
+    font-family: var(--body-font); font-size: 13px;
+    color: var(--text-light); letter-spacing: 0.05em;
+    margin-bottom: 4px;
+  }
+  .designer-card .name {
+    font-family: var(--display-font); font-size: 18px; font-weight: 500;
+    color: var(--ink); letter-spacing: -0.01em;
+    margin-bottom: 10px;
+  }
+  .designer-card .tag {
+    font-family: var(--accent-font); font-size: 12px;
+    color: var(--sage-green); letter-spacing: 0.05em;
+  }
+  .designer-card .tag::before { content: '— '; color: var(--text-light); }
+
+  /* Venue */
+  .venue-section {
+    position: relative;
+    padding: 0;
+    max-width: 100%;
+  }
+  .venue-image-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    opacity: 0; /* for fade-in */
+    transition: opacity 0.8s ease-out;
+  }
+  .venue-image-wrapper img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: brightness(0.98) saturate(1.05);
+  }
+  .venue-caption {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: linear-gradient(to top, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.7) 70%, transparent 100%);
+    padding: 30px 28px 20px;
+    text-align: center;
+  }
+  .venue-caption .caption-title {
+    font-family: var(--display-font); font-size: 24px; font-weight: 500;
+    color: var(--ink); margin-bottom: 8px;
+  }
+  .venue-caption .caption-desc {
+    font-family: var(--accent-font); font-size: 14px;
+    color: var(--text-light); max-width: 700px; margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* Zone map */
+  .zones {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .zone {
+    background: var(--bg-card);
+    border: 1px solid var(--soft-grey);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+    border-radius: 6px;
+    transition: all 0.3s ease-in-out;
+    opacity: 0; /* for fade-in */
+    transform: translateY(10px); /* for slight lift */
+  }
+  .zone:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transform: translateY(-4px);
+    border-color: var(--sage-green);
+  }
+  .zone-img {
+    width: 100%; aspect-ratio: 5 / 3;
+    overflow: hidden;
+    border-bottom: 1px solid var(--soft-grey);
+  }
+  .zone-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: saturate(1.0);
+    transition: transform 0.4s ease;
+  }
+  .zone:hover .zone-img img { transform: scale(1.04); }
+  .zone-content { padding: 24px 26px; }
+  .zone .zone-id {
+    font-family: var(--display-font); font-size: 48px; font-weight: 700;
+    color: var(--accent-blue); line-height: 1;
+    margin-bottom: 8px;
+  }
+  .zone .zone-cn {
+    font-family: var(--body-font); font-size: 20px; font-weight: 500;
+    color: var(--ink); margin-bottom: 4px;
+    letter-spacing: 0.02em;
+  }
+  .zone .zone-en {
+    font-family: var(--accent-font); font-size: 13px;
+    color: var(--sage-green); letter-spacing: 0.1em;
+    margin-bottom: 14px;
+  }
+  .zone .zone-desc {
+    font-family: var(--body-font); font-size: 14.5px; line-height: 1.8;
+    color: var(--text-light);
+  }
+  .zone .zone-coord {
+    margin-top: 18px; padding-top: 16px;
+    border-top: 1px dashed var(--soft-grey);
+    font-family: var(--accent-font); font-size: 12px;
+    color: var(--text-light); letter-spacing: 0.08em;
+  }
+
+  /* Schedule */
+  .schedule-table {
+    width: 100%; border-collapse: collapse;
+    font-family: var(--accent-font); font-size: 14px;
+    opacity: 0; /* for fade-in */
+    transition: opacity 0.8s ease-out;
+  }
+  .schedule-table th, .schedule-table td {
+    padding: 14px 18px; text-align: left;
+    border-bottom: 1px solid var(--soft-grey);
+  }
+  .schedule-table th {
+    color: var(--accent-blue); letter-spacing: 0.1em;
+    font-size: 12px; font-weight: 400;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--wood-warm);
+  }
+  .schedule-table td { color: var(--text-light); }
+  .schedule-table td:first-child {
+    color: var(--ink); font-weight: 400;
+    width: 140px;
+  }
+  .schedule-table tr:hover td { background: var(--soft-grey); }
+
+  /* Tickets */
+  .tickets {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .ticket {
+    border: 1px solid var(--soft-grey);
+    padding: 28px 26px;
+    position: relative;
+    background: var(--bg-card);
+    text-align: center;
+    border-radius: 6px;
+    transition: all 0.3s ease-in-out;
+    opacity: 0; /* for fade-in */
+    transform: translateY(10px); /* for slight lift */
+  }
+  .ticket.featured {
+    border-color: var(--wood-warm);
+    background: linear-gradient(180deg, rgba(212, 193, 167, 0.1) 0%, var(--bg-card) 100%);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  }
+  .ticket:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transform: translateY(-4px);
+  }
+  .ticket .badge {
+    display: inline-block;
+    font-family: var(--accent-font); font-size: 11px;
+    color: var(--bg-card); background: var(--accent-blue);
+    padding: 4px 12px; letter-spacing: 0.1em;
+    margin-bottom: 16px;
+    border-radius: 3px;
+  }
+  .ticket.featured .badge { background: var(--wood-warm); }
+  .ticket .tier {
+    font-family: var(--display-font); font-size: 24px; font-weight: 500;
+    color: var(--ink); letter-spacing: -0.01em;
+    margin-bottom: 8px;
+  }
+  .ticket .tier-jp {
+    font-family: var(--body-font); font-size: 12px;
+    color: var(--text-light); letter-spacing: 0.05em;
+    margin-bottom: 20px;
+  }
+  .ticket .price {
+    font-family: var(--display-font); font-size: 42px; font-weight: 700;
+    color: var(--sage-green); line-height: 1;
+    margin-bottom: 6px;
+  }
+  .ticket.featured .price { color: var(--wood-warm); }
+  .ticket .price-unit {
+    font-family: var(--accent-font); font-size: 13px;
+    color: var(--text-light); letter-spacing: 0.08em;
+    margin-bottom: 20px;
+  }
+  .ticket ul {
+    list-style: none; text-align: left;
+    font-family: var(--accent-font); font-size: 13px;
+    color: var(--text-light); line-height: 2.2;
+    margin-bottom: 24px;
+    padding-left: 10px;
+  }
+  .ticket li::before {
+    content: '✓ '; color: var(--sage-green); margin-right: 6px;
+  }
+
+  /* CTA */
+  .cta-btn {
+    display: inline-block;
+    font-family: var(--accent-font); font-weight: 400;
+    font-size: 14px; letter-spacing: 0.1em;
+    padding: 12px 28px;
+    background: var(--sage-green);
+    color: var(--bg-card);
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    border-radius: 4px;
+  }
+  .cta-btn:hover {
+    background: var(--wood-warm);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  .cta-btn[disabled] {
+    background: var(--soft-grey);
+    color: var(--text-light);
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  /* Ticket showcase */
+  .ticket-showcase {
+    margin: 0 0 48px;
+    display: flex; align-items: center; gap: 32px;
+    padding: 30px;
+    border: 1px solid var(--soft-grey);
+    background: var(--bg-card);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    opacity: 0; /* for fade-in */
+    transition: opacity 0.8s ease-out;
+  }
+  .ticket-showcase img {
+    width: 200px; height: auto;
+    border: 1px solid var(--wood-warm);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+  .ticket-showcase .ts-info { flex: 1; }
+  .ticket-showcase .ts-label {
+    font-family: var(--accent-font); font-size: 12px;
+    color: var(--accent-blue); letter-spacing: 0.1em;
+    margin-bottom: 10px;
+  }
+  .ticket-showcase .ts-title {
+    font-family: var(--display-font); font-weight: 500;
+    font-size: 22px; color: var(--ink); letter-spacing: -0.01em;
+    margin-bottom: 12px;
+  }
+  .ticket-showcase .ts-desc {
+    font-family: var(--body-font); font-size: 14.5px;
+    color: var(--text-light); line-height: 1.8;
+  }
+  @media (max-width: 720px) {
+    .ticket-showcase { flex-direction: column; gap: 20px; padding: 24px; }
+    .ticket-showcase img { width: 100%; max-width: 240px; }
+  }
+
+  /* Footer */
+  footer {
+    margin-top: 80px;
+    padding: 60px 28px 32px;
+    border-top: 1px solid var(--soft-grey);
+    background: linear-gradient(to top, var(--soft-grey) 0%, var(--bg-card) 100%);
+    text-align: center;
+    opacity: 0; /* for fade-in */
+    transition: opacity 0.8s ease-out;
+  }
+  footer .ascii-line {
+    font-family: var(--accent-font); font-size: 12px;
+    color: var(--text-light); letter-spacing: 0.1em;
+    margin-bottom: 18px;
+    white-space: nowrap; overflow: hidden;
+  }
+  footer .signature {
+    font-family: var(--display-font); font-size: 16px;
+    color: var(--ink); letter-spacing: 0.05em;
+    margin-bottom: 14px;
+  }
+  footer .signature .ph { color: var(--sage-green); }
+  footer .credit {
+    font-family: var(--accent-font); font-size: 12px;
+    color: var(--text-light); line-height: 2;
+  }
+  footer .credit a { color: var(--accent-blue); }
+  footer .terminal {
+    font-family: var(--accent-font); font-size: 11px;
+    color: var(--text-light); letter-spacing: 0.05em;
+    margin-top: 22px;
+  }
+  footer .terminal .cursor {
+    color: var(--sage-green);
+    animation: blink 0.9s steps(2) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* Aqualux Logo Specifics */
+  .aqualux-logo-footer {
+    width: 180px; /* Medium size for footer */
+    height: auto;
+    color: var(--ink); /* Inherit main text color */
+    margin: 0 auto 20px;
+    display: block;
+    padding: 10px; /* Padding for the "container" effect */
+    border: 1px solid var(--wood-warm); /* Wood-like border */
+    background: var(--bg-card); /* White background for clarity */
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+  .aqualux-logo-footer text { font-family: var(--display-font) !important; font-weight: 300 !important; font-size: 120px !important; }
+  .aqualux-logo-footer line { stroke: var(--wood-warm) !important; opacity: 0.6 !important; }
+
+  /* prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+    .hero-image-wrapper, .hero h1, .hero-sub, .meta-cell,
+    .sec-head, .statement, .designer-card, .venue-image-wrapper,
+    .zone, .schedule-table, .ticket, .ticket-showcase, footer {
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .topbar { padding: 10px 20px; }
+    .topbar .nav-link { margin-left: 15px; }
+    .hero { padding: 50px 20px 30px; }
+    section.block { padding: 60px 20px; }
+    .sec-head { margin-bottom: 30px; }
+    .sec-title { font-size: clamp(24px, 6vw, 40px); }
+    .statement { font-size: 15px; }
+    .designer-card { transform: none; }
+    .zone { transform: none; }
+    .ticket { transform: none; }
+    .ticket-showcase { margin-bottom: 30px; }
+    footer { padding: 40px 20px 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="scanlines" aria-hidden="true"></div>
+
+<div class="topbar">
+  <div class="left">
+    <a href="../../index.html" aria-label="Back to Gallery">
+      <svg class="logo-mark" viewBox="0 0 600 280" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="aqualux">
+        <text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text>
+        <line x1="80" y1="165" x2="520" y2="165" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+        <g transform="translate(0,330) scale(1,-1)" opacity="0.28"><text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text></g>
+      </svg>
+    </a>
+    <a href="../../index.html" class="nav-link">← Gallery</a>
+    <a href="#statement" class="nav-link">Statement</a>
+    <a href="#designers" class="nav-link">Designers</a>
+    <a href="#zones" class="nav-link">Zones</a>
+  </div>
+  <div class="right">
+    AQUALUX 2026 · <span class="current-year">SCANDINAVIAN</span>
+  </div>
+</div>
+
+<main>
+  <section class="hero">
+    <div class="hero-image-wrapper">
+      <img src="images/hero.webp" alt="A serene, minimalist Scandinavian interior design scene with pale wood and soft light." loading="eager" decoding="async">
+    </div>
+    <p class="kicker">DESIGN SPECTRUM</p>
+    <p class="hero-jp">北歐極簡 · 永續之美</p>
+    <h1><span class="ph">Simplicity</span><br>in Design.</h1>
+    <p class="hero-sub">
+      AQUALUX 2026 設計光譜展，以 <span class="accent">「北歐極簡」</span> 為主題，探討設計如何回歸本質，透過簡約的線條、自然的材質與人本的思考，創造出兼具美學與功能的永續生活。
+    </p>
+    <div class="meta-strip">
+      <div class="meta-cell">
+        <span class="label">DATE</span>
+        <span class="val">2026.12.06 — 12.21</span>
+      </div>
+      <div class="meta-cell">
+        <span class="label">VENUE</span>
+        <span class="val">松山文創園區 5 號倉庫</span>
+      </div>
+      <div class="meta-cell">
+        <span class="label">CURATOR</span>
+        <span class="val">Jerry @ aqualux.dev</span>
+      </div>
+      <div class="meta-cell">
+        <span class="label">SCALE</span>
+        <span class="val">12 Designers / 40 Works</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="statement" class="block">
+    <div class="sec-head">
+      <span class="sec-num">01. CURATORIAL STATEMENT</span>
+      <span class="sec-title-jp">策展論述</span>
+      <h2 class="sec-title">Essence of <span class="ph">Simplicity</span></h2>
+    </div>
+    <div class="statement">
+      <p>
+        在追求快速變革的時代潮流中，我們回望北歐設計的根源——那份對<em class="em">簡潔、功能與永續</em>的堅持。AQUALUX 2026 設計光譜展，以「北歐極簡」為核心，邀請您一同探索設計如何以最純粹的形式，回應當代生活的挑戰。
+      </p>
+      <p>
+        本次展覽不僅是美學的呈現，更是對<strong class="strong">人本精神與自然共生</strong>的深刻反思。從家具、紡織到數位介面，每一件作品都體現了設計師對材質的尊重、對細節的考究，以及對使用者經驗的同理。我們相信，真正的創新，往往蘊藏於簡約而深邃的智慧之中。
+      </p>
+      <blockquote>
+        "Minimalism is not a lack of something. It's simply the perfect amount of something."
+        <br>— John Maeda
+      </blockquote>
+      <p>
+        展覽將引導觀眾思考：在物質過剩的社會，我們真正需要的是什麼？設計如何能成為一種工具，幫助我們<em class="em">減去繁蕪，回歸本真</em>，進而創造一個更和諧、更具意義的生活空間。期待您蒞臨，感受這份來自北歐的溫暖與力量。
+      </p>
+    </div>
+  </section>
+
+  <section id="designers" class="block">
+    <div class="sec-head">
+      <span class="sec-num">02. FEATURED DESIGNERS</span>
+      <span class="sec-title-jp">設計師名單</span>
+      <h2 class="sec-title">Architects of <span class="ph">Form</span></h2>
+    </div>
+    <div class="designers">
+      <div class="designer-card">
+        <div class="designer-thumb"><img src="images/designer-elin.webp" alt="Abstract geometric E emblem for Elin Lind"></div>
+        <div class="designer-info">
+          <p class="idx">D_001</p>
+          <p class="name-jp">艾琳·林德</p>
+          <h3 class="name">Elin Lind</h3>
+          <p class="tag">Typography / Grid</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb"><img src="images/designer-lars.webp" alt="Abstract organic L shape for Lars Svensson"></div>
+        <div class="designer-info">
+          <p class="idx">D_002</p>
+          <p class="name-jp">拉斯·史文森</p>
+          <h3 class="name">Lars Svensson</h3>
+          <p class="tag">Product / Form</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb"><img src="images/designer-freya.webp" alt="Abstract F with leaf motif for Freya Jensen"></div>
+        <div class="designer-info">
+          <p class="idx">D_003</p>
+          <p class="name-jp">芙蕾雅·詹森</p>
+          <h3 class="name">Freya Jensen</h3>
+          <p class="tag">Illustration / Nature</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb"><img src="images/designer-erik.webp" alt="Abstract folded paper design for Erik Nielsen"></div>
+        <div class="designer-info">
+          <p class="idx">D_004</p>
+          <p class="name-jp">艾瑞克·尼爾森</p>
+          <h3 class="name">Erik Nielsen</h3>
+          <p class="tag">Editorial / Paper</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb"><img src="images/designer-sofia.webp" alt="Abstract textile pattern for Sofia Karlsson"></div>
+        <div class="designer-info">
+          <p class="idx">D_005</p>
+          <p class="name-jp">索菲亞·卡爾森</p>
+          <h3 class="name">Sofia Karlsson</h3>
+          <p class="tag">Textile / Pattern</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb"><img src="images/designer-jonas.webp" alt="Abstract wooden joint design for Jonas Berg"></div>
+        <div class="designer-info">
+          <p class="idx">D_006</p>
+          <p class="name-jp">喬納斯·伯格</p>
+          <h3 class="name">Jonas Berg</h3>
+          <p class="tag">Furniture / Craft</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb"><img src="images/designer-ingrid.webp" alt="Abstract ceramic texture for Ingrid Olsen"></div>
+        <div class="designer-info">
+          <p class="idx">D_007</p>
+          <p class="name-jp">英格麗·奧爾森</p>
+          <h3 class="name">Ingrid Olsen</h3>
+          <p class="tag">Ceramics / Texture</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb"><img src="images/designer-axel.webp" alt="Abstract clean UI element for Axel Bjorn"></div>
+        <div class="designer-info">
+          <p class="idx">D_008</p>
+          <p class="name-jp">阿克塞爾·比約恩</p>
+          <h3 class="name">Axel Bjorn</h3>
+          <p class="tag">Digital Art / Clean UI</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb"><img src="images/designer-clara.webp" alt="Abstract minimalist branding mark for Clara Hansen"></div>
+        <div class="designer-info">
+          <p class="idx">D_009</p>
+          <p class="name-jp">克拉拉·漢森</p>
+          <h3 class="name">Clara Hansen</h3>
+          <p class="tag">Branding / Simplicity</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb"><img src="images/designer-magnus.webp" alt="Abstract light and shadow play for Magnus Dahl"></div>
+        <div class="designer-info">
+          <p class="idx">D_010</p>
+          <p class="name-jp">馬格努斯·達爾</p>
+          <h3 class="name">Magnus Dahl</h3>
+          <p class="tag">Photography / Light</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb"><img src="images/designer-signe.webp" alt="Abstract architectural space for Signe Holm"></div>
+        <div class="designer-info">
+          <p class="idx">D_011</p>
+          <p class="name-jp">西格妮·霍爾姆</p>
+          <h3 class="name">Signe Holm</h3>
+          <p class="tag">Architecture / Space</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb"><img src="images/designer-oscar.webp" alt="Abstract smooth interaction flow for Oscar Lund"></div>
+        <div class="designer-info">
+          <p class="idx">D_012</p>
+          <p class="name-jp">奧斯卡·隆德</p>
+          <h3 class="name">Oscar Lund</h3>
+          <p class="tag">Interaction / Flow</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="venue-section">
+    <div class="venue-image-wrapper">
+      <img src="images/venue.webp" alt="A modern, spacious art gallery interior in Scandinavian style with natural light." loading="lazy" decoding="async">
+      <div class="venue-caption">
+        <h3 class="caption-title">松山文創園區 5 號倉庫</h3>
+        <p class="caption-desc">
+          本次展覽選址於充滿歷史韻味的松山文創園區，透過現代北歐設計語彙與舊工業建築的對話，
+          營造一個既開放又內斂的展示空間，讓觀眾在光影流動中感受設計的溫度。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="zones" class="block">
+    <div class="sec-head">
+      <span class="sec-num">03. EXHIBITION ZONES</span>
+      <span class="sec-title-jp">五大展區</span>
+      <h2 class="sec-title">Spectrum of <span class="ph">Ideas</span></h2>
+    </div>
+    <div class="zones">
+      <div class="zone">
+        <div class="zone-img"><img src="images/zone-z01.webp" alt="Clean, airy gallery space for Mainstream Frequency zone."></div>
+        <div class="zone-content">
+          <p class="zone-id">Z01</p>
+          <h3 class="zone-cn">主流頻譜</h3>
+          <p class="zone-en">Mainstream Frequency</p>
+          <p class="zone-desc">
+            探索當代設計主流趨勢，如何將北歐簡約融入日常，創造普及且實用的美學。
+          </p>
+          <p class="zone-coord">Location: 5F-A1, 5 Works</p>
+        </div>
+      </div>
+      <div class="zone">
+        <div class="zone-img"><img src="images/zone-z02.webp" alt="Vintage Scandinavian living room for Retro Echo zone."></div>
+        <div class="zone-content">
+          <p class="zone-id">Z02</p>
+          <h3 class="zone-cn">時光殘響</h3>
+          <p class="zone-en">Retro Echo</p>
+          <p class="zone-desc">
+            回溯經典北歐設計的黃金年代，感受永恆的設計語彙如何穿越時空。
+          </p>
+          <p class="zone-coord">Location: 5F-A2, 6 Works</p>
+        </div>
+      </div>
+      <div class="zone">
+        <div class="zone-img"><img src="images/zone-z03.webp" alt="Minimalist studio for Avant Lab zone."></div>
+        <div class="zone-content">
+          <p class="zone-id">Z03</p>
+          <h3 class="zone-cn">前衛實驗室</h3>
+          <p class="zone-en">Avant Lab</p>
+          <p class="zone-desc">
+            展示新銳設計師的實驗性作品，挑戰傳統，開創北歐設計的未來邊界。
+          </p>
+          <p class="zone-coord">Location: 5F-B1, 6 Works</p>
+        </div>
+      </div>
+      <div class="zone">
+        <div class="zone-img"><img src="images/zone-z04.webp" alt="Fusion of Scandinavian and Asian elements for Cultural Spectrum zone."></div>
+        <div class="zone-content">
+          <p class="zone-id">Z04</p>
+          <h3 class="zone-cn">文化光譜</h3>
+          <p class="zone-en">Cultural Spectrum</p>
+          <p class="zone-desc">
+            探索北歐設計與不同文化元素的融合，激盪出跨越地域的設計火花。
+          </p>
+          <p class="zone-coord">Location: 5F-B2, 5 Works</p>
+        </div>
+      </div>
+      <div class="zone">
+        <div class="zone-img"><img src="images/zone-z05.webp" alt="Spacious hall with projected abstract patterns for Motion Hall zone."></div>
+        <div class="zone-content">
+          <p class="zone-id">Z05</p>
+          <h3 class="zone-cn">動態廳</h3>
+          <p class="zone-en">Motion Hall</p>
+          <p class="zone-desc">
+            透過互動裝置與數位藝術，呈現設計中的動態美學與沉浸式體驗。
+          </p>
+          <p class="zone-coord">Location: 5F-C1, 15 Works</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="schedule" class="block">
+    <div class="sec-head">
+      <span class="sec-num">04. EVENT SCHEDULE</span>
+      <span class="sec-title-jp">講座排程</span>
+      <h2 class="sec-title">Dialogues on <span class="ph">Design</span></h2>
+    </div>
+    <table class="schedule-table" aria-label="Exhibition Event Schedule">
+      <thead>
+        <tr>
+          <th scope="col">Time</th>
+          <th scope="col">Event</th>
+          <th scope="col">Speaker</th>
+          <th scope="col">Location</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>12.07 (Sun) 14:00</td>
+          <td>開幕座談：極簡的永續之道</td>
+          <td>Elin Lind, Jerry</td>
+          <td>動態廳 Z05</td>
+        </tr>
+        <tr>
+          <td>12.09 (Tue) 19:00</td>
+          <td>設計師對談：材質的對話</td>
+          <td>Lars Svensson</td>
+          <td>前衛實驗室 Z03</td>
+        </tr>
+        <tr>
+          <td>12.12 (Fri) 15:00</td>
+          <td>工作坊：手作織品體驗</td>
+          <td>Sofia Karlsson</td>
+          <td>時光殘響 Z02</td>
+        </tr>
+        <tr>
+          <td>12.14 (Sun) 10:00</td>
+          <td>專題演講：數位時代的簡約介面</td>
+          <td>Axel Bjorn</td>
+          <td>動態廳 Z05</td>
+        </tr>
+        <tr>
+          <td>12.17 (Wed) 19:00</td>
+          <td>策展人導覽：北歐設計的脈絡</td>
+          <td>Jerry</td>
+          <td>主流頻譜 Z01</td>
+        </tr>
+        <tr>
+          <td>12.20 (Sat) 16:00</td>
+          <td>閉幕分享：設計的未來想像</td>
+          <td>Clara Hansen</td>
+          <td>動態廳 Z05</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="tickets" class="block">
+    <div class="sec-head">
+      <span class="sec-num">05. ADMISSION TICKETS</span>
+      <span class="sec-title-jp">票務資訊</span>
+      <h2 class="sec-title">Experience <span class="ph">Aqualux</span></h2>
+    </div>
+
+    <div class="ticket-showcase">
+      <img src="images/ticket-mockup.webp" alt="Minimalist Scandinavian admission ticket mockup." loading="lazy" decoding="async">
+      <div class="ts-info">
+        <p class="ts-label">YOUR ENTRY TO INSPIRATION</p>
+        <h3 class="ts-title">Aqualux Design Spectrum 2026</h3>
+        <p class="ts-desc">
+          持有票券即可入場參觀 aqualux 2026 設計光譜展，感受北歐極簡設計的魅力與深度。
+          票券設計簡約，可作為紀念收藏。
+        </p>
+      </div>
+    </div>
+
+    <div class="tickets">
+      <div class="ticket">
+        <span class="badge">STANDARD</span>
+        <h3 class="tier">SINGLE PASS</h3>
+        <p class="tier-jp">單日入場</p>
+        <p class="price">NT$ 480</p>
+        <p class="price-unit">/ per person</p>
+        <ul>
+          <li>✓ 單日展區入場</li>
+          <li>✓ 展覽手冊一份</li>
+          <li>✓ 紀念品商店折扣</li>
+        </ul>
+        <button class="cta-btn" disabled aria-label="Demo only — not for sale">PURCHASE</button>
+      </div>
+      <div class="ticket featured">
+        <span class="badge">RECOMMENDED</span>
+        <h3 class="tier">FULL ACCESS</h3>
+        <p class="tier-jp">全展期通票</p>
+        <p class="price">NT$ 1,280</p>
+        <p class="price-unit">/ per person</p>
+        <ul>
+          <li>✓ 全展期無限次入場</li>
+          <li>✓ 展覽手冊與紀念品</li>
+          <li>✓ 優先參加部分活動</li>
+          <li>✓ 獨家數位內容</li>
+        </ul>
+        <button class="cta-btn" disabled aria-label="Demo only — not for sale">PURCHASE</button>
+      </div>
+      <div class="ticket">
+        <span class="badge">PREMIUM</span>
+        <h3 class="tier">CURATOR PASS</h3>
+        <p class="tier-jp">含 Workshop</p>
+        <p class="price">NT$ 2,880</p>
+        <p class="price-unit">/ per person</p>
+        <ul>
+          <li>✓ 全展期無限次入場</li>
+          <li>✓ 專屬策展人導覽</li>
+          <li>✓ 優先參加所有活動</li>
+          <li>✓ 限量版紀念品</li>
+          <li>✓ 設計工作坊參與資格</li>
+        </ul>
+        <button class="cta-btn" disabled aria-label="Demo only — not for sale">PURCHASE</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p class="ascii-line">─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─</p>
+  <svg class="aqualux-logo-footer" viewBox="0 0 600 280" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="aqualux">
+    <text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text>
+    <line x1="80" y1="165" x2="520" y2="165" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+    <g transform="translate(0,330) scale(1,-1)" opacity="0.28"><text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text></g>
+  </svg>
+  <p class="signature">MMXXVI · <span class="ph">AQUALUX.DEV</span></p>
+  <p class="credit">
+    AQUALUX 2026 DESIGN SPECTRUM EXHIBITION<br>
+    C20 SCANDINAVIAN DEMO · <a href="https://aqualux.dev/" target="_blank" rel="noopener noreferrer">aqualux.dev</a>
+  </p>
+  <p class="terminal">
+    &gt; Initializing design spectrum... <span class="cursor">_</span>
+  </p>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!prefersReducedMotion) {
+      // Hero title fade-in
+      const heroTitle = document.querySelector('.hero h1');
+      if (heroTitle) {
+        let delay = 0.2;
+        const text = heroTitle.textContent;
+        heroTitle.textContent = '';
+        text.split('').forEach((char, index) => {
+          const span = document.createElement('span');
+          span.textContent = char;
+          span.style.opacity = '0';
+          span.style.transition = `opacity 0.5s ease-out ${delay + (index * 0.03)}s`;
+          heroTitle.appendChild(span);
+          setTimeout(() => span.style.opacity = '1', 10);
+        });
+      }
+
+      // General Intersection Observer for fade-in effects
+      const elementsToAnimate = document.querySelectorAll(
+        '.hero-image-wrapper, .hero h1, .hero-sub, .meta-cell, .sec-head, .statement, .designer-card, .venue-image-wrapper, .zone, .schedule-table, .ticket, .ticket-showcase, footer'
+      );
+
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+      };
+
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const element = entry.target;
+            element.style.opacity = '1';
+            element.style.transform = 'translateY(0)';
+            observer.unobserve(element);
+          }
+        });
+      }, observerOptions);
+
+      elementsToAnimate.forEach(el => {
+        // Apply initial styles for animation if not already set by CSS
+        if (!el.style.opacity) el.style.opacity = '0';
+        if (!el.style.transform && (el.classList.contains('designer-card') || el.classList.contains('zone') || el.classList.contains('ticket'))) {
+          el.style.transform = 'translateY(10px)';
+        }
+        observer.observe(el);
+      });
+    }
+
+    // Footer year animation (always run, but instant if reduced motion)
+    const currentYearSpan = document.querySelector('.current-year');
+    if (currentYearSpan) {
+      const targetYear = 'MMXXVI';
+      currentYearSpan.textContent = '';
+      targetYear.split('').forEach((char, index) => {
+        const span = document.createElement('span');
+        span.textContent = char;
+        span.style.opacity = prefersReducedMotion ? '1' : '0';
+        span.style.transition = prefersReducedMotion ? 'none' : `opacity 0.6s ease-out ${index * 0.1}s`;
+        currentYearSpan.appendChild(span);
+        if (!prefersReducedMotion) {
+          setTimeout(() => span.style.opacity = '1', 10);
+        }
+      });
+    }
+  });
+</script>
+</body>
+</html>

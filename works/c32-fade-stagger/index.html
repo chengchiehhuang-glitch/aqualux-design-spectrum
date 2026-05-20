@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AQUALUX 2026 // DESIGN SPECTRUM EXHIBITION · 錯落淡入 Fade Stagger Demo</title>
+<meta name="description" content="aqualux 2026 設計光譜展 · 錯落淡入風格 demo · single-file HTML showcase">
+<link rel="canonical" href="https://design.aqualux.dev/works/m32-fade-stagger/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://design.aqualux.dev/works/m32-fade-stagger/">
+<meta property="og:title" content="M32 錯落淡入 · aqualux 設計光譜展">
+<meta property="og:description" content="錯落淡入風格 single-file HTML demo · aqualux 2026 設計光譜展">
+<meta property="og:image" content="https://design.aqualux.dev/works/m32-fade-stagger/images/hero.webp">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="M32 錯落淡入 · aqualux 設計光譜展">
+<meta name="twitter:image" content="https://design.aqualux.dev/works/m32-fade-stagger/images/hero.webp">
+<link rel="icon" type="image/svg+xml" href="../../assets/aqualux-logo-mark.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #fdfdfc;
+    --paper: #ffffff;
+    --ink: #212121;
+    --ink-light: #6a6a6a;
+    --accent: #7b68ee; /* Lilac purple */
+    --accent-bg: rgba(123,104,238,0.08);
+    --line: #e0e0e0;
+    --shadow-light: 0 4px 12px rgba(0,0,0,0.04);
+    --display-font: 'Inter', sans-serif;
+    --body-font: 'Noto Sans TC', sans-serif;
+    --mono-font: 'IBM Plex Mono', monospace;
+  }
+
+  /* Reset */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--body-font);
+    line-height: 1.6;
+    color: var(--ink);
+    background-color: var(--bg);
+    -webkit-font-smoothing: antialiased;
+    opacity: 0; /* Initial state for page load fade-in */
+    transition: opacity 0.8s ease-out 0.2s;
+  }
+  body.loaded { opacity: 1; }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    body { transition: none !important; }
+    .fade-stagger-item {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
+
+  /* Typography */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--display-font);
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* Layout */
+  .container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  section {
+    padding: 80px 0;
+  }
+
+  /* Fade Stagger Animation */
+  .fade-stagger-item {
+    opacity: 0;
+    transform: translateY(20px);
+    transition-property: opacity, transform;
+    transition-duration: 0.6s;
+    transition-timing-function: ease-out;
+  }
+  .fade-stagger-item.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Topbar */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: var(--paper);
+    border-bottom: 1px solid var(--line);
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono-font);
+    font-size: 13px;
+    box-shadow: var(--shadow-light);
+  }
+  .topbar .left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .topbar .logo-mark {
+    height: 28px;
+    width: auto;
+    color: var(--ink);
+  }
+  .topbar .title {
+    font-weight: 400;
+    color: var(--ink);
+    letter-spacing: 0.05em;
+  }
+  .topbar .right a {
+    color: var(--ink-light);
+    transition: color 0.2s ease;
+  }
+  .topbar .right a:hover {
+    color: var(--accent);
+  }
+
+  /* Hero */
+  .hero {
+    padding: 100px 0 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg-img {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    filter: brightness(0.9) saturate(1.1);
+    opacity: 0.6;
+  }
+  .hero-content {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .kicker {
+    font-family: var(--mono-font);
+    font-size: 14px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 16px;
+    font-weight: 400;
+  }
+  .hero h1 {
+    font-size: clamp(48px, 8vw, 96px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+  .hero-sub {
+    font-family: var(--body-font);
+    font-size: clamp(16px, 2.5vw, 20px);
+    color: var(--ink-light);
+    max-width: 600px;
+    margin: 0 auto 36px;
+  }
+  .meta-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    padding: 24px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    margin-top: 40px;
+  }
+  .meta-cell {
+    text-align: left;
+    font-family: var(--mono-font);
+  }
+  .meta-cell .label {
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+  .meta-cell .val {
+    font-size: 14px;
+    color: var(--ink);
+    font-weight: 400;
+  }
+
+  /* Section Header */
+  .sec-head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 40px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--line);
+  }
+  .sec-num {
+    font-family: var(--mono-font);
+    font-size: 14px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    font-weight: 400;
+  }
+  .sec-title {
+    font-family: var(--display-font);
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 800;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+  .sec-title-jp {
+    font-family: var(--body-font);
+    font-size: 14px;
+    color: var(--ink-light);
+    letter-spacing: 0.08em;
+    margin-left: auto;
+  }
+
+  /* Statement */
+  .statement {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 16px;
+    line-height: 1.8;
+    color: var(--ink-light);
+  }
+  .statement p { margin-bottom: 18px; }
+  .statement .em { color: var(--accent); font-weight: 500; }
+  .statement .strong { color: var(--ink); font-weight: 700; }
+  .statement blockquote {
+    border-left: 4px solid var(--accent);
+    padding: 16px 24px;
+    margin: 22px 0;
+    background-color: var(--accent-bg);
+    font-family: var(--mono-font);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* Designer Grid */
+  .designers {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+  .designer-card {
+    background-color: var(--paper);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-light);
+    padding: 0;
+    transition: transform 0.2s ease-out;
+  }
+  .designer-card:hover {
+    transform: translateY(-4px);
+  }
+  .designer-thumb {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
+  }
+  .designer-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .designer-info {
+    padding: 18px 20px;
+  }
+  .designer-card .idx {
+    font-family: var(--mono-font);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+  .designer-card .name {
+    font-family: var(--display-font);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .designer-card .tag {
+    font-family: var(--body-font);
+    font-size: 13px;
+    color: var(--ink-light);
+  }
+
+  /* Venue */
+  .venue-block {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .venue-image {
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-light);
+  }
+  .venue-caption {
+    font-family: var(--mono-font);
+    font-size: 13px;
+    color: var(--ink-light);
+    text-align: center;
+  }
+
+  /* Zones */
+  .zones {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .zone-card {
+    background-color: var(--paper);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-light);
+    overflow: hidden;
+    transition: transform 0.2s ease-out;
+  }
+  .zone-card:hover {
+    transform: translateY(-4px);
+  }
+  .zone-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-bottom: 1px solid var(--line);
+  }
+  .zone-content {
+    padding: 20px 24px;
+  }
+  .zone-id {
+    font-family: var(--display-font);
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .zone-cn {
+    font-family: var(--body-font);
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .zone-en {
+    font-family: var(--mono-font);
+    font-size: 12px;
+    color: var(--ink-light);
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+  }
+  .zone-desc {
+    font-family: var(--body-font);
+    font-size: 14px;
+    color: var(--ink-light);
+    line-height: 1.7;
+  }
+  .zone-coord {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--line);
+    font-family: var(--mono-font);
+    font-size: 11px;
+    color: var(--ink-light);
+    letter-spacing: 0.05em;
+  }
+
+  /* Schedule */
+  .schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--mono-font);
+    font-size: 14px;
+    background-color: var(--paper);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-light);
+  }
+  .schedule-table th, .schedule-table td {
+    padding: 14px 20px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+  }
+  .schedule-table th {
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    font-size: 12px;
+    font-weight: 400;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--accent);
+  }
+  .schedule-table td { color: var(--ink-light); }
+  .schedule-table td:first-child {
+    color: var(--ink);
+    font-weight: 400;
+    width: 120px;
+  }
+  .schedule-table tbody tr:hover {
+    background-color: var(--accent-bg);
+  }
+
+  /* Tickets */
+  .tickets-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+  }
+  .ticket-card {
+    background-color: var(--paper);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-light);
+    padding: 32px 24px;
+    text-align: center;
+    transition: transform 0.2s ease-out;
+  }
+  .ticket-card:hover {
+    transform: translateY(-4px);
+  }
+  .ticket-card.featured {
+    border-color: var(--accent);
+    background-color: var(--accent-bg);
+    box-shadow: 0 8px 20px rgba(123,104,238,0.15);
+  }
+  .ticket-card .badge {
+    display: inline-block;
+    font-family: var(--mono-font);
+    font-size: 11px;
+    color: var(--paper);
+    background-color: var(--accent);
+    padding: 4px 12px;
+    letter-spacing: 0.08em;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  .ticket-card .tier {
+    font-family: var(--display-font);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .ticket-card .tier-jp {
+    font-family: var(--body-font);
+    font-size: 12px;
+    color: var(--ink-light);
+    letter-spacing: 0.05em;
+    margin-bottom: 20px;
+  }
+  .ticket-card .price {
+    font-family: var(--display-font);
+    font-size: 48px;
+    font-weight: 800;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .ticket-card .price-unit {
+    font-family: var(--mono-font);
+    font-size: 13px;
+    color: var(--ink-light);
+    letter-spacing: 0.05em;
+    margin-bottom: 24px;
+  }
+  .ticket-card ul {
+    list-style: none;
+    text-align: left;
+    font-family: var(--body-font);
+    font-size: 14px;
+    color: var(--ink-light);
+    line-height: 2;
+    margin-bottom: 28px;
+  }
+  .ticket-card li::before {
+    content: '✓ ';
+    color: var(--accent);
+    margin-right: 6px;
+  }
+
+  /* CTA Button */
+  .cta-btn {
+    display: inline-block;
+    font-family: var(--display-font);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    padding: 14px 32px;
+    background-color: var(--accent);
+    color: var(--paper);
+    border: 1px solid var(--accent);
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+    text-transform: uppercase;
+  }
+  .cta-btn:hover:not(:disabled) {
+    background-color: transparent;
+    color: var(--accent);
+    box-shadow: 0 0 0 rgba(0,0,0,0);
+  }
+  .cta-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  /* Ticket Showcase */
+  .ticket-showcase {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    padding: 32px;
+    background-color: var(--accent-bg);
+    border: 1px solid var(--accent);
+    box-shadow: 0 8px 20px rgba(123,104,238,0.1);
+    margin-bottom: 48px;
+  }
+  .ticket-showcase img {
+    width: 240px;
+    height: auto;
+    flex-shrink: 0;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-light);
+  }
+  .ticket-showcase .ts-info { flex: 1; }
+  .ticket-showcase .ts-label {
+    font-family: var(--mono-font);
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .ticket-showcase .ts-title {
+    font-family: var(--display-font);
+    font-weight: 700;
+    font-size: 24px;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+  .ticket-showcase .ts-desc {
+    font-family: var(--body-font);
+    font-size: 15px;
+    color: var(--ink-light);
+    line-height: 1.7;
+  }
+  @media (max-width: 768px) {
+    .ticket-showcase { flex-direction: column; text-align: center; padding: 24px; }
+    .ticket-showcase img { max-width: 200px; }
+  }
+
+  /* Footer */
+  footer {
+    margin-top: 80px;
+    padding: 60px 24px 40px;
+    border-top: 1px solid var(--line);
+    background-color: var(--paper);
+    text-align: center;
+    box-shadow: 0 -4px 12px rgba(0,0,0,0.02);
+  }
+  footer .logo-full {
+    width: 180px;
+    height: auto;
+    color: var(--ink-light);
+    margin-bottom: 24px;
+    opacity: 0.8;
+  }
+  footer .signature {
+    font-family: var(--display-font);
+    font-size: 15px;
+    color: var(--ink);
+    letter-spacing: 0.05em;
+    margin-bottom: 16px;
+    opacity: 0.9;
+  }
+  footer .credit {
+    font-family: var(--mono-font);
+    font-size: 12px;
+    color: var(--ink-light);
+    line-height: 1.8;
+  }
+  footer .credit a {
+    color: var(--ink-light);
+    text-decoration: underline;
+  }
+  footer .credit a:hover {
+    color: var(--accent);
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 600px) {
+    .topbar { padding: 12px 16px; font-size: 12px; }
+    .hero { padding: 80px 0 40px; }
+    .hero h1 { font-size: clamp(36px, 10vw, 64px); }
+    .hero-sub { font-size: clamp(14px, 3vw, 18px); }
+    .meta-strip { grid-template-columns: 1fr; gap: 16px; padding: 18px 0; }
+    section { padding: 60px 0; }
+    .sec-head { flex-direction: column; align-items: flex-start; margin-bottom: 30px; }
+    .sec-num { margin-bottom: 8px; }
+    .sec-title-jp { margin-left: 0; margin-top: 8px; }
+    .statement { font-size: 15px; }
+    .designers, .zones, .tickets-grid { gap: 16px; }
+    .schedule-table th, .schedule-table td { padding: 12px 16px; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="left">
+    <a href="../../index.html" aria-label="Back to Gallery">
+      <svg class="logo-mark" viewBox="0 0 600 280" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="aqualux">
+        <text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text>
+        <line x1="80" y1="165" x2="520" y2="165" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+        <g transform="translate(0,330) scale(1,-1)" opacity="0.28"><text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text></g>
+      </svg>
+    </a>
+    <span class="title">AQUALUX 2026 // DESIGN SPECTRUM</span>
+  </div>
+  <div class="right">
+    <a href="../../index.html">← Gallery</a>
+  </div>
+</div>
+
+<main>
+  <header class="hero">
+    <img src="images/hero.webp" alt="A minimalist exhibition hall interior bathed in soft lilac and white light." class="hero-bg-img" loading="lazy" decoding="async">
+    <div class="container hero-content">
+      <p class="kicker fade-stagger-item" style="--stagger-delay: 0ms;">AQUALUX 2026</p>
+      <h1 class="fade-stagger-item" style="--stagger-delay: 100ms;">DESIGN SPECTRUM EXHIBITION</h1>
+      <p class="hero-sub fade-stagger-item" style="--stagger-delay: 200ms;">
+        探索設計的無限可能，一場超越視覺界限的感官盛宴。
+        <br>
+        aqualux 2026 設計光譜展，引領您進入設計的未來。
+      </p>
+      <div class="meta-strip fade-stagger-item" style="--stagger-delay: 300ms;">
+        <div class="meta-cell">
+          <span class="label">日期</span>
+          <span class="val">2026.12.06 — 12.21</span>
+        </div>
+        <div class="meta-cell">
+          <span class="label">地點</span>
+          <span class="val">松山文創園區 5 號倉庫</span>
+        </div>
+        <div class="meta-cell">
+          <span class="label">策展人</span>
+          <span class="val">Jerry @ aqualux.dev</span>
+        </div>
+        <div class="meta-cell">
+          <span class="label">規模</span>
+          <span class="val">12 設計師 / 40 作品</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section class="block">
+    <div class="container">
+      <div class="sec-head fade-stagger-item" style="--stagger-delay: 0ms;">
+        <span class="sec-num">01</span>
+        <h2 class="sec-title">策展論述</h2>
+        <span class="sec-title-jp">Curatorial Statement</span>
+      </div>
+      <div class="statement fade-stagger-item" style="--stagger-delay: 100ms;">
+        <p>
+          在數位與實體交織的當代，設計不再僅是美學的呈現，更是連結人與世界、觸發情感共鳴的橋樑。
+          <strong class="strong">aqualux 2026 設計光譜展</strong> 旨在探索設計如何以其多樣的光譜，折射出時代的脈動與未來的趨勢。
+        </p>
+        <p>
+          我們相信，每一件設計作品都承載著獨特的頻率與能量，從極簡的線條到繁複的紋理，從靜態的圖像到動態的互動，
+          它們共同構成了一幅宏大而細膩的設計光譜。本次展覽，我們將透過 <em class="em">12 位頂尖設計師</em> 的 40 件作品，
+          引領觀眾深入感知設計的本質、其對日常生活的影響，以及它如何塑造我們的感知與體驗。
+        </p>
+        <blockquote>
+          設計，是一種無聲的語言，它在功能與美學之間找到平衡，在創新與傳統之間建立對話。
+          它不僅解決問題，更啟發思考，引導我們走向一個更具意義與連結的未來。
+        </blockquote>
+        <p>
+          期待您與我們一同，在這場設計光譜的旅程中，發現屬於您的頻率與共鳴。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="container">
+      <div class="sec-head fade-stagger-item" style="--stagger-delay: 0ms;">
+        <span class="sec-num">02</span>
+        <h2 class="sec-title">設計師名單</h2>
+        <span class="sec-title-jp">Featured Designers</span>
+      </div>
+      <div class="designers">
+        <div class="designer-card fade-stagger-item" style="--stagger-delay: 50ms;">
+          <div class="designer-thumb">
+            <img src="images/designer-d001.webp" alt="Abstract emblem for UI/Minimal design">
+          </div>
+          <div class="designer-info">
+            <p class="idx">D_001</p>
+            <h3 class="name">李 Lee</h3>
+            <p class="tag">UI / Minimal</p>
+          </div>
+        </div>
+        <div class="designer-card fade-stagger-item" style="--stagger-delay: 100ms;">
+          <div class="designer-thumb">
+            <img src="images/designer-d002.webp" alt="Abstract emblem for Motion/Flow design">
+          </div>
+          <div class="designer-info">
+            <p class="idx">D_002</p>
+            <h3 class="name">何 Ho</h3>
+            <p class="tag">Motion / Flow</p>
+          </div>
+        </div>
+        <div class="designer-card fade-stagger-item" style="--stagger-delay: 150ms;">
+          <div class="designer-thumb">
+            <img src="images/designer-d003.webp" alt="Abstract emblem for Experimental design">
+          </div>
+          <div class="designer-info">
+            <p class="idx">D_003</p>
+            <h3 class="name">張 Chang</h3>
+            <p class="tag">Experimental</p>
+          </div>
+        </div>
+        <div class="designer-card fade-stagger-item" style="--stagger-delay: 200ms;">
+          <div class="designer-thumb">
+            <img src="images/designer-d004.webp" alt="Abstract emblem for Editorial/Clean design">
+          </div>
+          <div class="designer-info">
+            <p class="idx">D_004</p>
+            <h3 class="name">吳 Wu</h3>
+            <p class="tag">Editorial / Clean</p>
+          </div>
+        </div>
+        <div class="designer-card fade-stagger-item" style="--stagger-delay: 250ms;">
+          <div class="designer-thumb">
+            <img src="images/designer-d005.webp" alt="Abstract emblem for Retro/Aesthetic design">
+          </div>
+          <div class="designer-info">
+            <p class="idx">D_005</p>
+            <h3 class="name">林 Lin</h3>
+            <p class="tag">Retro / Aesthetic</p>
+          </div>
+        </div>
+        <div class="designer-card fade-stagger-item" style="--stagger-delay: 300ms;">
+          <div class="designer-thumb">
+            <img src="images/designer-d006.webp" alt="Abstract emblem for Cultural/Grid design">
+          </div>
+          <div class="designer-info">
+            <p class="idx">D_006</p>
+            <h3 class="name">陳 Chen</h3>
+            <p class="tag">Cultural / Grid</p>
+          </div>
+        </div>
+        <div class="designer-card fade-stagger-item" style="--stagger-delay: 350ms;">
+          <div class="designer-thumb">
+            <img src="images/designer-d007.webp" alt="Abstract emblem for Glassmorphism design">
+          </div>
+          <div class="designer-info">
+            <p class="idx">D_007</p>
+            <h3 class="name">楊 Yang</h3>
+            <p class="tag">Glassmorphism</p>
+          </div>
+        </div>
+        <div class="designer-card fade-stagger-item" style="--stagger-delay: 400ms;">
+          <div class="designer-thumb">
+            <img src="images/designer-d008.webp" alt="Abstract emblem for Terminal/CLI design">
+          </div>
+          <div class="designer-info">
+            <p class="idx">D_008</p>
+            <h3 class="name">方 Fang</h3>
+            <p class="tag">Terminal / CLI</p>
+          </div>
+        </div>
+        <div class="designer-card fade-stagger-item" style="--stagger-delay: 450ms;">
+          <div class="designer-thumb">
+            <img src="images/designer-d009.webp" alt="Abstract emblem for Sketch/Doodle design">
+          </div>
+          <div class="designer-info">
+            <p class="idx">D_009</p>
+            <h3 class="name">趙 Chao</h3>
+            <p class="tag">Sketch / Doodle</p>
+          </div>
+        </div>
+        <div class="designer-card fade-stagger-item" style="--stagger-delay: 500ms;">
+          <div class="designer-thumb">
+            <img src="images/designer-d010.webp" alt="Abstract emblem for Interaction design">
+          </div>
+          <div class="designer-info">
+            <p class="idx">D_010</p>
+            <h3 class="name">黃 Huang</h3>
+            <p class="tag">Interaction</p>
+          </div>
+        </div>
+        <div class="designer-card fade-stagger-item" style="--stagger-delay: 550ms;">
+          <div class="designer-thumb">
+            <img src="images/designer-d011.webp" alt="Abstract emblem for Cyberpunk/Glow design">
+          </div>
+          <div class="designer-info">
+            <p class="idx">D_011</p>
+            <h3 class="name">蘇 Su</h3>
+            <p class="tag">Cyberpunk / Glow</p>
+          </div>
+        </div>
+        <div class="designer-card fade-stagger-item" style="--stagger-delay: 600ms;">
+          <div class="designer-thumb">
+            <img src="images/designer-d012.webp" alt="Abstract emblem for Film Grain design">
+          </div>
+          <div class="designer-info">
+            <p class="idx">D_012</p>
+            <h3 class="name">高 Kao</h3>
+            <p class="tag">Film Grain</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="container">
+      <div class="sec-head fade-stagger-item" style="--stagger-delay: 0ms;">
+        <span class="sec-num">03</span>
+        <h2 class="sec-title">場地資訊</h2>
+        <span class="sec-title-jp">Venue Information</span>
+      </div>
+      <div class="venue-block fade-stagger-item" style="--stagger-delay: 100ms;">
+        <img src="images/venue.webp" alt="A modern, spacious art gallery interior with natural light." class="venue-image" loading="lazy" decoding="async">
+        <p class="venue-caption">松山文創園區 5 號倉庫 · 靜謐而富有啟發的展覽空間</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="container">
+      <div class="sec-head fade-stagger-item" style="--stagger-delay: 0ms;">
+        <span class="sec-num">04</span>
+        <h2 class="sec-title">五大展區</h2>
+        <span class="sec-title-jp">Exhibition Zones</span>
+      </div>
+      <div class="zones">
+        <div class="zone-card fade-stagger-item" style="--stagger-delay: 50ms;">
+          <img src="images/zone-z01.webp" alt="Abstract image of smooth, flowing lines and a gradient of soft blues to greens, representing Mainstream Frequency." class="zone-image" loading="lazy" decoding="async">
+          <div class="zone-content">
+            <p class="zone-id">Z01</p>
+            <h3 class="zone-cn">主流頻譜</h3>
+            <p class="zone-en">Mainstream Frequency</p>
+            <p class="zone-desc">探討當前設計趨勢與主流美學，展示其在各領域的應用與演變。</p>
+            <p class="zone-coord">5F-A1 · 5 作品</p>
+          </div>
+        </div>
+        <div class="zone-card fade-stagger-item" style="--stagger-delay: 100ms;">
+          <img src="images/zone-z02.webp" alt="Abstract image of layered, translucent geometric shapes with subtle vintage texture in muted sepia tones, representing Retro Echo." class="zone-image" loading="lazy" decoding="async">
+          <div class="zone-content">
+            <p class="zone-id">Z02</p>
+            <h3 class="zone-cn">時光殘響</h3>
+            <p class="zone-en">Retro Echo</p>
+            <p class="zone-desc">回顧設計史上的經典元素，融合現代語彙，展現過去與未來的對話。</p>
+            <p class="zone-coord">5F-A2 · 6 作品</p>
+          </div>
+        </div>
+        <div class="zone-card fade-stagger-item" style="--stagger-delay: 150ms;">
+          <img src="images/zone-z03.webp" alt="Abstract image of clean, sterile lines with abstract scientific instruments and a faint purple glow, representing Avant Lab." class="zone-image" loading="lazy" decoding="async">
+          <div class="zone-content">
+            <p class="zone-id">Z03</p>
+            <h3 class="zone-cn">前衛實驗室</h3>
+            <p class="zone-en">Avant Lab</p>
+            <p class="zone-desc">聚焦於實驗性與前瞻性設計，探索科技、藝術與設計的邊界。</p>
+            <p class="zone-coord">5F-B1 · 6 作品</p>
+          </div>
+        </div>
+        <div class="zone-card fade-stagger-item" style="--stagger-delay: 200ms;">
+          <img src="images/zone-z04.webp" alt="Abstract representation of cultural elements with simplified, modern interpretation and soft pastel colors, representing Cultural Spectrum." class="zone-image" loading="lazy" decoding="async">
+          <div class="zone-content">
+            <p class="zone-id">Z04</p>
+            <h3 class="zone-cn">文化光譜</h3>
+            <p class="zone-en">Cultural Spectrum</p>
+            <p class="zone-desc">從在地文化中汲取靈感，轉化為具有國際視野的當代設計語彙。</p>
+            <p class="zone-coord">5F-B2 · 5 作品</p>
+          </div>
+        </div>
+        <div class="zone-card fade-stagger-item" style="--stagger-delay: 250ms;">
+          <img src="images/zone-z05.webp" alt="Abstract image of blurred motion streaks and light trails in cool tones, representing Motion Hall." class="zone-image" loading="lazy" decoding="async">
+          <div class="zone-content">
+            <p class="zone-id">Z05</p>
+            <h3 class="zone-cn">動態廳</h3>
+            <p class="zone-en">Motion Hall</p>
+            <p class="zone-desc">展示動態影像、互動裝置與沉浸式體驗，探索時間與空間的設計。</p>
+            <p class="zone-coord">5F-C1 · 15 作品</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="container">
+      <div class="sec-head fade-stagger-item" style="--stagger-delay: 0ms;">
+        <span class="sec-num">05</span>
+        <h2 class="sec-title">講座排程</h2>
+        <span class="sec-title-jp">Lecture Schedule</span>
+      </div>
+      <table class="schedule-table fade-stagger-item" style="--stagger-delay: 100ms;">
+        <thead>
+          <tr>
+            <th scope="col">時間</th>
+            <th scope="col">主題</th>
+            <th scope="col">講者</th>
+            <th scope="col">地點</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>12.07 14:00</td>
+            <td>設計的未來趨勢</td>
+            <td>李 Lee</td>
+            <td>動態廳</td>
+          </tr>
+          <tr>
+            <td>12.09 10:30</td>
+            <td>動態設計工作坊</td>
+            <td>何 Ho</td>
+            <td>前衛實驗室</td>
+          </tr>
+          <tr>
+            <td>12.11 16:00</td>
+            <td>文化符號再詮釋</td>
+            <td>陳 Chen</td>
+            <td>文化光譜</td>
+          </tr>
+          <tr>
+            <td>12.14 13:00</td>
+            <td>極簡主義的魅力</td>
+            <td>吳 Wu</td>
+            <td>主流頻譜</td>
+          </tr>
+          <tr>
+            <td>12.18 15:00</td>
+            <td>互動體驗設計</td>
+            <td>黃 Huang</td>
+            <td>動態廳</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="container">
+      <div class="sec-head fade-stagger-item" style="--stagger-delay: 0ms;">
+        <span class="sec-num">06</span>
+        <h2 class="sec-title">票務資訊</h2>
+        <span class="sec-title-jp">Ticketing Information</span>
+      </div>
+      <div class="ticket-showcase fade-stagger-item" style="--stagger-delay: 100ms;">
+        <img src="images/ticket-mockup.webp" alt="A minimalist, elegant admission ticket for AQUALUX SPECTRUM 2026 FULL ACCESS." loading="lazy" decoding="async">
+        <div class="ts-info">
+          <p class="ts-label">推薦票種</p>
+          <h3 class="ts-title">FULL ACCESS 全展期通票</h3>
+          <p class="ts-desc">
+            憑此通票，您可在展覽期間無限次進出所有展區，
+            並享有部分講座優先入場權。最划算的選擇，不容錯過。
+          </p>
+        </div>
+      </div>
+      <div class="tickets-grid">
+        <div class="ticket-card fade-stagger-item" style="--stagger-delay: 200ms;">
+          <span class="badge">Standard</span>
+          <h3 class="tier">SINGLE PASS</h3>
+          <p class="tier-jp">單日入場</p>
+          <p class="price">NT$480</p>
+          <p class="price-unit">每人 / 每日</p>
+          <ul>
+            <li>✓ 單日所有展區入場</li>
+            <li>✓ 展覽紀念電子票根</li>
+            <li>✓ 現場導覽手冊</li>
+          </ul>
+          <button class="cta-btn" disabled aria-label="Demo only — not for sale">PURCHASE</button>
+        </div>
+        <div class="ticket-card featured fade-stagger-item" style="--stagger-delay: 300ms;">
+          <span class="badge">Recommended</span>
+          <h3 class="tier">FULL ACCESS</h3>
+          <p class="tier-jp">全展期通票</p>
+          <p class="price">NT$1,280</p>
+          <p class="price-unit">每人 / 全展期</p>
+          <ul>
+            <li>✓ 全展期無限次入場</li>
+            <li>✓ 部分講座優先入場</li>
+            <li>✓ 獨家數位展覽指南</li>
+          </ul>
+          <button class="cta-btn" disabled aria-label="Demo only — not for sale">PURCHASE</button>
+        </div>
+        <div class="ticket-card fade-stagger-item" style="--stagger-delay: 400ms;">
+          <span class="badge">Premium</span>
+          <h3 class="tier">CURATOR PASS</h3>
+          <p class="tier-jp">策展人限定</p>
+          <p class="price">NT$2,880</p>
+          <p class="price-unit">每人 / 專屬體驗</p>
+          <ul>
+            <li>✓ FULL ACCESS 所有權益</li>
+            <li>✓ 策展人導覽一場</li>
+            <li>✓ 獨家設計工作坊</li>
+          </ul>
+          <button class="cta-btn" disabled aria-label="Demo only — not for sale">PURCHASE</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <svg class="logo-full" viewBox="0 0 600 280" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="aqualux">
+    <text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text>
+    <line x1="80" y1="165" x2="520" y2="165" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+    <g transform="translate(0,330) scale(1,-1)" opacity="0.28"><text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text></g>
+  </svg>
+  <p class="signature">MMXXVI · AQUALUX.DEV</p>
+  <p class="credit">
+    &copy; 2026 aqualux.dev. All rights reserved. <br>
+    This page is a demo for <a href="https://design.aqualux.dev/works/m32-fade-stagger/" target="_blank" rel="noopener noreferrer">M32 Fade Stagger</a> skill.
+  </p>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.body.classList.add('loaded'); // Trigger page load fade-in
+
+    const observerOptions = {
+      root: null, // viewport
+      rootMargin: '0px',
+      threshold: 0.1 // Trigger when 10% of the item is visible
+    };
+
+    const fadeStaggerObserver = new IntersectionObserver((entries, observer) => {
+      let delay = 0;
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          if (!entry.target.classList.contains('is-visible')) {
+            entry.target.style.transitionDelay = `${delay}ms`;
+            entry.target.classList.add('is-visible');
+            delay += 100; // Increment delay for staggered effect
+          }
+        } else {
+          // Optional: reset animation if element scrolls out of view
+          // entry.target.classList.remove('is-visible');
+          // entry.target.style.transitionDelay = '0ms';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-stagger-item').forEach(item => {
+      fadeStaggerObserver.observe(item);
+    });
+  });
+</script>
+
+</body>
+</html>

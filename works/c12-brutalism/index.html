@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AQUALUX 2026 // DESIGN SPECTRUM EXHIBITION · 野獸派 Brutalism Demo</title>
+<meta name="description" content="aqualux 2026 設計光譜展 · Brutalism 風格 demo · single-file HTML showcase">
+<link rel="canonical" href="https://design.aqualux.dev/works/c12-brutalism/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://design.aqualux.dev/works/c12-brutalism/">
+<meta property="og:title" content="C12 野獸派 · aqualux 設計光譜展">
+<meta property="og:description" content="Brutalism 風格 single-file HTML demo · aqualux 2026 設計光譜展">
+<meta property="og:image" content="images/hero.webp">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="C12 野獸派 · aqualux 設計光譜展">
+<meta name="twitter:image" content="images/hero.webp">
+<link rel="icon" type="image/svg+xml" href="../../assets/aqualux-logo-mark.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Impact&family=IBM+Plex+Mono:wght@400;700&family=Noto+Sans+TC:wght@300;400;500;700&family=Staatliches&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --concrete:    #4a4a4a;   /* 主深灰（裸露混凝土）*/
+    --concrete-lt: #8a8a8a;   /* 次淺灰 */
+    --steel:       #c0c0c0;   /* 金屬質感 */
+    --warning:     #ff0000;   /* 警示紅（高對比）*/
+    --ink:         #ffffff;   /* 文字白 */
+    --ink-secondary: #e0e0e0; /* 次要文字 */
+    --bg-panel:    #2a2a2a;   /* 深色區塊背景 */
+
+    --display-font: 'Impact', 'Arial Black', sans-serif;
+    --mono-font: 'IBM Plex Mono', monospace;
+    --body-font: 'Noto Sans TC', 'PingFang TC', sans-serif;
+    --accent-font: 'Staatliches', cursive;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: auto; } /* Heavy Scroll: smooth 禁用 */
+  body {
+    background: var(--concrete);
+    color: var(--ink);
+    font-family: var(--body-font);
+    line-height: 1.6;
+    font-size: 15px;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Structural Grid */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(45deg, var(--steel) 1px, transparent 1px),
+      linear-gradient(135deg, var(--steel) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mix-blend-mode: overlay;
+    opacity: 0.1;
+    pointer-events: none; z-index: -2;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    body::before { display: none; }
+  }
+
+  a { color: var(--steel); text-decoration: none; }
+  a:hover { color: var(--warning); }
+
+  /* Top bar */
+  .topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--bg-panel);
+    border-bottom: 2px solid var(--warning);
+    padding: 12px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--mono-font); font-size: 12px;
+    color: var(--ink);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .topbar .left { display: flex; align-items: center; gap: 10px; }
+  .topbar .left a { color: var(--ink); }
+  .topbar .left a:hover { color: var(--warning); }
+  .topbar .right { display: flex; align-items: center; gap: 15px; }
+  .topbar .status { color: var(--steel); }
+  .topbar .blink { color: var(--warning); animation: blink 0.7s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .aqualux-logo-topbar { height: 28px; width: auto; color: var(--ink); }
+  .aqualux-logo-topbar text { font-size: 100px !important; } /* Adjust font size for small logo */
+  .aqualux-logo-topbar line { opacity: 0.2 !important; }
+
+  /* Hero */
+  .hero {
+    padding: 60px 24px 40px;
+    max-width: 1200px; margin: 0 auto;
+    position: relative;
+    background: var(--concrete);
+  }
+  .hero-banner {
+    margin: -60px -24px 40px; /* Adjust to full width */
+    height: 350px;
+    overflow: hidden;
+    position: relative;
+    border-bottom: 3px solid var(--warning);
+  }
+  .hero-banner img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: grayscale(80%) contrast(1.2);
+  }
+  .hero-banner::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to top, var(--concrete) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .kicker {
+    font-family: var(--mono-font); font-size: 12px;
+    color: var(--steel); letter-spacing: 0.2em;
+    margin-bottom: 18px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .kicker::before {
+    content: ''; display: inline-block;
+    width: 20px; height: 1px; background: var(--steel);
+  }
+  .hero-jp {
+    font-family: var(--body-font); font-weight: 300;
+    font-size: clamp(16px, 2vw, 22px);
+    color: var(--ink-secondary); letter-spacing: 0.3em;
+    margin-bottom: 8px;
+  }
+  .hero h1 {
+    font-family: var(--display-font); font-weight: normal;
+    font-size: clamp(50px, 10vw, 120px);
+    line-height: 0.9; letter-spacing: 0.05em;
+    color: var(--ink);
+    margin-bottom: 20px;
+    position: relative;
+    text-shadow: 4px 4px 0px var(--concrete-lt);
+  }
+  .glitch {
+    position: relative; display: inline-block;
+  }
+  .glitch::before, .glitch::after {
+    content: attr(data-text);
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    overflow: hidden;
+    color: var(--warning);
+    opacity: 0.8;
+  }
+  .glitch::before {
+    clip-path: polygon(0 0, 100% 0, 100% 30%, 0 30%);
+    animation: glitch-brutal-1 0.2s infinite alternate;
+  }
+  .glitch::after {
+    clip-path: polygon(0 70%, 100% 70%, 100% 100%, 0 100%);
+    animation: glitch-brutal-2 0.2s infinite alternate-reverse;
+  }
+  @keyframes glitch-brutal-1 {
+    0% { transform: translate(1px, 0); }
+    50% { transform: translate(-1px, 1px); }
+    100% { transform: translate(2px, -1px); }
+  }
+  @keyframes glitch-brutal-2 {
+    0% { transform: translate(-1px, 0); }
+    50% { transform: translate(1px, -1px); }
+    100% { transform: translate(-2px, 1px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .glitch::before, .glitch::after { animation: none; content: none; }
+  }
+
+  .hero-sub {
+    font-family: var(--mono-font); font-weight: 400;
+    font-size: clamp(13px, 1.5vw, 16px);
+    color: var(--ink-secondary); letter-spacing: 0.1em;
+    margin: 20px 0 30px; max-width: 800px;
+  }
+  .hero-sub .accent { color: var(--warning); }
+  .meta-strip {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    border-top: 2px solid var(--steel);
+    border-bottom: 2px solid var(--steel);
+    padding: 18px 0;
+    margin-top: 30px;
+  }
+  .meta-cell {
+    font-family: var(--mono-font); font-size: 12px;
+    color: var(--ink-secondary);
+    padding: 0 10px;
+    border-left: 1px solid var(--concrete-lt);
+  }
+  .meta-cell:first-child { border-left: none; }
+  .meta-cell .label {
+    color: var(--steel); letter-spacing: 0.15em;
+    font-size: 10px; margin-bottom: 4px; display: block;
+    text-transform: uppercase;
+  }
+  .meta-cell .val { color: var(--ink); font-size: 13px; font-weight: 700; }
+
+  /* Section base */
+  section.block { padding: 60px 24px; max-width: 1200px; margin: 0 auto; }
+  .sec-head {
+    display: flex; flex-wrap: wrap; align-items: baseline; gap: 15px;
+    margin-bottom: 30px;
+    padding-bottom: 10px; border-bottom: 3px solid var(--warning);
+  }
+  .sec-num {
+    font-family: var(--mono-font); font-size: 13px;
+    color: var(--warning); letter-spacing: 0.2em;
+    font-weight: 700;
+  }
+  .sec-title-jp {
+    font-family: var(--body-font); font-size: 13px;
+    color: var(--ink-secondary); letter-spacing: 0.2em;
+  }
+  .sec-title {
+    font-family: var(--display-font); font-size: clamp(28px, 5vw, 48px);
+    font-weight: normal; letter-spacing: 0.08em;
+    color: var(--ink);
+    margin-right: auto;
+    text-shadow: 2px 2px 0px var(--concrete-lt);
+  }
+  .sec-title .ph { color: var(--warning); }
+
+  /* Curatorial statement */
+  .statement {
+    max-width: 800px;
+    font-family: var(--body-font); font-size: 16px; line-height: 1.8;
+    color: var(--ink-secondary);
+  }
+  .statement p { margin-bottom: 16px; }
+  .statement .em { color: var(--steel); font-weight: 500; }
+  .statement .strong { color: var(--warning); font-weight: 700; letter-spacing: 0.03em; }
+  .statement blockquote {
+    border-left: 5px solid var(--warning);
+    padding: 15px 20px;
+    margin: 25px 0;
+    background: var(--bg-panel);
+    font-family: var(--mono-font); color: var(--ink);
+    font-size: 14px; letter-spacing: 0.02em;
+    position: relative;
+    overflow: hidden;
+  }
+  .statement blockquote::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: linear-gradient(45deg, var(--warning) 1px, transparent 1px);
+    background-size: 10px 10px;
+    opacity: 0.1;
+    mix-blend-mode: overlay;
+  }
+  .statement blockquote p { margin-bottom: 0; }
+  .statement blockquote span {
+    font-family: var(--accent-font); font-size: 1.2em;
+    display: block; margin-top: 10px;
+    color: var(--steel); letter-spacing: 0.1em;
+  }
+
+  /* Designer grid */
+  .designers {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
+  }
+  .designer-card {
+    border: 2px solid var(--concrete-lt);
+    background: var(--bg-panel);
+    padding: 15px;
+    position: relative;
+    transition: border-color 0.1s linear, box-shadow 0.1s linear;
+  }
+  .designer-card:hover {
+    border-color: var(--warning);
+    box-shadow: 0 0 0 2px var(--warning); /* Flicker Border */
+    animation: flicker-border 0.1s steps(1) infinite;
+  }
+  @keyframes flicker-border {
+    0% { border-color: var(--warning); }
+    50% { border-color: transparent; }
+    100% { border-color: var(--warning); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .designer-card:hover { animation: none; }
+  }
+
+  .designer-thumb {
+    margin: -15px -15px 15px;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-bottom: 2px solid var(--concrete-lt);
+    background: var(--concrete);
+  }
+  .designer-thumb img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: grayscale(100%) brightness(0.8) contrast(1.5);
+  }
+  .designer-card .idx {
+    font-family: var(--mono-font); font-size: 11px;
+    color: var(--steel); letter-spacing: 0.15em;
+    margin-bottom: 8px;
+  }
+  .designer-card .name-jp {
+    font-family: var(--body-font); font-size: 11px;
+    color: var(--ink-secondary); letter-spacing: 0.1em;
+    margin-bottom: 4px;
+  }
+  .designer-card .name {
+    font-family: var(--display-font); font-size: 18px;
+    color: var(--ink); letter-spacing: 0.05em;
+    margin-bottom: 10px;
+  }
+  .designer-card .tag {
+    font-family: var(--mono-font); font-size: 10px;
+    color: var(--warning); letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .designer-card .tag::before { content: '// '; color: var(--concrete-lt); }
+
+  /* Venue */
+  .venue-img-container {
+    width: 100%; height: 400px;
+    overflow: hidden;
+    border: 3px solid var(--steel);
+    background: var(--bg-panel);
+    position: relative;
+  }
+  .venue-img-container img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: grayscale(100%) brightness(0.7) contrast(1.3);
+  }
+  .venue-caption-strip {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: rgba(0,0,0,0.7);
+    color: var(--ink);
+    font-family: var(--mono-font); font-size: 12px;
+    padding: 10px 15px;
+    letter-spacing: 0.05em;
+    border-top: 1px solid var(--steel);
+  }
+  .venue-caption-strip span { color: var(--warning); }
+
+  /* Zone map */
+  .zones {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .zone {
+    background: var(--bg-panel);
+    border: 2px solid var(--concrete-lt);
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .zone::before {
+    content: ''; position: absolute;
+    top: -2px; left: -2px; width: calc(100% + 4px); height: calc(100% + 4px);
+    background-image: linear-gradient(45deg, var(--warning) 1px, transparent 1px);
+    background-size: 8px 8px;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+  .zone .zone-id {
+    font-family: var(--display-font); font-size: 50px;
+    color: var(--warning); line-height: 1;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 0px var(--concrete-lt);
+  }
+  .zone .zone-cn {
+    font-family: var(--body-font); font-size: 18px; font-weight: 500;
+    color: var(--ink); margin-bottom: 5px;
+    letter-spacing: 0.03em;
+  }
+  .zone .zone-en {
+    font-family: var(--mono-font); font-size: 11px;
+    color: var(--steel); letter-spacing: 0.15em;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+  }
+  .zone .zone-desc {
+    font-family: var(--body-font); font-size: 14px; line-height: 1.7;
+    color: var(--ink-secondary);
+  }
+  .zone .zone-coord {
+    margin-top: 15px; padding-top: 12px;
+    border-top: 1px solid var(--concrete-lt);
+    font-family: var(--mono-font); font-size: 11px;
+    color: var(--ink-secondary); letter-spacing: 0.1em;
+  }
+  .zone-img {
+    margin: -20px -20px 15px;
+    aspect-ratio: 5 / 3;
+    overflow: hidden;
+    border-bottom: 2px solid var(--concrete-lt);
+  }
+  .zone-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: grayscale(90%) brightness(0.8) contrast(1.4);
+  }
+
+  /* Schedule */
+  .schedule-table {
+    width: 100%; border-collapse: collapse;
+    font-family: var(--mono-font); font-size: 13px;
+    border-top: 2px solid var(--steel);
+  }
+  .schedule-table th, .schedule-table td {
+    padding: 12px 15px; text-align: left;
+    border-bottom: 1px solid var(--concrete-lt);
+  }
+  .schedule-table th {
+    color: var(--steel); letter-spacing: 0.15em;
+    font-size: 10px; font-weight: 700;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--warning);
+    background: var(--bg-panel);
+  }
+  .schedule-table td { color: var(--ink-secondary); }
+  .schedule-table td:first-child {
+    color: var(--warning); font-weight: 700;
+    width: 120px;
+  }
+  .schedule-table tr:hover td { color: var(--ink); background: rgba(255, 0, 0, 0.05); }
+
+  /* Tickets */
+  .tickets {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  .ticket {
+    border: 2px solid var(--concrete-lt);
+    padding: 25px 20px;
+    position: relative;
+    background: var(--bg-panel);
+    text-align: center;
+    overflow: hidden;
+  }
+  .ticket::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: linear-gradient(135deg, var(--steel) 1px, transparent 1px);
+    background-size: 12px 12px;
+    opacity: 0.08;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+  .ticket.featured {
+    border-color: var(--warning);
+    box-shadow: 0 0 0 3px var(--warning);
+    animation: flicker-border 0.1s steps(1) infinite;
+  }
+  .ticket.featured::before {
+    background-image: linear-gradient(135deg, var(--warning) 1px, transparent 1px);
+    opacity: 0.15;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ticket.featured { animation: none; }
+  }
+
+  .ticket .badge {
+    display: inline-block;
+    font-family: var(--mono-font); font-size: 10px;
+    color: var(--bg-panel); background: var(--steel);
+    padding: 4px 10px; letter-spacing: 0.15em;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+  .ticket.featured .badge { background: var(--warning); color: var(--ink); }
+  .ticket .tier {
+    font-family: var(--display-font); font-size: 24px;
+    color: var(--ink); letter-spacing: 0.08em;
+    margin-bottom: 8px;
+    text-shadow: 1px 1px 0px var(--concrete-lt);
+  }
+  .ticket .tier-jp {
+    font-family: var(--body-font); font-size: 10px;
+    color: var(--ink-secondary); letter-spacing: 0.2em;
+    margin-bottom: 15px;
+  }
+  .ticket .price {
+    font-family: var(--display-font); font-size: 40px;
+    color: var(--warning); line-height: 1;
+    margin-bottom: 5px;
+    text-shadow: 3px 3px 0px var(--concrete-lt);
+  }
+  .ticket .price-unit {
+    font-family: var(--mono-font); font-size: 11px;
+    color: var(--ink-secondary); letter-spacing: 0.15em;
+    margin-bottom: 18px;
+  }
+  .ticket ul {
+    list-style: none; text-align: left;
+    font-family: var(--mono-font); font-size: 12px;
+    color: var(--ink-secondary); line-height: 1.8;
+    margin-bottom: 20px;
+  }
+  .ticket li::before {
+    content: '>> '; color: var(--steel); margin-right: 4px;
+  }
+
+  /* CTA */
+  .cta-btn {
+    display: inline-block;
+    font-family: var(--accent-font);
+    font-size: 14px; letter-spacing: 0.2em;
+    padding: 12px 28px;
+    background: transparent;
+    color: var(--warning);
+    border: 2px solid var(--warning);
+    cursor: pointer;
+    transition: all 0.1s linear;
+    text-transform: uppercase;
+    position: relative;
+    box-shadow: none;
+  }
+  .cta-btn:hover {
+    background: var(--warning); color: var(--bg-panel);
+    box-shadow: 0 0 0 2px var(--warning);
+    animation: flicker-border 0.1s steps(1) infinite;
+  }
+  .cta-btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .cta-btn.disabled:hover {
+    background: transparent; color: var(--warning);
+    box-shadow: none;
+    animation: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cta-btn:hover { animation: none; }
+  }
+
+  /* Ticket showcase */
+  .ticket-showcase {
+    margin: 0 0 40px;
+    display: flex; align-items: center; gap: 25px;
+    padding: 25px;
+    border: 2px dashed var(--steel);
+    background: var(--bg-panel);
+    position: relative; overflow: hidden;
+  }
+  .ticket-showcase::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: linear-gradient(45deg, var(--concrete-lt) 1px, transparent 1px);
+    background-size: 10px 10px;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+  .ticket-showcase img {
+    width: 200px; height: auto; border: 2px solid var(--warning);
+    box-shadow: 5px 5px 0px var(--concrete-lt);
+    flex-shrink: 0;
+    filter: grayscale(100%) brightness(0.8) contrast(1.5);
+  }
+  .ticket-showcase .ts-info { flex: 1; }
+  .ticket-showcase .ts-label {
+    font-family: var(--mono-font); font-size: 11px;
+    color: var(--steel); letter-spacing: 0.15em;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  .ticket-showcase .ts-title {
+    font-family: var(--display-font);
+    font-size: 20px; color: var(--ink); letter-spacing: 0.05em;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 0px var(--concrete-lt);
+  }
+  .ticket-showcase .ts-desc {
+    font-family: var(--body-font); font-size: 14px;
+    color: var(--ink-secondary); line-height: 1.7;
+  }
+  @media (max-width: 720px) {
+    .ticket-showcase { flex-direction: column; gap: 18px; padding: 20px; }
+    .ticket-showcase img { width: 100%; max-width: 250px; }
+  }
+
+  /* Footer */
+  footer {
+    margin-top: 60px;
+    padding: 50px 24px 24px;
+    border-top: 3px solid var(--warning);
+    background: var(--bg-panel);
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+  }
+  footer::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: linear-gradient(90deg, var(--concrete-lt) 1px, transparent 1px);
+    background-size: 15px 15px;
+    opacity: 0.08;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+  footer .ascii-line {
+    font-family: var(--mono-font); font-size: 10px;
+    color: var(--steel); letter-spacing: 0.1em;
+    margin-bottom: 15px;
+    white-space: nowrap; overflow: hidden;
+  }
+  footer .aqualux-logo-footer {
+    width: 180px; height: auto; color: var(--ink);
+    margin: 20px auto;
+  }
+  footer .aqualux-logo-footer text { font-size: 140px !important; }
+  footer .aqualux-logo-footer line { opacity: 0.45 !important; }
+
+  footer .signature {
+    font-family: var(--display-font); font-size: 16px;
+    color: var(--ink); letter-spacing: 0.1em;
+    margin-bottom: 12px;
+  }
+  footer .signature .ph { color: var(--warning); }
+  footer .credit {
+    font-family: var(--mono-font); font-size: 10px;
+    color: var(--ink-secondary); letter-spacing: 0.08em; line-height: 1.8;
+  }
+  footer .credit a { color: var(--steel); }
+  footer .terminal {
+    font-family: var(--mono-font); font-size: 10px;
+    color: var(--ink-secondary); letter-spacing: 0.05em;
+    margin-top: 20px;
+  }
+  footer .terminal .cursor {
+    color: var(--warning);
+    animation: blink 0.7s steps(1) infinite;
+  }
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="left">
+      <a href="../../index.html" aria-label="Back to Gallery">
+        <svg class="aqualux-logo-topbar" viewBox="0 0 600 280" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="aqualux">
+          <text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text>
+          <line x1="80" y1="165" x2="520" y2="165" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+          <g transform="translate(0,330) scale(1,-1)" opacity="0.28"><text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text></g>
+        </svg>
+      </a>
+      <span><a href="../../index.html">&lt;-- GALLERY</a></span>
+    </div>
+    <div class="right">
+      <span class="status">SYSTEM STATUS: <span class="blink">WARNING</span></span>
+      <span>2026.12.06 - 12.21</span>
+    </div>
+  </div>
+
+  <main>
+    <div class="hero-banner">
+      <img src="images/hero.webp" alt="A stark brutalist architectural landscape at dusk with 'AQUALUX SPECTRUM 2026' projected on a concrete wall." loading="lazy" decoding="async">
+    </div>
+    <section class="hero">
+      <p class="kicker">AQUALUX 2026 CODEX // C12</p>
+      <p class="hero-jp">アクアリュクス デザイン スペクトラム</p>
+      <h1><span class="glitch" data-text="BRUTALISM">BRUTALISM</span><br>野獸派</h1>
+      <p class="hero-sub">
+        <span class="accent">AQUALUX 2026 DESIGN SPECTRUM EXHIBITION</span> presents a raw and unfiltered exploration into the <span class="accent">BRUTALIST</span> aesthetic. Stripped of ornament, revealing core structure, demanding confrontation. This is not beauty; it is <span class="accent">TRUTH</span>.
+      </p>
+      <div class="meta-strip">
+        <div class="meta-cell">
+          <span class="label">EXHIBITION NAME</span>
+          <span class="val">AQUALUX 2026 DESIGN SPECTRUM</span>
+        </div>
+        <div class="meta-cell">
+          <span class="label">DATE</span>
+          <span class="val">2026.12.06 - 12.21 (16 DAYS)</span>
+        </div>
+        <div class="meta-cell">
+          <span class="label">VENUE</span>
+          <span class="val">SONGSHAN CULTURAL PARK WAREHOUSE 5</span>
+        </div>
+        <div class="meta-cell">
+          <span class="label">CURATOR</span>
+          <span class="val">JERRY @ AQUALUX.DEV</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="sec-head">
+        <span class="sec-num">// 01</span>
+        <h2 class="sec-title">CURATORIAL <span class="ph">STATEMENT</span></h2>
+        <span class="sec-title-jp">キュレーション ステートメント</span>
+      </div>
+      <div class="statement">
+        <p>This exhibition is not a gentle whisper; it is a <strong class="strong">concrete declaration</strong>. We reject the veneer of superficial aesthetics, the seductive polish that obscures purpose. Here, form follows function with an uncompromising, almost aggressive honesty. This is the <em class="em">unadorned truth</em> of design.</p>
+        <blockquote>
+          <p>「建築的本質，在於其堅實的材料和結構。設計的本質，在於其無可妥協的功能性。我們將這些基礎元素，以最粗獷、最直接的方式呈現。」</p>
+          <span>-- C12 MANIFESTO</span>
+        </blockquote>
+        <p>The <strong class="strong">BRUTALIST</strong> aesthetic, often misunderstood, is a testament to raw power and structural integrity. It embraces the inherent qualities of materials – the rough texture of concrete, the cold gleam of steel, the stark contrast of light and shadow. It is a dialogue between <em class="em">human intent</em> and <em class="em">material reality</em>, without intermediary.</p>
+        <p>In a world saturated with ephemeral trends, we present a counter-narrative: design that is <strong class="strong">permanent, uncompromising, and unapologetically real</strong>. This is not for the faint of heart; it is for those who seek authenticity in its most visceral form.</p>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="sec-head">
+        <span class="sec-num">// 02</span>
+        <h2 class="sec-title">DESIGNER <span class="ph">ROSTER</span></h2>
+        <span class="sec-title-jp">デザイナー リスト</span>
+      </div>
+      <div class="designers">
+        <div class="designer-card">
+          <div class="designer-thumb">
+            <img src="images/designer-neon-lee.webp" alt="Abstract emblem for Neon Lee: distressed concrete texture with a blocky 'N'." loading="lazy" decoding="async">
+          </div>
+          <p class="idx">D-001</p>
+          <p class="name-jp">ネオン リー</p>
+          <h3 class="name">NEON LEE</h3>
+          <p class="tag">UI / BRUTALISM</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb">
+            <img src="images/designer-chrome-ho.webp" alt="Abstract emblem for Chrome Ho: rusted steel plates forming a geometric 'C'." loading="lazy" decoding="async">
+          </div>
+          <p class="idx">D-002</p>
+          <p class="name-jp">クローム ホー</p>
+          <h3 class="name">CHROME HO</h3>
+          <p class="tag">MOTION / PARALLAX</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb">
+            <img src="images/designer-glitch-chang.webp" alt="Abstract emblem for Glitch Chang: concrete slab with a 'G' carved out, filled with static and digital artifacts." loading="lazy" decoding="async">
+          </div>
+          <p class="idx">D-003</p>
+          <p class="name-jp">グリッチ チャン</p>
+          <h3 class="name">GLITCH CHANG</h3>
+          <p class="tag">EXPERIMENTAL</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb">
+            <img src="images/designer-paper-wu.webp" alt="Abstract emblem for Paper Wu: rough paper texture with a minimalist 'P' cut-out." loading="lazy" decoding="async">
+          </div>
+          <p class="idx">D-004</p>
+          <p class="name-jp">ペーパー ウー</p>
+          <h3 class="name">PAPER WU</h3>
+          <p class="tag">EDITORIAL / MINIMAL</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb">
+            <img src="images/designer-vapor-lin.webp" alt="Abstract emblem for Vapor Lin: hazy, gradient 'V' on a faded background." loading="lazy" decoding="async">
+          </div>
+          <p class="idx">D-005</p>
+          <p class="name-jp">ヴェイパー リン</p>
+          <h3 class="name">VAPOR LIN</h3>
+          <p class="tag">RETRO / AESTHETIC</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb">
+            <img src="images/designer-swiss-chen.webp" alt="Abstract emblem for Swiss Chen: precise grid with a 'S' in a sans-serif font." loading="lazy" decoding="async">
+          </div>
+          <p class="idx">D-006</p>
+          <p class="name-jp">スイス チェン</p>
+          <h3 class="name">SWISS CHEN</h3>
+          <p class="tag">CULTURAL / GRID</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb">
+            <img src="images/designer-glass-yang.webp" alt="Abstract emblem for Glass Yang: frosted glass texture with a translucent 'G'." loading="lazy" decoding="async">
+          </div>
+          <p class="idx">D-007</p>
+          <p class="name-jp">ガラス ヤン</p>
+          <h3 class="name">GLASS YANG</h3>
+          <p class="tag">GLASSMORHISM</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb">
+            <img src="images/designer-ascii-fan.webp" alt="Abstract emblem for ASCII Fan: blocky 'A' made of ASCII characters on a dark terminal background." loading="lazy" decoding="async">
+          </div>
+          <p class="idx">D-008</p>
+          <p class="name-jp">アスキー ファン</p>
+          <h3 class="name">ASCII FAN</h3>
+          <p class="tag">TERMINAL / CLI</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb">
+            <img src="images/designer-hand-chao.webp" alt="Abstract emblem for Hand Chao: rough sketch of a hand-drawn 'H' on textured paper." loading="lazy" decoding="async">
+          </div>
+          <p class="idx">D-009</p>
+          <p class="name-jp">ハンド ジョー</p>
+          <h3 class="name">HAND CHAO</h3>
+          <p class="tag">SKETCH / DOODLE</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb">
+            <img src="images/designer-magne-huang.webp" alt="Abstract emblem for Magne Huang: magnetic field lines forming an 'M' on a metallic surface." loading="lazy" decoding="async">
+          </div>
+          <p class="idx">D-010</p>
+          <p class="name-jp">マグネ ホアン</p>
+          <h3 class="name">MAGNE HUANG</h3>
+          <p class="tag">INTERACTION</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb">
+            <img src="images/designer-cyber-su.webp" alt="Abstract emblem for Cyber Su: glowing circuit board pattern forming a 'C' in a dark, futuristic setting." loading="lazy" decoding="async">
+          </div>
+          <p class="idx">D-011</p>
+          <p class="name-jp">サイバー スー</p>
+          <h3 class="name">CYBER SU</h3>
+          <p class="tag">CYBERPUNK / GLOW</p>
+        </div>
+        <div class="designer-card">
+          <div class="designer-thumb">
+            <img src="images/designer-noise-kao.webp" alt="Abstract emblem for Noise Kao: grainy, static-filled 'N' on a dark background." loading="lazy" decoding="async">
+          </div>
+          <p class="idx">D-012</p>
+          <p class="name-jp">ノイズ カオ</p>
+          <h3 class="name">NOISE KAO</h3>
+          <p class="tag">FILM GRAIN</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="sec-head">
+        <span class="sec-num">// 03</span>
+        <h2 class="sec-title">EXHIBITION <span class="ph">VENUE</span></h2>
+        <span class="sec-title-jp">会場</span>
+      </div>
+      <div class="venue-img-container">
+        <img src="images/venue.webp" alt="Monolithic brutalist gallery interior with exposed concrete walls and heavy steel beams." loading="lazy" decoding="async">
+        <div class="venue-caption-strip">
+          <span>LOCATION:</span> SONGSHAN CULTURAL PARK WAREHOUSE 5 // <span>DIMENSIONS:</span> 120M X 40M X 15M // <span>STRUCTURE:</span> REINFORCED CONCRETE & STEEL
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="sec-head">
+        <span class="sec-num">// 04</span>
+        <h2 class="sec-title">EXHIBITION <span class="ph">ZONES</span></h2>
+        <span class="sec-title-jp">展示ゾーン</span>
+      </div>
+      <div class="zones">
+        <div class="zone">
+          <div class="zone-img">
+            <img src="images/zone-z01.webp" alt="Raw concrete gallery with a single harsh spotlight, sense of emptiness." loading="lazy" decoding="async">
+          </div>
+          <p class="zone-id">Z01</p>
+          <h3 class="zone-cn">主流頻譜</h3>
+          <p class="zone-en">MAINSTREAM FREQUENCY</p>
+          <p class="zone-desc">探索當代設計的主流趨勢與其根源，揭示其結構與邏輯。無妥協地呈現其原始面貌。</p>
+          <p class="zone-coord">ZONE COORDINATES: 5F-A1 // WORKS: 5</p>
+        </div>
+        <div class="zone">
+          <div class="zone-img">
+            <img src="images/zone-z02.webp" alt="Decaying brutalist structure with peeling paint and exposed rebar." loading="lazy" decoding="async">
+          </div>
+          <p class="zone-id">Z02</p>
+          <h3 class="zone-cn">時光殘響</h3>
+          <p class="zone-en">RETRO ECHO</p>
+          <p class="zone-desc">回溯設計歷史的痕跡，檢視那些被時間磨蝕卻依然堅韌的風格與思想。殘酷地揭示其生命週期。</p>
+          <p class="zone-coord">ZONE COORDINATES: 5F-A2 // WORKS: 6</p>
+        </div>
+        <div class="zone">
+          <div class="zone-img">
+            <img src="images/zone-z03.webp" alt="Industrial concrete lab with exposed pipes and flashing red emergency lights." loading="lazy" decoding="async">
+          </div>
+          <p class="zone-id">Z03</p>
+          <h3 class="zone-cn">前衛實驗室</h3>
+          <p class="zone-en">AVANT LAB</p>
+          <p class="zone-desc">進入設計實驗的前沿，探索那些挑戰傳統、突破邊界的激進概念。這裡沒有美感，只有實驗。</p>
+          <p class="zone-coord">ZONE COORDINATES: 5F-B1 // WORKS: 6</p>
+        </div>
+        <div class="zone">
+          <div class="zone-img">
+            <img src="images/zone-z04.webp" alt="Brutalist building with integrated traditional Chinese elements, stark contrast." loading="lazy" decoding="async">
+          </div>
+          <p class="zone-id">Z04</p>
+          <h3 class="zone-cn">文化光譜</h3>
+          <p class="zone-en">CULTURAL SPECTRUM</p>
+          <p class="zone-desc">探討設計如何與在地文化產生野蠻的碰撞與融合，呈現其原始力量與衝突美學。</p>
+          <p class="zone-coord">ZONE COORDINATES: 5F-B2 // WORKS: 5</p>
+        </div>
+        <div class="zone">
+          <div class="zone-img">
+            <img src="images/zone-z05.webp" alt="Vast concrete hall with large screens displaying abstract, glitching motion graphics." loading="lazy" decoding="async">
+          </div>
+          <p class="zone-id">Z05</p>
+          <h3 class="zone-cn">動態廳</h3>
+          <p class="zone-en">MOTION HALL</p>
+          <p class="zone-desc">體驗動態影像與互動設計的原始衝擊力，感受光影、聲音與結構的粗獷結合。絕對的沉浸。</p>
+          <p class="zone-coord">ZONE COORDINATES: 5F-C1 // WORKS: 15</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="sec-head">
+        <span class="sec-num">// 05</span>
+        <h2 class="sec-title">LECTURE <span class="ph">SCHEDULE</span></h2>
+        <span class="sec-title-jp">講演スケジュール</span>
+      </div>
+      <table class="schedule-table">
+        <thead>
+          <tr>
+            <th scope="col">TIME</th>
+            <th scope="col">TOPIC</th>
+            <th scope="col">SPEAKER</th>
+            <th scope="col">LOCATION</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>13:00 - 14:00</td>
+            <td>BRUTALISM: THE UNCOMPROMISING TRUTH</td>
+            <td>JERRY @ AQUALUX.DEV</td>
+            <td>Z03 AVANT LAB</td>
+          </tr>
+          <tr>
+            <td>14:30 - 15:30</td>
+            <td>EXPOSED STRUCTURES: A DESIGN PHILOSOPHY</td>
+            <td>NEON LEE</td>
+            <td>Z05 MOTION HALL</td>
+          </tr>
+          <tr>
+            <td>16:00 - 17:00</td>
+            <td>THE AESTHETICS OF RAW CONCRETE</td>
+            <td>CHROME HO</td>
+            <td>Z01 MAINSTREAM FREQUENCY</td>
+          </tr>
+          <tr>
+            <td>17:30 - 18:30</td>
+            <td>FUNCTION OVER FORM: A BRUTALIST PERSPECTIVE</td>
+            <td>GLITCH CHANG</td>
+            <td>Z03 AVANT LAB</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="block">
+      <div class="sec-head">
+        <span class="sec-num">// 06</span>
+        <h2 class="sec-title">TICKET <span class="ph">ACCESS</span></h2>
+        <span class="sec-title-jp">チケット アクセス</span>
+      </div>
+      <div class="ticket-showcase">
+        <img src="images/ticket-mockup.webp" alt="Brutalist admission ticket mockup with 'AQUALUX SPECTRUM 2026' and 'FULL ACCESS' in bold fonts." loading="lazy" decoding="async">
+        <div class="ts-info">
+          <p class="ts-label">ADMISSION PASS // VALIDATED</p>
+          <h3 class="ts-title">FULL ACCESS TICKET SPECIMEN</h3>
+          <p class="ts-desc">此為全面通行票券的樣本。票券設計遵循野獸派美學，強調功能性與材料的原始質感。無多餘裝飾，僅傳達核心資訊。請持此票券進入展區。</p>
+        </div>
+      </div>
+      <div class="tickets">
+        <div class="ticket">
+          <span class="badge">BASIC</span>
+          <p class="tier">SINGLE PASS</p>
+          <p class="tier-jp">單日入場</p>
+          <p class="price">NT$ 480</p>
+          <p class="price-unit">PER ENTRY</p>
+          <ul>
+            <li>>> EXHIBITION ACCESS</li>
+            <li>>> DIGITAL PROGRAM</li>
+            <li>>> BASIC ENTRY</li>
+          </ul>
+          <button class="cta-btn disabled" aria-label="Demo only — not for sale">PURCHASE</button>
+        </div>
+        <div class="ticket featured">
+          <span class="badge">RECOMMENDED</span>
+          <p class="tier">FULL ACCESS</p>
+          <p class="tier-jp">全展期通票</p>
+          <p class="price">NT$ 1,280</p>
+          <p class="price-unit">FULL EXHIBITION PERIOD</p>
+          <ul>
+            <li>>> UNLIMITED ENTRIES</li>
+            <li>>> DIGITAL PROGRAM</li>
+            <li>>> EXCLUSIVE CONTENT</li>
+            <li>>> PRIORITY ACCESS</li>
+          </ul>
+          <button class="cta-btn disabled" aria-label="Demo only — not for sale">PURCHASE</button>
+        </div>
+        <div class="ticket">
+          <span class="badge">PREMIUM</span>
+          <p class="tier">CURATOR PASS</p>
+          <p class="tier-jp">含 WORKSHOP</p>
+          <p class="price">NT$ 2,880</p>
+          <p class="price-unit">FULL EXHIBITION + WORKSHOP</p>
+          <ul>
+            <li>>> UNLIMITED ENTRIES</li>
+            <li>>> DIGITAL PROGRAM</li>
+            <li>>> EXCLUSIVE CONTENT</li>
+            <li>>> CURATOR WORKSHOP</li>
+          </ul>
+          <button class="cta-btn disabled" aria-label="Demo only — not for sale">PURCHASE</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p class="ascii-line">----------------------------------------------------</p>
+    <svg class="aqualux-logo-footer" viewBox="0 0 600 280" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="aqualux">
+      <text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text>
+      <line x1="80" y1="165" x2="520" y2="165" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+      <g transform="translate(0,330) scale(1,-1)" opacity="0.28"><text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text></g>
+    </svg>
+    <p class="signature">MMXXVI · AQUALUX.DEV</p>
+    <p class="credit">
+      AQUALUX 2026 DESIGN SPECTRUM EXHIBITION CODEX<br>
+      C12 BRUTALISM DEMO // SYNTHESIZED BY AI<br>
+      ALL RIGHTS RESERVED. <a href="https://design.aqualux.dev/license" target="_blank">LICENSE</a>.
+    </p>
+    <p class="terminal">AQUALUX_CODEX_C12 &gt; <span class="cursor">_</span></p>
+  </footer>
+
+  <script>
+    // Prefers-reduced-motion check for JS animations (glitch)
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Glitch effect for hero title (if not reduced motion)
+    if (!prefersReducedMotion) {
+      const glitchElements = document.querySelectorAll('.glitch');
+      glitchElements.forEach(el => {
+        const originalText = el.getAttribute('data-text');
+        const applyGlitch = (element, text) => {
+          const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{};':\"|,./<>?`~";
+          let iterations = 0;
+          const interval = setInterval(() => {
+            element.innerText = text.split('')
+              .map((char, index) => {
+                if (index < iterations) {
+                  return text[index];
+                }
+                return chars[Math.floor(Math.random() * chars.length)];
+              })
+              .join('');
+
+            if (iterations >= text.length) {
+              clearInterval(interval);
+            }
+            iterations += 1 / 3; // Slower reveal
+          }, 50);
+        };
+
+        // Initial glitch on load
+        setTimeout(() => applyGlitch(el, originalText), Math.random() * 500);
+
+        // Random glitch every few seconds
+        setInterval(() => {
+          if (Math.random() > 0.7) { // 30% chance to glitch
+            applyGlitch(el, originalText);
+          }
+        }, Math.random() * 3000 + 2000); // Glitch every 2-5 seconds
+      });
+    }
+  </script>
+</body>
+</html>
+```

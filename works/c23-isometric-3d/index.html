@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AQUALUX 2026 // DESIGN SPECTRUM EXHIBITION · 等距 3D Isometric 3D Demo</title>
+<meta name="description" content="aqualux 2026 設計光譜展 · 等距 3D 風格 demo · single-file HTML showcase">
+<link rel="canonical" href="https://design.aqualux.dev/works/c23-isometric-3d/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://design.aqualux.dev/works/c23-isometric-3d/">
+<meta property="og:title" content="C23 等距 3D · aqualux 設計光譜展">
+<meta property="og:description" content="等距 3D 風格 single-file HTML demo · aqualux 2026 設計光譜展">
+<meta property="og:image" content="https://design.aqualux.dev/works/c23-isometric-3d/images/hero.webp">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="C23 等距 3D · aqualux 設計光譜展">
+<meta name="twitter:image" content="https://design.aqualux.dev/works/c23-isometric-3d/images/hero.webp">
+<link rel="icon" type="image/svg+xml" href="../../assets/aqualux-logo-mark.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Lexend+Deca:wght@500&family=Montserrat:wght@700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #f0f4f8;
+    --bg-card: #ffffff;
+    --accent-blue: #87ceeb;
+    --accent-green: #90ee90;
+    --accent-pink: #ffb6c1;
+    --accent-yellow: #ffd700;
+    --ink: #333333;
+    --ink-2: #666666;
+    --ink-3: #cccccc;
+
+    --display: 'Montserrat', sans-serif;
+    --body: 'Inter', sans-serif;
+    --accent: 'Lexend Deca', sans-serif;
+    --tc: 'Noto Sans TC', 'PingFang TC', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--body), var(--tc);
+    line-height: 1.6;
+    font-size: 15px;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+  }
+
+  /* Isometric 3D background elements */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background:
+      radial-gradient(ellipse at 15% 10%, rgba(135, 206, 235, 0.2) 0%, transparent 40%), /* Soft blue glow */
+      radial-gradient(ellipse at 80% 90%, rgba(144, 238, 144, 0.15) 0%, transparent 35%), /* Soft green glow */
+      linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 70%); /* Subtle light source */
+    pointer-events: none; z-index: -2;
+  }
+
+  /* Cloud animation */
+  .clouds {
+    position: fixed; inset: 0;
+    background: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="15" fill="%23ffffff" opacity="0.4"/><circle cx="50" cy="30" r="20" fill="%23ffffff" opacity="0.3"/><circle cx="80" cy="25" r="18" fill="%23ffffff" opacity="0.35"/><circle cx="40" cy="60" r="12" fill="%23ffffff" opacity="0.25"/></svg>') repeat;
+    background-size: 200px 200px;
+    opacity: 0.15;
+    animation: moveClouds 60s linear infinite;
+    pointer-events: none; z-index: -1;
+  }
+  @keyframes moveClouds {
+    from { transform: translateX(0); }
+    to { transform: translateX(-200px); }
+  }
+
+  /* Global animations for isometric elements */
+  .floating {
+    animation: floatIsland 20s ease-in-out infinite alternate;
+  }
+  .rotating {
+    animation: rotateObject 15s linear infinite;
+  }
+  @keyframes floatIsland {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-15px); }
+  }
+  @keyframes rotateObject {
+    0% { transform: rotateY(0deg); }
+    100% { transform: rotateY(360deg); }
+  }
+
+  /* prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    .floating, .rotating, .clouds, .light-pulse {
+      animation: none !important;
+    }
+  }
+
+  a { color: var(--accent-blue); text-decoration: none; }
+  a:hover { color: var(--accent-pink); }
+
+  /* Top bar */
+  .topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--bg-card);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--ink-3);
+    padding: 12px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--accent); font-size: 13px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .topbar .left { display: flex; align-items: center; gap: 10px; color: var(--ink); }
+  .topbar .left svg { height: 24px; width: auto; }
+  .topbar .right { color: var(--ink-2); letter-spacing: 0.05em; }
+  .topbar .right .blink { animation: pulseLight 2s ease-in-out infinite alternate; }
+  @keyframes pulseLight {
+    0% { color: var(--accent-blue); }
+    100% { color: var(--accent-green); }
+  }
+
+  /* Hero */
+  .hero {
+    padding: 60px 24px 40px;
+    max-width: 1200px; margin: 0 auto;
+    position: relative;
+    text-align: center;
+  }
+  .hero-image-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto 30px;
+    aspect-ratio: 16 / 9;
+    background: var(--bg-card);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transform: rotateX(10deg) rotateZ(-10deg); /* Isometric tilt */
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease;
+  }
+  .hero-image-wrapper:hover {
+    transform: rotateX(8deg) rotateZ(-12deg) translateY(-5px);
+  }
+  .hero-image-wrapper img {
+    width: 100%; height: 100%; object-fit: cover;
+    display: block;
+  }
+  .hero-image-wrapper::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(255,255,255,0.8) 0%, transparent 50%);
+    mix-blend-mode: overlay;
+  }
+
+  .kicker {
+    font-family: var(--accent); font-size: 13px;
+    color: var(--accent-blue); letter-spacing: 0.15em;
+    margin-bottom: 16px;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+  }
+  .kicker::before, .kicker::after {
+    content: ''; display: inline-block;
+    width: 20px; height: 1px; background: var(--accent-blue);
+  }
+  .hero-jp {
+    font-family: var(--tc); font-weight: 300;
+    font-size: clamp(16px, 2vw, 22px);
+    color: var(--accent-pink); letter-spacing: 0.2em;
+    margin-bottom: 8px;
+  }
+  .hero h1 {
+    font-family: var(--display); font-weight: 900;
+    font-size: clamp(42px, 8vw, 96px);
+    line-height: 1; letter-spacing: -0.02em;
+    color: var(--ink);
+    text-shadow: 2px 2px 0 var(--ink-3), 4px 4px 0 rgba(0,0,0,0.05); /* Isometric shadow */
+    margin-bottom: 20px;
+    position: relative;
+    display: inline-block;
+    transform: skewX(-10deg);
+  }
+  .hero h1 .gp { color: var(--accent-pink); }
+  .hero h1 .gc { color: var(--accent-blue); }
+
+  .hero-sub {
+    font-family: var(--body); font-weight: 400;
+    font-size: clamp(13px, 1.2vw, 16px);
+    color: var(--ink-2); letter-spacing: 0.05em;
+    margin: 20px auto 30px; max-width: 720px;
+  }
+  .hero-sub .accent { color: var(--accent-yellow); font-weight: 700; }
+  .meta-strip {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    border-top: 1px solid var(--ink-3);
+    border-bottom: 1px solid var(--ink-3);
+    padding: 18px 0;
+    margin-top: 30px;
+    background: var(--bg-card);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transform: rotateX(5deg) rotateZ(-5deg);
+    transition: transform 0.3s ease;
+  }
+  .meta-strip:hover { transform: rotateX(4deg) rotateZ(-6deg) translateY(-3px); }
+
+  .meta-cell {
+    font-family: var(--accent); font-size: 12px;
+    color: var(--ink-2);
+    text-align: center;
+  }
+  .meta-cell .label {
+    color: var(--accent-blue); letter-spacing: 0.1em;
+    font-size: 10px; margin-bottom: 4px; display: block;
+  }
+  .meta-cell .val { color: var(--ink); font-size: 13px; font-weight: 500; }
+
+  /* Section base */
+  section.block { padding: 60px 24px; max-width: 1200px; margin: 0 auto; }
+  .sec-head {
+    display: flex; align-items: baseline; gap: 18px;
+    margin-bottom: 30px;
+    padding-bottom: 12px; border-bottom: 1px solid var(--ink-3);
+    background: linear-gradient(to right, rgba(255,255,255,0.8), transparent);
+    border-radius: 4px;
+  }
+  .sec-num {
+    font-family: var(--accent); font-size: 12px;
+    color: var(--accent-pink); letter-spacing: 0.1em;
+    font-weight: 500;
+  }
+  .sec-title-jp {
+    font-family: var(--tc); font-size: 12px;
+    color: var(--ink-3); letter-spacing: 0.2em;
+  }
+  .sec-title {
+    font-family: var(--display); font-size: clamp(24px, 3.5vw, 38px);
+    font-weight: 700; letter-spacing: 0.04em;
+    color: var(--ink);
+    margin-right: auto;
+    text-shadow: 1px 1px 0 var(--ink-3);
+  }
+  .sec-title .ph { color: var(--accent-pink); }
+
+  /* Curatorial statement */
+  .statement {
+    max-width: 800px; margin: 0 auto;
+    font-family: var(--body), var(--tc); font-size: 16px; line-height: 1.8;
+    color: var(--ink-2);
+    background: var(--bg-card);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    transform: rotateX(5deg) rotateZ(5deg);
+    transition: transform 0.3s ease;
+  }
+  .statement:hover { transform: rotateX(4deg) rotateZ(6deg) translateY(-5px); }
+  .statement p { margin-bottom: 16px; }
+  .statement .em { color: var(--accent-blue); font-weight: 700; }
+  .statement .strong { color: var(--accent-pink); font-weight: 700; letter-spacing: 0.02em; }
+  .statement blockquote {
+    border-left: 3px solid var(--accent-pink);
+    padding: 12px 20px;
+    margin: 20px 0;
+    background: rgba(255, 182, 193, 0.1);
+    font-family: var(--accent); color: var(--ink);
+    font-size: 14px; letter-spacing: 0.03em;
+    border-radius: 0 8px 8px 0;
+  }
+
+  /* Designer grid */
+  .designers {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 10px;
+  }
+  .designer-card {
+    background: var(--bg-card);
+    padding: 0;
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateX(5deg) rotateZ(-5deg);
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  }
+  .designer-card:hover {
+    transform: rotateX(4deg) rotateZ(-6deg) translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  }
+  .designer-thumb {
+    width: 100%; aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 8px 8px 0 0;
+    border-bottom: 1px solid var(--ink-3);
+  }
+  .designer-thumb img {
+    width: 100%; height: 100%; object-fit: cover;
+    display: block;
+  }
+  .designer-info { padding: 15px; }
+  .designer-card .idx {
+    font-family: var(--accent); font-size: 10px;
+    color: var(--accent-pink); letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+  .designer-card .name-jp {
+    font-family: var(--tc); font-size: 11px;
+    color: var(--ink-3); letter-spacing: 0.1em;
+    margin-bottom: 4px;
+  }
+  .designer-card .name {
+    font-family: var(--display); font-size: 16px; font-weight: 700;
+    color: var(--ink); letter-spacing: 0.03em;
+    margin-bottom: 6px;
+  }
+  .designer-card .tag {
+    font-family: var(--accent); font-size: 10px;
+    color: var(--accent-blue); letter-spacing: 0.08em;
+  }
+  .designer-card .tag::before { content: '// '; color: var(--ink-3); }
+
+  /* Zone map */
+  .zones {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px;
+  }
+  .zone {
+    background: var(--bg-card);
+    border: 1px solid var(--ink-3);
+    padding: 20px;
+    position: relative; overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    transform-style: preserve-3d;
+    transform: rotateX(5deg) rotateZ(5deg);
+    transition: all 0.3s ease;
+  }
+  .zone:hover {
+    transform: rotateX(4deg) rotateZ(6deg) translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  }
+  .zone-img {
+    margin: -20px -20px 15px;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-bottom: 1px solid var(--ink-3);
+    border-radius: 12px 12px 0 0;
+  }
+  .zone-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    display: block;
+  }
+  .zone .zone-id {
+    font-family: var(--display); font-size: 38px; font-weight: 900;
+    color: var(--accent-blue); line-height: 1;
+    margin-bottom: 6px;
+    text-shadow: 2px 2px 0 var(--ink-3), 4px 4px 0 rgba(0,0,0,0.05);
+  }
+  .zone .zone-cn {
+    font-family: var(--tc); font-size: 18px; font-weight: 500;
+    color: var(--ink); margin-bottom: 4px;
+    letter-spacing: 0.03em;
+  }
+  .zone .zone-en {
+    font-family: var(--accent); font-size: 11px;
+    color: var(--accent-pink); letter-spacing: 0.15em;
+    margin-bottom: 12px;
+  }
+  .zone .zone-desc {
+    font-family: var(--body), var(--tc); font-size: 14px; line-height: 1.7;
+    color: var(--ink-2);
+  }
+  .zone .zone-coord {
+    margin-top: 12px; padding-top: 10px;
+    border-top: 1px dashed var(--ink-3);
+    font-family: var(--accent); font-size: 10px;
+    color: var(--ink-3); letter-spacing: 0.1em;
+  }
+
+  /* Schedule */
+  .schedule-table-wrapper {
+    background: var(--bg-card);
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    overflow: hidden;
+    transform: rotateX(5deg) rotateZ(-5deg);
+    transition: transform 0.3s ease;
+  }
+  .schedule-table-wrapper:hover { transform: rotateX(4deg) rotateZ(-6deg) translateY(-5px); }
+
+  .schedule-table {
+    width: 100%; border-collapse: collapse;
+    font-family: var(--body); font-size: 14px;
+  }
+  .schedule-table th, .schedule-table td {
+    padding: 12px 18px; text-align: left;
+    border-bottom: 1px solid var(--ink-3);
+  }
+  .schedule-table th {
+    color: var(--accent-blue); letter-spacing: 0.08em;
+    font-size: 11px; font-weight: 700;
+    text-transform: uppercase;
+    background: rgba(135, 206, 235, 0.1);
+  }
+  .schedule-table td { color: var(--ink-2); }
+  .schedule-table td:first-child {
+    color: var(--accent-pink); font-weight: 700;
+    width: 120px;
+    font-family: var(--accent);
+  }
+  .schedule-table tr:hover td { background: rgba(144, 238, 144, 0.05); color: var(--ink); }
+
+  /* Tickets */
+  .tickets {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .ticket {
+    background: var(--bg-card);
+    border: 1px solid var(--ink-3);
+    padding: 25px;
+    position: relative;
+    text-align: center;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    transform-style: preserve-3d;
+    transform: rotateX(5deg) rotateZ(5deg);
+    transition: all 0.3s ease;
+  }
+  .ticket:hover {
+    transform: rotateX(4deg) rotateZ(6deg) translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  }
+  .ticket.featured {
+    border-color: var(--accent-pink);
+    background: linear-gradient(180deg, rgba(255, 182, 193, 0.15) 0%, var(--bg-card) 100%);
+    box-shadow: 0 0 30px rgba(255, 182, 193, 0.3);
+    transform: rotateX(3deg) rotateZ(7deg) translateY(-8px) scale(1.02);
+  }
+  .ticket.featured:hover { transform: rotateX(2deg) rotateZ(8deg) translateY(-10px) scale(1.03); }
+
+  .ticket .badge {
+    display: inline-block;
+    font-family: var(--accent); font-size: 10px;
+    color: var(--bg-card); background: var(--accent-blue);
+    padding: 4px 12px; letter-spacing: 0.1em;
+    margin-bottom: 12px;
+    border-radius: 15px;
+  }
+  .ticket.featured .badge { background: var(--accent-pink); }
+  .ticket .tier {
+    font-family: var(--display); font-size: 20px; font-weight: 700;
+    color: var(--ink); letter-spacing: 0.05em;
+    margin-bottom: 8px;
+  }
+  .ticket .tier-jp {
+    font-family: var(--tc); font-size: 10px;
+    color: var(--ink-3); letter-spacing: 0.2em;
+    margin-bottom: 16px;
+  }
+  .ticket .price {
+    font-family: var(--display); font-size: 36px; font-weight: 900;
+    color: var(--accent-blue); line-height: 1;
+    margin-bottom: 6px;
+    text-shadow: 2px 2px 0 var(--ink-3), 4px 4px 0 rgba(0,0,0,0.05);
+  }
+  .ticket.featured .price { color: var(--accent-pink); text-shadow: 2px 2px 0 var(--ink-3), 4px 4px 0 rgba(255, 182, 193, 0.4); }
+  .ticket .price-unit {
+    font-family: var(--accent); font-size: 11px;
+    color: var(--ink-3); letter-spacing: 0.1em;
+    margin-bottom: 16px;
+  }
+  .ticket ul {
+    list-style: none; text-align: left;
+    font-family: var(--body); font-size: 12px;
+    color: var(--ink-2); line-height: 1.8;
+    margin-bottom: 20px;
+  }
+  .ticket li::before {
+    content: '▪ '; color: var(--accent-green); margin-right: 4px;
+  }
+
+  /* CTA */
+  .cta-btn {
+    display: inline-block;
+    font-family: var(--display); font-weight: 700;
+    font-size: 12px; letter-spacing: 0.15em;
+    padding: 12px 28px;
+    background: var(--accent-blue);
+    color: var(--bg-card);
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    position: relative;
+    border-radius: 6px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transform-style: preserve-3d;
+    transform: translateZ(0); /* For 3D effect */
+  }
+  .cta-btn::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.2) 0%, transparent 50%);
+    border-radius: 6px;
+    pointer-events: none;
+  }
+  .cta-btn:hover {
+    background: var(--accent-pink);
+    box-shadow: 0 6px 15px rgba(255, 182, 193, 0.4);
+    transform: translateY(-3px) translateZ(5px);
+  }
+  .cta-btn:active {
+    transform: translateY(0) translateZ(0);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+  .cta-btn.disabled {
+    background: var(--ink-3);
+    cursor: not-allowed;
+    opacity: 0.7;
+    transform: none;
+    box-shadow: none;
+  }
+  .cta-btn.disabled:hover {
+    background: var(--ink-3);
+    box-shadow: none;
+    transform: none;
+  }
+
+  /* Footer */
+  footer {
+    margin-top: 60px;
+    padding: 50px 24px 30px;
+    border-top: 1px solid var(--ink-3);
+    background: var(--bg-card);
+    text-align: center;
+    box-shadow: 0 -4px 15px rgba(0,0,0,0.05);
+    position: relative;
+    transform-style: preserve-3d;
+    transform: rotateX(-5deg); /* Isometric tilt for footer base */
+    overflow: hidden;
+  }
+  footer::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(144, 238, 144, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  footer .ascii-line {
+    font-family: var(--accent); font-size: 10px;
+    color: var(--accent-blue); letter-spacing: 0.1em;
+    margin-bottom: 16px;
+    white-space: pre; overflow: hidden;
+  }
+  footer .signature {
+    font-family: var(--display); font-size: 13px;
+    color: var(--ink); letter-spacing: 0.1em;
+    margin-bottom: 12px;
+  }
+  footer .signature .ph { color: var(--accent-pink); }
+  footer .credit {
+    font-family: var(--body); font-size: 11px;
+    color: var(--ink-3); letter-spacing: 0.05em; line-height: 1.8;
+  }
+  footer .credit a { color: var(--ink-2); }
+  footer .terminal {
+    font-family: var(--accent); font-size: 10px;
+    color: var(--ink-3); letter-spacing: 0.05em;
+    margin-top: 20px;
+  }
+  footer .terminal .cursor {
+    color: var(--accent-pink);
+    animation: blink 0.9s steps(2) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  footer .aqualux-logo-footer {
+    width: 180px; height: auto;
+    margin: 0 auto 20px;
+    display: block;
+    color: var(--ink);
+    transform: translateZ(10px); /* Lift the logo slightly */
+  }
+  .aqualux-logo-footer text {
+    fill: var(--ink);
+    text-shadow: 1px 1px 0 var(--ink-3);
+  }
+  .aqualux-logo-footer line {
+    stroke: var(--ink);
+  }
+  .aqualux-logo-footer g {
+    fill: var(--ink);
+  }
+
+  /* Ticket showcase */
+  .ticket-showcase {
+    margin: 0 auto 40px;
+    display: flex; align-items: center; gap: 28px;
+    padding: 25px;
+    border: 1px dashed var(--ink-3);
+    background: var(--bg-card);
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    transform: rotateX(5deg) rotateZ(-5deg);
+    transition: transform 0.3s ease;
+    max-width: 900px;
+  }
+  .ticket-showcase:hover { transform: rotateX(4deg) rotateZ(-6deg) translateY(-5px); }
+
+  .ticket-showcase img {
+    width: 220px; height: auto; border: 1px solid var(--accent-pink);
+    box-shadow: 0 0 20px rgba(255, 182, 193, 0.3);
+    flex-shrink: 0;
+    border-radius: 8px;
+    transform: translateZ(5px);
+  }
+  .ticket-showcase .ts-info { flex: 1; }
+  .ticket-showcase .ts-label {
+    font-family: var(--accent); font-size: 10px;
+    color: var(--accent-blue); letter-spacing: 0.15em;
+    margin-bottom: 8px;
+  }
+  .ticket-showcase .ts-title {
+    font-family: var(--display); font-weight: 700;
+    font-size: 20px; color: var(--ink); letter-spacing: 0.03em;
+    margin-bottom: 10px;
+  }
+  .ticket-showcase .ts-desc {
+    font-family: var(--body), var(--tc); font-size: 13.5px;
+    color: var(--ink-2); line-height: 1.7;
+  }
+
+  @media (max-width: 768px) {
+    .topbar { padding: 10px 15px; }
+    .hero, section.block { padding: 40px 15px; }
+    .hero-image-wrapper { transform: none; }
+    .hero-image-wrapper:hover { transform: none; }
+    .meta-strip { transform: none; }
+    .meta-strip:hover { transform: none; }
+    .statement { transform: none; padding: 20px; }
+    .statement:hover { transform: none; }
+    .designer-card { transform: none; }
+    .designer-card:hover { transform: none; }
+    .zone { transform: none; padding: 15px; }
+    .zone:hover { transform: none; }
+    .schedule-table-wrapper { transform: none; }
+    .schedule-table-wrapper:hover { transform: none; }
+    .ticket { transform: none; padding: 20px; }
+    .ticket:hover { transform: none; }
+    .ticket.featured { transform: none; }
+    .ticket.featured:hover { transform: none; }
+    .ticket-showcase { flex-direction: column; gap: 15px; padding: 15px; transform: none; }
+    .ticket-showcase:hover { transform: none; }
+    .ticket-showcase img { width: 100%; max-width: 200px; transform: none; }
+    footer { transform: none; padding: 30px 15px; }
+    .aqualux-logo-footer { transform: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="clouds"></div>
+  <div class="topbar">
+    <div class="left">
+      <a href="../../index.html" aria-label="Back to Gallery" style="color: var(--ink-2); display: flex; align-items: center; gap: 5px;">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        Gallery
+      </a>
+      <svg viewBox="0 0 600 280" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="aqualux" style="height: 24px;">
+        <text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text>
+        <line x1="80" y1="165" x2="520" y2="165" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+        <g transform="translate(0,330) scale(1,-1)" opacity="0.28"><text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text></g>
+      </svg>
+    </div>
+    <div class="right">
+      <span>AQUALUX 2026 // C23 <span class="blink">_</span></span>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="kicker">DESIGN SPECTRUM EXHIBITION</div>
+      <h2 class="hero-jp">微縮世界，築夢維度</h2>
+      <h1><span class="gc">Isometric</span> <span class="gp">3D</span></h1>
+      <p class="hero-sub">歡迎來到 <span class="accent">AQUALUX 2026 設計光譜展</span>，一個由等距視角構築的奇幻世界。在這裡，每個設計都是一座漂浮的島嶼，每件作品都是一個精巧的微縮模型，邀請您探索設計的無限維度。</p>
+
+      <div class="hero-image-wrapper floating">
+        <img src="images/hero.webp" alt="A vibrant isometric 3D floating island scene with 'AQUALUX SPECTRUM 2026' text." loading="lazy" decoding="async">
+      </div>
+
+      <div class="meta-strip">
+        <div class="meta-cell">
+          <span class="label">DATE</span>
+          <span class="val">2026.12.06 — 12.21</span>
+        </div>
+        <div class="meta-cell">
+          <span class="label">LOCATION</span>
+          <span class="val">松山文創園區 5 號倉庫</span>
+        </div>
+        <div class="meta-cell">
+          <span class="label">CURATOR</span>
+          <span class="val">Jerry @ aqualux.dev</span>
+        </div>
+        <div class="meta-cell">
+          <span class="label">SCALE</span>
+          <span class="val">12 DESIGNERS / 40 WORKS</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="sec-head">
+        <span class="sec-num">01</span>
+        <span class="sec-title-jp">策展論述</span>
+        <h2 class="sec-title">CURATORIAL <span class="ph">STATEMENT</span></h2>
+      </div>
+      <div class="statement floating">
+        <p>在 <span class="em">AQUALUX 2026 設計光譜展</span>中，我們以等距 3D 的獨特視角，重新詮釋設計的本質。這不僅是一種視覺風格，更是一種哲學——將複雜的世界簡化為清晰的幾何結構，讓每個元素都在一個和諧的系統中找到自己的位置。</p>
+        <p>我們將展覽空間想像成一片由無數漂浮島嶼組成的星系。每一座島嶼都代表著一位設計師的獨特宇宙，他們的作品如同島上的微縮建築，精巧而富有生命力。觀眾將以一種<span class="strong">探索者</span>的姿態，穿梭於這些方塊與維度之間，發現隱藏在結構之下的故事與靈感。</p>
+        <blockquote>
+          「設計，是將抽象概念具體化，將複雜功能簡潔化。等距 3D 則為我們提供了一個完美的畫布，來構築這些精巧而富有秩序的設計世界。」
+        </blockquote>
+        <p>本次展覽旨在引導觀者跳脫傳統的二維思維，進入一個充滿<span class="em">立體感和空間秩序</span>的設計維度。從主流頻譜的堅實基礎，到前衛實驗室的無限可能，每個展區都將是一次對設計語言的深度解構與重構。</p>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="sec-head">
+        <span class="sec-num">02</span>
+        <span class="sec-title-jp">設計師名單</span>
+        <h2 class="sec-title">DESIGNER <span class="ph">ROSTER</span></h2>
+      </div>
+      <div class="designers">
+        <div class="designer-card floating">
+          <div class="designer-thumb"><img src="images/designer-d001.webp" alt="Abstract emblem for designer Aero Lin" loading="lazy" decoding="async"></div>
+          <div class="designer-info">
+            <div class="idx">D_001</div>
+            <div class="name-jp">エアロ リン</div>
+            <div class="name">Aero Lin</div>
+            <div class="tag">UI / Clean</div>
+          </div>
+        </div>
+        <div class="designer-card floating">
+          <div class="designer-thumb"><img src="images/designer-d002.webp" alt="Abstract emblem for designer Geo Ho" loading="lazy" decoding="async"></div>
+          <div class="designer-info">
+            <div class="idx">D_002</div>
+            <div class="name-jp">ジオ ホー</div>
+            <div class="name">Geo Ho</div>
+            <div class="tag">Motion / Abstract</div>
+          </div>
+        </div>
+        <div class="designer-card floating">
+          <div class="designer-thumb"><img src="images/designer-d003.webp" alt="Abstract emblem for designer Play Chang" loading="lazy" decoding="async"></div>
+          <div class="designer-info">
+            <div class="idx">D_003</div>
+            <div class="name-jp">プレイ チャン</div>
+            <div class="name">Play Chang</div>
+            <div class="tag">Experimental</div>
+          </div>
+        </div>
+        <div class="designer-card floating">
+          <div class="designer-thumb"><img src="images/designer-d004.webp" alt="Abstract emblem for designer Block Wu" loading="lazy" decoding="async"></div>
+          <div class="designer-info">
+            <div class="idx">D_004</div>
+            <div class="name-jp">ブロック ウー</div>
+            <div class="name">Block Wu</div>
+            <div class="tag">Editorial / Grid</div>
+          </div>
+        </div>
+        <div class="designer-card floating">
+          <div class="designer-thumb"><img src="images/designer-d005.webp" alt="Abstract emblem for designer Miniature Lin" loading="lazy" decoding="async"></div>
+          <div class="designer-info">
+            <div class="idx">D_005</div>
+            <div class="name-jp">ミニチュア リン</div>
+            <div class="name">Miniature Lin</div>
+            <div class="tag">Retro / Playful</div>
+          </div>
+        </div>
+        <div class="designer-card floating">
+          <div class="designer-thumb"><img src="images/designer-d006.webp" alt="Abstract emblem for designer Cube Chen" loading="lazy" decoding="async"></div>
+          <div class="designer-info">
+            <div class="idx">D_006</div>
+            <div class="name-jp">キューブ チェン</div>
+            <div class="name">Cube Chen</div>
+            <div class="tag">Cultural / Structure</div>
+          </div>
+        </div>
+        <div class="designer-card floating">
+          <div class="designer-thumb"><img src="images/designer-d007.webp" alt="Abstract emblem for designer Crystal Yang" loading="lazy" decoding="async"></div>
+          <div class="designer-info">
+            <div class="idx">D_007</div>
+            <div class="name-jp">クリスタル ヤン</div>
+            <div class="name">Crystal Yang</div>
+            <div class="tag">Glassmorphism</div>
+          </div>
+        </div>
+        <div class="designer-card floating">
+          <div class="designer-thumb"><img src="images/designer-d008.webp" alt="Abstract emblem for designer Pixel Fan" loading="lazy" decoding="async"></div>
+          <div class="designer-info">
+            <div class="idx">D_008</div>
+            <div class="name-jp">ピクセル ファン</div>
+            <div class="name">Pixel Fan</div>
+            <div class="tag">Terminal / Retro</div>
+          </div>
+        </div>
+        <div class="designer-card floating">
+          <div class="designer-thumb"><img src="images/designer-d009.webp" alt="Abstract emblem for designer Hand Chao" loading="lazy" decoding="async"></div>
+          <div class="designer-info">
+            <div class="idx">D_009</div>
+            <div class="name-jp">ハンド ジョー</div>
+            <div class="name">Hand Chao</div>
+            <div class="tag">Sketch / Doodle</div>
+          </div>
+        </div>
+        <div class="designer-card floating">
+          <div class="designer-thumb"><img src="images/designer-d010.webp" alt="Abstract emblem for designer Module Huang" loading="lazy" decoding="async"></div>
+          <div class="designer-info">
+            <div class="idx">D_010</div>
+            <div class="name-jp">モジュール ホアン</div>
+            <div class="name">Module Huang</div>
+            <div class="tag">Interaction</div>
+          </div>
+        </div>
+        <div class="designer-card floating">
+          <div class="designer-thumb"><img src="images/designer-d011.webp" alt="Abstract emblem for designer Iso Su" loading="lazy" decoding="async"></div>
+          <div class="designer-info">
+            <div class="idx">D_011</div>
+            <div class="name-jp">アイソ スー</div>
+            <div class="name">Iso Su</div>
+            <div class="tag">Isometric / Playful</div>
+          </div>
+        </div>
+        <div class="designer-card floating">
+          <div class="designer-thumb"><img src="images/designer-d012.webp" alt="Abstract emblem for designer Grid Kao" loading="lazy" decoding="async"></div>
+          <div class="designer-info">
+            <div class="idx">D_012</div>
+            <div class="name-jp">グリッド カオ</div>
+            <div class="name">Grid Kao</div>
+            <div class="tag">Film Grain</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="sec-head">
+        <span class="sec-num">03</span>
+        <span class="sec-title-jp">場地</span>
+        <h2 class="sec-title">VENUE <span class="ph">MAP</span></h2>
+      </div>
+      <div class="hero-image-wrapper floating" style="max-width: 1000px; aspect-ratio: 16/7; transform: rotateX(8deg) rotateZ(8deg);">
+        <img src="images/venue.webp" alt="Isometric 3D rendering of a modern exhibition hall with transparent glass walls." loading="lazy" decoding="async">
+      </div>
+      <p class="hero-sub" style="margin-top: 20px;">松山文創園區 5 號倉庫，被轉化為一個由透明方塊組成的巨型展廳。每個展區都像一個獨立的<span class="accent">懸浮島嶼</span>，透過玻璃牆面，設計作品在光影中呈現出獨特的立體感。</p>
+    </section>
+
+    <section class="block">
+      <div class="sec-head">
+        <span class="sec-num">04</span>
+        <span class="sec-title-jp">五大展區</span>
+        <h2 class="sec-title">EXHIBITION <span class="ph">ZONES</span></h2>
+      </div>
+      <div class="zones">
+        <div class="zone floating">
+          <div class="zone-img"><img src="images/zone-z01.webp" alt="Isometric 3D clean white gallery for Mainstream Frequency" loading="lazy" decoding="async"></div>
+          <div class="zone-id">Z01</div>
+          <div class="zone-cn">主流頻譜</div>
+          <div class="zone-en">Mainstream Frequency</div>
+          <div class="zone-desc">探索當代設計的主流趨勢與經典語彙，以簡潔的幾何構成，展現設計的穩定與平衡。</div>
+          <div class="zone-coord">5F-A1 / 5 WORKS</div>
+        </div>
+        <div class="zone floating">
+          <div class="zone-img"><img src="images/zone-z02.webp" alt="Isometric 3D retro-futuristic room for Retro Echo" loading="lazy" decoding="async"></div>
+          <div class="zone-id">Z02</div>
+          <div class="zone-cn">時光殘響</div>
+          <div class="zone-en">Retro Echo</div>
+          <div class="zone-desc">回溯過往的設計記憶，以像素化的方塊和復古色調，重現經典美學的迴響。</div>
+          <div class="zone-coord">5F-A2 / 6 WORKS</div>
+        </div>
+        <div class="zone floating">
+          <div class="zone-img"><img src="images/zone-z03.webp" alt="Isometric 3D abstract lab for Avant Lab" loading="lazy" decoding="async"></div>
+          <div class="zone-id">Z03</div>
+          <div class="zone-cn">前衛實驗室</div>
+          <div class="zone-en">Avant Lab</div>
+          <div class="zone-desc">挑戰設計邊界，以浮動的幾何粒子和發光線條，呈現未來設計的無限實驗性。</div>
+          <div class="zone-coord">5F-B1 / 6 WORKS</div>
+        </div>
+        <div class="zone floating">
+          <div class="zone-img"><img src="images/zone-z04.webp" alt="Isometric 3D fusion of traditional Asian architecture for Cultural Spectrum" loading="lazy" decoding="async"></div>
+          <div class="zone-id">Z04</div>
+          <div class="zone-cn">文化光譜</div>
+          <div class="zone-en">Cultural Spectrum</div>
+          <div class="zone-desc">融合傳統文化元素與現代幾何，構築跨越時空的設計對話，展現文化深邃。</div>
+          <div class="zone-coord">5F-B2 / 5 WORKS</div>
+        </div>
+        <div class="zone floating">
+          <div class="zone-img"><img src="images/zone-z05.webp" alt="Isometric 3D stage with abstract moving parts for Motion Hall" loading="lazy" decoding="async"></div>
+          <div class="zone-id">Z05</div>
+          <div class="zone-cn">動態廳</div>
+          <div class="zone-en">Motion Hall</div>
+          <div class="zone-desc">專注於動態視覺與互動體驗，以流動的線條和變化的方塊，捕捉設計的律動。</div>
+          <div class="zone-coord">5F-C1 / 15 WORKS</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="sec-head">
+        <span class="sec-num">05</span>
+        <span class="sec-title-jp">講座排程</span>
+        <h2 class="sec-title">EVENT <span class="ph">SCHEDULE</span></h2>
+      </div>
+      <div class="schedule-table-wrapper floating">
+        <table class="schedule-table">
+          <thead>
+            <tr>
+              <th scope="col">TIME</th>
+              <th scope="col">EVENT</th>
+              <th scope="col">SPEAKER</th>
+              <th scope="col">ZONE</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>12.07 (Sun) 14:00</td>
+              <td>構築設計的微縮世界</td>
+              <td>Aero Lin</td>
+              <td>Z01</td>
+            </tr>
+            <tr>
+              <td>12.09 (Tue) 16:30</td>
+              <td>動態視覺的幾何之舞</td>
+              <td>Geo Ho</td>
+              <td>Z05</td>
+            </tr>
+            <tr>
+              <td>12.12 (Fri) 15:00</td>
+              <td>實驗性設計的方塊解構</td>
+              <td>Play Chang</td>
+              <td>Z03</td>
+            </tr>
+            <tr>
+              <td>12.14 (Sun) 10:00</td>
+              <td>文化符號的立體轉譯</td>
+              <td>Cube Chen</td>
+              <td>Z04</td>
+            </tr>
+            <tr>
+              <td>12.17 (Wed) 19:00</td>
+              <td>設計光譜的互動維度</td>
+              <td>Module Huang</td>
+              <td>Z05</td>
+            </tr>
+            <tr>
+              <td>12.20 (Sat) 14:00</td>
+              <td>等距美學的應用與挑戰</td>
+              <td>Iso Su</td>
+              <td>Z01</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="block">
+      <div class="sec-head">
+        <span class="sec-num">06</span>
+        <span class="sec-title-jp">票務</span>
+        <h2 class="sec-title">TICKET <span class="ph">INFO</span></h2>
+      </div>
+      <div class="ticket-showcase floating">
+        <img src="images/ticket-mockup.webp" alt="Isometric 3D ticket stub for Aqualux Spectrum 2026" loading="lazy" decoding="async">
+        <div class="ts-info">
+          <div class="ts-label">DIGITAL / PHYSICAL</div>
+          <div class="ts-title">AQUALUX SPECTRUM 2026 ACCESS PASS</div>
+          <div class="ts-desc">每張票券都是您進入設計微縮世界的通行證。憑票可兌換實體紀念票卡，並享有展覽期間的專屬優惠。</div>
+        </div>
+      </div>
+      <div class="tickets">
+        <div class="ticket floating">
+          <div class="badge">STANDARD</div>
+          <div class="tier">SINGLE PASS</div>
+          <div class="tier-jp">單日入場</div>
+          <div class="price">NT$ 480</div>
+          <div class="price-unit">PER DAY</div>
+          <ul>
+            <li>單日展區通行</li>
+            <li>數位導覽手冊</li>
+            <li>紀念票卡兌換</li>
+          </ul>
+          <button class="cta-btn disabled" aria-label="Demo only — not for sale">PURCHASE</button>
+        </div>
+        <div class="ticket featured floating">
+          <div class="badge">RECOMMENDED</div>
+          <div class="tier">FULL ACCESS</div>
+          <div class="tier-jp">全展期通票</div>
+          <div class="price">NT$ 1,280</div>
+          <div class="price-unit">FULL EXHIBITION</div>
+          <ul>
+            <li>全展期無限次入場</li>
+            <li>專屬紀念品折扣</li>
+            <li>優先預約講座</li>
+            <li>獨家線上內容</li>
+          </ul>
+          <button class="cta-btn disabled" aria-label="Demo only — not for sale">PURCHASE</button>
+        </div>
+        <div class="ticket floating">
+          <div class="badge">PREMIUM</div>
+          <div class="tier">CURATOR PASS</div>
+          <div class="tier-jp">策展人專屬</div>
+          <div class="price">NT$ 2,880</div>
+          <div class="price-unit">WORKSHOP INCLUDED</div>
+          <ul>
+            <li>FULL ACCESS 權益</li>
+            <li>策展人導覽行程</li>
+            <li>設計工作坊參與</li>
+            <li>限定紀念品組</li>
+          </ul>
+          <button class="cta-btn disabled" aria-label="Demo only — not for sale">PURCHASE</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="ascii-line">
+      _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+    </div>
+    <svg class="aqualux-logo-footer" viewBox="0 0 600 280" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="aqualux">
+      <text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text>
+      <line x1="80" y1="165" x2="520" y2="165" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+      <g transform="translate(0,330) scale(1,-1)" opacity="0.28"><text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text></g>
+    </svg>
+    <div class="signature">MMXXVI · AQUALUX.<span class="ph">DEV</span></div>
+    <div class="credit">
+      AQUALUX 2026 DESIGN SPECTRUM EXHIBITION CODEX<br>
+      C23 ISOMETRIC 3D DEMO // BUILT WITH &hearts; BY AI
+    </div>
+    <div class="terminal">
+      aqualux@spectrum:~$ cd /works/c23-isometric-3d<span class="cursor">_</span>
+    </div>
+  </footer>
+</body>
+</html>

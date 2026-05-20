@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AQUALUX 2026 // DESIGN SPECTRUM EXHIBITION · 構成主義 Constructivism Demo</title>
+<meta name="description" content="aqualux 2026 設計光譜展 · 構成主義風格 demo · single-file HTML showcase">
+<link rel="canonical" href="https://design.aqualux.dev/works/c15-constructivism/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://design.aqualux.dev/works/c15-constructivism/">
+<meta property="og:title" content="C15 構成主義 · aqualux 設計光譜展">
+<meta property="og:description" content="構成主義風格 single-file HTML demo · aqualux 2026 設計光譜展">
+<meta property="og:image" content="images/hero.webp">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="C15 構成主義 · aqualux 設計光譜展">
+<meta name="twitter:image" content="images/hero.webp">
+<link rel="icon" type="image/svg+xml" href="../../assets/aqualux-logo-mark.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700;900&family=Roboto+Mono:wght@400;700&family=Noto+Sans+TC:wght@400;500;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --primary-red:    #E0162B;   /* 主強調紅 */
+    --secondary-black: #1A1A1A;   /* 深黑背景/文字 */
+    --accent-yellow:  #F7D002;   /* 輔助黃 */
+    --ink-white:      #F0F0F0;   /* 主要文字/背景 */
+    --dark-grey:      #4A4A4A;   /* 次要文字/背景 */
+
+    --display-font: 'Oswald', sans-serif;
+    --mono-font: 'Roboto Mono', monospace;
+    --body-font: 'Noto Sans TC', 'PingFang TC', sans-serif;
+    --accent-font: 'Bebas Neue', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--secondary-black);
+    color: var(--ink-white);
+    font-family: var(--body-font);
+    line-height: 1.6;
+    font-size: 15px;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Noise texture for the whole page */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    width: 100%; height: 100%;
+    background-image: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.05" fill="black"/></svg>');
+    background-size: 100px 100px;
+    pointer-events: none;
+    z-index: -1;
+    mix-blend-mode: overlay;
+    opacity: 0.8;
+  }
+
+  a { color: var(--accent-yellow); text-decoration: none; transition: color 0.1s linear; }
+  a:hover { color: var(--primary-red); }
+
+  /* Top bar */
+  .topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--primary-red);
+    color: var(--ink-white);
+    padding: 12px 24px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--mono-font); font-size: 12px;
+    text-transform: uppercase; letter-spacing: 0.1em;
+    border-bottom: 2px solid var(--secondary-black);
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+  }
+  .topbar a { color: var(--ink-white); }
+  .topbar a:hover { color: var(--accent-yellow); }
+  .topbar .left { display: flex; align-items: center; gap: 10px; }
+  .topbar .left svg { height: 28px; width: auto; color: var(--ink-white); } /* aqualux logo */
+  .topbar .right { font-weight: 700; }
+  .topbar .right .date { color: var(--accent-yellow); }
+
+  /* Hero */
+  .hero {
+    padding: 60px 24px 40px;
+    max-width: 1200px; margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-banner {
+    position: absolute; inset: 0;
+    z-index: -1;
+    background-color: var(--secondary-black);
+    clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%);
+  }
+  .hero-banner img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: grayscale(0.2) contrast(1.1);
+    opacity: 0.7;
+    clip-path: polygon(0 0, 100% 0, 100% 88%, 0% 98%);
+  }
+  .hero-content {
+    position: relative; z-index: 1;
+    padding: 40px 0;
+  }
+  .kicker {
+    font-family: var(--mono-font); font-size: 13px;
+    color: var(--accent-yellow); letter-spacing: 0.2em;
+    margin-bottom: 20px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .kicker::before {
+    content: ''; display: inline-block;
+    width: 30px; height: 2px; background: var(--accent-yellow);
+  }
+  .hero-jp {
+    font-family: var(--accent-font); font-size: clamp(18px, 2vw, 24px);
+    color: var(--primary-red); letter-spacing: 0.4em;
+    margin-bottom: 8px;
+    text-shadow: 2px 2px 0 var(--secondary-black);
+  }
+  .hero h1 {
+    font-family: var(--display-font); font-weight: 900;
+    font-size: clamp(48px, 9vw, 120px);
+    line-height: 0.9; letter-spacing: -0.02em;
+    color: var(--ink-white);
+    text-shadow: 4px 4px 0 var(--primary-red);
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .hero h1 span { display: block; }
+  .hero h1 .red { color: var(--primary-red); }
+  .hero h1 .yellow { color: var(--accent-yellow); text-shadow: 4px 4px 0 var(--secondary-black); }
+
+  .hero-sub {
+    font-family: var(--mono-font); font-weight: 400;
+    font-size: clamp(14px, 1.5vw, 18px);
+    color: var(--ink-white); letter-spacing: 0.1em;
+    margin: 24px 0 32px; max-width: 700px;
+    background: rgba(26, 26, 26, 0.7);
+    padding: 10px 15px;
+    clip-path: polygon(0 10%, 100% 0, 100% 90%, 0% 100%);
+  }
+  .meta-strip {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    background: var(--primary-red);
+    padding: 18px 24px;
+    margin-top: 32px;
+    clip-path: polygon(0 15%, 100% 0, 100% 85%, 0% 100%);
+  }
+  .meta-cell {
+    font-family: var(--mono-font); font-size: 12px;
+    color: var(--ink-white);
+  }
+  .meta-cell .label {
+    color: var(--secondary-black); letter-spacing: 0.12em;
+    font-size: 11px; margin-bottom: 4px; display: block;
+    font-weight: 700;
+  }
+  .meta-cell .val { color: var(--ink-white); font-size: 14px; font-weight: 400; }
+
+  /* Section base */
+  section.block { padding: 80px 24px; max-width: 1200px; margin: 0 auto; }
+  .sec-head {
+    display: flex; align-items: baseline; gap: 20px;
+    margin-bottom: 40px;
+    padding-bottom: 12px;
+    border-bottom: 3px solid var(--primary-red);
+    position: relative;
+  }
+  .sec-head::before {
+    content: ''; position: absolute;
+    bottom: -3px; left: 0; width: 40%; height: 3px;
+    background: var(--accent-yellow);
+    z-index: 1;
+  }
+  .sec-num {
+    font-family: var(--mono-font); font-size: 14px;
+    color: var(--accent-yellow); letter-spacing: 0.15em;
+    font-weight: 700;
+  }
+  .sec-title-jp {
+    font-family: var(--body-font); font-size: 13px;
+    color: var(--dark-grey); letter-spacing: 0.3em;
+  }
+  .sec-title {
+    font-family: var(--display-font); font-size: clamp(28px, 4.5vw, 48px);
+    font-weight: 900; letter-spacing: 0.05em;
+    color: var(--ink-white);
+    margin-right: auto;
+    text-transform: uppercase;
+  }
+  .sec-title .ph { color: var(--primary-red); }
+
+  /* Curatorial statement */
+  .statement {
+    max-width: 800px;
+    font-family: var(--body-font); font-size: 16px; line-height: 1.8;
+    color: var(--ink-white);
+    position: relative;
+    padding-left: 20px;
+  }
+  .statement::before {
+    content: ''; position: absolute; left: 0; top: 0;
+    width: 8px; height: 100%; background: var(--primary-red);
+  }
+  .statement p { margin-bottom: 18px; }
+  .statement .em { color: var(--accent-yellow); font-weight: 700; }
+  .statement .strong { color: var(--primary-red); font-weight: 700; letter-spacing: 0.04em; }
+  .statement blockquote {
+    border-left: 4px solid var(--accent-yellow);
+    padding: 16px 24px;
+    margin: 24px 0;
+    background: rgba(247, 208, 2, 0.1);
+    font-family: var(--mono-font); color: var(--ink-white);
+    font-size: 14px; letter-spacing: 0.03em;
+    font-weight: 400;
+    clip-path: polygon(0 0, 100% 10%, 100% 100%, 0% 90%);
+  }
+
+  /* Designer grid */
+  .designers {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .designer-card {
+    border: 2px solid var(--primary-red);
+    background: var(--secondary-black);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s ease;
+    clip-path: polygon(0 0, 100% 10%, 100% 100%, 0% 90%);
+  }
+  .designer-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: var(--accent-yellow);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: 0;
+  }
+  .designer-card:hover::before { opacity: 0.1; }
+  .designer-card:hover {
+    border-color: var(--accent-yellow);
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  }
+  .designer-thumb {
+    width: 100%; aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-bottom: 2px solid var(--primary-red);
+    position: relative; z-index: 1;
+    background-color: var(--dark-grey);
+  }
+  .designer-thumb img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: saturate(1.05) contrast(1.1);
+    transition: transform 0.3s ease;
+  }
+  .designer-card:hover .designer-thumb img { transform: scale(1.08); }
+
+  .designer-card-info {
+    padding: 16px 18px;
+    position: relative; z-index: 1;
+  }
+  .designer-card .idx {
+    font-family: var(--mono-font); font-size: 11px;
+    color: var(--accent-yellow); letter-spacing: 0.15em;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  .designer-card .name-jp {
+    font-family: var(--body-font); font-size: 12px;
+    color: var(--dark-grey); letter-spacing: 0.1em;
+    margin-bottom: 4px;
+  }
+  .designer-card .name {
+    font-family: var(--accent-font); font-size: 20px;
+    color: var(--primary-red); letter-spacing: 0.08em;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .designer-card .tag {
+    font-family: var(--mono-font); font-size: 11px;
+    color: var(--ink-white); letter-spacing: 0.08em;
+  }
+  .designer-card .tag::before { content: '→ '; color: var(--accent-yellow); }
+
+  /* Zone map */
+  .zones {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .zone {
+    background: var(--dark-grey);
+    border: 2px solid var(--primary-red);
+    padding: 0;
+    position: relative; overflow: hidden;
+    clip-path: polygon(0 0, 100% 5%, 100% 100%, 0% 95%);
+  }
+  .zone-img {
+    margin: 0;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-bottom: 2px solid var(--primary-red);
+    position: relative;
+  }
+  .zone-img img {
+    width: 100%; height: 100%; object-fit: cover;
+    filter: grayscale(0.1) contrast(1.1);
+    transition: transform 0.4s ease;
+  }
+  .zone:hover .zone-img img { transform: scale(1.05); }
+
+  .zone-content { padding: 20px 24px; }
+  .zone .zone-id {
+    font-family: var(--display-font); font-size: 48px; font-weight: 900;
+    color: var(--accent-yellow); line-height: 1;
+    margin-bottom: 8px;
+    text-shadow: 3px 3px 0 var(--secondary-black);
+  }
+  .zone .zone-cn {
+    font-family: var(--body-font); font-size: 18px; font-weight: 700;
+    color: var(--ink-white); margin-bottom: 4px;
+    letter-spacing: 0.04em;
+  }
+  .zone .zone-en {
+    font-family: var(--mono-font); font-size: 12px;
+    color: var(--primary-red); letter-spacing: 0.15em;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+  }
+  .zone .zone-desc {
+    font-family: var(--body-font); font-size: 14px; line-height: 1.7;
+    color: var(--ink-white);
+  }
+  .zone .zone-coord {
+    margin-top: 16px; padding-top: 12px;
+    border-top: 1px dashed var(--primary-red);
+    font-family: var(--mono-font); font-size: 11px;
+    color: var(--ink-white); letter-spacing: 0.12em;
+  }
+
+  /* Schedule */
+  .schedule-table {
+    width: 100%; border-collapse: collapse;
+    font-family: var(--mono-font); font-size: 13px;
+    border: 2px solid var(--primary-red);
+  }
+  .schedule-table th, .schedule-table td {
+    padding: 12px 18px; text-align: left;
+    border-bottom: 1px solid var(--dark-grey);
+  }
+  .schedule-table th {
+    color: var(--secondary-black); letter-spacing: 0.1em;
+    font-size: 11px; font-weight: 700;
+    text-transform: uppercase;
+    background: var(--accent-yellow);
+    border-bottom: 2px solid var(--primary-red);
+  }
+  .schedule-table td { color: var(--ink-white); }
+  .schedule-table td:first-child {
+    color: var(--primary-red); font-weight: 700;
+    width: 120px;
+  }
+  .schedule-table tr:hover td { color: var(--accent-yellow); background: rgba(224, 22, 43, 0.1); }
+
+  /* Tickets */
+  .tickets {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .ticket {
+    border: 2px solid var(--dark-grey);
+    padding: 24px 20px;
+    position: relative;
+    background: var(--secondary-black);
+    text-align: center;
+    clip-path: polygon(0 5%, 100% 0, 100% 95%, 0% 100%);
+  }
+  .ticket.featured {
+    border-color: var(--primary-red);
+    background: linear-gradient(135deg, rgba(224, 22, 43, 0.2) 0%, var(--secondary-black) 100%);
+    box-shadow: 0 0 20px rgba(224, 22, 43, 0.4);
+    transform: scale(1.02);
+  }
+  .ticket .badge {
+    display: inline-block;
+    font-family: var(--mono-font); font-size: 11px;
+    color: var(--secondary-black); background: var(--accent-yellow);
+    padding: 4px 12px; letter-spacing: 0.15em;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+  }
+  .ticket.featured .badge { background: var(--primary-red); color: var(--ink-white); }
+  .ticket .tier {
+    font-family: var(--display-font); font-size: 24px; font-weight: 700;
+    color: var(--ink-white); letter-spacing: 0.08em;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  .ticket .tier-jp {
+    font-family: var(--body-font); font-size: 12px;
+    color: var(--dark-grey); letter-spacing: 0.2em;
+    margin-bottom: 20px;
+  }
+  .ticket .price {
+    font-family: var(--display-font); font-size: 42px; font-weight: 900;
+    color: var(--primary-red); line-height: 1;
+    margin-bottom: 6px;
+    text-shadow: 3px 3px 0 var(--secondary-black);
+  }
+  .ticket.featured .price { color: var(--accent-yellow); text-shadow: 3px 3px 0 var(--primary-red); }
+  .ticket .price-unit {
+    font-family: var(--mono-font); font-size: 12px;
+    color: var(--ink-white); letter-spacing: 0.1em;
+    margin-bottom: 20px;
+  }
+  .ticket ul {
+    list-style: none; text-align: left;
+    font-family: var(--mono-font); font-size: 12px;
+    color: var(--ink-white); line-height: 2;
+    margin-bottom: 24px;
+    padding-left: 15px;
+  }
+  .ticket li::before {
+    content: '■ '; color: var(--accent-yellow); margin-right: 6px;
+  }
+
+  /* CTA */
+  .cta-btn {
+    display: inline-block;
+    font-family: var(--accent-font); font-weight: 400;
+    font-size: 14px; letter-spacing: 0.2em;
+    padding: 14px 30px;
+    background: var(--primary-red);
+    color: var(--ink-white);
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    position: relative;
+    clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+  }
+  .cta-btn:hover {
+    background: var(--accent-yellow); color: var(--secondary-black);
+    box-shadow: 0 0 15px rgba(247, 208, 2, 0.6);
+  }
+  .cta-btn[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: var(--dark-grey);
+    color: var(--ink-white);
+    box-shadow: none;
+  }
+
+  /* Ticket showcase */
+  .ticket-showcase {
+    margin: 0 0 48px;
+    display: flex; align-items: center; gap: 32px;
+    padding: 28px;
+    border: 2px solid var(--accent-yellow);
+    background: var(--secondary-black);
+    position: relative; overflow: hidden;
+    clip-path: polygon(0 10%, 100% 0, 100% 90%, 0% 100%);
+  }
+  .ticket-showcase::before {
+    content: ''; position: absolute;
+    top: -2px; right: -2px; width: 80px; height: 80px;
+    background: var(--primary-red);
+    opacity: 0.2;
+    clip-path: polygon(50% 0, 100% 0, 100% 50%, 0% 100%);
+  }
+  .ticket-showcase img {
+    width: 240px; height: auto; border: 2px solid var(--primary-red);
+    box-shadow: 0 0 20px rgba(224, 22, 43, 0.4);
+    flex-shrink: 0;
+    clip-path: polygon(0 10%, 100% 0, 100% 90%, 0% 100%);
+  }
+  .ticket-showcase .ts-info { flex: 1; }
+  .ticket-showcase .ts-label {
+    font-family: var(--mono-font); font-size: 11px;
+    color: var(--accent-yellow); letter-spacing: 0.18em;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  .ticket-showcase .ts-title {
+    font-family: var(--display-font); font-weight: 700;
+    font-size: 24px; color: var(--ink-white); letter-spacing: 0.05em;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+  .ticket-showcase .ts-desc {
+    font-family: var(--body-font); font-size: 14px;
+    color: var(--ink-white); line-height: 1.7;
+  }
+  @media (max-width: 720px) {
+    .ticket-showcase { flex-direction: column; gap: 18px; padding: 20px; }
+    .ticket-showcase img { width: 100%; max-width: 280px; }
+  }
+
+  /* Footer */
+  footer {
+    margin-top: 80px;
+    padding: 60px 24px 32px;
+    border-top: 2px solid var(--primary-red);
+    background: var(--secondary-black);
+    text-align: center;
+    clip-path: polygon(0 10%, 100% 0, 100% 100%, 0% 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  footer::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; width: 100%; height: 10px;
+    background: var(--accent-yellow);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 50%);
+    opacity: 0.2;
+  }
+  footer .ascii-line {
+    font-family: var(--mono-font); font-size: 11px;
+    color: var(--accent-yellow); letter-spacing: 0.1em;
+    margin-bottom: 18px;
+    white-space: nowrap; overflow: hidden;
+    position: relative;
+    display: inline-block;
+    padding: 0 10px;
+    background: var(--secondary-black);
+  }
+  footer .ascii-line::before, footer .ascii-line::after {
+    content: ''; position: absolute; top: 50%; width: 1000%; height: 1px;
+    background: var(--dark-grey);
+    z-index: -1;
+  }
+  footer .ascii-line::before { right: 100%; }
+  footer .ascii-line::after { left: 100%; }
+
+  footer .signature {
+    font-family: var(--display-font); font-size: 18px;
+    color: var(--ink-white); letter-spacing: 0.15em;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+  }
+  footer .signature .ph { color: var(--primary-red); }
+  footer .credit {
+    font-family: var(--mono-font); font-size: 11px;
+    color: var(--dark-grey); letter-spacing: 0.08em; line-height: 1.8;
+  }
+  footer .credit a { color: var(--ink-white); }
+  footer .terminal {
+    font-family: var(--mono-font); font-size: 10.5px;
+    color: var(--dark-grey); letter-spacing: 0.06em;
+    margin-top: 22px;
+  }
+  footer .terminal .cursor {
+    color: var(--accent-yellow);
+    animation: blink 0.9s steps(2) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* aqualux logo in footer */
+  footer .aqualux-logo-container {
+    margin: 30px auto 40px;
+    width: 200px; /* Adjust size as needed */
+    height: auto;
+    color: var(--ink-white);
+    position: relative;
+    border: 2px solid var(--primary-red);
+    background: var(--secondary-black);
+    padding: 10px 5px;
+    clip-path: polygon(0 10%, 100% 0, 100% 90%, 0% 100%);
+  }
+  footer .aqualux-logo-container::before {
+    content: ''; position: absolute; inset: -5px;
+    border: 2px solid var(--accent-yellow);
+    z-index: -1;
+    clip-path: polygon(5% 5%, 95% 0, 95% 95%, 0% 95%);
+  }
+  footer .aqualux-logo-container svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Accessibility: Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .topbar, .designer-card, .zone, .ticket, .cta-btn, .ticket-showcase {
+      transition: none !important;
+      animation: none !important;
+    }
+    .designer-card:hover { transform: none; box-shadow: none; }
+    .designer-card:hover::before { opacity: 0; }
+    .designer-thumb img { transition: none !important; }
+    .designer-card:hover .designer-thumb img { transform: none; }
+    .zone:hover .zone-img img { transform: none; }
+    .cta-btn:hover { box-shadow: none; }
+    .terminal .cursor { animation: none; }
+  }
+</style>
+</head>
+<body>
+<div class="scanlines" aria-hidden="true"></div>
+
+<header class="topbar">
+  <div class="left">
+    <a href="../../index.html" aria-label="Back to Gallery">
+      <svg viewBox="0 0 600 280" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="aqualux logo mark">
+        <text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text>
+        <line x1="80" y1="165" x2="520" y2="165" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+        <g transform="translate(0,330) scale(1,-1)" opacity="0.28"><text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text></g>
+      </svg>
+    </a>
+    <span class="system-status">← GALLERY // C15 CONSTRUCTIVISM</span>
+  </div>
+  <div class="right">
+    AQUALUX 2026 · <span class="date">12.06—12.21</span>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero-banner" aria-hidden="true">
+      <img src="images/hero.webp" alt="Constructivist style abstract art featuring geometric shapes in red, black, white, and yellow.">
+    </div>
+    <div class="hero-content">
+      <p class="kicker">DESIGN SPECTRUM EXHIBITION</p>
+      <p class="hero-jp">設計光譜展</p>
+      <h1>
+        <span>AQUALUX</span>
+        <span class="red">2026</span>
+        <span class="yellow">CODEX</span>
+      </h1>
+      <p class="hero-sub">
+        <span class="em">AQUALUX 2026</span> PRESENTS: <span class="strong">C15 CONSTRUCTIVISM</span>. A DEMONSTRATION OF DESIGN PRINCIPLES, <span class="em">STRUCTURED FOR THE FUTURE</span>. EXPLORE THE INTERSECTION OF FUNCTION AND FORM.
+      </p>
+
+      <div class="meta-strip">
+        <div class="meta-cell">
+          <span class="label">EXHIBITION</span>
+          <span class="val">AQUALUX DESIGN SPECTRUM</span>
+        </div>
+        <div class="meta-cell">
+          <span class="label">DATE</span>
+          <span class="val">2026.12.06 — 12.21</span>
+        </div>
+        <div class="meta-cell">
+          <span class="label">VENUE</span>
+          <span class="val">SONGSHAN WAREHOUSE NO.5</span>
+        </div>
+        <div class="meta-cell">
+          <span class="label">CURATOR</span>
+          <span class="val">JERRY @ AQUALUX.DEV</span>
+        </div>
+        <div class="meta-cell">
+          <span class="label">SCOPE</span>
+          <span class="val">12 DESIGNERS // 40 WORKS</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head">
+      <span class="sec-num">§ 01</span>
+      <span class="sec-title-jp">策展論述</span>
+      <h2 class="sec-title">MANIFESTO: <span class="ph">CONSTRUCT</span> THE FUTURE</h2>
+    </div>
+    <div class="statement">
+      <p>在 <span class="strong">AQUALUX 2026 設計光譜展</span>，我們揭示了 <span class="em">構成主義</span> 的核心精髓—將藝術與設計融入社會生產，創造具功能性、結構性與美學價值的作品。這不僅是風格的再現，更是對 <span class="em">設計本質</span> 的深刻探討。</p>
+      <p>我們相信，設計不應僅是裝飾，而應是 <span class="strong">解決問題的工具</span>，是社會進步的引擎。展覽透過大膽的幾何構成、鮮明的色彩對比，以及對材料和技術的誠實表達，呈現一場視覺與思想的衝擊。</p>
+      <blockquote>
+        「藝術不再是生活的鏡子，而是生活的組織者。設計師是建構者，而非美化者。」<br>— 構成主義宣言, 1922
+      </blockquote>
+      <p>每個展品都是對 <span class="em">結構、功能、和社會參與</span> 的致敬。我們邀請您一同體驗，如何透過精確的線條、平面和色彩，構建一個 <span class="strong">更清晰、更高效、更具意義</span> 的設計世界。</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head">
+      <span class="sec-num">§ 02</span>
+      <span class="sec-title-jp">設計師名單</span>
+      <h2 class="sec-title">THE <span class="ph">BUILDERS</span>: DESIGNERS</h2>
+    </div>
+    <div class="designers">
+      <div class="designer-card">
+        <div class="designer-thumb">
+          <img src="images/designer-neon-lee.webp" loading="lazy" decoding="async" alt="Abstract emblem for Neon Lee: bold red square intersecting black triangle with white 'N'.">
+        </div>
+        <div class="designer-card-info">
+          <p class="idx">D_001</p>
+          <p class="name-jp">ネオン リー</p>
+          <p class="name">NEON LEE</p>
+          <p class="tag">UI / Brutalism</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb">
+          <img src="images/designer-chrome-ho.webp" loading="lazy" decoding="async" alt="Abstract emblem for Chrome Ho: intersecting yellow and black diagonal lines with stylized 'H'.">
+        </div>
+        <div class="designer-card-info">
+          <p class="idx">D_002</p>
+          <p class="name-jp">クローム ホー</p>
+          <p class="name">CHROME HO</p>
+          <p class="tag">Motion / Parallax</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb">
+          <img src="images/designer-glitch-chang.webp" loading="lazy" decoding="async" alt="Abstract emblem for Glitch Chang: fragmented red and black geometric shapes with partially obscured white 'G'.">
+        </div>
+        <div class="designer-card-info">
+          <p class="idx">D_003</p>
+          <p class="name-jp">グリッチ チャン</p>
+          <p class="name">GLITCH CHANG</p>
+          <p class="tag">Experimental</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb">
+          <img src="images/designer-paper-wu.webp" loading="lazy" decoding="async" alt="Abstract emblem for Paper Wu: minimalist white rectangle with a red border and black 'W'.">
+        </div>
+        <div class="designer-card-info">
+          <p class="idx">D_004</p>
+          <p class="name-jp">ペーパー ウー</p>
+          <p class="name">PAPER WU</p>
+          <p class="tag">Editorial / Minimal</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb">
+          <img src="images/designer-vapor-lin.webp" loading="lazy" decoding="async" alt="Abstract emblem for Vapor Lin: stylized retro wave pattern in yellow and black with a red 'L'.">
+        </div>
+        <div class="designer-card-info">
+          <p class="idx">D_005</p>
+          <p class="name-jp">ヴェイパー リン</p>
+          <p class="name">VAPOR LIN</p>
+          <p class="tag">Retro / Aesthetic</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb">
+          <img src="images/designer-swiss-chen.webp" loading="lazy" decoding="async" alt="Abstract emblem for Swiss Chen: precise black grid on white background with a red square and yellow 'C'.">
+        </div>
+        <div class="designer-card-info">
+          <p class="idx">D_006</p>
+          <p class="name-jp">スイス チェン</p>
+          <p class="name">SWISS CHEN</p>
+          <p class="tag">Cultural / Grid</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb">
+          <img src="images/designer-glass-yang.webp" loading="lazy" decoding="async" alt="Abstract emblem for Glass Yang: overlapping translucent geometric shapes with a red outline and black 'Y'.">
+        </div>
+        <div class="designer-card-info">
+          <p class="idx">D_007</p>
+          <p class="name-jp">ガラス ヤン</p>
+          <p class="name">GLASS YANG</p>
+          <p class="tag">Glassmorphism</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb">
+          <img src="images/designer-ascii-fan.webp" loading="lazy" decoding="async" alt="Abstract emblem for ASCII Fan: pixelated black and white pattern with a red block and yellow 'F'.">
+        </div>
+        <div class="designer-card-info">
+          <p class="idx">D_008</p>
+          <p class="name-jp">アスキー ファン</p>
+          <p class="name">ASCII FAN</p>
+          <p class="tag">Terminal / CLI</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb">
+          <img src="images/designer-hand-chao.webp" loading="lazy" decoding="async" alt="Abstract emblem for Hand Chao: dynamic red brushstrokes on a black background with a white 'C'.">
+        </div>
+        <div class="designer-card-info">
+          <p class="idx">D_009</p>
+          <p class="name-jp">ハンド ジョー</p>
+          <p class="name">HAND CHAO</p>
+          <p class="tag">Sketch / Doodle</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb">
+          <img src="images/designer-magne-huang.webp" loading="lazy" decoding="async" alt="Abstract emblem for Magne Huang: interlocking red and black gears with a yellow central point and white 'H'.">
+        </div>
+        <div class="designer-card-info">
+          <p class="idx">D_010</p>
+          <p class="name-jp">マグネ ホアン</p>
+          <p class="name">MAGNE HUANG</p>
+          <p class="tag">Interaction</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb">
+          <img src="images/designer-cyber-su.webp" loading="lazy" decoding="async" alt="Abstract emblem for Cyber Su: glowing red and yellow lines forming a futuristic circuit pattern on black.">
+        </div>
+        <div class="designer-card-info">
+          <p class="idx">D_011</p>
+          <p class="name-jp">サイバー スー</p>
+          <p class="name">CYBER SU</p>
+          <p class="tag">Cyberpunk / Glow</p>
+        </div>
+      </div>
+      <div class="designer-card">
+        <div class="designer-thumb">
+          <img src="images/designer-noise-kao.webp" loading="lazy" decoding="async" alt="Abstract emblem for Noise Kao: grainy texture with fragmented red and black shapes and a yellow 'K'.">
+        </div>
+        <div class="designer-card-info">
+          <p class="idx">D_012</p>
+          <p class="name-jp">ノイズ カオ</p>
+          <p class="name">NOISE KAO</p>
+          <p class="tag">Film Grain</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head">
+      <span class="sec-num">§ 03</span>
+      <span class="sec-title-jp">場地圖</span>
+      <h2 class="sec-title">VENUE: <span class="ph">STRUCTURED</span> SPACE</h2>
+    </div>
+    <div class="venue-map">
+      <img src="images/venue.webp" loading="lazy" decoding="async" alt="Constructivist style interior of an exhibition hall with bold geometric forms, red and black walls, and yellow accents.">
+      <p class="hero-sub" style="max-width: none; margin-top: 30px; text-align: center;">
+        松山文創園區 5 號倉庫，經改造為 <span class="em">構成主義實驗場</span>。每一道牆、每一條動線，皆是精密計算下的 <span class="strong">功能性結構</span>。
+      </p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head">
+      <span class="sec-num">§ 04</span>
+      <span class="sec-title-jp">五大展區</span>
+      <h2 class="sec-title">ZONES: <span class="ph">FUNCTIONAL</span> DIVISIONS</h2>
+    </div>
+    <div class="zones">
+      <div class="zone">
+        <div class="zone-img">
+          <img src="images/zone-z01.webp" loading="lazy" decoding="async" alt="Constructivist abstract art for Mainstream Frequency: clean geometric forms, red, white, black, yellow, abstract frequency waves.">
+        </div>
+        <div class="zone-content">
+          <p class="zone-id">Z01</p>
+          <p class="zone-cn">主流頻譜</p>
+          <p class="zone-en">MAINSTREAM FREQUENCY</p>
+          <p class="zone-desc">探索當代設計語言的核心，結構清晰，功能導向。集結了業界最前沿、最具影響力的作品，展現設計如何形塑主流文化。</p>
+          <p class="zone-coord">5F-A1 // 5 WORKS</p>
+        </div>
+      </div>
+      <div class="zone">
+        <div class="zone-img">
+          <img src="images/zone-z02.webp" loading="lazy" decoding="async" alt="Constructivist abstract art for Retro Echo: layered, fragmented geometric shapes suggesting time and echo with distressed texture.">
+        </div>
+        <div class="zone-content">
+          <p class="zone-id">Z02</p>
+          <p class="zone-cn">時光殘響</p>
+          <p class="zone-en">RETRO ECHO</p>
+          <p class="zone-desc">回溯設計歷史的軌跡，以構成主義的視角重構經典。展示舊日風格如何透過現代解讀，在當下產生新的迴響。</p>
+          <p class="zone-coord">5F-A2 // 6 WORKS</p>
+        </div>
+      </div>
+      <div class="zone">
+        <div class="zone-img">
+          <img src="images/zone-z03.webp" loading="lazy" decoding="async" alt="Constructivist abstract art for Avant Lab: industrial Constructivist lab, gears, sharp angles, bold red and black contrasts.">
+        </div>
+        <div class="zone-content">
+          <p class="zone-id">Z03</p>
+          <p class="zone-cn">前衛實驗室</p>
+          <p class="zone-en">AVANT LAB</p>
+          <p class="zone-desc">這裡是設計思想的實驗場。挑戰傳統、探索未知，透過大膽的材質運用和形式創新，預示未來的設計方向。</p>
+          <p class="zone-coord">5F-B1 // 6 WORKS</p>
+        </div>
+      </div>
+      <div class="zone">
+        <div class="zone-img">
+          <img src="images/zone-z04.webp" loading="lazy" decoding="async" alt="Constructivist abstract art for Cultural Spectrum: geometric interpretation of cultural elements, stylized red star/hammer and sickle motif.">
+        </div>
+        <div class="zone-content">
+          <p class="zone-id">Z04</p>
+          <p class="zone-cn">文化光譜</p>
+          <p class="zone-en">CULTURAL SPECTRUM</p>
+          <p class="zone-desc">設計作為文化表達的載體，如何反映與塑造社會。從在地語彙到全球視野，呈現文化多元性中的統一構成。</p>
+          <p class="zone-coord">5F-B2 // 5 WORKS</p>
+        </div>
+      </div>
+      <div class="zone">
+        <div class="zone-img">
+          <img src="images/zone-z05.webp" loading="lazy" decoding="async" alt="Constructivist abstract art for Motion Hall: dynamic, intersecting geometric planes implying movement and kinetic energy.">
+        </div>
+        <div class="zone-content">
+          <p class="zone-id">Z05</p>
+          <p class="zone-cn">動態廳</p>
+          <p class="zone-en">MOTION HALL</p>
+          <p class="zone-desc">專注於動態設計與互動體驗。透過時間、空間與運動的構成，展現設計在第四維度上的無限可能。</p>
+          <p class="zone-coord">5F-C1 // 15 WORKS</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="sec-head">
+      <span class="sec-num">§ 05</span>
+      <span class="sec-title-jp">講座排程</span>
+      <h2 class="sec-title">AGENDA: <span class="ph">SCHEDULED</span> INSIGHTS</h2>
+    </div>
+    <table class="schedule-table">
+      <thead>
+        <tr>
+          <th scope="col">TIME</th>
+          <th scope="col">TOPIC</th>
+          <th scope="col">SPEAKER</th>
+          <th scope="col">LOCATION</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>12.07 14:00</td>
+          <td>構成主義與數位介面</td>
+          <td>Neon Lee</td>
+          <td>Z01 論壇區</td>
+        </tr>
+        <tr>
+          <td>12.08 16:30</td>
+          <td>動態圖像的結構美學</td>
+          <td>Chrome Ho</td>
+          <td>Z05 動態廳</td>
+        </tr>
+        <tr>
+          <td>12.10 11:00</td>
+          <td>實驗設計的邊界拓展</td>
+          <td>Glitch Chang</td>
+          <td>Z03 前衛實驗室</td>
+        </tr>
+        <tr>
+          <td>12.12 15:00</td>
+          <td>網格系統與信息傳達</td>
+          <td>Swiss Chen</td>
+          <td>Z04 文化光譜</td>
+        </tr>
+        <tr>
+          <td>12.15 13:00</td>
+          <td>未來互動：從構成到體驗</td>
+          <td>Magne Huang</td>
+          <td>Z03 前衛實驗室</td>
+        </tr>
+        <tr>
+          <td>12.18 17:00</td>
+          <td>賽博龐克中的構成元素</td>
+          <td>Cyber Su</td>
+          <td>Z05 動態廳</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="block">
+    <div class="sec-head">
+      <span class="sec-num">§ 06</span>
+      <span class="sec-title-jp">票務</span>
+      <h2 class="sec-title">ACCESS: <span class="ph">ADMISSION</span> MODULES</h2>
+    </div>
+
+    <div class="ticket-showcase">
+      <img src="images/ticket-mockup.webp" loading="lazy" decoding="async" alt="Constructivist style admission ticket mockup with red, black, white, and yellow geometric overlays.">
+      <div class="ts-info">
+        <p class="ts-label">FEATURED ACCESS</p>
+        <p class="ts-title">FULL ACCESS PASS // 完整通行證</p>
+        <p class="ts-desc">此通行證提供您在整個展覽期間的無限次入場權利，並包含所有展區的優先體驗。一張票，解鎖設計光譜的全部維度。</p>
+      </div>
+    </div>
+
+    <div class="tickets">
+      <div class="ticket">
+        <span class="badge">STANDARD</span>
+        <p class="tier">SINGLE PASS</p>
+        <p class="tier-jp">單日入場</p>
+        <p class="price">NT$ 480</p>
+        <p class="price-unit">PER ENTRY</p>
+        <ul>
+          <li>展區 Z01-Z05 單日入場</li>
+          <li>講座自由聽（座位有限）</li>
+          <li>電子導覽手冊</li>
+        </ul>
+        <button class="cta-btn" disabled aria-label="Demo only — not for sale">PURCHASE</button>
+      </div>
+      <div class="ticket featured">
+        <span class="badge">RECOMMENDED</span>
+        <p class="tier">FULL ACCESS</p>
+        <p class="tier-jp">全展期通票</p>
+        <p class="price">NT$ 1,280</p>
+        <p class="price-unit">FULL EXHIBITION</p>
+        <ul>
+          <li>展區 Z01-Z05 全展期無限次入場</li>
+          <li>講座優先入場權</li>
+          <li>限定紀念品一份</li>
+          <li>設計師交流會入場資格</li>
+        </ul>
+        <button class="cta-btn" disabled aria-label="Demo only — not for sale">PURCHASE</button>
+      </div>
+      <div class="ticket">
+        <span class="badge">PREMIUM</span>
+        <p class="tier">CURATOR PASS</p>
+        <p class="tier-jp">策展人專屬</p>
+        <p class="price">NT$ 2,880</p>
+        <p class="price-unit">WORKSHOP INCLUDED</p>
+        <ul>
+          <li>全展期無限次入場</li>
+          <li>所有講座 VIP 席次</li>
+          <li>獨家策展人導覽</li>
+          <li>限定設計工作坊參與權</li>
+        </ul>
+        <button class="cta-btn" disabled aria-label="Demo only — not for sale">PURCHASE</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p class="ascii-line">/// CONSTRUCTING THE FUTURE OF DESIGN ///</p>
+  <div class="aqualux-logo-container">
+    <svg viewBox="0 0 600 280" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="aqualux logo">
+      <text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text>
+      <line x1="80" y1="165" x2="520" y2="165" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+      <g transform="translate(0,330) scale(1,-1)" opacity="0.28"><text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text></g>
+    </svg>
+  </div>
+  <p class="signature">MMXXVI · <span class="ph">AQUALUX.DEV</span></p>
+  <p class="credit">
+    AQUALUX DESIGN SPECTRUM EXHIBITION CODEX<br>
+    C15 CONSTRUCTIVISM DEMO · BUILT BY AI FOR <a href="https://aqualux.dev">AQUALUX.DEV</a>
+  </p>
+  <p class="terminal">
+    > _<span class="cursor"></span>
+  </p>
+</footer>
+
+</body>
+</html>

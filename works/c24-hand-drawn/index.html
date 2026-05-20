@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AQUALUX 2026 // DESIGN SPECTRUM EXHIBITION · 手繪塗鴉 Hand-Drawn Demo</title>
+<meta name="description" content="aqualux 2026 設計光譜展 · 手繪塗鴉 Hand-Drawn 風格 demo · single-file HTML showcase">
+<link rel="canonical" href="https://design.aqualux.dev/works/c24-hand-drawn/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://design.aqualux.dev/works/c24-hand-drawn/">
+<meta property="og:title" content="C24 手繪塗鴉 · aqualux 設計光譜展">
+<meta property="og:description" content="手繪塗鴉 Hand-Drawn 風格 single-file HTML demo · aqualux 2026 設計光譜展">
+<meta property="og:image" content="https://design.aqualux.dev/works/c24-hand-drawn/images/hero.webp">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="C24 手繪塗鴉 · aqualux 設計光譜展">
+<meta name="twitter:image" content="https://design.aqualux.dev/works/c24-hand-drawn/images/hero.webp">
+<link rel="icon" type="image/svg+xml" href="../../assets/aqualux-logo-mark.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand+SC&family=Caveat:wght@400;700&family=Kalam:wght@300;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #fdfcf8;
+    --bg-card: #fffefa;
+    --paper: #f5f1e8;
+    --red: #ef5350;
+    --blue: #42a5f5;
+    --green: #66bb6a;
+    --yellow: #ffee58;
+    --orange: #ff9742;
+    --ink: #2a2a2a;
+    --ink-2: #666;
+    --ink-3: #999;
+    --line: rgba(42,42,42,0.18);
+    --display: 'Patrick Hand SC', 'Comic Sans MS', cursive;
+    --handwriting: 'Caveat', cursive;
+    --accent: 'Kalam', cursive;
+    --tc: 'Noto Sans TC', 'PingFang TC', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--tc);
+    line-height: 1.75;
+    font-size: 15px;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Paper texture overlay via SVG turbulence (lightweight) */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    pointer-events: none; z-index: 9999;
+    opacity: 0.5;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.7 0 0 0 0 0.65 0 0 0 0 0.58 0 0 0 0.16 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: multiply;
+  }
+
+  a { color: var(--red); text-decoration: none; }
+  a:hover { color: var(--blue); }
+
+  /* Top bar */
+  .topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(253,252,248,0.94);
+    backdrop-filter: blur(6px);
+    border-bottom: 2px dashed var(--ink);
+    padding: 14px 32px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: var(--accent); font-size: 13px;
+  }
+  .topbar .left { color: var(--red); font-weight: 700; letter-spacing: 0.06em; display: flex; align-items: center; gap: 12px; }
+  .topbar .left svg.logo-mark { height: 24px; width: auto; color: var(--ink); }
+  .topbar .right { color: var(--ink-2); }
+  .topbar .right .dot { color: var(--green); }
+  .topbar .back { color: var(--ink-2); font-family: var(--handwriting); font-size: 16px; margin-right: 14px; }
+  .topbar .back:hover { color: var(--red); }
+
+  /* Hero banner */
+  .hero-banner {
+    position: relative; overflow: hidden;
+    border-bottom: 3px solid var(--ink);
+  }
+  .hero-banner img {
+    width: 100%; height: auto; display: block;
+    filter: contrast(0.95) saturate(1.05);
+  }
+  .hero-banner::after {
+    content: '✎ key visual — sketched by hand';
+    position: absolute; bottom: 16px; right: 20px;
+    font-family: var(--handwriting); font-size: 18px;
+    color: var(--bg); background: var(--ink);
+    padding: 4px 12px; transform: rotate(-2deg);
+  }
+
+  /* Hero text */
+  .hero {
+    max-width: 1100px; margin: 60px auto; padding: 0 32px;
+    text-align: center;
+  }
+  .hero .kicker {
+    font-family: var(--handwriting); font-size: 20px;
+    color: var(--blue); margin-bottom: 8px;
+    transform: rotate(-1deg);
+  }
+  .hero h1 {
+    font-family: var(--display); font-size: clamp(54px, 9vw, 96px);
+    line-height: 1.05; color: var(--ink); letter-spacing: 0.02em;
+    margin-bottom: 18px;
+    transform: rotate(-1deg);
+  }
+  .hero h1 .red { color: var(--red); }
+  .hero h1 .blue { color: var(--blue); }
+  .hero h1 .yellow {
+    background: linear-gradient(180deg, transparent 60%, var(--yellow) 60%);
+    padding: 0 4px;
+  }
+  .hero .hero-sub {
+    font-family: var(--tc); font-size: 16.5px;
+    color: var(--ink-2); max-width: 640px; margin: 0 auto 36px;
+    line-height: 1.9;
+  }
+  .hero .hero-sub .accent { color: var(--red); font-weight: 500; }
+
+  .meta-strip {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 14px; max-width: 880px; margin: 0 auto;
+    border-top: 2px dashed var(--ink);
+    border-bottom: 2px dashed var(--ink);
+    padding: 22px 0;
+  }
+  .meta-cell { text-align: center; transform: rotate(var(--rot, 0deg)); }
+  .meta-cell:nth-child(1) { --rot: -0.5deg; }
+  .meta-cell:nth-child(2) { --rot: 0.5deg; }
+  .meta-cell:nth-child(3) { --rot: -0.7deg; }
+  .meta-cell:nth-child(4) { --rot: 0.3deg; }
+  .meta-cell .label {
+    display: block; font-family: var(--accent); font-size: 12px;
+    color: var(--ink-3); letter-spacing: 0.1em; text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .meta-cell .val {
+    display: block; font-family: var(--display); font-size: 18px;
+    color: var(--ink);
+  }
+  @media (max-width: 720px) {
+    .meta-strip { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* Section blocks */
+  .block { max-width: 1100px; margin: 80px auto; padding: 0 32px; }
+  .sec-head { margin-bottom: 36px; text-align: left; }
+  .sec-num {
+    display: inline-block; font-family: var(--accent); font-size: 14px;
+    color: var(--bg); background: var(--ink); padding: 3px 12px;
+    transform: rotate(-2deg); margin-bottom: 12px;
+  }
+  .sec-title {
+    font-family: var(--display); font-size: 56px; color: var(--ink);
+    letter-spacing: 0.02em; transform: rotate(-1deg);
+    display: inline-block; position: relative;
+  }
+  .sec-title .ph {
+    position: relative; color: var(--red);
+  }
+  .sec-title .ph::after {
+    content: ''; position: absolute; left: -4px; right: -4px; bottom: 6px;
+    height: 8px; background: var(--yellow); z-index: -1;
+    transform: skew(-8deg);
+  }
+  .sec-title-en {
+    font-family: var(--handwriting); font-size: 22px;
+    color: var(--blue); margin-top: 4px; display: block;
+    transform: rotate(0.5deg);
+  }
+
+  /* Statement */
+  .statement {
+    font-family: var(--tc); font-size: 17px; line-height: 1.95;
+    color: var(--ink); max-width: 820px;
+  }
+  .statement p { margin-bottom: 1.4em; }
+  .statement .em { color: var(--red); font-weight: 500; }
+  .statement .strong { color: var(--ink); font-weight: 700; background: var(--yellow); padding: 0 4px; }
+  .statement blockquote {
+    border-left: 4px solid var(--red);
+    margin: 28px 0; padding: 16px 0 16px 22px;
+    font-family: var(--handwriting); font-size: 22px;
+    color: var(--ink); line-height: 1.6;
+    background: var(--paper);
+    border-radius: 0 12px 12px 0;
+    transform: rotate(-0.4deg);
+  }
+
+  /* Designer cards */
+  .designers {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 22px;
+  }
+  .designer-card {
+    background: var(--bg-card);
+    border: 2px solid var(--ink);
+    border-radius: 14px;
+    padding: 22px 18px;
+    text-align: center;
+    transform: rotate(var(--r, 0deg));
+    transition: transform 0.2s ease;
+  }
+  .designer-card:nth-child(odd) { --r: -1deg; }
+  .designer-card:nth-child(even) { --r: 1.2deg; }
+  .designer-card:nth-child(3n) { --r: -0.7deg; }
+  .designer-card:hover { transform: rotate(0) scale(1.03); }
+  .designer-card .emblem {
+    width: 78px; height: 78px; margin: 0 auto 14px;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-family: var(--display); font-size: 34px; color: var(--ink);
+    border: 2px solid var(--ink);
+  }
+  .designer-card:nth-child(1) .emblem { background: var(--red); color: #fff; }
+  .designer-card:nth-child(2) .emblem { background: var(--blue); color: #fff; }
+  .designer-card:nth-child(3) .emblem { background: var(--yellow); }
+  .designer-card:nth-child(4) .emblem { background: var(--green); color: #fff; }
+  .designer-card:nth-child(5) .emblem { background: var(--orange); color: #fff; }
+  .designer-card:nth-child(6) .emblem { background: var(--paper); }
+  .designer-card:nth-child(7) .emblem { background: var(--red); color: #fff; }
+  .designer-card:nth-child(8) .emblem { background: var(--blue); color: #fff; }
+  .designer-card:nth-child(9) .emblem { background: var(--yellow); }
+  .designer-card:nth-child(10) .emblem { background: var(--green); color: #fff; }
+  .designer-card:nth-child(11) .emblem { background: var(--orange); color: #fff; }
+  .designer-card:nth-child(12) .emblem { background: var(--paper); }
+  .designer-card .idx {
+    font-family: var(--accent); font-size: 12px;
+    color: var(--ink-3); letter-spacing: 0.18em; margin-bottom: 4px;
+  }
+  .designer-card .name {
+    font-family: var(--display); font-size: 22px; color: var(--ink);
+    margin-bottom: 2px;
+  }
+  .designer-card .tag {
+    font-family: var(--handwriting); font-size: 16px;
+    color: var(--ink-2);
+  }
+
+  /* Atmosphere / venue */
+  .atmosphere { max-width: 1100px; margin: 80px auto; padding: 0 32px; }
+  .atmosphere-frame {
+    border: 3px solid var(--ink);
+    border-radius: 12px;
+    overflow: hidden;
+    transform: rotate(-0.5deg);
+    box-shadow: 8px 8px 0 var(--paper), 8px 8px 0 1px var(--ink);
+  }
+  .atmosphere img { width: 100%; height: auto; display: block; filter: contrast(0.95) saturate(1.05); }
+  .atmosphere .caption {
+    background: var(--paper);
+    padding: 14px 22px;
+    display: flex; justify-content: space-between;
+    font-family: var(--handwriting); font-size: 17px;
+    color: var(--ink);
+    border-top: 2px dashed var(--ink);
+  }
+
+  /* Zones */
+  .zones { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+  .zone {
+    background: var(--bg-card);
+    border: 2px solid var(--ink);
+    border-radius: 14px;
+    padding: 0;
+    transform: rotate(var(--r, 0deg));
+    transition: transform 0.2s ease;
+    overflow: hidden;
+  }
+  .zone:nth-child(odd) { --r: -0.6deg; }
+  .zone:nth-child(even) { --r: 0.5deg; }
+  .zone:hover { transform: rotate(0); }
+  .zone-img { aspect-ratio: 5 / 3; overflow: hidden; border-bottom: 2px solid var(--ink); }
+  .zone-img img { width: 100%; height: 100%; object-fit: cover; filter: contrast(0.95); }
+  .zone-body { padding: 22px 24px 26px; }
+  .zone-id {
+    display: inline-block; font-family: var(--display); font-size: 28px;
+    background: var(--yellow); padding: 2px 12px; border: 2px solid var(--ink);
+    transform: rotate(-3deg); margin-bottom: 8px;
+  }
+  .zone-cn { font-family: var(--display); font-size: 26px; color: var(--ink); margin-bottom: 2px; }
+  .zone-en { font-family: var(--handwriting); font-size: 17px; color: var(--blue); margin-bottom: 12px; }
+  .zone-desc { font-family: var(--tc); font-size: 14.5px; color: var(--ink-2); line-height: 1.85; margin-bottom: 14px; }
+  .zone-coord {
+    font-family: var(--accent); font-size: 12.5px; color: var(--ink-3);
+    border-top: 1px dashed var(--ink); padding-top: 10px;
+    letter-spacing: 0.08em;
+  }
+
+  /* Schedule table */
+  .schedule-wrap {
+    background: var(--bg-card);
+    border: 2px solid var(--ink);
+    border-radius: 14px;
+    padding: 14px;
+    transform: rotate(-0.3deg);
+  }
+  .schedule-table { width: 100%; border-collapse: collapse; font-family: var(--tc); font-size: 15px; }
+  .schedule-table th {
+    text-align: left; padding: 12px 14px;
+    font-family: var(--accent); font-size: 13px;
+    color: var(--ink-2); letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border-bottom: 2px dashed var(--ink);
+  }
+  .schedule-table td {
+    padding: 14px;
+    border-bottom: 1px dashed var(--line);
+    color: var(--ink);
+  }
+  .schedule-table tr:last-child td { border-bottom: none; }
+  .schedule-table tr:hover { background: var(--paper); }
+  .schedule-table td:first-child { font-family: var(--display); font-size: 17px; color: var(--red); }
+  .schedule-table td:nth-child(2) { font-family: var(--accent); color: var(--blue); }
+  .schedule-table td:last-child { font-family: var(--handwriting); font-size: 17px; color: var(--ink-2); }
+
+  /* Tickets */
+  .tickets { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+  .ticket {
+    background: var(--bg-card);
+    border: 2px solid var(--ink);
+    border-radius: 14px;
+    padding: 28px 24px;
+    text-align: center;
+    transform: rotate(var(--r, 0deg));
+    transition: transform 0.2s ease;
+  }
+  .ticket:nth-child(1) { --r: -1deg; }
+  .ticket:nth-child(2) { --r: 0; }
+  .ticket:nth-child(3) { --r: 1deg; }
+  .ticket:hover { transform: rotate(0) translateY(-4px); }
+  .ticket.featured { background: var(--yellow); border-width: 3px; box-shadow: 6px 6px 0 var(--ink); }
+  .ticket .badge {
+    display: inline-block;
+    font-family: var(--accent); font-size: 12px;
+    color: var(--bg); background: var(--ink);
+    padding: 3px 12px; letter-spacing: 0.18em;
+    margin-bottom: 14px; transform: rotate(-3deg);
+  }
+  .ticket.featured .badge { background: var(--red); }
+  .ticket .tier { font-family: var(--display); font-size: 26px; color: var(--ink); margin-bottom: 4px; }
+  .ticket .tier-en { font-family: var(--handwriting); font-size: 16px; color: var(--blue); margin-bottom: 18px; }
+  .ticket .price { font-family: var(--display); font-size: 44px; color: var(--red); line-height: 1; margin-bottom: 6px; }
+  .ticket.featured .price { color: var(--ink); }
+  .ticket .price-unit { font-family: var(--accent); font-size: 13px; color: var(--ink-3); letter-spacing: 0.1em; margin-bottom: 18px; }
+  .ticket ul {
+    list-style: none; text-align: left;
+    font-family: var(--tc); font-size: 14px;
+    color: var(--ink-2); line-height: 2.1;
+    margin-bottom: 22px;
+  }
+  .ticket li::before { content: '✓ '; color: var(--green); margin-right: 4px; font-weight: 700; }
+
+  .cta-btn {
+    display: inline-block;
+    font-family: var(--display); font-size: 17px;
+    padding: 12px 28px;
+    background: transparent;
+    color: var(--ink); border: 2px solid var(--ink);
+    border-radius: 32px;
+    cursor: pointer; transition: all 0.2s ease;
+    letter-spacing: 0.05em;
+  }
+  .cta-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .cta-btn:not(:disabled):hover { background: var(--ink); color: var(--bg); }
+
+  /* Footer */
+  footer {
+    margin-top: 80px;
+    padding: 60px 32px 40px;
+    border-top: 3px dashed var(--ink);
+    background: var(--paper);
+    text-align: center;
+  }
+  footer .scribble-line {
+    font-family: var(--handwriting); font-size: 24px;
+    color: var(--red); margin-bottom: 22px;
+    letter-spacing: 0.12em;
+  }
+  footer .logo-wrap {
+    display: inline-block;
+    background: var(--bg);
+    padding: 18px 32px;
+    border: 2px solid var(--ink);
+    border-radius: 12px;
+    margin-bottom: 22px;
+    transform: rotate(-1deg);
+    color: var(--ink);
+  }
+  footer .logo-wrap svg { width: 200px; height: auto; }
+  footer .signature {
+    font-family: var(--display); font-size: 18px;
+    color: var(--ink); letter-spacing: 0.1em;
+    margin-bottom: 12px;
+  }
+  footer .signature .ph { color: var(--red); }
+  footer .credit {
+    font-family: var(--handwriting); font-size: 18px;
+    color: var(--ink-2); line-height: 1.9;
+  }
+  footer .credit a { color: var(--blue); }
+  footer .terminal {
+    font-family: var(--accent); font-size: 14px;
+    color: var(--ink-3); margin-top: 20px;
+    letter-spacing: 0.06em;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,*::before,*::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+    .designer-card, .ticket, .zone, .meta-cell, .schedule-wrap, .atmosphere-frame { transform: none !important; }
+    .sec-num, .sec-title, .hero .kicker, .hero h1 { transform: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="left">
+    <svg class="logo-mark" viewBox="0 0 60 60" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="aqualux mark">
+      <text x="30" y="38" text-anchor="middle" style="font-family:Inter,sans-serif;font-weight:300;font-size:18px;letter-spacing:1px;">ax</text>
+      <line x1="10" y1="46" x2="50" y2="46" stroke="currentColor" stroke-width="1.2"/>
+    </svg>
+    ✎ AQUALUX // SPECTRUM_2026 / WORK_024 / HAND-DRAWN
+  </div>
+  <div class="right">
+    <a href="../../index.html" class="back">← Gallery</a>
+    sketch.status: <span class="dot">●</span> drawing
+  </div>
+</header>
+
+<main>
+
+<div class="hero-banner">
+  <img src="images/hero.webp" loading="lazy" decoding="async" alt="AQUALUX SPECTRUM 2026 — hand-drawn sketch 展場插畫">
+</div>
+
+<section class="hero">
+  <div class="kicker">✏ exhibition · 設計光譜展 · 2026.12.06 — 12.21</div>
+  <h1>
+    <span class="red">AQUA</span><span class="blue">LUX</span><br>
+    <span class="yellow">SPECTRUM</span> 2026
+  </h1>
+  <p class="hero-sub">
+    四十種視覺流派、十二位設計師、五個展區。<br>
+    一個歪歪斜斜、用<span class="accent">蠟筆畫出來</span>的設計光譜現場。
+  </p>
+  <div class="meta-strip">
+    <div class="meta-cell"><span class="label">date</span><span class="val">12.06 — 12.21</span></div>
+    <div class="meta-cell"><span class="label">where</span><span class="val">松山 5 號倉庫</span></div>
+    <div class="meta-cell"><span class="label">curator</span><span class="val">Jerry @ aqualux</span></div>
+    <div class="meta-cell"><span class="label">artists</span><span class="val">12 / 40 件</span></div>
+  </div>
+</section>
+
+<section class="block" id="statement">
+  <div class="sec-head">
+    <div class="sec-num">section_01</div>
+    <h2 class="sec-title">策<span class="ph">展</span>論述</h2>
+    <span class="sec-title-en">statement · why we sketch</span>
+  </div>
+  <div class="statement">
+    <p>「設計風格」這個詞已經被用爛了。</p>
+    <p>大多數展覽把風格當成<span class="em">美學偏好</span>排列組合，像是色票交換派對。<span class="strong">aqualux 2026 設計光譜展</span>嘗試的是另一件事：把風格還原成「<span class="em">對誰說話</span>」的選擇。</p>
+    <blockquote>
+      一個 Brutalist 的網頁，<br>
+      跟一個 Hand-Drawn 的網頁，<br>
+      從來不只是長相不一樣 ——<br>
+      它們對著兩種完全不同的受眾說話。
+    </blockquote>
+    <p>本次展覽收錄 <span class="em">25 種視覺流派</span> 與 <span class="em">15 種動態效果</span>，由 12 位實作設計師將每一種風格落實成可閱讀、可互動的單頁作品。每件作品都圍繞同一個展覽資訊主題 — <span class="strong">這是控制變因的設計實驗</span>。</p>
+    <p>當內容固定，只剩風格在變，風格的真實效果才會浮現。手繪這一站，我們刻意把「精準」拿掉、把「可愛」放回去。</p>
+  </div>
+</section>
+
+<section class="block" id="designers">
+  <div class="sec-head">
+    <div class="sec-num">section_02</div>
+    <h2 class="sec-title">設<span class="ph">計師</span>名單</h2>
+    <span class="sec-title-en">artists · 12 hands</span>
+  </div>
+  <div class="designers">
+    <div class="designer-card"><div class="emblem">N</div><div class="idx">D_001</div><div class="name">Neon Lee</div><div class="tag">UI · Brutal</div></div>
+    <div class="designer-card"><div class="emblem">C</div><div class="idx">D_002</div><div class="name">Chrome Ho</div><div class="tag">Motion</div></div>
+    <div class="designer-card"><div class="emblem">G</div><div class="idx">D_003</div><div class="name">Glitch Chang</div><div class="tag">Experimental</div></div>
+    <div class="designer-card"><div class="emblem">P</div><div class="idx">D_004</div><div class="name">Paper Wu</div><div class="tag">Editorial</div></div>
+    <div class="designer-card"><div class="emblem">V</div><div class="idx">D_005</div><div class="name">Vapor Lin</div><div class="tag">Retro</div></div>
+    <div class="designer-card"><div class="emblem">S</div><div class="idx">D_006</div><div class="name">Swiss Chen</div><div class="tag">Grid</div></div>
+    <div class="designer-card"><div class="emblem">G</div><div class="idx">D_007</div><div class="name">Glass Yang</div><div class="tag">Glass</div></div>
+    <div class="designer-card"><div class="emblem">A</div><div class="idx">D_008</div><div class="name">ASCII Fan</div><div class="tag">Terminal</div></div>
+    <div class="designer-card"><div class="emblem">H</div><div class="idx">D_009</div><div class="name">Hand Chao</div><div class="tag">Sketch · 主</div></div>
+    <div class="designer-card"><div class="emblem">M</div><div class="idx">D_010</div><div class="name">Magne Huang</div><div class="tag">Interact</div></div>
+    <div class="designer-card"><div class="emblem">C</div><div class="idx">D_011</div><div class="name">Cyber Su</div><div class="tag">Glow</div></div>
+    <div class="designer-card"><div class="emblem">N</div><div class="idx">D_012</div><div class="name">Noise Kao</div><div class="tag">Grain</div></div>
+  </div>
+</section>
+
+<section class="atmosphere" id="venue">
+  <div class="atmosphere-frame">
+    <img src="images/venue.webp" loading="lazy" decoding="async" alt="aqualux 2026 設計光譜展 場地內部 hand-drawn rendering">
+    <div class="caption">
+      <span>✎ venue preview — 松山文創 5 號倉庫 / 5F</span>
+      <span>frame 03 / 2026.12.06</span>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="zones">
+  <div class="sec-head">
+    <div class="sec-num">section_03</div>
+    <h2 class="sec-title">五大<span class="ph">展區</span></h2>
+    <span class="sec-title-en">zones · five rooms</span>
+  </div>
+  <div class="zones">
+    <article class="zone">
+      <div class="zone-img"><img src="images/zone-z01.webp" loading="lazy" decoding="async" alt="Z01 主流頻譜"></div>
+      <div class="zone-body">
+        <div class="zone-id">Z01</div>
+        <div class="zone-cn">主流頻譜</div>
+        <div class="zone-en">mainstream</div>
+        <p class="zone-desc">玻璃擬態、新擬物化、Material You、極簡、沉浸暗黑 — 五種「經得起時間」的安全頻段。觀眾從這裡進場、習慣黑暗。</p>
+        <div class="zone-coord">coord: 5F-A1 · 5 作品</div>
+      </div>
+    </article>
+    <article class="zone">
+      <div class="zone-img"><img src="images/zone-z02.webp" loading="lazy" decoding="async" alt="Z02 時光殘響"></div>
+      <div class="zone-body">
+        <div class="zone-id">Z02</div>
+        <div class="zone-cn">時光殘響</div>
+        <div class="zone-en">retro echo</div>
+        <p class="zone-desc">Vaporwave、Y2K、Web 1.0、Synthwave、包浩斯⋯六種來自不同年代的視覺殘響，混音播放。</p>
+        <div class="zone-coord">coord: 5F-A2 · 6 作品</div>
+      </div>
+    </article>
+    <article class="zone">
+      <div class="zone-img"><img src="images/zone-z03.webp" loading="lazy" decoding="async" alt="Z03 前衛實驗室"></div>
+      <div class="zone-body">
+        <div class="zone-id">Z03</div>
+        <div class="zone-cn">前衛實驗室</div>
+        <div class="zone-en">avant lab</div>
+        <p class="zone-desc">Brutalism、Glitch、Cyberpunk、Constructivism⋯六種「故意違反 UX 學派」的設計叛逃。本區光線壓低、音量加倍。</p>
+        <div class="zone-coord">coord: 5F-B1 · 6 作品</div>
+      </div>
+    </article>
+    <article class="zone">
+      <div class="zone-img"><img src="images/zone-z04.webp" loading="lazy" decoding="async" alt="Z04 文化光譜"></div>
+      <div class="zone-body">
+        <div class="zone-id">Z04</div>
+        <div class="zone-cn">文化光譜</div>
+        <div class="zone-en">cultural</div>
+        <p class="zone-desc">Wabi-Sabi、Guochao、Scandinavian、Swiss、Taiwan Temple — 五種地理上的視覺方言，可同時開啟。</p>
+        <div class="zone-coord">coord: 5F-B2 · 5 作品</div>
+      </div>
+    </article>
+    <article class="zone">
+      <div class="zone-img"><img src="images/zone-z05.webp" loading="lazy" decoding="async" alt="Z05 動態廳"></div>
+      <div class="zone-body">
+        <div class="zone-id">Z05</div>
+        <div class="zone-cn">動態廳</div>
+        <div class="zone-en">motion hall</div>
+        <p class="zone-desc">15 種動態效果連續展演 — 視差、滾動、入場、循環、指標互動。建議停留 25 分鐘以上。</p>
+        <div class="zone-coord">coord: 5F-C1 · 15 作品</div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="block" id="schedule">
+  <div class="sec-head">
+    <div class="sec-num">section_04</div>
+    <h2 class="sec-title">講<span class="ph">座</span>排程</h2>
+    <span class="sec-title-en">program · 6 talks</span>
+  </div>
+  <div class="schedule-wrap">
+    <table class="schedule-table">
+      <thead>
+        <tr><th scope="col">date</th><th scope="col">time</th><th scope="col">title</th><th scope="col">speaker</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>12.07</td><td>14:00 — 15:30</td><td>為什麼「好看」不是答案</td><td>Jerry @ aqualux</td></tr>
+        <tr><td>12.09</td><td>19:00 — 20:30</td><td>從 Brutalism 到 Editorial：反 UX 的兩條路</td><td>Neon Lee × Paper Wu</td></tr>
+        <tr><td>12.12</td><td>19:00 — 20:30</td><td>手繪的當代意義：為什麼我們需要不精準</td><td>Hand Chao</td></tr>
+        <tr><td>12.14</td><td>14:00 — 15:30</td><td>動態的克制：為什麼一頁最多兩個動畫</td><td>Chrome Ho</td></tr>
+        <tr><td>12.16</td><td>19:00 — 20:30</td><td>跨境設計：文化暗號的護城河</td><td>Swiss Chen × Vapor Lin</td></tr>
+        <tr><td>12.19</td><td>19:00 — 20:30</td><td>workshop：為你的下一個專案選風格</td><td>Jerry × 全體設計師</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="block" id="tickets">
+  <div class="sec-head">
+    <div class="sec-num">section_05</div>
+    <h2 class="sec-title">票<span class="ph">務</span></h2>
+    <span class="sec-title-en">tickets · pick yours</span>
+  </div>
+  <div class="tickets">
+    <div class="ticket">
+      <div class="badge">standard</div>
+      <div class="tier">SINGLE PASS</div>
+      <div class="tier-en">single day</div>
+      <div class="price">NT$ 480</div>
+      <div class="price-unit">/ 單日入場</div>
+      <ul>
+        <li>全展區自由參觀</li>
+        <li>展覽手冊一份</li>
+        <li>不含講座</li>
+      </ul>
+      <button class="cta-btn" disabled aria-label="Demo only — not for sale">DEMO · 非售票</button>
+    </div>
+    <div class="ticket featured">
+      <div class="badge">recommended</div>
+      <div class="tier">FULL ACCESS</div>
+      <div class="tier-en">all 16 days</div>
+      <div class="price">NT$ 1,280</div>
+      <div class="price-unit">/ 全展期通票</div>
+      <ul>
+        <li>16 天無限次入場</li>
+        <li>3 場講座門票</li>
+        <li>展覽手冊 + 限定 sticker</li>
+        <li>aqualux.dev 數位週報</li>
+      </ul>
+      <button class="cta-btn" disabled aria-label="Demo only — not for sale">DEMO · 非售票</button>
+    </div>
+    <div class="ticket">
+      <div class="badge">full</div>
+      <div class="tier">CURATOR PASS</div>
+      <div class="tier-en">workshop incl.</div>
+      <div class="price">NT$ 2,880</div>
+      <div class="price-unit">/ 含 Workshop</div>
+      <ul>
+        <li>所有講座入場</li>
+        <li>12.19 Workshop 名額</li>
+        <li>策展人導覽（1 場）</li>
+        <li>展期後紀念專書</li>
+      </ul>
+      <button class="cta-btn" disabled aria-label="Demo only — not for sale">DEMO · 非售票</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="scribble-line">~~~ ✎ end of sketch ~~~</div>
+  <div class="logo-wrap">
+    <svg viewBox="0 0 600 280" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-label="aqualux">
+      <text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text>
+      <line x1="80" y1="165" x2="520" y2="165" stroke="currentColor" stroke-width="1" opacity="0.45"/>
+      <g transform="translate(0,330) scale(1,-1)" opacity="0.28"><text x="300" y="135" text-anchor="middle" style="font-family:Inter,'Helvetica Neue',Arial,sans-serif;font-weight:300;font-size:140px;letter-spacing:6px;">aqualux</text></g>
+    </svg>
+  </div>
+  <div class="signature">MMXXVI · AQUA<span class="ph">LUX</span>.DEV</div>
+  <div class="credit">
+    curated by <a href="https://aqualux.dev">Chengchieh Huang</a><br>
+    demo work for: aqualux 設計光譜展 / Hand-Drawn · C24
+  </div>
+  <div class="terminal">
+    ✎ sketch.session — closed at frame 06 — see you at the next stroke
+  </div>
+</footer>
+
+</body>
+</html>

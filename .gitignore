@@ -3,4 +3,7 @@ Icon?
 .netlify/
 node_modules/
 *.log
+*.stdout
+*.tee.log
 .env
+works/_broken-backup/
