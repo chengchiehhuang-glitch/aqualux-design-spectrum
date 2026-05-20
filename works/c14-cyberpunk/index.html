@@ -5,6 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AQUALUX 2026 // DESIGN SPECTRUM EXHIBITION · 賽博龐克 Cyberpunk Demo</title>
 <meta name="description" content="aqualux 2026 設計光譜展 · Cyberpunk 風格 demo · single-file HTML showcase">
+<link rel="canonical" href="https://design.aqualux.dev/works/c14-cyberpunk/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://design.aqualux.dev/works/c14-cyberpunk/">
+<meta property="og:title" content="C14 賽博龐克 · aqualux 設計光譜展">
+<meta property="og:description" content="Cyberpunk 風格 single-file HTML demo · aqualux 2026 設計光譜展">
+<meta property="og:image" content="https://design.aqualux.dev/works/c14-cyberpunk/images/hero.webp">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="C14 賽博龐克 · aqualux 設計光譜展">
+<meta name="twitter:image" content="https://design.aqualux.dev/works/c14-cyberpunk/images/hero.webp">
+<link rel="icon" type="image/svg+xml" href="../../assets/aqualux-logo-mark.svg">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -584,6 +595,15 @@
     .sec-head { flex-wrap: wrap; gap: 12px; }
     .designers { grid-template-columns: 1fr 1fr; }
     .meta-strip { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* Honor reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    *,*::before,*::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+    .scanlines { display: none !important; }
+    .glitch::before, .glitch::after { display: none !important; }
+    .blink { animation: none !important; opacity: 1 !important; }
+    .hero-banner img { animation: none !important; }
   }
 </style>
 </head>
